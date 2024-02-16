@@ -12,7 +12,7 @@ Projekt ten ma na celu stworzenie interaktywnej mapy z możliwością przegląda
   
   - **Miejsce**: Wybór konkretnego miasta lub pasma górskiego.
   
-  - **Zakres**: Opcja określająca, czy filtracja ma obejmować cały zakres danych, wybrany region czy też dane miejsce.
+  - **Zakres**: Opcja określająca, czy filtracja ma obejmować cały kraj, wybrany region czy też miejsce.
   
   - **Kategoria**: Kategoria, do której przypisane są miejsca na mapie.
   
