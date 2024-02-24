@@ -520,20 +520,22 @@
     // gallery
     const $gallery = document.querySelector('.gallery')
     const $galleryBackground = document.querySelector('.gallery_background')
-    //photo
+    // photo
     const $photo = document.querySelector('.photo')
     const $photoGroup = document.querySelector('.photo_group')
     const $photoName = document.querySelector('.photo_name')
     const $photoImage = document.querySelector('.photo_image')
     const $photoPrevious = document.querySelector('.photo_previous')
     const $photoNext = document.querySelector('.photo_next')
-    //selects
+    // selects
     const $selectCity = document.querySelector('#city')
     const $selectVoivodeship = document.querySelector('#voivodeship')
     const $selectRange = document.querySelector('#range')
     const $selectViewMode = document.querySelector('#view')
     const $selectCategory = document.querySelector('#category')
     const $selectDate = document.querySelector('#date')
+    // mobile
+    const $isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
   // @class LISTENERS
   //
@@ -956,6 +958,8 @@
       $gallery.innerHTML = ""
       // create imgs for filtered table
       $filteredData.forEach(item => {
+
+        let isClicked = false
         const description = `${item.city}: ${item.name}`
 
         // gallery box
@@ -967,7 +971,7 @@
         text.className = "gallery_text"
         text.textContent = description
         text.setAttribute("id", item.id)
-        text.addEventListener("click", showSelectedPhoto)
+        text.addEventListener("click", showClickedPhoto(isClicked))
         text.addEventListener("mouseover", highlightMarker)
         text.addEventListener("mouseout", resetMarker)
 
@@ -976,7 +980,7 @@
         img.setAttribute("src", item.url)
         img.setAttribute("alt", description)
         img.setAttribute("id", item.id)
-        img.addEventListener("click", showSelectedPhoto)
+        img.addEventListener("click", showClickedPhoto(isClicked))
         img.addEventListener("mouseover", highlightMarker)
         img.addEventListener("mouseout", resetMarker)
 
@@ -1033,6 +1037,21 @@
           hidePhoto(e)
         }
       }, 3000);
+    }
+
+    // @func show clicked photo
+    const showClickedPhoto = (isClicked) => (e) => {  
+      console.log(`showClickedPhoto(${isClicked})`)  
+      if($isMobile) {
+        if (isClicked) {
+          isClicked = false
+          showSelectedPhoto(e)
+        } else {
+          isClicked = true
+        }
+      } else {
+        showSelectedPhoto(e)
+      }
     }
 
     // @func show selected photo
@@ -1173,6 +1192,8 @@
 
     // @func create marker
     function createMarker({coor, city, catg, name, url, id, top}) {
+
+      let isClicked = false
       // icon
       const zoom = $map.getZoom()
       const icon = L.icon({
@@ -1196,22 +1217,8 @@
       marker.bindTooltip(tooltipContent, tooltipOptions)
       marker.on('mouseover', highlightMarker)
       marker.on('mouseout', resetMarker)
-      // marker.on('click', showSelectedPhoto)        
-      
-      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      marker.on('click', showClickedPhoto(isClicked))        
 
-      let isClicked = false
-      marker.on('click', (e) => {
-        if(isMobile) {
-          if (isClicked) {
-            showSelectedPhoto(e)
-            isClicked = false
-          }
-          isClicked = true
-        } else {
-          showSelectedPhoto(e)
-        }
-      })
       
       if (top) {
         marker.top = top
