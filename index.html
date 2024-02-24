@@ -1090,12 +1090,12 @@
       $map.keyboard.disable()
   
       // getting coordinates from map
-      $map.on('click', (e) => {
-        const lat = e.latlng.lat.toFixed(7)
-        const lng = e.latlng.lng.toFixed(7)
-        console.log(`${lat},${lng}`)
-        alert(`${lat},${lng}`)
-      })
+      // $map.on('click', (e) => {
+      //   const lat = e.latlng.lat.toFixed(7)
+      //   const lng = e.latlng.lng.toFixed(7)
+      //   console.log(`${lat},${lng}`)
+      //   alert(`${lat},${lng}`)
+      // })
     }
 
     // @func set map view
@@ -1182,15 +1182,18 @@
       
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-      if (isMobile) {
-        marker.on('dblclick', (e) => {
+      let isClicked = false
+      marker.on('click', (e) => {
+        if(isMobile) {
+          if (isClicked) {
+            showSelectedPhoto(e)
+            isClicked = false
+          }
+          isClicked = true
+        } else {
           showSelectedPhoto(e)
-        })
-      } else {
-        marker.on('click', (e) => {
-          showSelectedPhoto(e)
-        })
-      }
+        }
+      })
       
       if (top) {
         marker.top = top
