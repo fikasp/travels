@@ -345,6 +345,15 @@
       .marker-gastronomia {
         border: 1px solid brown;
       }
+      .marker-tooltip {
+        padding: 5px;
+        font-family: Verdana;
+        font-size: 12px;
+        white-space: pre;
+        text-align: center;
+        transition: opacity 0.5s ease-in-out;
+        box-shadow: 0px 0px 2px 1px #666;
+      }
 
     /* @sub display */
     .none {
@@ -408,9 +417,9 @@
     <div class="header_pair">
       <label class="header_label" for="range">Zakres:</label>
       <select class="header_select" id="range">
-        <option class="header_option" value="none" selected>Wszystko</option>
-        <option class="header_option" value="voivodeship" >Rejon / Województwo</option>
-        <option class="header_option" value="city" >Miejsce / Miasto</option>
+        <option class="header_option" value="none" >Wszystko</option>
+        <option class="header_option" value="voivodeship">Rejon / Województwo</option>
+        <option class="header_option" value="city" selected>Miejsce / Miasto</option>
       </select>
     </div>
     <!-- Category -->
@@ -475,7 +484,7 @@
     let $interval // interval for presentation
     let $index // index of photo
     // start city
-    const $startCity = "KRAKÓW"
+    const $startCity = "Tatry Wysokie"
 
   // @class HANDLES
   //
@@ -532,13 +541,13 @@
     function main() {
       console.log(cities)
       console.log("main()")
+      changeMargin()
       prepareMap()
       prepareData()
       prepareDates()
       prepareCategories()
       prepareVoivodeship()
-      changeMargin()
-      setCities()
+      prepareCities()
       setRange()
     }
 
@@ -755,7 +764,53 @@
       $gallery.classList.toggle('top')
     }
 
-    // @func set emblem of city
+    // @func prepare voidevodeship
+    function prepareVoivodeship(){
+      console.log(`prepareVoivodeship()`)
+      const voivodeships = Object.keys(cities)
+
+      $selectVoivodeship.innerHTML = ""
+      voivodeships.forEach(voidevoship => {
+        createOption($selectVoivodeship, voidevoship, findVoivodeship($startCity))
+      });
+    }
+
+    // @func prepare cities
+      function prepareCities(){
+      const newCities = cities[$selectVoivodeship.value]
+      console.log(`prepareCities(${$selectVoivodeship.value})`);
+
+      $selectCity.innerHTML ="";
+      Object.keys(newCities).forEach(city => {
+        if (city !== "coor" && city !== "zoom") {
+          createOption($selectCity, city, $startCity)
+        }
+      });
+      // document.title = $selectCity.value
+
+      setEmblem($selectCity.value)
+    }
+
+      // @func prepare categories
+      function prepareCategories() {
+      console.log("prepareCategories()");
+
+      Object.values(cat).forEach(category => {
+        createOption($selectCategory, category)
+      })
+    }
+
+      // @func prepare dates
+      function prepareDates() {
+      console.log("prepareDates()");
+
+      createOption($selectDate, cat.all)
+      for (let year = 2023; year >= 2006; year-- ) {
+        createOption($selectDate, year)
+      }
+    }
+
+    // @func set emblem
     function setEmblem(city) {
       console.log(`setEmblem(${city})`)
 
@@ -771,29 +826,10 @@
       $headerEmblem.setAttribute("alt", "Herb")
     }
 
-    // @func prepare voidevodeship
-    function prepareVoivodeship(){
-      console.log(`prepareVoivodeship()`)
-      const voivodeships = Object.keys(cities)
-
-      $selectVoivodeship.innerHTML = ""
-      voivodeships.forEach(voidevoship => {
-        createOption($selectVoivodeship, voidevoship, findVoivodeship($startCity))
-      });
-    }
-
     // @func set cities
     function setCities(){
-      const newCities = cities[$selectVoivodeship.value]
       console.log(`setCities(${$selectVoivodeship.value})`);
-
-      $selectCity.innerHTML ="";
-      Object.keys(newCities).forEach(city => {
-        createOption($selectCity, city, $startCity)
-      });
-      // document.title = $selectCity.value
-
-      setEmblem($selectCity.value)
+      prepareCities()
       setMapView()
       updateData()
     }
@@ -870,33 +906,14 @@
       setMapView()
       }
 
-    // @func prepare categories
-    function prepareCategories() {
-      console.log("prepareCategories()");
-
-      Object.values(cat).forEach(category => {
-        createOption($selectCategory, category)
-      })
-    }
-
-    // @func set categories
+    // @func set category
     function setCategory(category) {
       if (category == cat.profil || category == cat.all) {
         $selectCategory.value = category
       }
       $categoryFilter = $selectCategory.value
-      console.log(`setCategory(${$categoryFilter})`)
+      console.log(`setCategory()`)
       updateData()
-    }
-
-    // @func prepare dates
-    function prepareDates() {
-      console.log("prepareDates()");
-
-      createOption($selectDate, cat.all)
-      for (let year = 2023; year >= 2006; year-- ) {
-        createOption($selectDate, year)
-      }
     }
 
     // @func set dates
@@ -1078,19 +1095,20 @@
     // @func set map view
     function setMapView() {
       console.log(`setMapView()`)
-      const city = $selectCity.value
-      const cityObj = cities[findVoivodeship(city)][city];
+      const selectedCity = $selectCity.value
+      const voivodeship = cities[findVoivodeship(selectedCity)]
+      const city = voivodeship[selectedCity]
 
       if ($rangeFilter == "none"){
         const centerOfPoland = [52.2159333,19.1344222]
         $map.setView(...setCoor(centerOfPoland, 7))
 
-      } else if (cityObj.coor) {
+      } else if (city.coor) {
         if ($rangeFilter == "city") {
-          $map.setView(...setCoor(cityObj.coor, cityObj.zoom))
+          $map.setView(...setCoor(city.coor, city.zoom))
 
         } else if ($rangeFilter == "voivodeship") {
-          $map.setView(...setCoor(cityObj.coor, 9))
+          $map.setView(...setCoor(voivodeship.coor, voivodeship.zoom))
         }
       }
     }
@@ -1139,15 +1157,24 @@
         iconAnchor: setAnchor(zoom),
         className: `marker marker-${catg.toLowerCase()}`
       })
+      const tooltipContent = `${city}:\n${name}`;
+      const tooltipOptions = { 
+        className: 'marker-tooltip',
+        direction: 'bottom',
+        offset: [0,42],
+        opacity: 0.9,
+        delay: 2000
+      };
 
       // marker
       const marker = L.marker(coor, {icon: icon}).addTo($map)
       marker.id = id
       marker.catg = catg
+      marker.bindTooltip(tooltipContent, tooltipOptions)
       marker.on('mouseover', highlightMarker)
       marker.on('mouseout', resetMarker)
-      marker.on('click', showSelectedPhoto)
-
+      marker.on('click', showSelectedPhoto)           
+      
       if (top) {
         marker.top = top
         marker.setZIndexOffset(1)

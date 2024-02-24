@@ -1,7 +1,6 @@
 const cat = {
-  profil: "Profilówka",
+  profil: "Profilówki",
   all: "Wszystkie",
-  general: "Ogólne",
   history: "Historia", 
   religion: "Religia",
   culture: "Kultura", 
@@ -12,22 +11,165 @@ const cat = {
 const cities = {
   // @sup GÓRY
   "GÓRY": {
-    "Tatry" : 
-      {coor: [49.2544732,19.9537897], zoom: 12, gallery: [
-        {coor: [49.2251791,20.0145686], catg: cat.profil, name: 'Kościelec 2021', date: [2021]},
-        {coor: [49.1792488,20.0884581], catg: cat.profil, name: 'Rysy 2013', date: [2013]},
-      ]},
+    coor: [49.5501618,19.9264526], 
+    zoom: 10, 
+    "Tatry Wysokie" : 
+    {coor: [49.2044765,20.0859261], zoom: 13, gallery: [
+      {coor: [49.2288156,20.0117040], catg: cat.profil, name: 'Karb 2016', date: [2016]},
+      {coor: [49.2288156,20.0117040], catg: cat.profil, name: 'Karb 2021', date: [2021]},
+      {coor: [49.2251791,20.0145686], catg: cat.profil, name: 'Kościelec 2021', date: [2021]},
+      {coor: [49.2183189,20.0286984], catg: cat.profil, name: 'Kozi Wierch 2022', date: [2022]},
+      {coor: [49.2195488,20.0253189], catg: cat.profil, name: 'Kozia Przełęcz 2012', date: [2012]},
+      {coor: [49.2286509,20.0472862], catg: cat.profil, name: 'Krzyżne 2011', date: [2011]},
+      {coor: [49.2255435,19.9913299], catg: cat.profil, name: 'Liliowe', date: [2012]},
+      {coor: [49.2256941,20.0327325], catg: cat.profil, name: 'Pośredni Granat 2022', date: [2022]},
+      {coor: [49.1792488,20.0884581], catg: cat.profil, name: 'Rysy 2013', date: [2013]},
+      {coor: [49.2269343,20.0333118], catg: cat.profil, name: 'Skrajny Granat 2022', date: [2022]},
+      {coor: [49.1972734,20.0401139], catg: cat.profil, name: 'Szpiglasowy Wierch 2012', date: [2012]},
+      {coor: [49.1972734,20.0401139], catg: cat.profil, name: 'Szpiglasowy Wierch 2013', date: [2013]},
+      {coor: [49.2194191,20.0093061], catg: cat.profil, name: 'Świnica 2011', date: [2011]},
+      {coor: [49.2164513,20.0575215], catg: cat.profil, name: 'Świstowa Czuba 2020', date: [2020]},
+      {coor: [49.2247692,20.0325716], catg: cat.profil, name: 'Zadni Granat 2022', date: [2022]},
+      {coor: [49.2190863,20.0163925], catg: cat.profil, name: 'Zawrat 2011', date: [2011]},
+    ]},
+    "Tatry Zachodnie" : 
+    {coor: [49.2377759,19.8749542], zoom: 13, gallery: [
+      {coor: [49.2282200,19.9879289], catg: cat.profil, name: 'Beskid', date: [2012]},
+      {coor: [49.2309805,19.9034286], catg: cat.profil, name: 'Ciemniak 2010', date: [2010]},
+      {coor: [49.2309805,19.9034286], catg: cat.profil, name: 'Ciemniak 2015', date: [2015]},
+      {coor: [49.2509367,19.9341023], catg: cat.profil, name: 'Giewont 2009', date: [2009]},
+      {coor: [49.2509367,19.9341023], catg: cat.profil, name: 'Giewont 2013', date: [2013]},
+      {coor: [49.2322556,19.9576306], catg: cat.profil, name: 'Goryczkowa Czuba 2012', date: [2012]},
+      {coor: [49.2365710,19.7667217], catg: cat.profil, name: 'Grześ 2016', date: [2016]},
+      {coor: [49.2290608,19.8587537], catg: cat.profil, name: 'Hala Ornak 2020', date: [2020]},
+      {coor: [49.2321715,19.8363304], catg: cat.profil, name: 'Iwaniacka Przełęcz 2020', date: [2020]},
+      {coor: [49.1974662,19.7950888], catg: cat.profil, name: 'Jarząbczy Wierch 2023', date: [2023]},
+      {coor: [49.2317651,19.9815774], catg: cat.profil, name: 'Kasprowy Wierch 2012', date: [2012]},
+      {coor: [49.2317651,19.9815774], catg: cat.profil, name: 'Kasprowy Wierch 2017', date: [2017]},
+      {coor: [49.2056822,19.8076200], catg: cat.profil, name: 'Kończysty Wierch 2017', date: [2017]},
+      {coor: [49.2363188,19.9322891], catg: cat.profil, name: 'Kopa Kondracka 2010', date: [2010]},
+      {coor: [49.2316390,19.9095011], catg: cat.profil, name: 'Krzesanica 2010', date: [2010]},
+      {coor: [49.2316390,19.9095011], catg: cat.profil, name: 'Krzesanica 2015', date: [2015]},
+      {coor: [49.2357023,19.9192429], catg: cat.profil, name: 'Małołączniak 2010', date: [2010]},
+      {coor: [49.2357023,19.9192429], catg: cat.profil, name: 'Małołączniak 2015', date: [2015]},
+      {coor: [49.2486396,19.8866647], catg: cat.profil, name: 'Piec 2014', date: [2014]},
+      {coor: [49.2159432,19.7584391], catg: cat.profil, name: 'Rakoń 2016', date: [2016]},
+      {coor: [49.2646436,19.9421060], catg: cat.profil, name: 'Sarnia Skała 2023', date: [2023]},
+      {coor: [49.1993450,19.8198938], catg: cat.profil, name: 'Starorobociański 2017', date: [2017]},
+      {coor: [49.2190688,19.8037362], catg: cat.profil, name: 'Trzydniowiański Wierch', date: [2023]},
+      {coor: [49.2075327,19.7630739], catg: cat.profil, name: 'Wołowiec 2023', date: [2023]},
+    ]},
     "Pieniny" : 
-      {coor: [49.4138194, 20.4141855], zoom: 13, gallery: [
-        {coor: [49.4138194, 20.4141855], catg: cat.profil, name: 'Trzy Korony 2023', date: [2023]},
+    {coor: [49.4116433,20.4675293], zoom: 13, gallery: [
+      {coor: [49.3762260,20.5758905], catg: cat.profil, name: 'Smerekowa', date: [2014]},
+      {coor: [49.4176042,20.4403853], catg: cat.profil, name: 'Sokolica', date: [2009]},
+      {coor: [49.4176042,20.4403853], catg: cat.profil, name: 'Sokolica', date: [2012]},
+      {coor: [49.4176042,20.4403853], catg: cat.profil, name: 'Sokolica 2016', date: [2016]},
+      {coor: [49.4138194,20.4141855], catg: cat.profil, name: 'Trzy Korony', date: [2012]},
+      {coor: [49.4138194,20.4141855], catg: cat.profil, name: 'Trzy Korony 2023', date: [2023]},
+      {coor: [49.3802285,20.5554950], catg: cat.profil, name: 'Wysoka 2014', date: [2014]},
+    ]},
+    "Gorce" : 
+      {coor: [49.5301109,20.1926994], zoom: 13, gallery: [
+        {coor: [49.5649719,20.2530384], catg: cat.profil, name: 'Gorc 2019', date: [2019]},
+        {coor: [49.4892318,20.3389120], catg: cat.profil, name: 'Lubań 2020', date: [2020]},
+        {coor: [49.5309187,20.1814127], catg: cat.profil, name: 'Magurki 2021', date: [2021]},
+        {coor: [49.5600449,20.0397062], catg: cat.profil, name: 'Stare Wierchy 2009', date: [2009]},
+        {coor: [49.5428247,20.1113749], catg: cat.profil, name: 'Turbacz 2009', date: [2009]},
+        {coor: [49.5428247,20.1113749], catg: cat.profil, name: 'Turbacz 2014', date: [2014]},
+      ]},
+    "Beskid Makowski" : 
+      {coor: [49.7212609,19.7503281], zoom: 12, gallery: [
+        {coor: [49.8371244,19.8836660], catg: cat.profil, name: 'Barnasiówka 2018', date: [2018]},
+        {coor: [49.7994147,19.9494714], catg: cat.profil, name: 'Chełm 2007', date: [2007]},
+        {coor: [49.7994147,19.9494714], catg: cat.profil, name: 'Chełm 2013', date: [2013]},
+        {coor: [49.8430750,19.9083424], catg: cat.profil, name: 'Dalin 2018', date: [2018]},
+        {coor: [49.7895073,20.0567651], catg: cat.profil, name: 'Kamiennik 2008', date: [2008]},
+        {coor: [49.7895073,20.0567651], catg: cat.profil, name: 'Kamiennik 2016', date: [2016]},
+        {coor: [49.7691529,19.8961544], catg: cat.profil, name: 'Kotoń 2018', date: [2018]},
+        {coor: [49.7668523,20.0596189], catg: cat.profil, name: 'Lubomir 2016', date: [2016]},
+        {coor: [49.7758324,20.0483322], catg: cat.profil, name: 'Łysina 2008', date: [2008]},
+        {coor: [49.7758324,20.0483322], catg: cat.profil, name: 'Łysina 2016', date: [2016]},
+        {coor: [49.6132057,19.4624734], catg: cat.profil, name: 'Mędralowa 2021', date: [2021]},
+        {coor: [49.8226878,19.9162388], catg: cat.profil, name: 'Plebańska Góra 2013', date: [2013]},
+        {coor: [49.8226878,19.9162388], catg: cat.profil, name: 'Plebańska Góra 2018', date: [2018]},
+        {coor: [49.7830375,20.0510144], catg: cat.profil, name: 'Sucha Polana 2008', date: [2008]},
+        {coor: [49.7830375,20.0510144], catg: cat.profil, name: 'Sucha Polana 2016', date: [2016]},
+        {coor: [49.8103793,19.9761593], catg: cat.profil, name: 'Uklejna 2007', date: [2007]},
+        {coor: [49.8103793,19.9761593], catg: cat.profil, name: 'Uklejna 2013', date: [2013]},
+        {coor: [49.8103793,19.9761593], catg: cat.profil, name: 'Uklejna 2020', date: [2020]},
+        {coor: [49.8103793,19.9761593], catg: cat.profil, name: 'Uklejna 2021', date: [2021]},
+      ]},
+    "Beskid Mały" : 
+      {coor: [49.7797122,19.3057251], zoom: 12, gallery: [
+        {coor: [49.7678918,19.1609716], catg: cat.profil, name: 'Czupel 2021', date: [2021]},
+        {coor: [49.7955468,19.4458866], catg: cat.profil, name: 'Leskowiec 2010', date: [2010]},
+      ]},
+    "Beskid Niski" : 
+      {coor: [49.4264395,21.1024618], zoom: 12, gallery: [
+        {coor: [49.4264395,21.1024618], catg: cat.profil, name: 'Lackowa 2021', date: [2021]},
+      ]},
+    "Beskid Sądecki" : 
+      {coor: [49.4716938,20.6913757], zoom: 12, gallery: [
+        {coor: [49.4728790,20.8101439], catg: cat.profil, name: 'Hala Łabowska 2022', date: [2022]},
+        {coor: [49.4177857,20.8958673], catg: cat.profil, name: 'Jaworzyna Krynicka 2010', date: [2010]},
+        {coor: [49.5009807,20.4465008], catg: cat.profil, name: 'Koziarz 2022', date: [2022]},
+        {coor: [49.4492393,20.6500268], catg: cat.profil, name: 'Niemcowa 2021', date: [2021]},
+        {coor: [49.4655582,20.5601621], catg: cat.profil, name: 'Przehyba 2017', date: [2017]},
+        {coor: [49.4491556,20.6042576], catg: cat.profil, name: 'Radziejowa 2021', date: [2021]},
+      ]},
+    "Beskid Śląski" : 
+      {coor: [49.6520709,18.9239502], zoom: 12, gallery: [
+        {coor: [49.6787924,18.8045597], catg: cat.profil, name: 'Czantoria Wielka 2010', date: [2010]},
+        {coor: [49.6845403,19.0302944], catg: cat.profil, name: 'Skrzyczne 2021', date: [2021]},
+        {coor: [49.6342717,18.8131857], catg: cat.profil, name: 'Soszów Wielki 2010', date: [2010]},
+        {coor: [49.6055095,18.8231206], catg: cat.profil, name: 'Stożek Wielki 2010', date: [2010]},
       ]},
     "Beskid Wyspowy" : 
-      {coor: [49.6552452,20.2767169], zoom: 12, gallery: [
+      {coor: [49.6882885,20.1914978], zoom: 12, gallery: [
+        {coor: [49.7735737,20.1426816], catg: cat.profil, name: 'Ciecień 2020', date: [2020]},
+        {coor: [49.7878865,20.1458037], catg: cat.profil, name: 'Księża Góra 2020', date: [2020]},
+        {coor: [49.7125481,20.0988007], catg: cat.profil, name: 'Lubogoszcz 2014', date: [2014]},
+        {coor: [49.6534602,19.9918556], catg: cat.profil, name: 'Luboń 2008', date: [2008]},
+        {coor: [49.6212064,20.3760552], catg: cat.profil, name: 'Modyń 2023', date: [20]},
         {coor: [49.6552452,20.2767169], catg: cat.profil, name: 'Mogielica 2017', date: [2017]},
+        {coor: [49.6884274,20.0104594], catg: cat.profil, name: 'Szczebel 2008', date: [2008]},
+        {coor: [49.7159613,20.1781511], catg: cat.profil, name: 'Śnieżnica 2020', date: [2020]},
+
       ]},
     "Beskid Żywiecki" : 
-      {coor: [49.5730083,19.5293140], zoom: 12, gallery: [
+      {coor: [49.5087143,19.2868423], zoom: 12, gallery: [
         {coor: [49.5730083,19.5293140], catg: cat.profil, name: 'Babia Góra 2009', date: [2009]},
+        {coor: [49.5730083,19.5293140], catg: cat.profil, name: 'Babia Góra 2012', date: [2012]},
+        {coor: [49.5730083,19.5293140], catg: cat.profil, name: 'Babia Góra 2014', date: [2014]},
+        {coor: [49.6281703,19.6456146], catg: cat.profil, name: 'Hala Krupowa 2020', date: [2020]},
+        {coor: [49.5319771,19.2261386], catg: cat.profil, name: 'Hala Lipowska 2018', date: [2018]},
+        {coor: [49.5405551,19.3187714], catg: cat.profil, name: 'Hala Miziowa 2016', date: [2016]},
+        {coor: [49.5363359,19.2345500], catg: cat.profil, name: 'Hala Rysianka 2018', date: [2018]},
+        {coor: [49.4760998,19.2185640], catg: cat.profil, name: 'Krawców Wierch 2018', date: [2018]},
+        {coor: [49.5279452,19.3167758], catg: cat.profil, name: 'Pilsko 2016', date: [2016]},
+        {coor: [49.6232776,19.6197796], catg: cat.profil, name: 'Polica 2020', date: [2020]},
+        {coor: [49.5606295,19.2419100], catg: cat.profil, name: 'Romanka 2018', date: [2018]},
+        {coor: [49.4127323,18.9696336], catg: cat.profil, name: 'Wielka Racza 2011', date: [2011]},
+        {coor: [49.4127323,18.9696336], catg: cat.profil, name: 'Wielka Racza 2018', date: [2018]},
+        {coor: [49.4158453,19.0917599], catg: cat.profil, name: 'Wielka Rycerzowa 2011', date: [2011]},
+        {coor: [49.4158453,19.0917599], catg: cat.profil, name: 'Wielka Rycerzowa 2018', date: [2018]},
+      ]},
+    "Bieszczady" : 
+      {coor: [49.1092759,22.6560402], zoom: 13, gallery: [
+        {coor: [49.1353957,22.6078892], catg: cat.profil, name: 'Połonina Caryńska 2011', date: [2011]},
+        {coor: [49.1579936,22.5512409], catg: cat.profil, name: 'Połonina Wetlińska 2011', date: [2011]},
+        {coor: [49.1579936,22.5512409], catg: cat.profil, name: 'Połonina Wetlińska 2017', date: [2017]},
+        {coor: [49.0746531,22.7264214], catg: cat.profil, name: 'Tarnica 2017', date: [2017]},
+      ]},
+    "Świętokrzyskie" : 
+      {coor: [50.8915834,20.8966398], zoom: 13, gallery: [
+        {coor: [50.8915834,20.8966398], catg: cat.profil, name: 'Łysica 2013', date: [2013]},
+      ]},
+    "Sudety" : 
+      {coor: [50.6133103,16.0297394], zoom: 11, gallery: [
+        {coor: [50.4847772,16.3410258], catg: cat.profil, name: 'Szczeliniec Wielki 2023', date: [2023]},
+        {coor: [50.7362582,15.7397282], catg: cat.profil, name: 'Śnieżka 2023', date: [2023]},
       ]},
   },
   // "EUROPA": {
@@ -49,6 +191,8 @@ const cities = {
 
   // @sup Dolnośląskie
   "Dolnośląskie": {
+    coor: [50.6790568,16.3600159], 
+    zoom: 10,
     "WROCŁAW" : 
       {coor: [51.1097396,17.0308739], zoom: 13, date: [2020], abbr: "DW", gallery: []},
     "Boguszów-Gorce" : 
@@ -87,6 +231,8 @@ const cities = {
 
   // @sup Kujawskie
   "Kujawskie": {
+    coor: [53.0577234,18.3073425], 
+    zoom: 10,    
     "BYDGOSZCZ" :
       {coor: [53.1233574,18.0013615], zoom: 14, date: [2020], abbr: "CB", gallery: []},
     "TORUŃ" :
@@ -103,6 +249,8 @@ const cities = {
 
   // @sup Lubelskie
   "Lubelskie": {
+    coor: [51.0862725,22.6112366], 
+    zoom: 10,
     "LUBLIN" :
       {coor: [51.2475789,22.5657356], zoom: 13, date: [2021], abbr: "LU", gallery: []},
     "BIAŁA PODLASKA" :
@@ -121,6 +269,8 @@ const cities = {
 
   // @sup Lubuskie
   "Lubuskie": {
+    coor: [52.3126766,15.3506470], 
+    zoom: 10,
     "ZIELONA GÓRA" :
       {coor: [51.9380279,15.5050135], zoom: 14, date: [2021], abbr: "FZ", gallery: []},
     "GORZÓW WIELKOPOLSKI" :
@@ -129,6 +279,8 @@ const cities = {
 
   // @sup Łódzkie
   "Łódzkie": {
+    coor: [51.7438847,19.4623232], 
+    zoom: 10,
     "ŁÓDŹ" :
       {coor: [51.7438847,19.4623232], zoom: 12, date: [2020], abbr: "EL", gallery: []},
     "BEŁCHATÓW" :
@@ -155,10 +307,11 @@ const cities = {
 
   // @sup Małopolskie
   "Małopolskie": {
-    
+    coor: [49.8990575,20.2409363], 
+    zoom: 10,     
     // @sub KRAKÓW
     "KRAKÓW" : 
-      {abbr: "KR", coor: [50.0616779, 19.9373317], zoom: 12, date: [2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024], gallery: [
+      {abbr: "KR", coor: [50.0616779, 19.9373317], zoom: 13, date: [2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024], gallery: [
 
       // Gastro
       {coor: [50.0641711, 19.9420658], catg: cat.gastro, name: 'Babcia Malina', date: [2015, 2016, 2017, 2018, 2021, 2023]},
@@ -435,8 +588,8 @@ const cities = {
     // @sub Myślenice
     "Myślenice" :
       {abbr: "KMY", coor: [49.8347232,19.9387157], zoom: 15, date: [2022], gallery: [
-        {coor: [49.8346100,19.9381900], catg: cat.general, name: 'Rynek'},
-        {coor: [49.8348547,19.9368703], catg: cat.general, name: 'Gimnazjum'},
+        {coor: [49.8346100,19.9381900], catg: cat.history, name: 'Rynek'},
+        {coor: [49.8348547,19.9368703], catg: cat.history, name: 'Gimnazjum'},
         {coor: [49.8341869,19.9365056], catg: cat.religion, name: 'Kościół Narodzenia NMP - zewnętrze', top: true},
         {coor: [49.8341869,19.9365056], catg: cat.religion, name: 'Kościół Narodzenia NMP - ołtarz'},
         {coor: [49.8341869,19.9365056], catg: cat.religion, name: 'Kościół Narodzenia NMP - organy'},
@@ -514,6 +667,8 @@ const cities = {
 
   // @sup Mazowieckie
   "Mazowieckie": {
+    coor: [52.2497795,21.0121733], 
+    zoom: 9,
     "WARSZAWA" : 
       {coor: [52.2497795,21.0121733], zoom: 12, date: [2021], abbr: "WA", gallery: []},
     "Ciechanów" :
@@ -544,6 +699,8 @@ const cities = {
 
   // @sup Opolskie
   "Opolskie": {
+    coor: [50.4880948,17.6213837], 
+    zoom: 11,
     "OPOLE" :
       {coor: [50.6660257,17.9242533], zoom: 13, date: [2020], abbr: "OP", gallery: []},
     "KĘDZIERZYN-KOŹLE" :
@@ -560,6 +717,8 @@ const cities = {
 
   // @sup Podkarpackie
   "Podkarpackie": {
+    coor: [50.0375793,22.0040649], 
+    zoom: 10,
     "RZESZÓW" :
       {coor: [50.0375793,22.0040649], zoom: 13, date: [2022], abbr: "RZ", gallery: []},
     "DĘBICA" :
@@ -582,6 +741,8 @@ const cities = {
 
   // @sup Podlaskie
   "Podlaskie": {
+    coor: [53.6047293,22.7691650], 
+    zoom: 10,
     "BIAŁYSTOK" : 
       {coor: [53.1300623,23.1638896], zoom: 13, date: [2022], abbr: "BI", gallery: []},
     "SUWAŁKI" : 
@@ -592,6 +753,8 @@ const cities = {
 
   // @sup Pomorskie
   "Pomorskie": {
+    coor: [54.3829567,17.9585266], 
+    zoom: 10,
     "GDAŃSK" :
       {coor: [54.3485434,18.6532134], zoom: 13, date: [2022, 2013, 2012, 2008, 2007], abbr: "GD", gallery: []},
     "GDYNIA" :
@@ -620,6 +783,8 @@ const cities = {
 
   // @sup Śląskie
   "Śląskie": {
+    coor: [50.2129433,18.9074707], 
+    zoom: 10,
     "KATOWICE" :
       {coor: [50.2652318,19.0249407], zoom: 14, date: [2021], abbr: "SK", gallery: []},
     "BĘDZIN" :
@@ -702,6 +867,8 @@ const cities = {
 
   // @sup Świętokrzyskie
   "Świętokrzyskie": {
+    coor: [50.7025464,20.7435608], 
+    zoom: 10,
     "KIELCE" :
       {coor: [50.8725658,20.6235319], zoom: 13, date: [2013], abbr: "TK", gallery: []},
     "Busko-Zdrój" :
@@ -744,6 +911,8 @@ const cities = {
 
   // @sup Warmińskie
   "Warmińskie": {
+    coor: [53.7762929,20.4754418], 
+    zoom: 10,
     "OLSZTYN" :
       {coor: [53.7762929,20.4754418], zoom: 13, date: [2020], abbr: "NO", gallery: []},
     "ELBLĄG" :
@@ -762,6 +931,8 @@ const cities = {
 
   // @sup Wielkopolskie
   "Wielkopolskie": {
+    coor: [52.1115657,17.3323059], 
+    zoom: 10,
     "POZNAŃ" :
       {coor: [52.4077697,16.9342929], zoom: 13, date: [2020], abbr: "PO", gallery: []},
     "GNIEZNO" :
@@ -780,6 +951,8 @@ const cities = {
 
   // @sup Zachodniopomorskie
   "Zachodniopomorskie": {
+    coor: [53.8079497,15.3080750], 
+    zoom: 10,
     "SZCZECIN" :
       {coor: [53.4254310,14.5471483], zoom: 13, date: [2016], abbr: "ZS", gallery: []},
     "KOŁOBRZEG" :
