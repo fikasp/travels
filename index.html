@@ -1016,7 +1016,6 @@
 
       const image = document.getElementById(imgID)
       $photoImage.setAttribute("src", image.src)
-      console.log($photoImage);
 
       $photoName.textContent = "Ładowanie zdjęcia..."
       $photoImage.addEventListener("error", 
@@ -1052,11 +1051,13 @@
       console.log(`showClickedPhoto(${isClicked})`)  
       if($isMobile) {
         if (isClicked) {
-          isClicked = false
           showSelectedPhoto(e)
         } else {
           isClicked = true
         }
+        setTimeout(() => {
+          isClicked = false
+        }, 1000)
       } else {
         showSelectedPhoto(e)
       }
