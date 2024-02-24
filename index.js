@@ -14,7 +14,7 @@ const cities = {
     coor: [49.5501618,19.9264526], 
     zoom: 10, 
     "Tatry Wysokie" : 
-    {coor: [49.2044765,20.0859261], zoom: 13, gallery: [
+    {coor: [49.2121026,20.0493622], zoom: 13, gallery: [
       {coor: [49.2288156,20.0117040], catg: cat.profil, name: 'Karb 2016', date: [2016]},
       {coor: [49.2288156,20.0117040], catg: cat.profil, name: 'Karb 2021', date: [2021]},
       {coor: [49.2251791,20.0145686], catg: cat.profil, name: 'Kościelec 2021', date: [2021]},

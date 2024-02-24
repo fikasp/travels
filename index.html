@@ -1178,7 +1178,19 @@
       marker.bindTooltip(tooltipContent, tooltipOptions)
       marker.on('mouseover', highlightMarker)
       marker.on('mouseout', resetMarker)
-      marker.on('click', showSelectedPhoto)           
+      // marker.on('click', showSelectedPhoto)        
+      
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+      if (isMobile) {
+        marker.on('dblclick', (e) => {
+          showSelectedPhoto(e)
+        })
+      } else {
+        marker.on('click', (e) => {
+          showSelectedPhoto(e)
+        })
+      }
       
       if (top) {
         marker.top = top
