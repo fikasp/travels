@@ -159,14 +159,27 @@
       padding-bottom: 3px;
       gap: 0 3px;
       }
-      @media (max-width: 500px) {
-        .gallery {
-          grid-template-columns: auto auto;
+      @media (max-width: 1280px) {
+        .gallery.half {
+          grid-template-columns: repeat(3, auto);
         }
       }
       @media (max-width: 1000px) {
+        .gallery {
+          grid-template-columns: repeat(4, auto);
+        }
+      }
+      @media (max-width: 640px) {
+        .gallery {
+          grid-template-columns: repeat(3, auto);
+        }
         .gallery.half {
-          grid-template-columns: auto auto;
+          grid-template-columns: repeat(2, auto);
+        }
+      }
+      @media (max-width: 300px) {
+        .gallery.half {
+          grid-template-columns: repeat(1, auto);
         }
       }
       .gallery_background {
