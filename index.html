@@ -154,14 +154,19 @@
       max-height: 100vh;
       overflow: auto;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
+      grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
       transition: top 0.3s ease-out, width 1s ease-out;
       padding-bottom: 3px;
       gap: 0 3px;
       }
       @media (max-width: 500px) {
         .gallery {
-          grid-template-columns: repeat(auto-fill, minmax(169px,1fr));
+          grid-template-columns: auto auto;
+        }
+      }
+      @media (max-width: 1000px) {
+        .gallery.half {
+          grid-template-columns: auto auto;
         }
       }
       .gallery_background {
