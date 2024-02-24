@@ -204,6 +204,7 @@
         opacity: 1;
       }
       .gallery_text {
+        font-size: 11px;
         position: absolute;
         padding: 10px;
         width: 100%;
@@ -213,6 +214,11 @@
         transition: opacity 0.3s ease-out;
         opacity: 0;
       }
+        @media (max-width: 1000px) {
+          .gallery_text {
+            font-size: 10px;
+          }
+        }
       .gallery img {
         width: 100%;
         aspect-ratio: 4/3;
@@ -368,7 +374,7 @@
         background-color: #222;
         padding: 6px;
         font-family: Verdana;
-        font-size: 12px;
+        font-size: 11px;
         white-space: pre;
         text-align: center;
         transition: opacity 0.5s ease-in-out;
@@ -813,8 +819,6 @@
         }
       });
       // document.title = $selectCity.value
-
-      setEmblem($selectCity.value)
     }
 
       // @func prepare categories
@@ -840,7 +844,9 @@
     function setEmblem(city) {
       console.log(`setEmblem(${city})`)
 
-      if($selectVoivodeship.value == "GÓRY") {
+      debug($rangeFilter)
+
+      if($selectVoivodeship.value == "GÓRY" || $rangeFilter != "city") {
         $headerEmblem.classList.add("none")
         return
       } 
@@ -856,6 +862,7 @@
     function setCities(){
       console.log(`setCities(${$selectVoivodeship.value})`);
       prepareCities()
+      setEmblem($selectCity.value)
       setMapView()
       updateData()
     }
@@ -878,6 +885,7 @@
       console.log(`setRange(${$rangeFilter})`)
       
       setMapView()
+      setEmblem($selectCity.value)
       if ($rangeFilter == "city") {
         setCategory(cat.all)
       } else {
