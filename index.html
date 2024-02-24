@@ -507,6 +507,7 @@
     // flags
     let $isHiglightActive = true // flag for marker higlight activ
     let $isGalleryAndMap = false // flag for gallery and map open
+    let $isPhotoClicked = false // flag for photo clicked
     let $isPhotoOpen = false // flag for photo open
     // photo
     let $touchStartX // touch start position
@@ -844,8 +845,6 @@
     function setEmblem(city) {
       console.log(`setEmblem(${city})`)
 
-      debug($rangeFilter)
-
       if($selectVoivodeship.value == "GÓRY" || $rangeFilter != "city") {
         $headerEmblem.classList.add("none")
         return
@@ -1052,12 +1051,13 @@
       if($isMobile) {
         if (isClicked) {
           showSelectedPhoto(e)
+          isClicked = false
         } else {
           isClicked = true
         }
-        setTimeout(() => {
+        timeout = setTimeout(() => {
           isClicked = false
-        }, 1000)
+        }, 3000)
       } else {
         showSelectedPhoto(e)
       }
