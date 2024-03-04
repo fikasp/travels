@@ -325,6 +325,7 @@ const cities = {
       {coor: [50.0545978, 19.9393380], catg: cat.gastro, name: 'Pod Wawelem', date: [2014]},
       {coor: [50.0582280, 19.9389457], catg: cat.gastro, name: 'Taco Mexicano', date: [2013, 2014, 2023]},
       {coor: [50.0669835, 19.9713555], catg: cat.gastro, name: 'Tratoria Da Marco', date: [2013, 2016, 2019]},
+      {coor: [50.0603882, 19.9374135], catg: cat.gastro, name: 'Wierzynek', date: [2024]},
 
       // History
       {coor: [50.0655020, 19.9416393], catg: cat.history, name: 'Barbakan', date: [2016]},
@@ -386,6 +387,7 @@ const cities = {
       {coor: [50.0595737, 19.9411619], catg: cat.nature, name: 'Planty', date: [2013, 2015, 2022, 2023]},
       {coor: [50.0859777, 20.0252008], catg: cat.nature, name: 'Planty Bieńczyckie', date: [2019]},
       {coor: [50.0992896, 20.0046873], catg: cat.nature, name: 'Planty Mistrzejowickie', date: [2019]},
+      {coor: [50.0435878, 19.9428785], catg: cat.nature, name: 'Planty Nowackiego', date: [2024]},
       {coor: [50.0372692, 19.9104452], catg: cat.nature, name: 'Zakrzówek', date: [2006, 2017, 2020, 2023]},
       {coor: [50.0312047, 19.9972844], catg: cat.nature, name: 'Zalew Bagry', date: [2019]},
       {coor: [50.0790657, 20.0526667], catg: cat.nature, name: 'Zalew Nowohucki', date: [2019, 2023]},
