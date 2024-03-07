@@ -2,6 +2,8 @@
 
 Projekt ten ma na celu stworzenie interaktywnej mapy z możliwością przeglądania różnych miejsc w Polsce. 
 
+Aplikację można przetestować pod adresem: **[https://fikasp.github.io](https://fikasp.github.io)**
+
 ## Struktura projektu
 
 - **Menu**: Menu nagłówkowe zawierające różne filtry i opcje nawigacyjne.
