@@ -1048,16 +1048,18 @@
     // @func show clicked photo
     const showClickedPhoto = (isClicked) => (e) => {  
       console.log(`showClickedPhoto(${isClicked})`)  
+      let timeout
       if($isMobile) {
         if (isClicked) {
           showSelectedPhoto(e)
           isClicked = false
+          clearTimeout(timeout)
         } else {
           isClicked = true
         }
         timeout = setTimeout(() => {
           isClicked = false
-        }, 3000)
+        }, 500)
       } else {
         showSelectedPhoto(e)
       }
