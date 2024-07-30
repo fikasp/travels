@@ -1,8 +1,8 @@
-# Miasta i góry Polski
+# Podróże
 
 Projekt ten ma na celu stworzenie interaktywnej mapy z możliwością przeglądania różnych miejsc w Polsce. 
 
-Aplikację można przetestować pod adresem: **[https://fikasp.github.io](https://fikasp.github.io)**
+Aplikację można przetestować pod adresem: **[https://fikasp.github.io/travels](https://fikasp.github.io/travels)**
 
 ## Struktura projektu
 
