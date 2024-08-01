@@ -128,7 +128,7 @@
         top: 10px;
         right: 10px;
         font-size: 20px;
-        border-radius: 5px;
+        border-radius: 2px;
         background-color: rgb(0, 0, 0, 50%);
         transition: 0.5s
       }
@@ -271,6 +271,13 @@
         top: 0px;
         padding: 0 90px 0 10px;
       }
+      .photo_close {
+        height: auto;
+        font-size: 30px;
+        padding: 0 6px;
+        right: 10px;
+        top: 10px;
+      }
       .photo_group {
         position: relative;
         max-width: calc(100vw - 40px);
@@ -319,7 +326,7 @@
           left: 0px;
         }
         .photo_name {
-          bottom: 0px;
+          bottom: 3px;
         }
       }
 
@@ -437,8 +444,8 @@
       <label class="header_label" for="range">Zakres:</label>
       <select class="header_select" id="range">
         <option class="header_option" value="none" >Wszystko</option>
-        <option class="header_option" value="voivodeship">Rejon / Województwo</option>
-        <option class="header_option" value="city" selected>Miejsce / Miasto</option>
+        <option class="header_option" value="voivodeship">Rejon</option>
+        <option class="header_option" value="city" selected>Miejsce</option>
       </select>
     </div>
     <!-- Category -->
@@ -461,6 +468,8 @@
 
   <!-- @sub PHOTO -->
   <div class="photo none">
+    <!-- arrow close -->
+    <div class="photo_arrow photo_close"><i class="fa-solid fa-xmark"></i></div>
     <!-- photo group-->
     <div class="photo_group">
         <!-- arrow previous -->
@@ -498,6 +507,7 @@
     let $isGalleryAndMap = false // flag for gallery and map open
     let $isPhotoClicked = false // flag for photo clicked
     let $isPhotoOpen = false // flag for photo open
+    let $isMenuOpen = false  // flag for menu open
     // photo
     let $touchStartX // touch start position
     let $touchEndX // touch end position
@@ -541,6 +551,9 @@
     window.addEventListener('resize', changeMargin)
     window.addEventListener('wheel', checkWheel)
     // header
+    $headerDiv.addEventListener("touchstart", touchstart)
+    $headerDiv.addEventListener("touchmove", touchmove)
+    $headerDiv.addEventListener("touchend", touchend)
     $headerBars.addEventListener('click', showHideMenu)
     $headerEmblem.addEventListener('click', showHideMenu)
     $selectVoivodeship.addEventListener('change', setCities)
@@ -608,14 +621,21 @@
     // @func check touch
     function touchstart(e) {
       $touchStartX = e.touches[0].pageX
-      $touchEndX = $touchStartX
+      $touchStartY = e.touches[0].pageY
+      $touchEndY = $touchStartY
     }
     function touchmove(e) {
       $touchEndX = e.touches[0].pageX
+      $touchEndY = e.touches[0].pageY
     }
     function touchend(e) {
       const deltaX = $touchEndX - $touchStartX
-      console.log("touch:", deltaX)
+      const deltaY = $touchEndY - $touchStartY
+      console.log("touchX:", deltaX)
+      console.log("touchY:", deltaY)
+      if (deltaY < -50 && $isMenuOpen) {
+        showHideMenu()
+      }
       if (deltaX > 50) {
          showPreviousPhoto(e)
       } else if (deltaX < -50) {
@@ -784,6 +804,7 @@
       $photoGroup.classList.toggle('top')
       $photoImage.classList.toggle('top')
       $gallery.classList.toggle('top')
+      $isMenuOpen = !$isMenuOpen
     }
 
     // @func prepare voidevodeship
@@ -956,7 +977,11 @@
       $filteredData.forEach(item => {
 
         let isClicked = false
-        const description = `${item.city}: ${item.name}`
+        let description = `${item.city}: ${item.name}`
+
+        if (item.catg == cat.profil && findVoivodeship(item.city) != "GÓRY") {
+          description = `${findVoivodeship(item.city)}: ${item.city} ${item.name}`
+        }
 
         // gallery box
         const box = document.createElement("div")
@@ -1005,12 +1030,21 @@
       const image = document.getElementById(imgID)
       $photoImage.setAttribute("src", image.src)
 
-      $photoName.textContent = "Ładowanie zdjęcia..."
-      $photoImage.addEventListener("error", 
-      () => $photoName.textContent = "Zdjęcie jest niedostępne.")
-      $photoImage.addEventListener("load", 
-      () => $photoName.textContent = image.alt)
+      let loadingTimeout
 
+      loadingTimeout = setTimeout(() => {
+        $photoName.textContent = "Ładowanie zdjęcia..."
+      }, 500)
+
+      $photoImage.addEventListener("load", () => {
+        clearTimeout(loadingTimeout)
+        $photoName.textContent = image.alt
+      })
+
+      $photoImage.addEventListener("error", () => {
+        clearTimeout(loadingTimeout)
+        $photoName.textContent = "Zdjęcie jest niedostępne."
+      })
       $isPhotoOpen = true
     }
 
@@ -1127,12 +1161,14 @@
       $map.keyboard.disable()
   
       // getting coordinates from map
-      // $map.on('click', (e) => {
-      //   const lat = e.latlng.lat.toFixed(7)
-      //   const lng = e.latlng.lng.toFixed(7)
-      //   console.log(`${lat},${lng}`)
-      //   alert(`${lat},${lng}`)
-      // })
+      if (mapActive) {
+        $map.on('click', (e) => {
+          const lat = e.latlng.lat.toFixed(7)
+          const lng = e.latlng.lng.toFixed(7)
+          console.log(`${lat},${lng}`)
+          alert(`${lat},${lng}`)
+        })
+      }
     }
 
     // @func set map view
@@ -1202,7 +1238,12 @@
         iconAnchor: setAnchor(zoom),
         className: `marker marker-${catg.toLowerCase()}`
       })
-      const tooltipContent = `${city}:\n${name}`;
+
+      let tooltipContent = `${city}:\n${name}`
+      if (catg == cat.profil && findVoivodeship(city) != "GÓRY") {
+        tooltipContent = `${findVoivodeship(city)}:\n${city} ${name}`
+      }
+
       const tooltipOptions = { 
         className: 'marker-tooltip',
         direction: 'bottom',

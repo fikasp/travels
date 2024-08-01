@@ -1,12 +1,13 @@
 const cat = {
   profil: "Profilówki",
   all: "Wszystkie",
+  gastro: "Gastronomia",
   history: "Historia", 
   religion: "Religia",
   culture: "Kultura", 
   nature: "Natura", 
-  gastro: "Gastro",
 }
+const mapActive = true
 
 const cities = {
   // @sup GÓRY
@@ -147,6 +148,7 @@ const cities = {
         {coor: [49.5405551,19.3187714], catg: cat.profil, name: 'Hala Miziowa 2016', date: [2016]},
         {coor: [49.5363359,19.2345500], catg: cat.profil, name: 'Hala Rysianka 2018', date: [2018]},
         {coor: [49.4760998,19.2185640], catg: cat.profil, name: 'Krawców Wierch 2018', date: [2018]},
+        {coor: [49.5876515,19.5167613], catg: cat.nature, name: 'Markowe Szczawiny', date: [2009,2012,2014,2018]},
         {coor: [49.5279452,19.3167758], catg: cat.profil, name: 'Pilsko 2016', date: [2016]},
         {coor: [49.6232776,19.6197796], catg: cat.profil, name: 'Polica 2020', date: [2020]},
         {coor: [49.5606295,19.2419100], catg: cat.profil, name: 'Romanka 2018', date: [2018]},
