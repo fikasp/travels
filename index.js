@@ -9,6 +9,8 @@ const cat = {
 }
 const mapActive = true
 
+const startCity = "KRAKÓW"
+
 const cities = {
   // @sup GÓRY
   "GÓRY": {
@@ -16,6 +18,7 @@ const cities = {
     zoom: 10, 
     "Tatry Wysokie" : 
     {coor: [49.2121026,20.0493622], zoom: 13, gallery: [
+      {coor: [49.2590247,20.0765276], catg: cat.profil, name: 'Gęsia Szyja 2024', date: [2024]},
       {coor: [49.2288156,20.0117040], catg: cat.profil, name: 'Karb 2016', date: [2016]},
       {coor: [49.2288156,20.0117040], catg: cat.profil, name: 'Karb 2021', date: [2021]},
       {coor: [49.2251791,20.0145686], catg: cat.profil, name: 'Kościelec 2021', date: [2021]},
@@ -24,6 +27,7 @@ const cities = {
       {coor: [49.2286509,20.0472862], catg: cat.profil, name: 'Krzyżne 2011', date: [2011]},
       {coor: [49.2255435,19.9913299], catg: cat.profil, name: 'Liliowe', date: [2012]},
       {coor: [49.2256941,20.0327325], catg: cat.profil, name: 'Pośredni Granat 2022', date: [2022]},
+      {coor: [49.2628337,20.0902605], catg: cat.nature, name: 'Rusinowa Polana', date: [2024]},
       {coor: [49.1792488,20.0884581], catg: cat.profil, name: 'Rysy 2013', date: [2013]},
       {coor: [49.2269343,20.0333118], catg: cat.profil, name: 'Skrajny Granat 2022', date: [2022]},
       {coor: [49.1972734,20.0401139], catg: cat.profil, name: 'Szpiglasowy Wierch 2012', date: [2012]},
@@ -49,10 +53,13 @@ const cities = {
       {coor: [49.2317651,19.9815774], catg: cat.profil, name: 'Kasprowy Wierch 2017', date: [2017]},
       {coor: [49.2056822,19.8076200], catg: cat.profil, name: 'Kończysty Wierch 2017', date: [2017]},
       {coor: [49.2363188,19.9322891], catg: cat.profil, name: 'Kopa Kondracka 2010', date: [2010]},
+      {coor: [49.2716479,20.0162905], catg: cat.profil, name: 'Kopieniec Wielki 2024', date: [2024]},
       {coor: [49.2316390,19.9095011], catg: cat.profil, name: 'Krzesanica 2010', date: [2010]},
       {coor: [49.2316390,19.9095011], catg: cat.profil, name: 'Krzesanica 2015', date: [2015]},
+      {coor: [49.2049532,19.7786307], catg: cat.profil, name: 'Łopata 2023', date: [2023]},
       {coor: [49.2357023,19.9192429], catg: cat.profil, name: 'Małołączniak 2010', date: [2010]},
       {coor: [49.2357023,19.9192429], catg: cat.profil, name: 'Małołączniak 2015', date: [2015]},
+      {coor: [49.2764253,19.9894577], catg: cat.profil, name: 'Nosal 2024', date: [2024]},
       {coor: [49.2486396,19.8866647], catg: cat.profil, name: 'Piec 2014', date: [2014]},
       {coor: [49.2159432,19.7584391], catg: cat.profil, name: 'Rakoń 2016', date: [2016]},
       {coor: [49.2646436,19.9421060], catg: cat.profil, name: 'Sarnia Skała 2023', date: [2023]},
@@ -87,6 +94,7 @@ const cities = {
         {coor: [49.8430750,19.9083424], catg: cat.profil, name: 'Dalin 2018', date: [2018]},
         {coor: [49.7895073,20.0567651], catg: cat.profil, name: 'Kamiennik 2008', date: [2008]},
         {coor: [49.7895073,20.0567651], catg: cat.profil, name: 'Kamiennik 2016', date: [2016]},
+        {coor: [49.7507241,19.7829866], catg: cat.profil, name: 'Koskowa Góra 2010', date: [2010]},
         {coor: [49.7691529,19.8961544], catg: cat.profil, name: 'Kotoń 2018', date: [2018]},
         {coor: [49.7668523,20.0596189], catg: cat.profil, name: 'Lubomir 2016', date: [2016]},
         {coor: [49.7758324,20.0483322], catg: cat.profil, name: 'Łysina 2008', date: [2008]},
@@ -121,6 +129,7 @@ const cities = {
       ]},
     "Beskid Śląski" : 
       {coor: [49.6520709,18.9239502], zoom: 12, gallery: [
+        {coor: [49.6114468,19.0105534], catg: cat.profil, name: 'Barania Góra 2024', date: [2024]},
         {coor: [49.6787924,18.8045597], catg: cat.profil, name: 'Czantoria Wielka 2010', date: [2010]},
         {coor: [49.6845403,19.0302944], catg: cat.profil, name: 'Skrzyczne 2021', date: [2021]},
         {coor: [49.6342717,18.8131857], catg: cat.profil, name: 'Soszów Wielki 2010', date: [2010]},
@@ -129,6 +138,7 @@ const cities = {
     "Beskid Wyspowy" : 
       {coor: [49.6882885,20.1914978], zoom: 12, gallery: [
         {coor: [49.7735737,20.1426816], catg: cat.profil, name: 'Ciecień 2020', date: [2020]},
+        {coor: [49.6887536,20.1914388], catg: cat.profil, name: 'Ćwilin 2024', date: [2024]},
         {coor: [49.7878865,20.1458037], catg: cat.profil, name: 'Księża Góra 2020', date: [2020]},
         {coor: [49.7125481,20.0988007], catg: cat.profil, name: 'Lubogoszcz 2014', date: [2014]},
         {coor: [49.6534602,19.9918556], catg: cat.profil, name: 'Luboń 2008', date: [2008]},
@@ -313,7 +323,7 @@ const cities = {
     zoom: 10,     
     // @sub KRAKÓW
     "KRAKÓW" : 
-      {abbr: "KR", coor: [50.0616779, 19.9373317], zoom: 13, date: [2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024], gallery: [
+      {abbr: "KR", coor: [50.0616779, 19.9373317], zoom: 13, date: [2022], gallery: [
 
       // Gastro
       {coor: [50.0641711, 19.9420658], catg: cat.gastro, name: 'Babcia Malina', date: [2015, 2016, 2017, 2018, 2021, 2023]},
@@ -551,7 +561,7 @@ const cities = {
     "Ciężkowice" :
       {coor: [49.7858188,20.9740162], zoom: 15, date: [2021], abbr: "KTAC", gallery: []},
     "Czarny Dunajec" :
-      {coor: [49.4400872,19.8529923], zoom: 15, date: [2023], abbr: "KTTC", gallery: []},
+      {coor: [49.4400872,19.8529923], zoom: 15, date: [2023], abbr: "KNTC", gallery: []},
     "Czchów" :
       {coor: [49.8337890,20.6729650], zoom: 15, date: [2021], abbr: "KBRC", gallery: []},
     "Dąbrowa Tarnowska" :
@@ -630,7 +640,7 @@ const cities = {
     "Skała" :
       {coor: [50.2305096,19.8536682], zoom: 15, date: [2019], abbr: "KRAS", gallery: []},
     "Skawina" :
-      {coor: [49.9750513,19.8264384], zoom: 15, date: [2018, 2023], abbr: "KRAW", gallery: []},
+      {coor: [49.9750513,19.8264384], zoom: 15, date: [2023], abbr: "KRAW", gallery: []},
     "Słomniki" :
       {coor: [50.2405872,20.0802934], zoom: 15, date: [2019], abbr: "KRAM", gallery: []},
     "Stary Sącz" :
@@ -654,7 +664,7 @@ const cities = {
     "Wadowice" :
       {coor: [49.8833812,19.4928306], zoom: 15, date: [2016], abbr: "KWA", gallery: []},
     "Wieliczka" : 
-      {coor: [49.9837548,20.0594312], zoom: 15, date: [2019, 2023], abbr: "KWI", gallery: []},
+      {coor: [49.9837548,20.0594312], zoom: 15, date: [2019], abbr: "KWI", gallery: []},
     "Wojnicz" :
       {coor: [49.9556793,20.8362848], zoom: 15, date: [2021], abbr: "KTAW", gallery: []},
     "Wolbrom" :
@@ -666,7 +676,7 @@ const cities = {
     "Zator" :
       {coor: [49.9961536,19.4375557], zoom: 15, date: [2021], abbr: "KOSZ", gallery: []},
     "Żabno" :
-      {coor: [50.1328316,20.8854389], zoom: 15, date: [2021], abbr: "KTAZ", gallery: []},
+      {coor: [50.1328316,20.8854389], zoom: 15, date: [2021], abbr: "KTAB", gallery: []},
   },
 
   // @sup Mazowieckie
@@ -760,21 +770,23 @@ const cities = {
     coor: [54.3829567,17.9585266], 
     zoom: 10,
     "GDAŃSK" :
-      {coor: [54.3485434,18.6532134], zoom: 13, date: [2022, 2013, 2012, 2008, 2007], abbr: "GD", gallery: []},
+      {coor: [54.3485434,18.6532134], zoom: 13, date: [2022], abbr: "GD", gallery: []},
     "GDYNIA" :
-      {coor: [54.5194002,18.5522604], zoom: 13, date: [2022, 2012, 2008], abbr: "GA", gallery: []},
+      {coor: [54.5194002,18.5522604], zoom: 13, date: [2022], abbr: "GA", gallery: []},
     "Hel" :
       {coor: [54.6000139,18.8129067], zoom: 15, date: [2013], abbr: "GPUH", gallery: []},
     "Krynica Morska" :
       {coor: [54.3862181,19.4354796], zoom: 15, date: [2020], abbr: "GNDK", gallery: []},
     "Łeba" :
-      {coor: [54.7672013,17.5578475], zoom: 15, date: [2013, 2012, 2009], abbr: "GLEL", gallery: []},
+      {coor: [54.7672013,17.5578475], zoom: 15, date: [2013], abbr: "GLEL", gallery: []},
     "Malbork" :
       {coor: [54.0387152,19.0280414], zoom: 14, date: [2020], abbr: "GMB", gallery: []},
     "RUMIA" :
       {coor: [54.5736880,18.3955497], zoom: 14, date: [2022], abbr: "GWER", gallery: []},
     "SŁUPSK" :
       {coor: [54.4658258,17.0289427], zoom: 14, date: [2017], abbr: "GS", gallery: []},
+    "Sopot" :
+      {coor: [54.4479354,18.5703492], zoom: 14, date: [2008], abbr: "GSP", gallery: []},
     "STAROGARD GDAŃSKI" :
       {coor: [53.9675450,18.5322189], zoom: 14, date: [2022], abbr: "GST", gallery: []},
     "TCZEW" :
@@ -813,22 +825,32 @@ const cities = {
       {coor: [50.3256454,19.1873270], zoom: 14, date: [2021], abbr: "SD", gallery: []},
     "GLIWICE" :
       {coor: [50.2940414,18.6660987], zoom: 14, date: [2021], abbr: "SG", gallery: []},
+    "Imielin" :
+      {coor: [50.1468764,19.1857231], zoom: 15, date: [2024], abbr: "SBLI", gallery: []},
     "JASTRZĘBIE-ZDRÓJ" :
       {coor: [49.9505020,18.5687077], zoom: 14, date: [2022], abbr: "SJZ", gallery: []},
     "JAWORZNO" :
       {coor: [50.2032444,19.2759043], zoom: 14, date: [2021], abbr: "SJ", gallery: []},
-    // "Mikołów" :
-      // {coor: [---], zoom: 14, date: [2024], abbr: "SMI", gallery: []},
+    "Koziegłowy" :
+      {coor: [50.5977685,19.1615134], zoom: 15, date: [2024], abbr: "SMYK", gallery: []},
+    "Lędziny" :
+      {coor: [50.1292724,19.1061044], zoom: 15, date: [2024], abbr: "SBLL", gallery: []},
+    "Łazy" :
+      {coor: [50.4280075,19.3912715], zoom: 15, date: [2024], abbr: "SZAL", gallery: []},
+    "Mikołów" :
+      {coor: [50.1692639,18.9045310], zoom: 14, date: [2024], abbr: "SMI", gallery: []},
     "MYSŁOWICE" :
       {coor: [50.2411087,19.1411072], zoom: 14, date: [2021], abbr: "SM", gallery: []},
-    // "Myszków" :
-      // {coor: [---], zoom: 14, date: [2024], abbr: "SMY", gallery: []},
+    "Myszków" :
+      {coor: [50.5763591,19.3300420], zoom: 14, date: [2024], abbr: "SMY", gallery: []},
     "Ogrodzieniec" :
       {coor: [50.4530093,19.5521021], zoom: 15, date: [2019], abbr: "SZAO", gallery: []},
     "PIEKARY ŚLĄSKIE" :
       {coor: [50.3824455,18.9471138], zoom: 14, date: [2021], abbr: "SPI", gallery: []},
     "Pilica" :
       {coor: [50.4680355,19.6568424], zoom: 15, date: [2019], abbr: "SZAP", gallery: []},
+    "Poręba" :
+      {coor: [50.4863985,19.3329763], zoom: 15, date: [2024], abbr: "SZAR", gallery: []},
     "Pszczyna" :
       {coor: [49.9785218,18.9404082], zoom: 14, date: [2021], abbr: "SPS", gallery: []},
     "RACIBÓRZ" :
@@ -839,8 +861,8 @@ const cities = {
       {coor: [50.0978374,18.5485858], zoom: 14, date: [2022], abbr: "SR", gallery: []},
     "SIEMIANOWICE ŚLĄSKIE" :
       {coor: [50.3050581,19.0279341], zoom: 14, date: [2021], abbr: "SI", gallery: []},
-    // "Siewierz" :
-      // {coor: [---], zoom: 15, date: [2024], abbr: "SBE", gallery: []},
+    "Siewierz" :
+      {coor: [50.4685443,19.2368245], zoom: 15, date: [2024], abbr: "SBEZ", gallery: []},
     "Sławków" :
       {coor: [50.2984724,19.3885839], zoom: 15, date: [2019], abbr: "SBES", gallery: []},
     "SOSNOWIEC" :
@@ -855,14 +877,16 @@ const cities = {
       {coor: [50.4446677,18.8555592], zoom: 14, date: [2021], abbr: "STA", gallery: []},
     "TYCHY" :
       {coor: [50.1294822,18.9815158], zoom: 14, date: [2021], abbr: "ST", gallery: []},
-    // "Ustroń" :
-      // {coor: [---], zoom: 15, date: [2024], abbr: "SCIU", gallery: []},
+    "Wisła" :
+      {coor: [49.6553216,18.8625705], zoom: 15, date: [2024], abbr: "SCIW", gallery: []},
     "WODZISŁAW ŚLĄSKI" :
       {coor: [50.0027500,18.4629321], zoom: 14, date: [2022], abbr: "SWD", gallery: []},
     "ZABRZE" :
       {coor: [50.3113928,18.7851995], zoom: 14, date: [2021], abbr: "SZ", gallery: []},
     "ZAWIERCIE" :
       {coor: [50.4839205,19.4312739], zoom: 14, date: [2021], abbr: "SZA", gallery: []},
+    "Żarki" :
+      {coor: [50.6260089,19.3640310], zoom: 15, date: [2024], abbr: "SMYZ", gallery: []},
     "ŻORY" :
       {coor: [50.0439255,18.6991382], zoom: 14, date: [2022], abbr: "SZO", gallery: []},
     "Żywiec" :
@@ -879,6 +903,8 @@ const cities = {
       {coor: [50.4577055,20.7202095], zoom: 14, date: [2021], abbr: "TBU", gallery: []},
     "Chęciny" :
       {coor: [50.7990965,20.4620200], zoom: 15, date: [2013], abbr: "TKIC", gallery: []},
+    "Chmielnik" :
+      {coor: [50.6143281,20.7510281], zoom: 15, date: [2024], abbr: "TKIH", gallery: []},
     "Działoszyce" :
       {coor: [50.3670534,20.3505045], zoom: 15, date: [2023], abbr: "TPID", gallery: []},
     "Jędrzejów" :
@@ -887,6 +913,8 @@ const cities = {
       {coor: [50.2644225,20.4952526], zoom: 15, date: [2019], abbr: "TKA", gallery: []},
     "Nowy Korczyn" :
       {coor: [50.2978110,20.8111632], zoom: 15, date: [2023], abbr: "TBUK", gallery: []},
+    "Oleśnica" :
+      {coor: [50.4502358,21.0637361], zoom: 16, date: [2024], abbr: "TSZO", gallery: []},
     "Opatowiec" :
       {coor: [50.2405769,20.7242864], zoom: 15, date: [2023], abbr: "TKAO", gallery: []},
     "OSTROWIEC ŚWIĘTOKRZYSKI" :
@@ -905,8 +933,12 @@ const cities = {
       {coor: [51.1144679,20.8667922], zoom: 14, date: [2020], abbr: "TSK", gallery: []},
     "STARACHOWICE" :
       {coor: [51.0410937,21.0843784], zoom: 14, date: [2022], abbr: "TST", gallery: []},
+    "Staszów" :
+      {coor: [50.5652622,21.1682242], zoom: 15, date: [2024], abbr: "TSZ", gallery: []},
     "Stopnica" :
       {coor: [50.4401240,20.9389865], zoom: 15, date: [2021], abbr: "TBUS", gallery: []},
+    "Szydłów" :
+      {coor: [50.5898952,21.0014069], zoom: 16, date: [2024], abbr: "TSZS", gallery: []},
     "Wiślica" :
       {coor: [50.3485755,20.6745636], zoom: 15, date: [2023], abbr: "TBUW", gallery: []},
     "Wodzisław" :
@@ -960,7 +992,7 @@ const cities = {
     "SZCZECIN" :
       {coor: [53.4254310,14.5471483], zoom: 13, date: [2016], abbr: "ZS", gallery: []},
     "KOŁOBRZEG" :
-      {coor: [54.1783674,15.5731523], zoom: 14, date: [2014, 2007], abbr: "ZKL", gallery: []},
+      {coor: [54.1783674,15.5731523], zoom: 14, date: [2014], abbr: "ZKL", gallery: []},
     "KOSZALIN" :
       {coor: [54.1909019,16.1866808], zoom: 14, date: [2018], abbr: "ZK", gallery: []},
     "Mielno" :

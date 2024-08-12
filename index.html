@@ -253,6 +253,7 @@
         position: absolute;
         height: 100%;
         font-size: 40px;
+        text-shadow: 0 0 3px #000;
         color: #888;
         transition: 1s;
         z-index: 1;
@@ -282,8 +283,7 @@
         display: flex;
         position: relative;
         max-width: calc(100vw - 80px);
-        max-height: calc(100vh - 46px);
-        transform: translateY(-8px);
+        max-height: calc(100vh - 60px);
         min-width: 300px;
         min-height: 40px;
         object-fit: cover;
@@ -293,7 +293,7 @@
       .photo_image {
         position: relative;
         max-width: calc(100vw - 80px);
-        max-height: calc(100vh - 46px);
+        max-height: calc(100vh - 60px);
         object-fit: cover;
         transition: 0.5s;
         }
@@ -312,7 +312,6 @@
       @media (max-height: 600px) {
         .photo_group {
           max-height: 100vh;
-          transform: translateY(0px);
         }
         .photo_image {
           max-height: 100vh;
@@ -530,8 +529,6 @@
     let $touchEndX // touch end position
     let $interval // interval for presentation
     let $index // index of photo
-    // start city
-    const $startCity = "KRAKÓW"
 
   // @class HANDLES
   //
@@ -591,7 +588,8 @@
   //
     // @func main
     function main() {
-      console.log(cities)
+      // console.log(cities)
+      console.log(mapRegions(cities))
       console.log("main()")
       changeMargin()
       prepareMap()
@@ -831,7 +829,7 @@
 
       $selectVoivodeship.innerHTML = ""
       voivodeships.forEach(voidevoship => {
-        createOption($selectVoivodeship, voidevoship, findVoivodeship($startCity))
+        createOption($selectVoivodeship, voidevoship, findVoivodeship(startCity))
       });
     }
 
@@ -843,7 +841,7 @@
       $selectCity.innerHTML ="";
       Object.keys(newCities).forEach(city => {
         if (city !== "coor" && city !== "zoom") {
-          createOption($selectCity, city, $startCity)
+          createOption($selectCity, city, startCity)
         }
       });
       // document.title = $selectCity.value
@@ -863,7 +861,7 @@
       console.log("prepareDates()");
 
       createOption($selectDate, cat.all)
-      for (let year = 2023; year >= 2006; year-- ) {
+      for (let year = 2024; year >= 2007; year-- ) {
         createOption($selectDate, year)
       }
     }
@@ -1370,6 +1368,25 @@
         }
       }
       parent.appendChild(option)
+    }
+
+    // @func map regions
+    function mapRegions(data) {
+      const newData = {}
+
+      for (const [regionName, regionData] of Object.entries(data)) {
+        const { coor, zoom, ...cities } = regionData
+        const newCities = {}
+
+        for (const [cityName, cityData] of Object.entries(cities)) {
+          const { abbr, ...rest } = cityData
+          newCities[abbr] = rest;
+        }
+
+        newData[regionName] = { coor, zoom, ...newCities }
+      }
+
+      return newData;
     }
 
     // @func debug
