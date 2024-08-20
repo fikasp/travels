@@ -60,12 +60,14 @@ const cities = {
       {coor: [49.2357023,19.9192429], catg: cat.profil, name: 'Małołączniak 2010', date: [2010]},
       {coor: [49.2357023,19.9192429], catg: cat.profil, name: 'Małołączniak 2015', date: [2015]},
       {coor: [49.2764253,19.9894577], catg: cat.profil, name: 'Nosal 2024', date: [2024]},
+      {coor: [49.2188305,19.8329401], catg: cat.profil, name: 'Ornak 2024', date: [2024]},
       {coor: [49.2486396,19.8866647], catg: cat.profil, name: 'Piec 2014', date: [2014]},
       {coor: [49.2159432,19.7584391], catg: cat.profil, name: 'Rakoń 2016', date: [2016]},
       {coor: [49.2646436,19.9421060], catg: cat.profil, name: 'Sarnia Skała 2023', date: [2023]},
       {coor: [49.1993450,19.8198938], catg: cat.profil, name: 'Starorobociański 2017', date: [2017]},
       {coor: [49.2190688,19.8037362], catg: cat.profil, name: 'Trzydniowiański Wierch', date: [2023]},
       {coor: [49.2075327,19.7630739], catg: cat.profil, name: 'Wołowiec 2023', date: [2023]},
+      {coor: [49.2129716,19.8358154], catg: cat.profil, name: 'Zadni Ornak 2024', date: [2024]},
     ]},
     "Pieniny" : 
     {coor: [49.4116433,20.4675293], zoom: 13, gallery: [
