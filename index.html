@@ -252,7 +252,7 @@
         align-items: center;
         position: absolute;
         height: 100%;
-        font-size: 40px;
+        font-size: 36px;
         text-shadow: 0 0 3px #000;
         color: #888;
         transition: 1s;
@@ -278,12 +278,13 @@
         padding: 0 6px;
         right: 10px;
         top: 10px;
+        z-index: 100;
       }
       .photo_group {
         display: flex;
         position: relative;
         max-width: calc(100vw - 80px);
-        max-height: calc(100vh - 60px);
+        max-height: calc(100vh - 30px);
         min-width: 300px;
         min-height: 40px;
         object-fit: cover;
@@ -293,7 +294,7 @@
       .photo_image {
         position: relative;
         max-width: calc(100vw - 80px);
-        max-height: calc(100vh - 60px);
+        max-height: calc(100vh - 30px);
         object-fit: cover;
         transition: 0.5s;
         }
@@ -303,7 +304,7 @@
         text-align: center;
         width: 100%;
         left: 0px;
-        bottom: -25px;
+        bottom: 24px;
         padding: 0px 15px;
         text-shadow: 0 0 5px #000;
         color: #fff;
@@ -317,7 +318,7 @@
           max-height: 100vh;
         }
         .photo_name {
-          bottom: 6px;
+          bottom: 10px;
         }
       }
       @media (max-width: 1200px) {
@@ -488,15 +489,15 @@
     <div class="photo_arrow photo_close"><i class="fa-solid fa-xmark"></i></div>
     <!-- photo group-->
     <div class="photo_group">
-        <!-- arrow previous -->
-        <div class="photo_arrow photo_previous"><i class="fa-solid fa-angle-left"></i></div>
-        <!-- arrow next -->
-        <div class="photo_arrow photo_next"><i class="fa-solid fa-angle-right"></i></div>
-        <!-- image -->
-        <img class="photo_image" draggable="false">
-        <!-- name -->
-        <div class="photo_name"></div>
+      <!-- arrow previous -->
+      <div class="photo_arrow photo_previous"><i class="fa-solid fa-angle-left"></i></div>
+      <!-- arrow next -->
+      <div class="photo_arrow photo_next"><i class="fa-solid fa-angle-right"></i></div>
+      <!-- image -->
+      <img class="photo_image" draggable="false">
+      <!-- name -->
     </div>
+    <div class="photo_name"></div>
   </div>
 
   <!-- @sub MAP -->
