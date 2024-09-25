@@ -510,8 +510,8 @@
     let $map // leaflet map
     let $marginTop = 0 // margin top
     // tables
+    let $photos = [] // table of photos
     let $markers = [] // table of markers    
-    let $checkboxes = [] // table with checkboxex
     let $citiesArray = [] // table with prepared data    
     let $filteredData = [] // table with filtered data    
     // filters
@@ -1009,7 +1009,7 @@
         text.className = "gallery_text"
         text.textContent = description
         text.setAttribute("id", item.id)
-        text.addEventListener("click", (e) => showClickedBox(box)(e))
+        text.addEventListener("click", (e) => showClickedPhoto(box)(e))
         text.addEventListener("mouseover", highlightMarker)
         text.addEventListener("mouseout", resetMarker)
 
@@ -1018,13 +1018,14 @@
         img.setAttribute("src", item.url)
         img.setAttribute("alt", description)
         img.setAttribute("id", item.id)
-        img.addEventListener("click", (e) => showClickedBox(box)(e))
+        img.addEventListener("click", (e) => showClickedPhoto(box)(e))
         img.addEventListener("mouseover", highlightMarker)
         img.addEventListener("mouseout", resetMarker)
 
         box.appendChild(img)
         box.appendChild(text)
         $gallery.appendChild(box)
+        $photos.push(box)
       })
     }
 
@@ -1086,21 +1087,21 @@
     }
 
     // @func show clicked box
-    const showClickedBox = (clickedBox) => (e) => {  
-      console.log(`showClickedBox(${clickedBox.isClicked})`)  
+    const showClickedPhoto = (clickedPhoto) => (e) => {  
+      console.log(`showClickedPhoto(${clickedPhoto.isClicked})`)  
 
-      $gallery.querySelectorAll(".gallery_box").forEach(box => {
-        if (box !== clickedBox) {
-          box.isClicked = false
+      $photos.forEach(photo => {
+        if (photo !== clickedPhoto) {
+          photo.isClicked = false
         }
       })
 
       if($isMobile) {
-        if (clickedBox.isClicked) {
+        if (clickedPhoto.isClicked) {
           showSelectedPhoto(e)
-          clickedBox.isClicked = false
+          clickedPhoto.isClicked = false
         } else {
-          clickedBox.isClicked = true
+          clickedPhoto.isClicked = true
         }
       } else {
         showSelectedPhoto(e)
