@@ -993,7 +993,6 @@
       // create imgs for filtered table
       $filteredData.forEach(item => {
 
-        let isClicked = false
         let description = `${item.city}: ${item.name}`
 
         if (item.catg == cat.profil && findVoivodeship(item.city) != "GÓRY") {
@@ -1003,13 +1002,14 @@
         // gallery box
         const box = document.createElement("div")
         box.className = "gallery_box"
+        box.isClicked = false
 
         // gallery text
         const text = document.createElement("div")
         text.className = "gallery_text"
         text.textContent = description
         text.setAttribute("id", item.id)
-        text.addEventListener("click", showClickedPhoto(isClicked))
+        text.addEventListener("click", (e) => showClickedBox(box)(e))
         text.addEventListener("mouseover", highlightMarker)
         text.addEventListener("mouseout", resetMarker)
 
@@ -1018,7 +1018,7 @@
         img.setAttribute("src", item.url)
         img.setAttribute("alt", description)
         img.setAttribute("id", item.id)
-        img.addEventListener("click", showClickedPhoto(isClicked))
+        img.addEventListener("click", (e) => showClickedBox(box)(e))
         img.addEventListener("mouseover", highlightMarker)
         img.addEventListener("mouseout", resetMarker)
 
@@ -1085,21 +1085,45 @@
       }, 3000);
     }
 
-    // @func show clicked photo
-    const showClickedPhoto = (isClicked) => (e) => {  
-      console.log(`showClickedPhoto(${isClicked})`)  
-      let timeout
-      if($isMobile) {
-        if (isClicked) {
-          showSelectedPhoto(e)
-          isClicked = false
-          clearTimeout(timeout)
-        } else {
-          isClicked = true
+    // @func show clicked box
+    const showClickedBox = (clickedBox) => (e) => {  
+      console.log(`showClickedBox(${clickedBox.isClicked})`)  
+
+      $gallery.querySelectorAll(".gallery_box").forEach(box => {
+        if (box !== clickedBox) {
+          box.isClicked = false
         }
-        timeout = setTimeout(() => {
-          isClicked = false
-        }, 500)
+      })
+
+      if($isMobile) {
+        if (clickedBox.isClicked) {
+          showSelectedPhoto(e)
+          clickedBox.isClicked = false
+        } else {
+          clickedBox.isClicked = true
+        }
+      } else {
+        showSelectedPhoto(e)
+      }
+    }
+
+    // @func show clicked marker
+    const showClickedMarker = (clickedMarker) => (e) => {  
+      console.log(`showClickedMarker(${clickedMarker.isClicked})`)  
+
+      $markers.forEach(marker => {
+        if (marker !== clickedMarker) {
+          marker.isClicked = false
+        }
+      })
+
+      if($isMobile) {
+        if (clickedMarker.isClicked) {
+          showSelectedPhoto(e)
+          clickedMarker.isClicked = false
+        } else {
+          clickedMarker.isClicked = true
+        }
       } else {
         showSelectedPhoto(e)
       }
@@ -1247,7 +1271,6 @@
     // @func create marker
     function createMarker({coor, city, catg, name, url, id, top}) {
 
-      let isClicked = false
       // icon
       const zoom = $map.getZoom()
       const icon = L.icon({
@@ -1273,10 +1296,11 @@
       const marker = L.marker(coor, {icon: icon}).addTo($map)
       marker.id = id
       marker.catg = catg
+      marker.isClicked = false
       marker.bindTooltip(tooltipContent, tooltipOptions)
       marker.on('mouseover', highlightMarker)
       marker.on('mouseout', resetMarker)
-      marker.on('click', showClickedPhoto(isClicked))        
+      marker.on('click', (e) => showClickedMarker(marker)(e))        
 
       
       if (top) {
