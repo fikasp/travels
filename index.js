@@ -508,6 +508,7 @@ const cities = {
       {coor: [50.0873631, 19.9459201], catg: cat.religion, name: 'Kościół św. Karola Boromeusza [Żabiniec]/Zewnętrze', date: [2021]},
       {coor: [50.0873631, 19.9459201], catg: cat.religion, name: 'Kościół św. Karola Boromeusza [Żabiniec]/Wnętrze', date: [2021]},
       {coor: [50.0873631, 19.9459201], catg: cat.religion, name: 'Kościół św. Karola Boromeusza [Żabiniec]/Organy', date: [2021]},
+      {coor: [50.0648736, 19.9362320], catg: cat.religion, name: 'Kościół św. Kazimierza Królewicza (Reformatów) [Stare Miasto]/Zewnętrze', date: [2020]},
       {coor: [50.0648736, 19.9362320], catg: cat.religion, name: 'Kościół św. Kazimierza Królewicza (Reformatów) [Stare Miasto]/Wnętrze', date: [2020]},
       {coor: [50.0185392, 19.9941355], catg: cat.religion, name: 'Kościół św. Mikołaja z Tolentino (Augustianów) [Bieżanów]/Zewnętrze', date: [2021]},
       {coor: [50.0185392, 19.9941355], catg: cat.religion, name: 'Kościół św. Mikołaja z Tolentino (Augustianów) [Bieżanów]/Wnętrze', date: [2021]},
