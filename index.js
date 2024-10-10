@@ -186,22 +186,16 @@ const cities = {
         {coor: [50.7362582,15.7397282], catg: cat.profil, name: 'Śnieżka 2023', date: [2023]},
       ]},
   },
-  // "EUROPA": {
-    // "Barcelona" : 
-    // {coor: [], zoom: 12, gallery: []},
-    // "BUDAPESZT" : 
-    // {coor: [], zoom: 12, gallery: []},
-    // "MADRYT" : 
-    // {coor: [], zoom: 12, gallery: []},
-    // "PRAGA" : 
-    // {coor: [], zoom: 12, gallery: []},
-    // "Walencja" : 
-    // {coor: [], zoom: 12, gallery: []},
-    // "Wenecja" : 
-    // {coor: [], zoom: 12, gallery: []},
-    // "WIEDEŃ" : 
-    // {coor: [], zoom: 12, gallery: []},
-  // },
+  "HISZPANIA": {
+    coor: [40.4134960,-3.7133789], 
+    zoom: 7, 
+    "Barcelona" : 
+    {coor: [41.3926504,2.1445656], zoom: 13, date: [2019], gallery: [
+      {coor: [41.3796303,2.1796757], catg: cat.religion, name: 'Bazylika La Merce', date: [2019]},
+    ]},
+    "Walencja" : 
+    {coor: [39.4735746,-0.3766036], zoom: 13, date: [2019], gallery: []},
+  },
 
   // @sup Dolnośląskie
   "Dolnośląskie": {

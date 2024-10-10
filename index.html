@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Miasta i góry Polski</title>
+  <title>Podróże</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- favicon -->
@@ -446,10 +446,10 @@
         <option class="header_option" value="gallery">Galeria</option>
       </select>
     </div>
-    <!-- Voivodeship -->
+    <!-- Region -->
     <div class="header_pair">
-      <label class="header_label" for="voivodeship">Rejon:</label>
-      <select class="header_select" id="voivodeship"></select>
+      <label class="header_label" for="region">Rejon:</label>
+      <select class="header_select" id="region"></select>
     </div>
     <!-- City -->
     <div class="header_pair">
@@ -461,7 +461,7 @@
       <label class="header_label" for="range">Zakres:</label>
       <select class="header_select" id="range">
         <option class="header_option" value="none" >Wszystko</option>
-        <option class="header_option" value="voivodeship">Rejon</option>
+        <option class="header_option" value="region">Rejon</option>
         <option class="header_option" value="city" selected>Miejsce</option>
       </select>
     </div>
@@ -550,7 +550,7 @@
     const $photoNext = document.querySelector('.photo_next')
     // selects
     const $selectCity = document.querySelector('#city')
-    const $selectVoivodeship = document.querySelector('#voivodeship')
+    const $selectRegion = document.querySelector('#region')
     const $selectRange = document.querySelector('#range')
     const $selectViewMode = document.querySelector('#view')
     const $selectCategory = document.querySelector('#category')
@@ -571,7 +571,7 @@
     $headerDiv.addEventListener("touchend", touchend)
     $headerBars.addEventListener('click', showHideMenu)
     $headerEmblem.addEventListener('click', showHideMenu)
-    $selectVoivodeship.addEventListener('change', setCities)
+    $selectRegion.addEventListener('change', setCities)
     $selectCity.addEventListener('change', setCity)
     $selectRange.addEventListener('change', setRange)
     $selectViewMode.addEventListener('change', setViewMode)
@@ -597,7 +597,7 @@
       prepareData()
       prepareDates()
       prepareCategories()
-      prepareVoivodeship()
+      prepareRegion()
       prepareCities()
       setRange()
     }
@@ -678,30 +678,36 @@
     function prepareData() {
       console.log("prepareData()")
       $citiesArray = []
+
+      const europe = ["EUROPA", "WŁOCHY", "HISZPANIA"]
     
-      for (const voivodeship in cities) {
-        for (const city in cities[voivodeship]) {
-          const cityObj = cities[voivodeship][city]
+      for (const region in cities) {
+        for (const city in cities[region]) {
+          const cityObj = cities[region][city]
 
           // gallery photos
           if(cityObj.gallery) {
             cityObj.gallery.forEach(item => {
-
+           
               //prepare path
               function preparePath() {
                 let path = ""
 
                 // path for mountains
-                if (voivodeship == "GÓRY") {
+                if (region == "GÓRY") {
                   path = `Góry/Zdjęcia/${item.name}.jpg`
+
+                // path for Europe
+                } else if (europe.includes(region)) {
+                  path = `Świat/${capitalizeName(region)}/${capitalizeName(city)}/Zdjęcia/${item.name}.jpg`
 
                 // path for Kraków
                 } else if (city == 'KRAKÓW') {
                   path = `Kraków/Zdjęcia/${item.catg}/${item.name}.jpg`
 
-                // path for others cities
+                // path for other cities in Poland
                 } else {
-                  path = `Polska/${voivodeship}/${capitalizeCityName(city)}/Zdjęcia/${item.name}.jpg`
+                  path = `Polska/${region}/${capitalizeName(city)}/Zdjęcia/${item.name}.jpg`
                 }
                 return path
               }
@@ -722,14 +728,26 @@
           }
 
           // profile photo
-          if(cityObj.coor && (voivodeship != "GÓRY")) {
+          if(cityObj.coor && (region != "GÓRY")) {
+
+            // prepare path
+            function prepareProfilePath() {
+                let path = ""
+                if (europe.includes(region)) {
+                  path = `Świat/Zdjęcia/${capitalizeName(city)}.jpg`
+                } else {
+                  path = `Polska/Zdjęcia/${capitalizeName(city)}.jpg`
+                }
+                return path
+              }
+
             const newItem = {
               city: city,
               coor: cityObj.coor,
-              catg: cat.profil,
               date: cityObj.date,
               name: cityObj.date,
-              url: `Polska/Zdjęcia/${capitalizeCityName(city)}.jpg`
+              catg: cat.profil,
+              url: prepareProfilePath()
             }
             $citiesArray.push(newItem)
           }
@@ -747,8 +765,8 @@
       if($rangeFilter == "city") {
         $filteredData = $citiesArray.filter(item => $selectCity.value === item.city)
       }
-      if($rangeFilter == "voivodeship") {
-        $filteredData = $filteredData.filter(item => $selectVoivodeship.value === findVoivodeship(item.city))
+      if($rangeFilter == "region") {
+        $filteredData = $filteredData.filter(item => $selectRegion.value === findRegion(item.city))
       } 
 
       // filter by category filter
@@ -777,12 +795,12 @@
       const categoryOrder = Object.values(cat);
 
       array.sort((a, b) => {
-        // sort by voivodesip
-        if (findVoivodeship(a.city) === 'GÓRY' && findVoivodeship(b.city) !== 'GÓRY') return -1;
-        if (findVoivodeship(a.city) !== 'GÓRY' && findVoivodeship(b.city) === 'GÓRY') return 1;
+        // sort by region
+        if (findRegion(a.city) === 'GÓRY' && findRegion(b.city) !== 'GÓRY') return -1;
+        if (findRegion(a.city) !== 'GÓRY' && findRegion(b.city) === 'GÓRY') return 1;
 
-        if (findVoivodeship(a.city) < findVoivodeship(b.city)) return -1
-        if (findVoivodeship(a.city) > findVoivodeship(b.city)) return 1
+        if (findRegion(a.city) < findRegion(b.city)) return -1
+        if (findRegion(a.city) > findRegion(b.city)) return 1
       
         // sort by city
         if (a.city < b.city) return -1
@@ -825,20 +843,20 @@
     }
 
     // @func prepare voidevodeship
-    function prepareVoivodeship(){
-      console.log(`prepareVoivodeship()`)
-      const voivodeships = Object.keys(cities)
+    function prepareRegion(){
+      console.log(`prepareRegion()`)
+      const regions = Object.keys(cities)
 
-      $selectVoivodeship.innerHTML = ""
-      voivodeships.forEach(voidevoship => {
-        createOption($selectVoivodeship, voidevoship, findVoivodeship(startCity))
+      $selectRegion.innerHTML = ""
+      regions.forEach(voidevoship => {
+        createOption($selectRegion, voidevoship, findRegion(startCity))
       });
     }
 
     // @func prepare cities
       function prepareCities(){
-      const newCities = cities[$selectVoivodeship.value]
-      console.log(`prepareCities(${$selectVoivodeship.value})`);
+      const newCities = cities[$selectRegion.value]
+      console.log(`prepareCities(${$selectRegion.value})`);
 
       $selectCity.innerHTML ="";
       Object.keys(newCities).forEach(city => {
@@ -872,13 +890,13 @@
     function setEmblem(city) {
       console.log(`setEmblem(${city})`)
 
-      if($selectVoivodeship.value == "GÓRY" || $rangeFilter != "city") {
+      if($selectRegion.value == "GÓRY" || $rangeFilter != "city") {
         $headerEmblem.classList.add("none")
         return
       } 
       $headerEmblem.classList.remove("none")
-      const voidevodeship = findVoivodeship(city)
-      const capitalizedCity = capitalizeCityName(city)
+      const voidevodeship = findRegion(city)
+      const capitalizedCity = capitalizeName(city)
       const path = `Polska/${voidevodeship}/${capitalizedCity}/${capitalizedCity}.gif`
       $headerEmblem.setAttribute("src", path)
       $headerEmblem.setAttribute("alt", "Herb")
@@ -886,7 +904,7 @@
 
     // @func set cities
     function setCities(){
-      console.log(`setCities(${$selectVoivodeship.value})`);
+      console.log(`setCities(${$selectRegion.value})`);
       prepareCities()
       setEmblem($selectCity.value)
       setMapView()
@@ -995,8 +1013,8 @@
 
         let description = `${item.city}: ${item.name}`
 
-        if (item.catg == cat.profil && findVoivodeship(item.city) != "GÓRY") {
-          description = `${findVoivodeship(item.city)}: ${item.city} ${item.name}`
+        if (item.catg == cat.profil && findRegion(item.city) != "GÓRY") {
+          description = `${findRegion(item.city)}: ${item.city} ${item.name}`
         }
 
         // gallery box
@@ -1218,8 +1236,8 @@
     function setMapView() {
       console.log(`setMapView()`)
       const selectedCity = $selectCity.value
-      const voivodeship = cities[findVoivodeship(selectedCity)]
-      const city = voivodeship[selectedCity]
+      const region = cities[findRegion(selectedCity)]
+      const city = region[selectedCity]
 
       if ($rangeFilter == "none"){
         const centerOfPoland = [52.2159333,19.1344222]
@@ -1229,8 +1247,8 @@
         if ($rangeFilter == "city") {
           $map.setView(...setCoor(city.coor, city.zoom))
 
-        } else if ($rangeFilter == "voivodeship") {
-          $map.setView(...setCoor(voivodeship.coor, voivodeship.zoom))
+        } else if ($rangeFilter == "region") {
+          $map.setView(...setCoor(region.coor, region.zoom))
         }
       }
     }
@@ -1282,8 +1300,8 @@
       })
 
       let tooltipContent = `${city}:\n${name}`
-      if (catg == cat.profil && findVoivodeship(city) != "GÓRY") {
-        tooltipContent = `${findVoivodeship(city)}:\n${city} ${name}`
+      if (catg == cat.profil && findRegion(city) != "GÓRY") {
+        tooltipContent = `${findRegion(city)}:\n${city} ${name}`
       }
 
       const tooltipOptions = { 
@@ -1369,17 +1387,17 @@
 
   // @class TOOLS
 
-    // @func find voivodeship
-    function findVoivodeship(city) {
-      for (let voivodeship in cities) {
-        if (city in cities[voivodeship]) {
-          return voivodeship
+    // @func find region
+    function findRegion(city) {
+      for (let region in cities) {
+        if (city in cities[region]) {
+          return region
         }
       }
     }
 
     // @func capitalize name of city
-    function capitalizeCityName(city) {
+    function capitalizeName(city) {
       return city.toLowerCase().replace(/(?:^|\s|-)([a-ż])/g, (match) => match.toUpperCase())
     }
 
