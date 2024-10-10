@@ -7,6 +7,12 @@ const cat = {
   culture: "Kultura", 
   nature: "Natura", 
 }
+const europe = [
+  "EUROPA", 
+  "WŁOCHY", 
+  "HISZPANIA"
+]
+
 const mapActive = true
 
 const startCity = "KRAKÓW"
@@ -190,11 +196,11 @@ const cities = {
     coor: [40.4134960,-3.7133789], 
     zoom: 7, 
     "Barcelona" : 
-    {coor: [41.3926504,2.1445656], zoom: 13, date: [2019], gallery: [
+    {coor: [41.3707783,2.1699607], zoom: 13, date: [2019], gallery: [
       {coor: [41.3796303,2.1796757], catg: cat.religion, name: 'Bazylika La Merce', date: [2019]},
     ]},
     "Walencja" : 
-    {coor: [39.4735746,-0.3766036], zoom: 13, date: [2019], gallery: []},
+    {coor: [39.4589143,-0.3568089], zoom: 13, date: [2019], gallery: []},
   },
 
   // @sup Dolnośląskie

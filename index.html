@@ -558,6 +558,8 @@
     // mobile
     const $isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
+
+
   // @class LISTENERS
   //
     // window
@@ -678,9 +680,7 @@
     function prepareData() {
       console.log("prepareData()")
       $citiesArray = []
-
-      const europe = ["EUROPA", "WŁOCHY", "HISZPANIA"]
-    
+         
       for (const region in cities) {
         for (const city in cities[region]) {
           const cityObj = cities[region][city]
@@ -842,7 +842,7 @@
       $isMenuOpen = !$isMenuOpen
     }
 
-    // @func prepare voidevodeship
+    // @func prepare region
     function prepareRegion(){
       console.log(`prepareRegion()`)
       const regions = Object.keys(cities)
@@ -895,9 +895,16 @@
         return
       } 
       $headerEmblem.classList.remove("none")
-      const voidevodeship = findRegion(city)
+      const region = findRegion(city)
+      const capitalizedRegion = capitalizeName(region)
       const capitalizedCity = capitalizeName(city)
-      const path = `Polska/${voidevodeship}/${capitalizedCity}/${capitalizedCity}.gif`
+
+      let path = ""
+      if (europe.includes(region)) {
+        path = `Świat/${capitalizedRegion}/${capitalizedCity}/${capitalizedCity}.gif`
+      } else {
+        path = `Polska/${capitalizedRegion}/${capitalizedCity}/${capitalizedCity}.gif`
+      }
       $headerEmblem.setAttribute("src", path)
       $headerEmblem.setAttribute("alt", "Herb")
     }
