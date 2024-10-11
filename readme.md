@@ -1,6 +1,6 @@
 # Podróże
 
-Projekt ten ma na celu stworzenie interaktywnej mapy z możliwością przeglądania różnych miejsc w Polsce. 
+Projekt ten ma na celu stworzenie interaktywnej mapy z możliwością przeglądania różnych miejsc na świecie. 
 
 Aplikację można przetestować pod adresem: **[https://fikasp.github.io/travels](https://fikasp.github.io/travels)**
 
