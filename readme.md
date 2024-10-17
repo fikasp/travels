@@ -42,4 +42,4 @@ Projekt wykorzystuje HTML, CSS i JavaScript do interakcji mapy oraz obsługi fil
 
 Jeśli masz pytania lub sugestie skontaktuj się ze mną pod adresem [fikasp@gmail.com](mailto:fikasp@gmail.com).
 
-Dziękuję za korzystanie z mojej interaktywnej mapy!
+Dziękuję za korzystanie z mojej interaktywnej mapy! :)
