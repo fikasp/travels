@@ -1,10 +1,14 @@
 import os
 import glob
 import xml.etree.ElementTree as ET
+import locale
 
 def main():
     # print header
-    print("GPXsort 1.0.0")
+    print("GPXsort 1.0.1")
+
+    # set locale
+    locale.setlocale(locale.LC_COLLATE, "pl_PL.UTF-8")
 
     # path to application directory
     path = os.path.dirname(os.path.abspath(__file__))
@@ -35,7 +39,7 @@ def main():
     waypoints = root.findall('.//wpt')
 
     # sort waypoints by name
-    waypoints.sort(key=lambda wpt: wpt.find('name').text)
+    waypoints.sort(key=lambda wpt: locale.strxfrm(wpt.find('name').text))
 
     # create a copy of sorted waypoints
     sorted_waypoints = waypoints.copy()

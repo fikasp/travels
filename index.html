@@ -252,7 +252,7 @@
         align-items: center;
         position: absolute;
         height: 100%;
-        font-size: 36px;
+        font-size: 30px;
         text-shadow: 0 0 3px #000;
         color: #888;
         transition: 1s;
@@ -263,12 +263,12 @@
           text-shadow: 0 0 20px var(--accent);
         }
       .photo_next {
-        right: -40px;
+        right: 10px;
         top: 0px;
         padding: 0 10px 0 90px;
       }
       .photo_previous {
-        left: -40px;
+        left: 10px;
         top: 0px;
         padding: 0 90px 0 10px;
       }
@@ -328,12 +328,6 @@
         .photo_image {
           max-width: calc(100vw - 30px);
         }
-        .photo_next {
-          right: 0px;
-        }
-        .photo_previous {
-          left: 0px;
-        }
       }
       @media (max-width: 600px) {
         .photo_group {
@@ -341,9 +335,6 @@
         }
         .photo_image {
           max-width: 100vw;
-        }
-        .photo_arrow {
-          font-size: 30px;
         }
       }
 
@@ -487,12 +478,12 @@
   <div class="photo none">
     <!-- arrow close -->
     <div class="photo_arrow photo_close"><i class="fa-solid fa-xmark"></i></div>
+    <!-- arrow previous -->
+    <div class="photo_arrow photo_previous"><i class="fa-solid fa-angle-left"></i></div>
+    <!-- arrow next -->
+    <div class="photo_arrow photo_next"><i class="fa-solid fa-angle-right"></i></div>
     <!-- photo group-->
     <div class="photo_group">
-      <!-- arrow previous -->
-      <div class="photo_arrow photo_previous"><i class="fa-solid fa-angle-left"></i></div>
-      <!-- arrow next -->
-      <div class="photo_arrow photo_next"><i class="fa-solid fa-angle-right"></i></div>
       <!-- image -->
       <img class="photo_image" draggable="false">
       <!-- name -->
