@@ -1,4 +1,5 @@
-<!-- @sup HEAD -->
+<!-- @sup HEAD 
+-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,9 +16,11 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
   <script src="index.js"></script>
 
-  <!-- @sup STYLE -->
+  <!-- @sup STYLE 
+  -->
   <style>
-    /* @sub general */
+    /* @sub general 
+    */
     * {
       margin: 0;
       padding: 0;
@@ -48,7 +51,8 @@
       --marginTop: 0px;
     }
 
-    /* @sub header */
+    /* @sub header 
+    */
     .header {
       z-index: 2000;
       background-color: black;
@@ -143,7 +147,8 @@
         left: 0;
       }
 
-    /* @sub gallery */
+    /* @sub gallery 
+    */
     .gallery {
       z-index: 1000;
       position: fixed;
@@ -233,7 +238,8 @@
         width: 50%;
       }
 
-    /* @sub photo */
+    /* @sub photo 
+    */
     .photo {
       display: flex;
       justify-content: center;
@@ -330,7 +336,8 @@
         }
       }
 
-    /* @sub map */
+    /* @sub map 
+    */
     .map {
       width: 100%;
       min-height: 100vh;
@@ -346,7 +353,8 @@
       display: none;
     }
 
-    /* @sub markers */
+    /* @sub markers 
+    */
     .marker {
       box-shadow: 0px 0px 2px 1px #666;
       border: 1px solid gray;
@@ -381,7 +389,8 @@
         border-bottom-color: #222 !important;
       }
 
-    /* @sub display */
+    /* @sub display 
+    */
     .none {
       display: none;
     }
@@ -410,7 +419,8 @@
 </head>
 
 <body>
-  <!-- @sup HTML -->
+  <!-- @sup HTML 
+  -->
 
   <!-- emblem -->
   <img class="header_emblem">
@@ -458,11 +468,13 @@
     </div>
   </div>
 
-  <!-- @sub GALLERY -->
+  <!-- @sub GALLERY 
+  -->
   <div class="gallery none"></div>
   <div class="gallery_background none"></div>
 
-  <!-- @sub PHOTO -->
+  <!-- @sub PHOTO 
+  -->
   <div class="photo none">
     <!-- arrow close -->
     <div class="photo_arrow photo_close"><i class="fa-solid fa-xmark"></i></div>
@@ -479,7 +491,8 @@
     <div class="photo_name"></div>
   </div>
 
-  <!-- @sub MAP -->
+  <!-- @sub MAP 
+  -->
   <div class="map" id="map"></div>
 
   <script>
@@ -668,25 +681,24 @@
             
                 //prepare path
                 function preparePath() {
-                  let path = ""
+                  const capitalizedCity = capitalizeName(city)
 
                   // path for mountains
-                  if (range == "GÓRY") {
-                    path = `Góry/Zdjęcia/${item.name}.jpg`
+                  if (range == ranges.mountains) {
+                    return `Góry/${region}/${capitalizedCity}/Zdjęcia/${item.name}.jpg`
 
-                  // path for Europe
-                  } else if (range == "ŚWIAT") {
-                    path = `Świat/${capitalizeName(region)}/${capitalizeName(city)}/Zdjęcia/${item.name}.jpg`
+                  // path for world
+                  } else if (range == ranges.world) {
+                    return `Świat/${region}/${capitalizedCity}/Zdjęcia/${item.name}.jpg`
 
                   // path for Kraków
                   } else if (city == 'KRAKÓW') {
-                    path = `Kraków/Zdjęcia/${item.catg}/${item.name}.jpg`
+                    return `Kraków/Zdjęcia/${item.catg}/${item.name}.jpg`
 
                   // path for other cities in Poland
                   } else {
-                    path = `Polska/${region}/${capitalizeName(city)}/Zdjęcia/${item.name}.jpg`
+                    return `Polska/${region}/${capitalizedCity}/Zdjęcia/${item.name}.jpg`
                   }
-                  return path
                 }
 
                 const newItem = {
@@ -707,16 +719,16 @@
             }
 
             // profile photo
-            if(cityObj.coor && (region != "GÓRY")) {
+            if(cityObj.coor) {
 
               // prepare path
               function prepareProfilePath() {
                   let path = ""
-                  if (range == "GÓRY") {
+                  if (range == ranges.mountains) {
                     path = `Góry/Zdjęcia/${capitalizeName(city)}.jpg`
-                  } else if (range == "ŚWIAT") {
+                  } else if (range == ranges.world) {
                     path = `Świat/Zdjęcia/${capitalizeName(city)}.jpg`
-                  } else  {
+                  } else if (range == ranges.poland)  {
                     path = `Polska/Zdjęcia/${capitalizeName(city)}.jpg`
                   }
                   return path
@@ -907,25 +919,26 @@
     // @func set emblem
     function setEmblem() {
       console.log(`setEmblem(${$selectCity.value})`)
-
-      if($selectRange.value == "GÓRY" || $selectCity.value == cat.all) {
+   
+      if($selectRange.value == ranges.mountains || $selectCity.value == cat.all) {
         $headerEmblem.classList.add("none")
-        return
-      } 
-      $headerEmblem.classList.remove("none")
-      const range = findRange($selectCity.value)
-      const region = findRegion($selectCity.value)
-      const capitalizedRegion = capitalizeName(region)
-      const capitalizedCity = capitalizeName($selectCity.value)
 
-      let path = ""
-      if (range == "ŚWIAT") {
-        path = `Świat/${capitalizedRegion}/${capitalizedCity}/${capitalizedCity}.gif`
       } else {
-        path = `Polska/${capitalizedRegion}/${capitalizedCity}/${capitalizedCity}.gif`
+        $headerEmblem.classList.remove("none")
+          
+        const capitalizedCity = capitalizeName($selectCity.value)
+        const capitalizedRegion = capitalizeName($selectRegion.value)
+        
+        let path = ""
+        if ($selectRange.value == ranges.world) {
+          path = `Świat/${capitalizedRegion}/${capitalizedCity}/${capitalizedCity}.gif`
+
+        } else if ($selectRange.value == ranges.poland) {
+          path = `Polska/${capitalizedRegion}/${capitalizedCity}/${capitalizedCity}.gif`
+        }
+        $headerEmblem.setAttribute("src", path)
+        $headerEmblem.setAttribute("alt", "Herb")
       }
-      $headerEmblem.setAttribute("src", path)
-      $headerEmblem.setAttribute("alt", "Herb")
     }
 
     // @func set title
@@ -1046,10 +1059,6 @@
       $filteredData.forEach(item => {
 
         let description = `${item.city}: ${item.name}`
-
-        // if (item.catg == cat.profil && findRegion(item.city) != "GÓRY") {
-        //   description = `${findRegion(item.city)}: ${item.city} ${item.name}`
-        // }
 
         // gallery box
         const box = document.createElement("div")
@@ -1271,9 +1280,9 @@
       console.log(`setMapView()`)
 
       if($selectRegion.value == cat.all) {
-        if ($selectRange.value == "GÓRY") {
-          $map.setView(...setCoor([49.5501618,19.9264526], 10)) 
-        } else if ($selectRange.value == "POLSKA") {
+        if ($selectRange.value == ranges.mountains) {
+          $map.setView(...setCoor([50.0616779, 19.9373317], 8)) 
+        } else if ($selectRange.value == ranges.poland) {
           $map.setView(...setCoor([52.2159333,19.1344222], 7)) 
         } else {
           $map.setView(...setCoor([46.7248004,9.2504883], 6)) 
@@ -1336,9 +1345,6 @@
       })
 
       let tooltipContent = `${city}:\n${name}`
-      // if (catg == cat.profil && findRegion(city) != "GÓRY") {
-      //   tooltipContent = `${findRegion(city)}:\n${city} ${name}`
-      // }
 
       const tooltipOptions = { 
         className: 'marker-tooltip',

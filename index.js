@@ -8,12 +8,33 @@ const cat = {
   culture: "Kultura", 
   nature: "Natura", 
 }
+const ranges = {
+  mountains: "GÓRY",
+  poland: "POLSKA",
+  world: "EUROPA"
+}
 const startCity = "KRAKÓW"
 const mapActive = true
 
 const data = {
   // @sup GÓRY
-  "GÓRY": {
+  [ranges.mountains]: {
+    // @sub Beskid Wyspowy
+    "Beskid Wyspowy" : {
+      coor: [49.6882885,20.1914978], 
+      zoom: 12, 
+      "Ciecień" : 
+        {coor: [49.7735737,20.1426816], zoom: 15, date: [2023], gallery: []},
+    },
+    // @sub Sudety
+    "Sudety" : {
+      coor: [50.6133103,16.0297394], 
+      zoom: 11, 
+      "Szczeliniec Wielki" : 
+        {coor: [50.4848045,16.3410258], zoom: 16, date: [2023], gallery: [
+          {coor: [50.4809883,16.3398081], catg: cat.nature, name: 'Wejście', date: [2023]}
+        ]},
+    },
     // "Tatry Wysokie" : 
     // {coor: [49.2121026,20.0493622], zoom: 13, gallery: [
     //   {coor: [49.2590247,20.0765276], catg: cat.profil, name: 'Gęsia Szyja 2024', date: [2024]},
@@ -135,12 +156,7 @@ const data = {
     //     {coor: [49.6342717,18.8131857], catg: cat.profil, name: 'Soszów Wielki 2010', date: [2010]},
     //     {coor: [49.6055095,18.8231206], catg: cat.profil, name: 'Stożek Wielki 2010', date: [2010]},
     //   ]},
-    "Beskid Wyspowy" : {
-      coor: [49.6882885,20.1914978], 
-      zoom: 12, 
-      "Ciecień" : 
-        {coor: [49.7735737,20.1426816], zoom: 15, date: [2023], gallery: []},
-    },
+    // "Beskid Wyspowy" :  
       // gallery: [
       //   {coor: [49.7735737,20.1426816], catg: cat.profil, name: 'Ciecień 2020', date: [2020]},
       //   {coor: [49.6887536,20.1914388], catg: cat.profil, name: 'Ćwilin 2024', date: [2024]},
@@ -151,7 +167,6 @@ const data = {
       //   {coor: [49.6552452,20.2767169], catg: cat.profil, name: 'Mogielica 2017', date: [2017]},
       //   {coor: [49.6884274,20.0104594], catg: cat.profil, name: 'Szczebel 2008', date: [2008]},
       //   {coor: [49.7159613,20.1781511], catg: cat.profil, name: 'Śnieżnica 2020', date: [2020]},
-
       // ]},
     // "Beskid Żywiecki" : 
     //   {coor: [49.5087143,19.2868423], zoom: 12, gallery: [
@@ -183,16 +198,9 @@ const data = {
     //   {coor: [50.8915834,20.8966398], zoom: 13, gallery: [
     //     {coor: [50.8915834,20.8966398], catg: cat.profil, name: 'Łysica 2013', date: [2013]},
     //   ]},
-    // @sub Sudety
-    "Sudety" : {
-      coor: [50.6133103,16.0297394], 
-      zoom: 11, 
-      "Szczeliniec Wielki" : 
-        {coor: [50.4848045,16.3410258], zoom: 16, date: [2023], gallery: []},
-    },
   },
   // @sup POLSKA
-  "POLSKA": {
+  [ranges.poland]: {
     // @sub Dolnośląskie
     "Dolnośląskie": {
       coor: [50.6790568,16.3600159], 
@@ -1213,8 +1221,8 @@ const data = {
         {coor: [53.9190092,14.2469180], zoom: 14, date: [2016], abbr: "ZSW", gallery: []},
     }           
   },
-  // @sup ŚWIAT
-  "ŚWIAT": {
+  // @sup EUROPA
+  [ranges.world]: {
     // @sub Hiszpania
     "Hiszpania": {
       coor: [40.4134960,-3.7133789], 
