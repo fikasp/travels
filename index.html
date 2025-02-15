@@ -263,12 +263,12 @@
           text-shadow: 0 0 20px var(--accent);
         }
       .photo_next {
-        right: 10px;
+        right: 8px;
         top: 0px;
         padding: 0 10px 0 90px;
       }
       .photo_previous {
-        left: 10px;
+        left: 8px;
         top: 0px;
         padding: 0 90px 0 10px;
       }
@@ -322,14 +322,6 @@
         }
       }
       @media (max-width: 1200px) {
-        .photo_group {
-          max-width: calc(100vw - 30px);
-        }
-        .photo_image {
-          max-width: calc(100vw - 30px);
-        }
-      }
-      @media (max-width: 600px) {
         .photo_group {
           max-width: 100vw;
         }
@@ -437,6 +429,11 @@
         <option class="header_option" value="gallery">Galeria</option>
       </select>
     </div>
+    <!-- Range -->
+    <div class="header_pair">
+      <label class="header_label" for="range">Zakres:</label>
+      <select class="header_select" id="range"></select>
+    </div>
     <!-- Region -->
     <div class="header_pair">
       <label class="header_label" for="region">Rejon:</label>
@@ -446,15 +443,6 @@
     <div class="header_pair">
       <label class="header_label" for="city">Miejsce:</label>
       <select class="header_select" id="city"></select>
-    </div>
-    <!-- Range -->
-    <div class="header_pair">
-      <label class="header_label" for="range">Zakres:</label>
-      <select class="header_select" id="range">
-        <option class="header_option" value="none" >Wszystko</option>
-        <option class="header_option" value="region">Rejon</option>
-        <option class="header_option" value="city" selected>Miejsce</option>
-      </select>
     </div>
     <!-- Category -->
     <div class="header_pair">
@@ -507,10 +495,10 @@
     let $filteredData = [] // table with filtered data    
     // filters
     let $viewMode = "map" // state of view mode
-    let $rangeFilter = "" // state of range filter
-    let $categoryFilter = cat.profil // state of category filter
+    let $categoryFilter = cat.all // state of category filter
     let $dateFilter = cat.all // state of data filter
     // flags
+    let $isInitialRender = true // flag for initial render
     let $isHiglightActive = true // flag for marker higlight activ
     let $isGalleryAndMap = false // flag for gallery and map open
     let $isPhotoClicked = false // flag for photo clicked
@@ -524,7 +512,7 @@
 
   // @class HANDLES
   //
-    const $root = document.querySelector('html');
+    const $root = document.querySelector('html')
     // header
     const $headerDiv = document.querySelector('.header')
     const $headerEmblem = document.querySelector('.header_emblem')
@@ -547,9 +535,7 @@
     const $selectCategory = document.querySelector('#category')
     const $selectDate = document.querySelector('#date')
     // mobile
-    const $isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-
+    const $isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
 
   // @class LISTENERS
   //
@@ -564,8 +550,8 @@
     $headerDiv.addEventListener("touchend", touchend)
     $headerBars.addEventListener('click', showHideMenu)
     $headerEmblem.addEventListener('click', showHideMenu)
-    $selectRegion.addEventListener('change', setCities)
     $selectCity.addEventListener('change', setCity)
+    $selectRegion.addEventListener('change', setRegion)
     $selectRange.addEventListener('change', setRange)
     $selectViewMode.addEventListener('change', setViewMode)
     $selectCategory.addEventListener('change', setCategory)
@@ -582,16 +568,15 @@
   //
     // @func main
     function main() {
-      // console.log(cities)
-      console.log(mapRegions(cities))
+      console.log(data)
+      // console.log(mapRegions(data[$selectRange.value]))
       console.log("main()")
       changeMargin()
       prepareMap()
       prepareData()
       prepareDates()
       prepareCategories()
-      prepareRegion()
-      prepareCities()
+      prepareRanges()
       setRange()
     }
 
@@ -671,76 +656,84 @@
     function prepareData() {
       console.log("prepareData()")
       $citiesArray = []
-         
-      for (const region in cities) {
-        for (const city in cities[region]) {
-          const cityObj = cities[region][city]
 
-          // gallery photos
-          if(cityObj.gallery) {
-            cityObj.gallery.forEach(item => {
-           
-              //prepare path
-              function preparePath() {
-                let path = ""
+      for (const range in data) {
+        for (const region in data[range]) {
+          for (const city in data[range][region]) {
+            const cityObj = data[range][region][city]
 
-                // path for mountains
-                if (region == "GÓRY") {
-                  path = `Góry/Zdjęcia/${item.name}.jpg`
+            // gallery photos
+            if(cityObj.gallery) {
+              cityObj.gallery.forEach(item => {
+            
+                //prepare path
+                function preparePath() {
+                  let path = ""
 
-                // path for Europe
-                } else if (europe.includes(region)) {
-                  path = `Świat/${capitalizeName(region)}/${capitalizeName(city)}/Zdjęcia/${item.name}.jpg`
+                  // path for mountains
+                  if (range == "GÓRY") {
+                    path = `Góry/Zdjęcia/${item.name}.jpg`
 
-                // path for Kraków
-                } else if (city == 'KRAKÓW') {
-                  path = `Kraków/Zdjęcia/${item.catg}/${item.name}.jpg`
+                  // path for Europe
+                  } else if (range == "ŚWIAT") {
+                    path = `Świat/${capitalizeName(region)}/${capitalizeName(city)}/Zdjęcia/${item.name}.jpg`
 
-                // path for other cities in Poland
-                } else {
-                  path = `Polska/${region}/${capitalizeName(city)}/Zdjęcia/${item.name}.jpg`
+                  // path for Kraków
+                  } else if (city == 'KRAKÓW') {
+                    path = `Kraków/Zdjęcia/${item.catg}/${item.name}.jpg`
+
+                  // path for other cities in Poland
+                  } else {
+                    path = `Polska/${region}/${capitalizeName(city)}/Zdjęcia/${item.name}.jpg`
+                  }
+                  return path
                 }
-                return path
-              }
+
+                const newItem = {
+                  city: city,
+                  region: region,
+                  range: range,
+                  coor: item.coor,
+                  catg: item.catg,
+                  date: item.date,
+                  name: item.name,
+                  url: preparePath()
+                }
+                if (item.top) {
+                  newItem.top = item.top
+                }
+                $citiesArray.push(newItem)
+              })
+            }
+
+            // profile photo
+            if(cityObj.coor && (region != "GÓRY")) {
+
+              // prepare path
+              function prepareProfilePath() {
+                  let path = ""
+                  if (range == "GÓRY") {
+                    path = `Góry/Zdjęcia/${capitalizeName(city)}.jpg`
+                  } else if (range == "ŚWIAT") {
+                    path = `Świat/Zdjęcia/${capitalizeName(city)}.jpg`
+                  } else  {
+                    path = `Polska/Zdjęcia/${capitalizeName(city)}.jpg`
+                  }
+                  return path
+                }
 
               const newItem = {
                 city: city,
-                coor: item.coor,
-                catg: item.catg,
-                date: item.date,
-                name: item.name,
-                url: preparePath()
-              }
-              if (item.top) {
-                newItem.top = item.top
+                region: region,
+                range: range,
+                coor: cityObj.coor,
+                date: cityObj.date,
+                name: cityObj.date,
+                catg: cat.profil,
+                url: prepareProfilePath()
               }
               $citiesArray.push(newItem)
-            })
-          }
-
-          // profile photo
-          if(cityObj.coor && (region != "GÓRY")) {
-
-            // prepare path
-            function prepareProfilePath() {
-                let path = ""
-                if (europe.includes(region)) {
-                  path = `Świat/Zdjęcia/${capitalizeName(city)}.jpg`
-                } else {
-                  path = `Polska/Zdjęcia/${capitalizeName(city)}.jpg`
-                }
-                return path
-              }
-
-            const newItem = {
-              city: city,
-              coor: cityObj.coor,
-              date: cityObj.date,
-              name: cityObj.date,
-              catg: cat.profil,
-              url: prepareProfilePath()
             }
-            $citiesArray.push(newItem)
           }
         }
       }
@@ -752,13 +745,14 @@
       // get data from original array
       $filteredData = $citiesArray
 
-      // filter by range filter
-      if($rangeFilter == "city") {
+      // filter by range
+      if ($selectRegion.value == cat.all) {
+        $filteredData = $filteredData.filter(item => $selectRange.value === item.range)
+      } else if ($selectCity.value == cat.all) {
+        $filteredData = $filteredData.filter(item => $selectRegion.value === item.region)
+      } else {
         $filteredData = $citiesArray.filter(item => $selectCity.value === item.city)
       }
-      if($rangeFilter == "region") {
-        $filteredData = $filteredData.filter(item => $selectRegion.value === findRegion(item.city))
-      } 
 
       // filter by category filter
       if($categoryFilter != cat.all) {
@@ -766,7 +760,6 @@
           return item.catg == $categoryFilter
         })
       }
-
       // filter by date filter
       if($dateFilter != cat.all) {
         $filteredData = $filteredData.filter(item => {
@@ -783,34 +776,43 @@
 
     // @func sort data
     function sortData(array) {
-      const categoryOrder = Object.values(cat);
+      const categoryOrder = Object.values(cat)
+      const namePriority = { "zewnętrze": 1, "wnętrze": 2, "organy": 3 }
 
       array.sort((a, b) => {
-        // sort by region
-        if (findRegion(a.city) === 'GÓRY' && findRegion(b.city) !== 'GÓRY') return -1;
-        if (findRegion(a.city) !== 'GÓRY' && findRegion(b.city) === 'GÓRY') return 1;
-
         if (findRegion(a.city) < findRegion(b.city)) return -1
         if (findRegion(a.city) > findRegion(b.city)) return 1
-      
+
         // sort by city
         if (a.city < b.city) return -1
         if (a.city > b.city) return 1
 
         // sort by category
-        const categoryA = categoryOrder.indexOf(a.catg);
-        const categoryB = categoryOrder.indexOf(b.catg);
-        if (categoryA < categoryB) return -1;
-        if (categoryA > categoryB) return 1;
+        const categoryA = categoryOrder.indexOf(a.catg)
+        const categoryB = categoryOrder.indexOf(b.catg)
+        if (categoryA < categoryB) return -1
+        if (categoryA > categoryB) return 1
 
-        // sort by name
-        if (a.name < b.name) return -1
-        if (a.name > b.name) return 1
+        // sort by basilica name (everything before the last "/")
+        const baseNameA = a.name.substring(0, a.name.lastIndexOf("/"))
+        const baseNameB = b.name.substring(0, b.name.lastIndexOf("/"))
 
-        return 0
+        if (baseNameA < baseNameB) return -1
+        if (baseNameA > baseNameB) return 1
+
+        // sort by name priority inside the same basilica
+        const suffixA = a.name.substring(a.name.lastIndexOf("/") + 1).toLowerCase()
+        const suffixB = b.name.substring(b.name.lastIndexOf("/") + 1).toLowerCase()
+
+        const priorityA = namePriority[suffixA] || 4
+        const priorityB = namePriority[suffixB] || 4
+
+        return priorityA - priorityB
       })
+
       return array
     }
+
     
     // @func update data
     function updateData() {
@@ -825,73 +827,99 @@
 
     // @func show hide menu
     function showHideMenu() {
-      console.log("showHideMenu()");
+      console.log("showHideMenu()")
       $headerDiv.classList.toggle('hide')
       $photoGroup.classList.toggle('top')
       $photoImage.classList.toggle('top')
       $gallery.classList.toggle('top')
       $isMenuOpen = !$isMenuOpen
     }
+    
+    // @func prepare ranges
+      function prepareRanges(){
+      console.log(`prepareRange()`)
+      const ranges = Object.keys(data)
 
-    // @func prepare region
-    function prepareRegion(){
-      console.log(`prepareRegion()`)
-      const regions = Object.keys(cities)
+      $selectRange.innerHTML = ""
+      const selectedRange = $isInitialRender ? findRange(startCity) : null
+      ranges.forEach(range => {
+        createOption($selectRange, range, selectedRange)
+      })
+    }
+
+    // @func prepare regions
+    function prepareRegions(){
+      console.log(`prepareRegions(${$selectRange.value})`)
+      const regions = Object.keys(data[$selectRange.value])
 
       $selectRegion.innerHTML = ""
-      regions.forEach(voidevoship => {
-        createOption($selectRegion, voidevoship, findRegion(startCity))
-      });
+      createOption($selectRegion, cat.all)
+
+      const selectedRegion = $isInitialRender ? findRegion(startCity) : null
+      regions.forEach(region => {
+        createOption($selectRegion, region, selectedRegion)
+      })
     }
 
     // @func prepare cities
       function prepareCities(){
-      const newCities = cities[$selectRegion.value]
-      console.log(`prepareCities(${$selectRegion.value})`);
 
-      $selectCity.innerHTML ="";
+      if($selectRegion.value == cat.all) {
+        $selectCity.innerHTML =""
+        createOption($selectCity, cat.all)
+        return
+      }
+
+      const newCities = data[$selectRange.value][$selectRegion.value]
+      console.log(`prepareCities(${$selectRegion.value})`)
+
+      $selectCity.innerHTML =""
+      createOption($selectCity, cat.all)
+
+      const selectedCity = $isInitialRender ? startCity : null
       Object.keys(newCities).forEach(city => {
         if (city !== "coor" && city !== "zoom") {
-          createOption($selectCity, city, startCity)
+          createOption($selectCity, city, selectedCity)
         }
-      });
-      // document.title = $selectCity.value
+      })
+      $isInitialRender = false
     }
 
       // @func prepare categories
       function prepareCategories() {
-      console.log("prepareCategories()");
+      console.log("prepareCategories()")
 
       Object.values(cat).forEach(category => {
-        createOption($selectCategory, category)
+        createOption($selectCategory, category, $categoryFilter)
       })
     }
 
       // @func prepare dates
       function prepareDates() {
-      console.log("prepareDates()");
+      console.log("prepareDates()")
 
       createOption($selectDate, cat.all)
-      for (let year = 2024; year >= 2007; year-- ) {
-        createOption($selectDate, year)
+      for (let year = 2025; year >= 2007; year-- ) {
+        createOption($selectDate, year, $dateFilter)
       }
     }
 
     // @func set emblem
-    function setEmblem(city) {
-      console.log(`setEmblem(${city})`)
+    function setEmblem() {
+      console.log(`setEmblem(${$selectCity.value})`)
 
-      if($selectRegion.value == "GÓRY" || $rangeFilter != "city") {
+      if($selectRange.value == "GÓRY" || $selectCity.value == cat.all) {
         $headerEmblem.classList.add("none")
         return
       } 
       $headerEmblem.classList.remove("none")
-      const region = findRegion(city)
+      const range = findRange($selectCity.value)
+      const region = findRegion($selectCity.value)
       const capitalizedRegion = capitalizeName(region)
-      const capitalizedCity = capitalizeName(city)
+      const capitalizedCity = capitalizeName($selectCity.value)
 
       let path = ""
-      if (europe.includes(region)) {
+      if (range == "ŚWIAT") {
         path = `Świat/${capitalizedRegion}/${capitalizedCity}/${capitalizedCity}.gif`
       } else {
         path = `Polska/${capitalizedRegion}/${capitalizedCity}/${capitalizedCity}.gif`
@@ -900,39 +928,47 @@
       $headerEmblem.setAttribute("alt", "Herb")
     }
 
-    // @func set cities
-    function setCities(){
-      console.log(`setCities(${$selectRegion.value})`);
-      prepareCities()
-      setEmblem($selectCity.value)
+    // @func set title
+    function setTitle() {      
+      let title = ""
+      if ($selectRegion.value == cat.all) {
+        title = $selectRange.value
+      } else if ($selectCity.value == cat.all) {
+        title = $selectRegion.value
+      } else {
+        title = $selectCity.value
+      }
+      document.title = title
+      console.log(`setTitle(${title})`)
+    }
+    // @func set city
+    function setCity() {
+      console.log(`setCity(${$selectCity.value})`)
+      setEmblem()
+      setTitle()
       setMapView()
       updateData()
     }
 
-    // @func set city
-    function setCity() {
-      console.log(`setCity(${$selectCity.value})`)
-      // document.title = $selectCity.value
-
-      setEmblem($selectCity.value)
-      if ($rangeFilter == "city") {
-        setMapView()
-      }
+    // @func set region
+    function setRegion(){
+      console.log(`setRegion(${$selectRegion.value})`)
+      prepareCities()
+      setEmblem()
+      setTitle()
+      setMapView()
       updateData()
     }
 
     // @func set range
     function setRange() {
-      $rangeFilter = $selectRange.value
-      console.log(`setRange(${$rangeFilter})`)
-      
+      console.log(`setRange(${$selectRange.value})`)
+      prepareRegions()
+      prepareCities()
+      setEmblem()
+      setTitle()
       setMapView()
-      setEmblem($selectCity.value)
-      if ($rangeFilter == "city") {
-        setCategory(cat.all)
-      } else {
-        setCategory(cat.profil)
-      }
+      updateData()
     }
 
     // @func set view mode
@@ -961,7 +997,7 @@
           classRemove('hide')
           classRemove('show')
           classAdd('none')
-        }, 400);
+        }, 400)
 
       } else if ($viewMode == "map&gallery"){
         $isGalleryAndMap = true
@@ -970,7 +1006,7 @@
         classAdd('half')
         setTimeout(() => {
           $isHiglightActive = true
-        }, 1000);
+        }, 1000)
 
       } else if ($viewMode == "gallery") {
         $isGalleryAndMap = false
@@ -1003,7 +1039,7 @@
 
     // @func prepare gallery
     function prepareGallery() {
-      console.log("prepareGallery()");
+      console.log("prepareGallery()")
       //clear gallery
       $gallery.innerHTML = ""
       // create imgs for filtered table
@@ -1011,9 +1047,9 @@
 
         let description = `${item.city}: ${item.name}`
 
-        if (item.catg == cat.profil && findRegion(item.city) != "GÓRY") {
-          description = `${findRegion(item.city)}: ${item.city} ${item.name}`
-        }
+        // if (item.catg == cat.profil && findRegion(item.city) != "GÓRY") {
+        //   description = `${findRegion(item.city)}: ${item.city} ${item.name}`
+        // }
 
         // gallery box
         const box = document.createElement("div")
@@ -1087,7 +1123,7 @@
       console.log("showPresentation()")
 
       showPhoto(0)
-      $index = 0;
+      $index = 0
 
       $photo.classList.remove("none")
       $photo.classList.add("show")
@@ -1099,7 +1135,7 @@
           clearInterval($interval)
           hidePhoto(e)
         }
-      }, 3000);
+      }, 3000)
     }
 
     // @func show clicked box
@@ -1152,12 +1188,12 @@
       let imgID = e.target.id
 
       showPhoto(imgID)
-      $index = imgID;
+      $index = imgID
 
       setTimeout(() => {
         $photo.classList.remove("none")
         $photo.classList.add("show")
-      },100);
+      },100)
 
       console.log(`showSelectedPhoto(${$index})`)
     }
@@ -1196,14 +1232,14 @@
         $photo.classList.add("none")
         $photo.classList.remove("show")
         $photo.classList.remove("hide")
-      }, 400);
+      }, 400)
     }
 
   // @class MAP
 
     // @func prepare map
     function prepareMap() {
-      console.log("prepareMap()");
+      console.log("prepareMap()")
       // leaflet map view
       $map = L.map('map')
       // add leaflet openstreetmap
@@ -1213,8 +1249,8 @@
   
       // remove zoom controls
       const zoomControl = L.control.zoom()
-      zoomControl.addTo($map);
-      $map.removeControl(zoomControl);
+      zoomControl.addTo($map)
+      $map.removeControl(zoomControl)
 
       // keyboard disabled
       $map.keyboard.disable()
@@ -1233,21 +1269,23 @@
     // @func set map view
     function setMapView() {
       console.log(`setMapView()`)
-      const selectedCity = $selectCity.value
-      const region = cities[findRegion(selectedCity)]
-      const city = region[selectedCity]
 
-      if ($rangeFilter == "none"){
-        const centerOfPoland = [52.2159333,19.1344222]
-        $map.setView(...setCoor(centerOfPoland, 7))
-
-      } else if (city.coor) {
-        if ($rangeFilter == "city") {
-          $map.setView(...setCoor(city.coor, city.zoom))
-
-        } else if ($rangeFilter == "region") {
-          $map.setView(...setCoor(region.coor, region.zoom))
+      if($selectRegion.value == cat.all) {
+        if ($selectRange.value == "GÓRY") {
+          $map.setView(...setCoor([49.5501618,19.9264526], 10)) 
+        } else if ($selectRange.value == "POLSKA") {
+          $map.setView(...setCoor([52.2159333,19.1344222], 7)) 
+        } else {
+          $map.setView(...setCoor([46.7248004,9.2504883], 6)) 
         }
+
+      } else if($selectCity.value == cat.all) {
+        const region = data[$selectRange.value][$selectRegion.value]
+        $map.setView(...setCoor(region.coor, region.zoom))
+
+      } else {
+        const city = data[$selectRange.value][$selectRegion.value][$selectCity.value]
+        $map.setView(...setCoor(city.coor, city.zoom))
       }
     }
 
@@ -1255,7 +1293,7 @@
     function setCoor(coor, zoom) {
       if ($isGalleryAndMap) {
         const mapZoom = $map.getZoom()
-        const mapPoint = $map.latLngToContainerPoint(coor);
+        const mapPoint = $map.latLngToContainerPoint(coor)
         const scale = Math.pow(2, zoom - mapZoom)
         const width = window.innerWidth
         const shift = ( window.innerWidth / 4 ) / scale
@@ -1271,7 +1309,7 @@
 
     // @func prepare markers
     function prepareMarkers() {
-      console.log("prepareMarkers()");
+      console.log("prepareMarkers()")
 
       // remove all markers from map
       $markers.forEach(marker => $map.removeLayer(marker))
@@ -1298,16 +1336,16 @@
       })
 
       let tooltipContent = `${city}:\n${name}`
-      if (catg == cat.profil && findRegion(city) != "GÓRY") {
-        tooltipContent = `${findRegion(city)}:\n${city} ${name}`
-      }
+      // if (catg == cat.profil && findRegion(city) != "GÓRY") {
+      //   tooltipContent = `${findRegion(city)}:\n${city} ${name}`
+      // }
 
       const tooltipOptions = { 
         className: 'marker-tooltip',
         direction: 'bottom',
         offset: [0,42],
         opacity: 0.8,
-      };
+      }
 
       // marker
       const marker = L.marker(coor, {icon: icon}).addTo($map)
@@ -1341,7 +1379,7 @@
       if ($isHiglightActive) {
         const id = e.target.id
         const marker = $markers[id]
-        marker.setZIndexOffset(100);
+        marker.setZIndexOffset(100)
         updateMarkerSize(marker, 2)
       }
     }
@@ -1385,11 +1423,24 @@
 
   // @class TOOLS
 
+    // @func find range
+    function findRange(city) {
+      for (const range in data) {
+        for (const region in data[range]) {
+          if (city in data[range][region]) {
+            return range
+          }
+        }
+      }
+    }
+  
     // @func find region
     function findRegion(city) {
-      for (let region in cities) {
-        if (city in cities[region]) {
-          return region
+      for (const range in data) {
+        for (const region in data[range]) {
+          if (city in data[range][region]) {
+            return region
+          }
         }
       }
     }
@@ -1418,18 +1469,18 @@
       const newData = {}
 
       for (const [regionName, regionData] of Object.entries(data)) {
-        const { coor, zoom, ...cities } = regionData
+        const { coor, zoom, ...data } = regionData
         const newCities = {}
 
-        for (const [cityName, cityData] of Object.entries(cities)) {
+        for (const [cityName, cityData] of Object.entries(data)) {
           const { abbr, ...rest } = cityData
-          newCities[abbr] = rest;
+          newCities[abbr] = rest
         }
 
         newData[regionName] = { coor, zoom, ...newCities }
       }
 
-      return newData;
+      return newData
     }
 
     // @func debug
