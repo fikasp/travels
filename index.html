@@ -720,12 +720,11 @@
 
             // profile photo
             if(cityObj.coor) {
-
               // prepare path
               function prepareProfilePath() {
                   let path = ""
                   if (range == ranges.mountains) {
-                    path = `Góry/Zdjęcia/${capitalizeName(city)}.jpg`
+                    path = `Góry/Zdjęcia/${capitalizeName(city)} ${cityObj.date[0]}.jpg`
                   } else if (range == ranges.world) {
                     path = `Świat/Zdjęcia/${capitalizeName(city)}.jpg`
                   } else if (range == ranges.poland)  {
@@ -805,16 +804,20 @@
         if (categoryA < categoryB) return -1
         if (categoryA > categoryB) return 1
 
+        // ensure a.name and b.name are valid strings
+        const nameA = typeof a.name === "string" ? a.name : ""
+        const nameB = typeof b.name === "string" ? b.name : ""
+
         // sort by basilica name (everything before the last "/")
-        const baseNameA = a.name.substring(0, a.name.lastIndexOf("/"))
-        const baseNameB = b.name.substring(0, b.name.lastIndexOf("/"))
+        const baseNameA = nameA.substring(0, nameA.lastIndexOf("/")) || nameA
+        const baseNameB = nameB.substring(0, nameB.lastIndexOf("/")) || nameB
 
         if (baseNameA < baseNameB) return -1
         if (baseNameA > baseNameB) return 1
 
         // sort by name priority inside the same basilica
-        const suffixA = a.name.substring(a.name.lastIndexOf("/") + 1).toLowerCase()
-        const suffixB = b.name.substring(b.name.lastIndexOf("/") + 1).toLowerCase()
+        const suffixA = nameA.substring(nameA.lastIndexOf("/") + 1).toLowerCase()
+        const suffixB = nameB.substring(nameB.lastIndexOf("/") + 1).toLowerCase()
 
         const priorityA = namePriority[suffixA] || 4
         const priorityB = namePriority[suffixB] || 4
@@ -1281,7 +1284,7 @@
 
       if($selectRegion.value == cat.all) {
         if ($selectRange.value == ranges.mountains) {
-          $map.setView(...setCoor([50.0616779, 19.9373317], 8)) 
+          $map.setView(...setCoor([50.1029645,19.4293213], 8)) 
         } else if ($selectRange.value == ranges.poland) {
           $map.setView(...setCoor([52.2159333,19.1344222], 7)) 
         } else {

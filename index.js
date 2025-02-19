@@ -13,18 +13,32 @@ const ranges = {
   poland: "POLSKA",
   world: "EUROPA"
 }
-const startCity = "KRAKÓW"
+const startCity = "Gęsia Szyja"
 const mapActive = true
 
 const data = {
   // @sup GÓRY
   [ranges.mountains]: {
+    // @sub Beskid Makowski
+    "Beskid Makowski" : {
+      coor: [49.7212609,19.7503281], 
+      zoom: 12, 
+      "Barnasiówka" : 
+        {coor: [49.8371244,19.8836660], zoom: 15, date: [2018], gallery: []},
+    },
     // @sub Beskid Wyspowy
     "Beskid Wyspowy" : {
       coor: [49.6882885,20.1914978], 
       zoom: 12, 
       "Ciecień" : 
-        {coor: [49.7735737,20.1426816], zoom: 15, date: [2023], gallery: []},
+        {coor: [49.7735737,20.1426816], zoom: 15, date: [2020], gallery: []},
+    },
+    // @sub Pieniny
+    "Pieniny" : {
+      coor: [49.4116433,20.4675293], 
+      zoom: 13, 
+      "Wysoka" : 
+        {coor: [49.3802285,20.5554950], zoom: 15, date: [2014], gallery: []},
     },
     // @sub Sudety
     "Sudety" : {
@@ -35,9 +49,39 @@ const data = {
           {coor: [50.4809883,16.3398081], catg: cat.nature, name: 'Wejście', date: [2023]}
         ]},
     },
+    // @sub Tatry Wysokie
+    "Tatry Wysokie" : {
+      coor: [49.2121026,20.0493622], 
+      zoom: 13, 
+      "Gęsia Szyja" : 
+        {coor: [49.2590247,20.0765276], zoom: 15, date: [2024], gallery: [
+          {coor: [49.2611673,20.0922453], catg: cat.nature, name: 'Rusinowa Polana 1 S', date: [2024]},
+          {coor: [49.2624556,20.0912690], catg: cat.nature, name: 'Rusinowa Polana 2 SE', date: [2024]},
+          {coor: [49.2612373,20.0884044], catg: cat.nature, name: 'Rusinowa Polana 3 N', date: [2024]}
+        ]},
+    },
+    // @sub Tatry Zachodnie
+    "Tatry Zachodnie" : {
+      coor: [49.2377759,19.8749542], 
+      zoom: 13, 
+      "Wołowiec" : 
+        {coor: [49.2075327,19.7630739], zoom: 15, date: [2023], gallery: []},
+    },
+
+    // // @sub Nazwa
+    // "Nazwa" : {
+    //   coor: [0,0], 
+    //   zoom: 10, 
+    //   "Nazwa" : 
+    //     {coor: [0,0], zoom: 15, date: [2025], gallery: [
+    //       {coor: [0,0], catg: cat.nature, name: 'Nazwa', date: [2025]}
+    //     ]},
+    // },
+
+
+    
     // "Tatry Wysokie" : 
     // {coor: [49.2121026,20.0493622], zoom: 13, gallery: [
-    //   {coor: [49.2590247,20.0765276], catg: cat.profil, name: 'Gęsia Szyja 2024', date: [2024]},
     //   {coor: [49.2288156,20.0117040], catg: cat.profil, name: 'Karb 2016', date: [2016]},
     //   {coor: [49.2288156,20.0117040], catg: cat.profil, name: 'Karb 2021', date: [2021]},
     //   {coor: [49.2251791,20.0145686], catg: cat.profil, name: 'Kościelec 2021', date: [2021]},
@@ -1223,6 +1267,15 @@ const data = {
   },
   // @sup EUROPA
   [ranges.world]: {
+    // @sub Austria
+    "Austria" : {
+      coor: [47.6912769,13.2000732], 
+      zoom: 8, 
+      "Wiedeń" : 
+        {coor: [48.1991634,16.3716245], zoom: 13, date: [2019], gallery: [
+          // {coor: [0,0], catg: cat.nature, name: 'Nazwa', date: [2025]}
+        ]},
+    },
     // @sub Hiszpania
     "Hiszpania": {
       coor: [40.4134960,-3.7133789], 
@@ -1257,5 +1310,14 @@ const data = {
       "Walencja" : 
       {coor: [39.4589143,-0.3568089], zoom: 13, date: [2019], gallery: []},
     },
+    // // @sub Nazwa
+    // "Nazwa" : {
+    //   coor: [0,0], 
+    //   zoom: 10, 
+    //   "Nazwa" : 
+    //     {coor: [0,0], zoom: 15, date: [2025], gallery: [
+    //       {coor: [0,0], catg: cat.nature, name: 'Nazwa', date: [2025]}
+    //     ]},
+    // },
   },
 }
