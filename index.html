@@ -257,7 +257,6 @@
         display: flex;
         align-items: center;
         position: absolute;
-        height: 100%;
         font-size: 30px;
         text-shadow: 0 0 3px #000;
         color: #888;
@@ -269,21 +268,35 @@
           text-shadow: 0 0 20px var(--accent);
         }
       .photo_next {
+        height: 100%;
         right: 8px;
         top: 0px;
         padding: 0 10px 0 90px;
       }
       .photo_previous {
+        height: 100%;
         left: 8px;
         top: 0px;
         padding: 0 90px 0 10px;
       }
       .photo_close {
-        height: auto;
-        font-size: 30px;
         padding: 0 6px;
         right: 10px;
         top: 10px;
+        z-index: 100;
+      }
+      .photo_play {
+        font-size: 24px;
+        padding: 0 6px;
+        left: 10px;
+        top: 13px;
+        z-index: 100;
+      }
+      .photo_pause {
+        font-size: 24px;
+        padding: 0 6px;
+        left: 10px;
+        top: 13px;
         z-index: 100;
       }
       .photo_group {
@@ -476,6 +489,10 @@
   <!-- @sub PHOTO 
   -->
   <div class="photo none">
+    <!-- arrow play -->
+    <div class="photo_arrow photo_play"><i class="fa-solid fa-play"></i></div>
+    <!-- arrow pause -->
+    <div class="photo_arrow photo_pause none"><i class="fa-solid fa-pause"></i></div>
     <!-- arrow close -->
     <div class="photo_arrow photo_close"><i class="fa-solid fa-xmark"></i></div>
     <!-- arrow previous -->
@@ -521,7 +538,7 @@
     let $touchStartX // touch start position
     let $touchEndX // touch end position
     let $interval // interval for presentation
-    let $index // index of photo
+    let $index = 0 // index of photo
 
   // @class HANDLES
   //
@@ -540,6 +557,8 @@
     const $photoImage = document.querySelector('.photo_image')
     const $photoPrevious = document.querySelector('.photo_previous')
     const $photoNext = document.querySelector('.photo_next')
+    const $photoPause = document.querySelector('.photo_pause')
+    const $photoPlay = document.querySelector('.photo_play')
     // selects
     const $selectCity = document.querySelector('#city')
     const $selectRegion = document.querySelector('#region')
@@ -574,6 +593,8 @@
     $photo.addEventListener("touchstart", touchstart)
     $photo.addEventListener("touchmove", touchmove)
     $photo.addEventListener("touchend", touchend)
+    $photoPlay.addEventListener("click", togglePresentation)
+    $photoPause.addEventListener("click", togglePresentation)
     $photoPrevious.addEventListener("click", showPreviousPhoto)
     $photoNext.addEventListener("click", showNextPhoto)
 
@@ -610,7 +631,7 @@
         showHideMenu(e)
       }
       if (e.key === "F9") {
-        showPresentation(e)
+        togglePresentation(e)
       }
     }
 
@@ -1130,26 +1151,6 @@
       $isPhotoOpen = true
     }
 
-    // @func show presentation
-    function showPresentation(e) {
-      console.log("showPresentation()")
-
-      showPhoto(0)
-      $index = 0
-
-      $photo.classList.remove("none")
-      $photo.classList.add("show")
-
-      $interval = setInterval(() => {
-        if ($index < $filteredData.length - 1) {
-          showNextPhoto(e)
-        } else {
-          clearInterval($interval)
-          hidePhoto(e)
-        }
-      }, 3000)
-    }
-
     // @func show clicked box
     const showClickedPhoto = (clickedPhoto) => (e) => {  
       console.log(`showClickedPhoto(${clickedPhoto.isClicked})`)  
@@ -1231,11 +1232,44 @@
         showPhoto($index)
       } 
     }
+    
+    // @func toggle presentation
+    function togglePresentation(e) {
+      console.log(`togglePresentation()`)
+
+      if ($interval) {
+        clearInterval($interval)
+        $interval = null
+
+        $photoPause.classList.add("none")
+        $photoPlay.classList.remove("none")
+      } else {
+        showPhoto($index)
+
+        $photo.classList.remove("none")
+        $photo.classList.add("show")
+        $photoPause.classList.remove("none")
+        $photoPlay.classList.add("none")
+
+        $interval = setInterval(() => {
+          if ($index < $filteredData.length - 1) {
+            showNextPhoto(e)
+          } else {
+            $index = 0
+            showPhoto($index)
+          }
+        }, 3000)
+      }
+
+      e?.stopPropagation()
+    }
+
 
     // @func hide photo
     function hidePhoto() {
       console.log("hidePhoto()")
       clearInterval($interval)
+      $interval = null
 
       $isPhotoOpen = false
       $photoName.textContent = ""
@@ -1244,6 +1278,8 @@
         $photo.classList.add("none")
         $photo.classList.remove("show")
         $photo.classList.remove("hide")
+        $photoPlay.classList.remove("none")
+        $photoPause.classList.add("none")
       }, 400)
     }
 
