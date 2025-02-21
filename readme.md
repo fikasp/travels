@@ -10,12 +10,12 @@ Aplikację można przetestować pod adresem: **[https://fikasp.github.io/travels
 
   - **Widok**: Wybór widoku, którym może być "Mapa", "Mapa i galeria" lub "Galeria".
   
-  - **Rejon**: Filtrowanie miejsc według województw lub pasm górskich.
+  - **Zakres**: Opcja określająca, czy mapa ma obejmować całą Europę, Polskę czy też góry.
+
+  - **Rejon**: Filtrowanie miejsc według państw, województw lub pasm górskich.
   
   - **Miejsce**: Wybór konkretnego miasta lub pasma górskiego.
-  
-  - **Zakres**: Opcja określająca, czy filtracja ma obejmować cały kraj, wybrany region czy też miejsce.
-  
+    
   - **Kategoria**: Kategoria, do której przypisane są miejsca na mapie.
   
   - **Data**: Filtrowanie miejsc na podstawie daty.
