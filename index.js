@@ -13,7 +13,7 @@ const ranges = {
   poland: "POLSKA",
   world: "EUROPA"
 }
-const startCity = "Gęsia Szyja"
+const startCity = "KRAKÓW"
 const mapActive = true
 
 const data = {

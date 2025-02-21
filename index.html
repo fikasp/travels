@@ -532,6 +532,7 @@
     let $isHiglightActive = true // flag for marker higlight activ
     let $isGalleryAndMap = false // flag for gallery and map open
     let $isPhotoClicked = false // flag for photo clicked
+    let $isPhotoLoading = false // flag for photo loading
     let $isPhotoOpen = false // flag for photo open
     let $isMenuOpen = false  // flag for menu open
     // photo
@@ -1118,6 +1119,8 @@
     // @func show photo
     function showPhoto(imgID) {
       console.log(`showPhoto(${imgID})`)
+      $isPhotoLoading = true
+
       if (imgID == 0) {
         $photoPrevious.classList.add("none")
       } else {
@@ -1142,11 +1145,13 @@
       $photoImage.addEventListener("load", () => {
         clearTimeout(loadingTimeout)
         $photoName.textContent = image.alt
+        $isPhotoLoading = false
       })
 
       $photoImage.addEventListener("error", () => {
         clearTimeout(loadingTimeout)
         $photoName.textContent = "Zdjęcie jest niedostępne."
+        $isPhotoLoading = false
       })
       $isPhotoOpen = true
     }
@@ -1216,6 +1221,7 @@
       console.log("showPreviousPhoto()")
 
       e.stopPropagation()
+      if ($isPhotoLoading) return
       if ($index > 0) {
         $index = parseInt($index) - 1
         showPhoto($index)
@@ -1227,6 +1233,7 @@
       console.log("showNextPhoto()")
       
       e.stopPropagation()
+      if ($isPhotoLoading) return
       if ($index < $filteredData.length - 1) {
         $index = parseInt($index) + 1
         showPhoto($index)
@@ -1252,6 +1259,8 @@
         $photoPlay.classList.add("none")
 
         $interval = setInterval(() => {
+          if($isPhotoLoading) return
+
           if ($index < $filteredData.length - 1) {
             showNextPhoto(e)
           } else {
