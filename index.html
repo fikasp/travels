@@ -1122,7 +1122,6 @@
 
       if ($isPhotoLoading) return
       $isPhotoLoading = true
-      console.log($isPhotoLoading)
 
       if (imgID == 0) {
         $photoPrevious.classList.add("none")
@@ -1145,19 +1144,20 @@
         $photoName.textContent = "Ładowanie zdjęcia..."
       }, 500)
 
-      $photoImage.addEventListener("load", () => {
-        setTimeout(() => {  // Symulacja długiego ładowania
-          clearTimeout(loadingTimeout)
-          $photoName.textContent = image.alt
-          $isPhotoLoading = false // Odblokowanie
-        }, 5000) // Opóźnienie 5s
-      })
+      console.log(`showPhoto(${imgID}) - start`)
+      $photoImage.onload = () => {
+        clearTimeout(loadingTimeout)
+        $photoName.textContent = image.alt
+        console.log(`showPhoto(${imgID}) - loaded`)
+        $isPhotoLoading = false
+      }
 
-      $photoImage.addEventListener("error", () => {
+      $photoImage.onerror = () => {
         clearTimeout(loadingTimeout)
         $photoName.textContent = "Zdjęcie jest niedostępne."
+        console.log(`showPhoto(${imgID}) - error`)
         $isPhotoLoading = false
-      })
+      }
       $isPhotoOpen = true
     }
 
@@ -1264,8 +1264,10 @@
         $photoPlay.classList.add("none")
 
         $interval = setInterval(() => {
+          console.log(`togglePresentation() - waiting for photo`)
           if($isPhotoLoading) return
 
+          console.log(`togglePresentation() - showNextPhoto(${ $index })`)
           if ($index < $filteredData.length - 1) {
             showNextPhoto(e)
           } else {
