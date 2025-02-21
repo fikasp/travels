@@ -1119,7 +1119,10 @@
     // @func show photo
     function showPhoto(imgID) {
       console.log(`showPhoto(${imgID})`)
+
+      if ($isPhotoLoading) return
       $isPhotoLoading = true
+      console.log($isPhotoLoading)
 
       if (imgID == 0) {
         $photoPrevious.classList.add("none")
@@ -1143,9 +1146,11 @@
       }, 500)
 
       $photoImage.addEventListener("load", () => {
-        clearTimeout(loadingTimeout)
-        $photoName.textContent = image.alt
-        $isPhotoLoading = false
+        setTimeout(() => {  // Symulacja długiego ładowania
+          clearTimeout(loadingTimeout)
+          $photoName.textContent = image.alt
+          $isPhotoLoading = false // Odblokowanie
+        }, 5000) // Opóźnienie 5s
       })
 
       $photoImage.addEventListener("error", () => {
@@ -1204,6 +1209,7 @@
     function showSelectedPhoto(e) {      
 
       let imgID = e.target.id
+      console.log(`showSelectedPhoto(${imgID})`)
 
       showPhoto(imgID)
       $index = imgID
@@ -1213,7 +1219,6 @@
         $photo.classList.add("show")
       },100)
 
-      console.log(`showSelectedPhoto(${$index})`)
     }
 
     // @func show previous photo
