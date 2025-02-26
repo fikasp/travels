@@ -33,6 +33,13 @@ const data = {
       "Ciecień" : 
         {coor: [49.7735737,20.1426816], zoom: 15, date: [2020], gallery: []},
     },
+    // @sub Bieszczady
+    "Bieszczady" : {
+      coor: [49.1092759,22.6560402], 
+      zoom: 13, 
+      "Tarnica" : 
+        {coor: [49.0746531,22.7264214], zoom: 15, date: [2017], gallery: []},
+    },
     // @sub Pieniny
     "Pieniny" : {
       coor: [49.4116433,20.4675293], 
