@@ -739,33 +739,33 @@
                 $citiesArray.push(newItem)
               })
             }
-
             // profile photo
-            if(cityObj.coor) {
-              // prepare path
-              function prepareProfilePath() {
+            if (cityObj.coor && cityObj.date) {
+              cityObj.date.forEach(year => {
+                function prepareProfilePath() {
                   let path = ""
                   if (range == ranges.mountains) {
-                    path = `Góry/Zdjęcia/${capitalizeName(city)} ${cityObj.date[0]}.jpg`
+                    path = `Góry/Zdjęcia/${capitalizeName(city)} ${year}.jpg`
                   } else if (range == ranges.world) {
                     path = `Świat/Zdjęcia/${capitalizeName(city)}.jpg`
-                  } else if (range == ranges.poland)  {
+                  } else if (range == ranges.poland) {
                     path = `Polska/Zdjęcia/${capitalizeName(city)}.jpg`
                   }
                   return path
                 }
 
-              const newItem = {
-                city: city,
-                region: region,
-                range: range,
-                coor: cityObj.coor,
-                date: cityObj.date,
-                name: cityObj.date,
-                catg: cat.profil,
-                url: prepareProfilePath()
-              }
-              $citiesArray.push(newItem)
+                const newItem = {
+                  city: city,
+                  region: region,
+                  range: range,
+                  coor: cityObj.coor,
+                  date: [year],
+                  name: [year],
+                  catg: cat.profil,
+                  url: prepareProfilePath()
+                }
+                $citiesArray.push(newItem)
+              });
             }
           }
         }

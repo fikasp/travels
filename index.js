@@ -55,7 +55,7 @@ const data = {
       "Magurki" : 
         {coor: [49.5306750,20.1826787], zoom: 15, date: [2021], gallery: []},
       "Turbacz" : 
-        {coor: [49.5428247,20.1113749], zoom: 15, date: [2014,2009], gallery: []},
+        {coor: [49.5428247,20.1113749], zoom: 15, date: [2009,2014], gallery: []},
     },
     // @sub Pieniny
     "Pieniny" : {
