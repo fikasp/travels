@@ -37,8 +37,25 @@ const data = {
     "Bieszczady" : {
       coor: [49.1092759,22.6560402], 
       zoom: 13, 
+      "Połonina Caryńska" : 
+      {coor: [49.1353957,22.6078892], zoom: 15, date: [2011], gallery: []},
+      "Połonina Wetlińska" : 
+      {coor: [49.1583094,22.5512570], zoom: 15, date: [2017,2011], gallery: []},
       "Tarnica" : 
         {coor: [49.0746531,22.7264214], zoom: 15, date: [2017], gallery: []},
+    },
+    // @sub Gorce
+    "Gorce" : {
+      coor: [49.5301109,20.1926994], 
+      zoom: 13, 
+      "Gorc" : 
+        {coor: [49.5649719,20.2530384], zoom: 15, date: [2019], gallery: []},
+      "Lubań" : 
+        {coor: [49.4892318,20.3389120], zoom: 15, date: [2020], gallery: []},
+      "Magurki" : 
+        {coor: [49.5306750,20.1826787], zoom: 15, date: [2021], gallery: []},
+      "Turbacz" : 
+        {coor: [49.5428247,20.1113749], zoom: 15, date: [2014,2009], gallery: []},
     },
     // @sub Pieniny
     "Pieniny" : {
@@ -84,8 +101,6 @@ const data = {
     //       {coor: [0,0], catg: cat.nature, name: 'Nazwa', date: [2025]}
     //     ]},
     // },
-
-
     
     // "Tatry Wysokie" : 
     // {coor: [49.2121026,20.0493622], zoom: 13, gallery: [
@@ -107,6 +122,7 @@ const data = {
     //   {coor: [49.2247692,20.0325716], catg: cat.profil, name: 'Zadni Granat 2022', date: [2022]},
     //   {coor: [49.2190863,20.0163925], catg: cat.profil, name: 'Zawrat 2011', date: [2011]},
     // ]},
+
     // "Tatry Zachodnie" : 
     // {coor: [49.2377759,19.8749542], zoom: 13, gallery: [
     //   {coor: [49.2282200,19.9879289], catg: cat.profil, name: 'Beskid', date: [2012]},
@@ -139,6 +155,7 @@ const data = {
     //   {coor: [49.2075327,19.7630739], catg: cat.profil, name: 'Wołowiec 2023', date: [2023]},
     //   {coor: [49.2129716,19.8358154], catg: cat.profil, name: 'Zadni Ornak 2024', date: [2024]},
     // ]},
+
     // "Pieniny" : 
     // {coor: [49.4116433,20.4675293], zoom: 13, gallery: [
     //   {coor: [49.3762260,20.5758905], catg: cat.profil, name: 'Smerekowa', date: [2014]},
@@ -149,15 +166,7 @@ const data = {
     //   {coor: [49.4138194,20.4141855], catg: cat.profil, name: 'Trzy Korony 2023', date: [2023]},
     //   {coor: [49.3802285,20.5554950], catg: cat.profil, name: 'Wysoka 2014', date: [2014]},
     // ]},
-    // "Gorce" : 
-    //   {coor: [49.5301109,20.1926994], zoom: 13, gallery: [
-    //     {coor: [49.5649719,20.2530384], catg: cat.profil, name: 'Gorc 2019', date: [2019]},
-    //     {coor: [49.4892318,20.3389120], catg: cat.profil, name: 'Lubań 2020', date: [2020]},
-    //     {coor: [49.5309187,20.1814127], catg: cat.profil, name: 'Magurki 2021', date: [2021]},
-    //     {coor: [49.5600449,20.0397062], catg: cat.profil, name: 'Stare Wierchy 2009', date: [2009]},
-    //     {coor: [49.5428247,20.1113749], catg: cat.profil, name: 'Turbacz 2009', date: [2009]},
-    //     {coor: [49.5428247,20.1113749], catg: cat.profil, name: 'Turbacz 2014', date: [2014]},
-    //   ]},
+
     // "Beskid Makowski" : 
     //   {coor: [49.7212609,19.7503281], zoom: 12, gallery: [
     //     {coor: [49.8371244,19.8836660], catg: cat.profil, name: 'Barnasiówka 2018', date: [2018]},
@@ -181,15 +190,18 @@ const data = {
     //     {coor: [49.8103793,19.9761593], catg: cat.profil, name: 'Uklejna 2020', date: [2020]},
     //     {coor: [49.8103793,19.9761593], catg: cat.profil, name: 'Uklejna 2021', date: [2021]},
     //   ]},
+
     // "Beskid Mały" : 
     //   {coor: [49.7797122,19.3057251], zoom: 12, gallery: [
     //     {coor: [49.7678918,19.1609716], catg: cat.profil, name: 'Czupel 2021', date: [2021]},
     //     {coor: [49.7955468,19.4458866], catg: cat.profil, name: 'Leskowiec 2010', date: [2010]},
     //   ]},
+
     // "Beskid Niski" : 
     //   {coor: [49.4264395,21.1024618], zoom: 12, gallery: [
     //     {coor: [49.4264395,21.1024618], catg: cat.profil, name: 'Lackowa 2021', date: [2021]},
     //   ]},
+
     // "Beskid Sądecki" : 
     //   {coor: [49.4716938,20.6913757], zoom: 12, gallery: [
     //     {coor: [49.4728790,20.8101439], catg: cat.profil, name: 'Hala Łabowska 2022', date: [2022]},
@@ -199,6 +211,7 @@ const data = {
     //     {coor: [49.4655582,20.5601621], catg: cat.profil, name: 'Przehyba 2017', date: [2017]},
     //     {coor: [49.4491556,20.6042576], catg: cat.profil, name: 'Radziejowa 2021', date: [2021]},
     //   ]},
+
     // "Beskid Śląski" : 
     //   {coor: [49.6520709,18.9239502], zoom: 12, gallery: [
     //     {coor: [49.6114468,19.0105534], catg: cat.profil, name: 'Barania Góra 2024', date: [2024]},
@@ -207,6 +220,7 @@ const data = {
     //     {coor: [49.6342717,18.8131857], catg: cat.profil, name: 'Soszów Wielki 2010', date: [2010]},
     //     {coor: [49.6055095,18.8231206], catg: cat.profil, name: 'Stożek Wielki 2010', date: [2010]},
     //   ]},
+
     // "Beskid Wyspowy" :  
       // gallery: [
       //   {coor: [49.7735737,20.1426816], catg: cat.profil, name: 'Ciecień 2020', date: [2020]},
@@ -219,6 +233,7 @@ const data = {
       //   {coor: [49.6884274,20.0104594], catg: cat.profil, name: 'Szczebel 2008', date: [2008]},
       //   {coor: [49.7159613,20.1781511], catg: cat.profil, name: 'Śnieżnica 2020', date: [2020]},
       // ]},
+
     // "Beskid Żywiecki" : 
     //   {coor: [49.5087143,19.2868423], zoom: 12, gallery: [
     //     {coor: [49.5730083,19.5293140], catg: cat.profil, name: 'Babia Góra 2009', date: [2009]},
@@ -238,18 +253,13 @@ const data = {
     //     {coor: [49.4158453,19.0917599], catg: cat.profil, name: 'Wielka Rycerzowa 2011', date: [2011]},
     //     {coor: [49.4158453,19.0917599], catg: cat.profil, name: 'Wielka Rycerzowa 2018', date: [2018]},
     //   ]},
-    // "Bieszczady" : 
-    //   {coor: [49.1092759,22.6560402], zoom: 13, gallery: [
-    //     {coor: [49.1353957,22.6078892], catg: cat.profil, name: 'Połonina Caryńska 2011', date: [2011]},
-    //     {coor: [49.1579936,22.5512409], catg: cat.profil, name: 'Połonina Wetlińska 2011', date: [2011]},
-    //     {coor: [49.1579936,22.5512409], catg: cat.profil, name: 'Połonina Wetlińska 2017', date: [2017]},
-    //     {coor: [49.0746531,22.7264214], catg: cat.profil, name: 'Tarnica 2017', date: [2017]},
-    //   ]},
+
     // "Świętokrzyskie" : 
     //   {coor: [50.8915834,20.8966398], zoom: 13, gallery: [
     //     {coor: [50.8915834,20.8966398], catg: cat.profil, name: 'Łysica 2013', date: [2013]},
     //   ]},
   },
+
   // @sup POLSKA
   [ranges.poland]: {
     // @sub Dolnośląskie
