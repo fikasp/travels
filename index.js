@@ -108,6 +108,10 @@ const data = {
     "Pieniny" : {
       coor: [49.4116433,20.4675293], 
       zoom: 13, 
+      "Sokolica" : 
+      {coor: [49.4176042,20.4403853], zoom: 15, date: [2009,2012,2016], gallery: []},
+      "Trzy Korony" : 
+      {coor: [49.4138194,20.4141855], zoom: 15, date: [2012,2023], gallery: []},
       "Wysoka" : 
         {coor: [49.3802285,20.5554950], zoom: 15, date: [2014], gallery: []},
     },
@@ -202,17 +206,6 @@ const data = {
     //   {coor: [49.2190688,19.8037362], catg: cat.profil, name: 'Trzydniowiański Wierch', date: [2023]},
     //   {coor: [49.2075327,19.7630739], catg: cat.profil, name: 'Wołowiec 2023', date: [2023]},
     //   {coor: [49.2129716,19.8358154], catg: cat.profil, name: 'Zadni Ornak 2024', date: [2024]},
-    // ]},
-
-    // "Pieniny" : 
-    // {coor: [49.4116433,20.4675293], zoom: 13, gallery: [
-    //   {coor: [49.3762260,20.5758905], catg: cat.profil, name: 'Smerekowa', date: [2014]},
-    //   {coor: [49.4176042,20.4403853], catg: cat.profil, name: 'Sokolica', date: [2009]},
-    //   {coor: [49.4176042,20.4403853], catg: cat.profil, name: 'Sokolica', date: [2012]},
-    //   {coor: [49.4176042,20.4403853], catg: cat.profil, name: 'Sokolica 2016', date: [2016]},
-    //   {coor: [49.4138194,20.4141855], catg: cat.profil, name: 'Trzy Korony', date: [2012]},
-    //   {coor: [49.4138194,20.4141855], catg: cat.profil, name: 'Trzy Korony 2023', date: [2023]},
-    //   {coor: [49.3802285,20.5554950], catg: cat.profil, name: 'Wysoka 2014', date: [2014]},
     // ]},
 
     // "Beskid Makowski" : 
