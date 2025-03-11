@@ -50,8 +50,16 @@ const data = {
     "Beskid Sądecki" : {
       coor: [49.4716938,20.6913757], 
       zoom: 12, 
+      "Hala Łabowska" : 
+        {coor: [49.4728790,20.8101439], zoom: 15, date: [2022], gallery: []},
+      "Jaworzyna Krynicka" : 
+        {coor: [49.4177857,20.8958673], zoom: 15, date: [2010], gallery: []},
       "Koziarz" : 
         {coor: [49.5009807,20.4465008], zoom: 15, date: [2022], gallery: []},
+      "Przehyba" : 
+        {coor: [49.4655582,20.5601621], zoom: 15, date: [2017], gallery: []},
+      "Radziejowa" : 
+        {coor: [49.4491556,20.6042576], zoom: 15, date: [2021], gallery: []},
     },
 
     // @sub Beskid Śląski
@@ -238,7 +246,7 @@ const data = {
     //     {coor: [49.4177857,20.8958673], catg: cat.profil, name: 'Jaworzyna Krynicka 2010', date: [2010]},
     //     {coor: [49.4492393,20.6500268], catg: cat.profil, name: 'Niemcowa 2021', date: [2021]},
     //     {coor: [49.4655582,20.5601621], catg: cat.profil, name: 'Przehyba 2017', date: [2017]},
-    //     {coor: [49.4491556,20.6042576], catg: cat.profil, name: 'Radziejowa 2021', date: [2021]},
+
     //   ]},
 
     // "Beskid Śląski" : 
