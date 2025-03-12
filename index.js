@@ -51,9 +51,11 @@ const data = {
       coor: [49.4716938,20.6913757], 
       zoom: 12, 
       "Hala Łabowska" : 
-        {coor: [49.4728790,20.8101439], zoom: 15, date: [2022], gallery: []},
+        {coor: [49.4723456,20.8101922], zoom: 15, date: [2022], gallery: [
+          {coor: [49.4919324,20.7159394], catg: cat.culture, name: 'Schronisko Cyrla', date: [2022]}
+        ]},
       "Jaworzyna Krynicka" : 
-        {coor: [49.4177857,20.8958673], zoom: 15, date: [2010], gallery: []},
+        {coor: [49.4221686,20.912904], zoom: 15, date: [2010], gallery: []},
       "Koziarz" : 
         {coor: [49.5009807,20.4465008], zoom: 15, date: [2022], gallery: []},
       "Przehyba" : 
@@ -68,6 +70,10 @@ const data = {
       zoom: 12, 
       "Barania Góra" : 
         {coor: [49.6114468,19.0105534], zoom: 15, date: [2024], gallery: []},
+      "Stożek Wielki" : 
+        {coor: [49.6055095,18.8231206], zoom: 15, date: [2010], gallery: []},
+      "Skrzyczne" : 
+        {coor: [49.6845403,19.0302944], zoom: 15, date: [2021], gallery: []},
     },
 
     // @sub Beskid Wyspowy
@@ -238,24 +244,6 @@ const data = {
     //     {coor: [49.8103793,19.9761593], catg: cat.profil, name: 'Uklejna 2013', date: [2013]},
     //     {coor: [49.8103793,19.9761593], catg: cat.profil, name: 'Uklejna 2020', date: [2020]},
     //     {coor: [49.8103793,19.9761593], catg: cat.profil, name: 'Uklejna 2021', date: [2021]},
-    //   ]},
-
-    // "Beskid Sądecki" : 
-    //   {coor: [49.4716938,20.6913757], zoom: 12, gallery: [
-    //     {coor: [49.4728790,20.8101439], catg: cat.profil, name: 'Hala Łabowska 2022', date: [2022]},
-    //     {coor: [49.4177857,20.8958673], catg: cat.profil, name: 'Jaworzyna Krynicka 2010', date: [2010]},
-    //     {coor: [49.4492393,20.6500268], catg: cat.profil, name: 'Niemcowa 2021', date: [2021]},
-    //     {coor: [49.4655582,20.5601621], catg: cat.profil, name: 'Przehyba 2017', date: [2017]},
-
-    //   ]},
-
-    // "Beskid Śląski" : 
-    //   {coor: [49.6520709,18.9239502], zoom: 12, gallery: [
-    //     {coor: [49.6114468,19.0105534], catg: cat.profil, name: 'Barania Góra 2024', date: [2024]},
-    //     {coor: [49.6787924,18.8045597], catg: cat.profil, name: 'Czantoria Wielka 2010', date: [2010]},
-    //     {coor: [49.6845403,19.0302944], catg: cat.profil, name: 'Skrzyczne 2021', date: [2021]},
-    //     {coor: [49.6342717,18.8131857], catg: cat.profil, name: 'Soszów Wielki 2010', date: [2010]},
-    //     {coor: [49.6055095,18.8231206], catg: cat.profil, name: 'Stożek Wielki 2010', date: [2010]},
     //   ]},
 
     // "Beskid Wyspowy" :  
