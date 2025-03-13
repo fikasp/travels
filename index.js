@@ -90,6 +90,18 @@ const data = {
       zoom: 12, 
       "Babia Góra" : 
         {coor: [49.5730083,19.5293140], zoom: 15, date: [2009,2012,2014], gallery: []},
+      "Hala Lipowska" : 
+        {coor: [49.5319771,19.2261386], zoom: 15, date: [2018], gallery: []},
+      "Krawców Wierch" : 
+        {coor: [49.4760998,19.2185640], zoom: 15, date: [2018], gallery: []},
+      "Pilsko" : 
+        {coor: [49.5279452,19.3167758], zoom: 15, date: [2016], gallery: []},
+      "Polica" : 
+        {coor: [49.6232776,19.6197796], zoom: 15, date: [2020], gallery: []},
+      "Wielka Racza" : 
+        {coor: [49.4127323,18.9696336], zoom: 15, date: [2011,2018], gallery: []},
+      "Wielka Rycerzowa" : 
+        {coor: [49.4018768,19.0462375], zoom: 15, date: [2011,2018], gallery: []},
     },
 
     // @sub Bieszczady
@@ -258,23 +270,6 @@ const data = {
       //   {coor: [49.6884274,20.0104594], catg: cat.profil, name: 'Szczebel 2008', date: [2008]},
       //   {coor: [49.7159613,20.1781511], catg: cat.profil, name: 'Śnieżnica 2020', date: [2020]},
       // ]},
-
-    // "Beskid Żywiecki" : 
-    //   {coor: [49.5087143,19.2868423], zoom: 12, gallery: [
-    //     {coor: [49.6281703,19.6456146], catg: cat.profil, name: 'Hala Krupowa 2020', date: [2020]},
-    //     {coor: [49.5319771,19.2261386], catg: cat.profil, name: 'Hala Lipowska 2018', date: [2018]},
-    //     {coor: [49.5405551,19.3187714], catg: cat.profil, name: 'Hala Miziowa 2016', date: [2016]},
-    //     {coor: [49.5363359,19.2345500], catg: cat.profil, name: 'Hala Rysianka 2018', date: [2018]},
-    //     {coor: [49.4760998,19.2185640], catg: cat.profil, name: 'Krawców Wierch 2018', date: [2018]},
-    //     {coor: [49.5876515,19.5167613], catg: cat.nature, name: 'Markowe Szczawiny', date: [2009,2012,2014,2018]},
-    //     {coor: [49.5279452,19.3167758], catg: cat.profil, name: 'Pilsko 2016', date: [2016]},
-    //     {coor: [49.6232776,19.6197796], catg: cat.profil, name: 'Polica 2020', date: [2020]},
-    //     {coor: [49.5606295,19.2419100], catg: cat.profil, name: 'Romanka 2018', date: [2018]},
-    //     {coor: [49.4127323,18.9696336], catg: cat.profil, name: 'Wielka Racza 2011', date: [2011]},
-    //     {coor: [49.4127323,18.9696336], catg: cat.profil, name: 'Wielka Racza 2018', date: [2018]},
-    //     {coor: [49.4158453,19.0917599], catg: cat.profil, name: 'Wielka Rycerzowa 2011', date: [2011]},
-    //     {coor: [49.4158453,19.0917599], catg: cat.profil, name: 'Wielka Rycerzowa 2018', date: [2018]},
-    //   ]},
   },
 
   // @sup POLSKA
