@@ -82,6 +82,20 @@ const data = {
       zoom: 12, 
       "Ciecień" : 
         {coor: [49.7735737,20.1426816], zoom: 15, date: [2020], gallery: []},
+      "Ćwilin" : 
+        {coor: [49.6881289,20.1890731], zoom: 15, date: [2024], gallery: []},
+      "Lubogoszcz" : 
+        {coor: [49.7125481,20.0988007], zoom: 15, date: [2014], gallery: []},
+      "Luboń" : 
+        {coor: [49.6534602,19.9918556], zoom: 15, date: [2008], gallery: []},
+      "Modyń" : 
+        {coor: [49.6212064,20.3760552], zoom: 15, date: [2023], gallery: []},
+      "Mogielica" : 
+        {coor: [49.6552452,20.2767169], zoom: 15, date: [2017], gallery: []},
+      "Szczebel" : 
+        {coor: [49.6884274,20.0104594], zoom: 15, date: [2008], gallery: []},
+      "Śnieżnica" : 
+        {coor: [49.7159613,20.1781511], zoom: 15, date: [2020], gallery: []},
     },
 
     // @sub Beskid Żywiecki
@@ -257,19 +271,6 @@ const data = {
     //     {coor: [49.8103793,19.9761593], catg: cat.profil, name: 'Uklejna 2020', date: [2020]},
     //     {coor: [49.8103793,19.9761593], catg: cat.profil, name: 'Uklejna 2021', date: [2021]},
     //   ]},
-
-    // "Beskid Wyspowy" :  
-      // gallery: [
-      //   {coor: [49.7735737,20.1426816], catg: cat.profil, name: 'Ciecień 2020', date: [2020]},
-      //   {coor: [49.6887536,20.1914388], catg: cat.profil, name: 'Ćwilin 2024', date: [2024]},
-      //   {coor: [49.7878865,20.1458037], catg: cat.profil, name: 'Księża Góra 2020', date: [2020]},
-      //   {coor: [49.7125481,20.0988007], catg: cat.profil, name: 'Lubogoszcz 2014', date: [2014]},
-      //   {coor: [49.6534602,19.9918556], catg: cat.profil, name: 'Luboń 2008', date: [2008]},
-      //   {coor: [49.6212064,20.3760552], catg: cat.profil, name: 'Modyń 2023', date: [20]},
-      //   {coor: [49.6552452,20.2767169], catg: cat.profil, name: 'Mogielica 2017', date: [2017]},
-      //   {coor: [49.6884274,20.0104594], catg: cat.profil, name: 'Szczebel 2008', date: [2008]},
-      //   {coor: [49.7159613,20.1781511], catg: cat.profil, name: 'Śnieżnica 2020', date: [2020]},
-      // ]},
   },
 
   // @sup POLSKA
