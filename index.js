@@ -36,6 +36,26 @@ const data = {
       zoom: 12, 
       "Barnasiówka" : 
         {coor: [49.8371244,19.8836660], zoom: 15, date: [2018], gallery: []},
+      "Chełm" : 
+        {coor: [49.7994147,19.9494714], zoom: 15, date: [2007,2013], gallery: []},
+      "Kamiennik" : 
+        {coor: [49.7895073,20.0567651], zoom: 15, date: [2008,2016], gallery: []},
+      "Koskowa Góra" : 
+        {coor: [49.7507241,19.7829866], zoom: 15, date: [2010], gallery: []},
+      "Kotoń" : 
+        {coor: [49.7691529,19.8961544], zoom: 15, date: [2018], gallery: []},
+      "Lubomir" : 
+        {coor: [49.7668523,20.0596189], zoom: 15, date: [2016], gallery: []},
+      "Łysina" : 
+        {coor: [49.7758324,20.0483322], zoom: 15, date: [2008,2016], gallery: []},
+      "Mędralowa" : 
+        {coor: [49.6132057,19.4624734], zoom: 15, date: [2021], gallery: []},
+      "Plebańska Góra" : 
+        {coor: [49.8226878,19.9162388], zoom: 15, date: [2013,2018,2023], gallery: []},
+      "Sucha Polana" : 
+        {coor: [49.7830375,20.0510144], zoom: 15, date: [2008,2016], gallery: []},
+      "Uklejna" : 
+        {coor: [49.8103793,19.9761593], zoom: 15, date: [2007,2013,2020,2021], gallery: []},
     },
 
     // @sub Beskid Niski
@@ -247,30 +267,6 @@ const data = {
     //   {coor: [49.2075327,19.7630739], catg: cat.profil, name: 'Wołowiec 2023', date: [2023]},
     //   {coor: [49.2129716,19.8358154], catg: cat.profil, name: 'Zadni Ornak 2024', date: [2024]},
     // ]},
-
-    // "Beskid Makowski" : 
-    //   {coor: [49.7212609,19.7503281], zoom: 12, gallery: [
-    //     {coor: [49.8371244,19.8836660], catg: cat.profil, name: 'Barnasiówka 2018', date: [2018]},
-    //     {coor: [49.7994147,19.9494714], catg: cat.profil, name: 'Chełm 2007', date: [2007]},
-    //     {coor: [49.7994147,19.9494714], catg: cat.profil, name: 'Chełm 2013', date: [2013]},
-    //     {coor: [49.8430750,19.9083424], catg: cat.profil, name: 'Dalin 2018', date: [2018]},
-    //     {coor: [49.7895073,20.0567651], catg: cat.profil, name: 'Kamiennik 2008', date: [2008]},
-    //     {coor: [49.7895073,20.0567651], catg: cat.profil, name: 'Kamiennik 2016', date: [2016]},
-    //     {coor: [49.7507241,19.7829866], catg: cat.profil, name: 'Koskowa Góra 2010', date: [2010]},
-    //     {coor: [49.7691529,19.8961544], catg: cat.profil, name: 'Kotoń 2018', date: [2018]},
-    //     {coor: [49.7668523,20.0596189], catg: cat.profil, name: 'Lubomir 2016', date: [2016]},
-    //     {coor: [49.7758324,20.0483322], catg: cat.profil, name: 'Łysina 2008', date: [2008]},
-    //     {coor: [49.7758324,20.0483322], catg: cat.profil, name: 'Łysina 2016', date: [2016]},
-    //     {coor: [49.6132057,19.4624734], catg: cat.profil, name: 'Mędralowa 2021', date: [2021]},
-    //     {coor: [49.8226878,19.9162388], catg: cat.profil, name: 'Plebańska Góra 2013', date: [2013]},
-    //     {coor: [49.8226878,19.9162388], catg: cat.profil, name: 'Plebańska Góra 2018', date: [2018]},
-    //     {coor: [49.7830375,20.0510144], catg: cat.profil, name: 'Sucha Polana 2008', date: [2008]},
-    //     {coor: [49.7830375,20.0510144], catg: cat.profil, name: 'Sucha Polana 2016', date: [2016]},
-    //     {coor: [49.8103793,19.9761593], catg: cat.profil, name: 'Uklejna 2007', date: [2007]},
-    //     {coor: [49.8103793,19.9761593], catg: cat.profil, name: 'Uklejna 2013', date: [2013]},
-    //     {coor: [49.8103793,19.9761593], catg: cat.profil, name: 'Uklejna 2020', date: [2020]},
-    //     {coor: [49.8103793,19.9761593], catg: cat.profil, name: 'Uklejna 2021', date: [2021]},
-    //   ]},
   },
 
   // @sup POLSKA
