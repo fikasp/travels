@@ -212,28 +212,31 @@ const data = {
           {coor: [49.2624556,20.0912690], catg: cat.nature, name: 'Rusinowa Polana 2 SE', date: [2024]},
           {coor: [49.2612373,20.0884044], catg: cat.nature, name: 'Rusinowa Polana 3 N', date: [2024]}
         ]},
+      "Granaty" : 
+        {coor: [49.2247692,20.0325716], zoom: 15, date: [2022], gallery: []},
+      "Kościelec" : 
+        {coor: [49.2251791,20.0145686], zoom: 15, date: [2021], gallery: []},
+      "Karb" : 
+        {coor: [49.2288156,20.0117040], zoom: 15, date: [2016,2021], gallery: []},
+      "Kozi Wierch" : 
+        {coor: [49.2183189,20.0286984], zoom: 15, date: [2022], gallery: []},
+      "Kozia Przełęcz" : 
+        {coor: [49.2195488,20.0253189], zoom: 15, date: [2012], gallery: []},
+      "Krzyżne" : 
+        {coor: [49.2286509,20.0472862], zoom: 15, date: [2011], gallery: []},
+      "Liliowe" : 
+        {coor: [49.2255435,19.9913299], zoom: 15, date: [2012], gallery: []},
+      "Rysy" : 
+        {coor: [49.1792488,20.0884581], zoom: 15, date: [2013], gallery: []},
+      "Szpiglasowy Wierch" : 
+        {coor: [49.1972734,20.0401139], zoom: 15, date: [2012,2013], gallery: []},
+      "Świnica" : 
+        {coor: [49.2194191,20.0093061], zoom: 15, date: [2011], gallery: []},
+      "Świstowa Czuba" : 
+        {coor: [49.2164513,20.0575215], zoom: 15, date: [2020], gallery: []},
+      "Zawrat" : 
+        {coor: [49.2190863,20.0163925], zoom: 15, date: [2011], gallery: []},
     },
-  
-    // "Tatry Wysokie" : 
-    // {coor: [49.2121026,20.0493622], zoom: 13, gallery: [
-    //   {coor: [49.2288156,20.0117040], catg: cat.profil, name: 'Karb 2016', date: [2016]},
-    //   {coor: [49.2288156,20.0117040], catg: cat.profil, name: 'Karb 2021', date: [2021]},
-    //   {coor: [49.2251791,20.0145686], catg: cat.profil, name: 'Kościelec 2021', date: [2021]},
-    //   {coor: [49.2183189,20.0286984], catg: cat.profil, name: 'Kozi Wierch 2022', date: [2022]},
-    //   {coor: [49.2195488,20.0253189], catg: cat.profil, name: 'Kozia Przełęcz 2012', date: [2012]},
-    //   {coor: [49.2286509,20.0472862], catg: cat.profil, name: 'Krzyżne 2011', date: [2011]},
-    //   {coor: [49.2255435,19.9913299], catg: cat.profil, name: 'Liliowe', date: [2012]},
-    //   {coor: [49.2256941,20.0327325], catg: cat.profil, name: 'Pośredni Granat 2022', date: [2022]},
-    //   {coor: [49.2628337,20.0902605], catg: cat.nature, name: 'Rusinowa Polana', date: [2024]},
-    //   {coor: [49.1792488,20.0884581], catg: cat.profil, name: 'Rysy 2013', date: [2013]},
-    //   {coor: [49.2269343,20.0333118], catg: cat.profil, name: 'Skrajny Granat 2022', date: [2022]},
-    //   {coor: [49.1972734,20.0401139], catg: cat.profil, name: 'Szpiglasowy Wierch 2012', date: [2012]},
-    //   {coor: [49.1972734,20.0401139], catg: cat.profil, name: 'Szpiglasowy Wierch 2013', date: [2013]},
-    //   {coor: [49.2194191,20.0093061], catg: cat.profil, name: 'Świnica 2011', date: [2011]},
-    //   {coor: [49.2164513,20.0575215], catg: cat.profil, name: 'Świstowa Czuba 2020', date: [2020]},
-    //   {coor: [49.2247692,20.0325716], catg: cat.profil, name: 'Zadni Granat 2022', date: [2022]},
-    //   {coor: [49.2190863,20.0163925], catg: cat.profil, name: 'Zawrat 2011', date: [2011]},
-    // ]},
 
     // "Tatry Zachodnie" : 
     // {coor: [49.2377759,19.8749542], zoom: 13, gallery: [
