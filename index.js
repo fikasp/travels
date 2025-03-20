@@ -198,6 +198,38 @@ const data = {
     "Tatry Zachodnie" : {
       coor: [49.2377759,19.8749542], 
       zoom: 13, 
+      "Ciemniak" : 
+      {coor: [49.2309805,19.9034286], zoom: 15, date: [2010,2015], gallery: []},
+      "Giewont" : 
+        {coor: [49.2509367,19.9341023], zoom: 15, date: [2009,2013], gallery: []},
+      "Goryczkowa Czuba" : 
+        {coor: [49.2322556,19.9576306], zoom: 15, date: [2012], gallery: []},
+      "Grześ" : 
+        {coor: [49.2365710,19.7667217], zoom: 15, date: [2016], gallery: []},
+      "Jarząbczy Wierch" : 
+        {coor: [49.1974662,19.7950888], zoom: 15, date: [2023], gallery: []},
+      "Kasprowy Wierch" : 
+        {coor: [49.2317651,19.9815774], zoom: 15, date: [2012,2017], gallery: []},
+      "Kończysty Wierch" : 
+        {coor: [49.2056822,19.8076200], zoom: 15, date: [2017], gallery: []},
+      "Kopa Kondracka" : 
+        {coor: [49.2363188,19.9322891], zoom: 15, date: [2010], gallery: []},
+      "Kopieniec Wielki" : 
+        {coor: [49.2716479,20.0162905], zoom: 15, date: [2024], gallery: []},
+      "Krzesanica" : 
+        {coor: [49.2316390,19.9095011], zoom: 15, date: [2010,2015], gallery: []},
+      "Małołączniak" : 
+        {coor: [49.2357023,19.9192429], zoom: 15, date: [2010,2015], gallery: []},
+      "Nosal" : 
+        {coor: [49.2764253,19.9894577], zoom: 15, date: [2024], gallery: []},
+      "Ornak" : 
+        {coor: [49.2188305,19.8329401], zoom: 15, date: [2024], gallery: []},
+      "Rakoń" : 
+        {coor: [49.2159432,19.7584391], zoom: 15, date: [2016], gallery: []},
+      "Sarnia Skała" : 
+        {coor: [49.2646436,19.9421060], zoom: 15, date: [2023], gallery: []},
+      "Starorobociański Wierch" : 
+      {coor: [49.1993450,19.8198938], zoom: 15, date: [2017], gallery: []},
       "Wołowiec" : 
         {coor: [49.2075327,19.7630739], zoom: 15, date: [2023], gallery: []},
     },
@@ -237,39 +269,6 @@ const data = {
       "Zawrat" : 
         {coor: [49.2190863,20.0163925], zoom: 15, date: [2011], gallery: []},
     },
-
-    // "Tatry Zachodnie" : 
-    // {coor: [49.2377759,19.8749542], zoom: 13, gallery: [
-    //   {coor: [49.2282200,19.9879289], catg: cat.profil, name: 'Beskid', date: [2012]},
-    //   {coor: [49.2309805,19.9034286], catg: cat.profil, name: 'Ciemniak 2010', date: [2010]},
-    //   {coor: [49.2309805,19.9034286], catg: cat.profil, name: 'Ciemniak 2015', date: [2015]},
-    //   {coor: [49.2509367,19.9341023], catg: cat.profil, name: 'Giewont 2009', date: [2009]},
-    //   {coor: [49.2509367,19.9341023], catg: cat.profil, name: 'Giewont 2013', date: [2013]},
-    //   {coor: [49.2322556,19.9576306], catg: cat.profil, name: 'Goryczkowa Czuba 2012', date: [2012]},
-    //   {coor: [49.2365710,19.7667217], catg: cat.profil, name: 'Grześ 2016', date: [2016]},
-    //   {coor: [49.2290608,19.8587537], catg: cat.profil, name: 'Hala Ornak 2020', date: [2020]},
-    //   {coor: [49.2321715,19.8363304], catg: cat.profil, name: 'Iwaniacka Przełęcz 2020', date: [2020]},
-    //   {coor: [49.1974662,19.7950888], catg: cat.profil, name: 'Jarząbczy Wierch 2023', date: [2023]},
-    //   {coor: [49.2317651,19.9815774], catg: cat.profil, name: 'Kasprowy Wierch 2012', date: [2012]},
-    //   {coor: [49.2317651,19.9815774], catg: cat.profil, name: 'Kasprowy Wierch 2017', date: [2017]},
-    //   {coor: [49.2056822,19.8076200], catg: cat.profil, name: 'Kończysty Wierch 2017', date: [2017]},
-    //   {coor: [49.2363188,19.9322891], catg: cat.profil, name: 'Kopa Kondracka 2010', date: [2010]},
-    //   {coor: [49.2716479,20.0162905], catg: cat.profil, name: 'Kopieniec Wielki 2024', date: [2024]},
-    //   {coor: [49.2316390,19.9095011], catg: cat.profil, name: 'Krzesanica 2010', date: [2010]},
-    //   {coor: [49.2316390,19.9095011], catg: cat.profil, name: 'Krzesanica 2015', date: [2015]},
-    //   {coor: [49.2049532,19.7786307], catg: cat.profil, name: 'Łopata 2023', date: [2023]},
-    //   {coor: [49.2357023,19.9192429], catg: cat.profil, name: 'Małołączniak 2010', date: [2010]},
-    //   {coor: [49.2357023,19.9192429], catg: cat.profil, name: 'Małołączniak 2015', date: [2015]},
-    //   {coor: [49.2764253,19.9894577], catg: cat.profil, name: 'Nosal 2024', date: [2024]},
-    //   {coor: [49.2188305,19.8329401], catg: cat.profil, name: 'Ornak 2024', date: [2024]},
-    //   {coor: [49.2486396,19.8866647], catg: cat.profil, name: 'Piec 2014', date: [2014]},
-    //   {coor: [49.2159432,19.7584391], catg: cat.profil, name: 'Rakoń 2016', date: [2016]},
-    //   {coor: [49.2646436,19.9421060], catg: cat.profil, name: 'Sarnia Skała 2023', date: [2023]},
-    //   {coor: [49.1993450,19.8198938], catg: cat.profil, name: 'Starorobociański 2017', date: [2017]},
-    //   {coor: [49.2190688,19.8037362], catg: cat.profil, name: 'Trzydniowiański Wierch', date: [2023]},
-    //   {coor: [49.2075327,19.7630739], catg: cat.profil, name: 'Wołowiec 2023', date: [2023]},
-    //   {coor: [49.2129716,19.8358154], catg: cat.profil, name: 'Zadni Ornak 2024', date: [2024]},
-    // ]},
   },
 
   // @sup POLSKA
