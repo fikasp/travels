@@ -1310,7 +1310,6 @@ const data = {
       zoom: 8, 
       "Wiedeń" : 
         {coor: [48.1991634,16.3716245], zoom: 13, date: [2019], gallery: [
-          // {coor: [0,0], catg: cat.nature, name: 'Nazwa', date: [2025]}
         ]},
     },
     
@@ -1345,6 +1344,14 @@ const data = {
         {coor: [41.4035957, 2.1743488], catg: cat.religion, name: 'Sagrada Familia 4', date: [2019]},
         {coor: [41.3657862, 2.1556699], catg: cat.general, name: 'Stadion Olimpijski', date: [2019]},
       ]},
+      "Cuenca" : 
+      {coor: [40.0782931,-2.1274102], zoom: 15, date: [2019], gallery: []},
+      "Madryt" : 
+      {coor: [40.4153095,-3.7137866], zoom: 13, date: [2019], gallery: []},
+      "Requena" : 
+      {coor: [39.4853337,-1.1007035], zoom: 15, date: [2019], gallery: []},
+      "Saragossa" : 
+      {coor: [41.6570062,-0.8804995], zoom: 13, date: [2019], gallery: []},
       "Walencja" : 
       {coor: [39.4589143,-0.3568089], zoom: 13, date: [2019], gallery: []},
     },
