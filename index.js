@@ -139,6 +139,7 @@ const data = {
       ],
       zoom: 10,
       "KRAKÓW": {
+        "abbr": "KR",
         coor: [
           50.0616779,
           19.9373317
@@ -150,6 +151,7 @@ const data = {
         gallery: []
       },
       "Myślenice": {
+        "abbr": "KMY",
         coor: [
           49.8347232,
           19.9387157
