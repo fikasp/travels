@@ -2,9 +2,11 @@ import pandas as pd
 import subprocess
 import json
 
+print("🌍 Excel to js converter starts...")
+
 # Load Excel file
 sheet_name = 'Zestawienie'
-file_path = 'b:\\Prywatne\\Wycieczki\\Wycieczki.xlsx'
+file_path = 'b:\\Prywatne\\Wycieczki\\Travels.xlsx'
 df = pd.read_excel(file_path, sheet_name=sheet_name, dtype=str)
 
 # Define categories and ranges
@@ -50,22 +52,23 @@ ranges_map = {
 # Initialize data structure
 output = {ranges_map["GÓRY"]: {}, ranges_map["POLSKA"]: {}, ranges_map["EUROPA"]: {}}
 
-# Track the last processed region
+# Track the last processed range and region
 last_region = None
+last_range = None
 
 for _, row in df.iterrows():
-    range, region, city, abbr, zoom, coors, date, category, description = row
+    range_raw, region, city, abbr, zoom, coors, date, category, description, top = row
 
     # Skip rows without a valid region
-    if not pd.notna(region) or not pd.notna(range):
+    if not pd.notna(region) or not pd.notna(range_raw):
         continue
     
     # Determine the target range
-    range = ranges_map.get(range.strip(), None)
+    range = ranges_map.get(range_raw.strip(), None)
     if not range:
         continue
 
-    # Ensure 'abbr' is a valid string
+    # Prepare abbr
     abbr = abbr.strip() if pd.notna(abbr) else None
 
     # Convert coordinates
@@ -87,37 +90,38 @@ for _, row in df.iterrows():
     
     # Add the city
     if city not in output[range][region]:
-        # Create the city object with 'abbr' first (only for POLSKA)
         city_obj = {"abbr": abbr} if range == "ranges.poland" else {}
-
-        # Add other properties
         city_obj.update({
             "coor": coor,
             "date": date_list,
             "zoom": zoom,
             "gallery": []
         })
-
-        # Store the city object in the output structure
         output[range][region][city] = city_obj
 
     # Add gallery data
     if pd.notna(description):
         catg = category_map.get(category, "cat.general")
-        output[range][region][city]["gallery"].append({
-            "catg": catg, "name": description, "coor": coor, "date": date_list
-        })
+        gallery_item = {
+            "catg": catg, 
+            "name": description, 
+            "coor": coor, 
+            "date": date_list
+        }
+        if top == "Tak":
+            gallery_item["top"] = True
+        output[range][region][city]["gallery"].append(gallery_item)
 
     # If the region changes, print a log message
-    if last_region and (region != last_region):
-        print(f"✅ Processed region: {last_region}")
+    if last_region and (region != last_region or range_raw.strip() != last_range):
+        print(f"✅ Processed region: {last_range}/{last_region}")
 
-    # Update the last processed values
+    last_range = range_raw.strip()
     last_region = region
 
 # Final region processing log
 if last_region:
-    print(f"✅ Processed region: {last_region}")
+    print(f"✅ Processed region: {last_range}/{last_region}")
 
 # Convert to JavaScript
 js_output = const_definitions + "\nconst data = " + json.dumps(output, indent=2, ensure_ascii=False)
@@ -148,4 +152,4 @@ with open(outputPath, "w", encoding="utf-8") as f:
 # Set file as hidden
 subprocess.run(['attrib', '+H', outputPath], shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
-print("🏆 All processes finished!")
+print("🏆 Conversion successful!")
