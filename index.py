@@ -2,7 +2,7 @@ import pandas as pd
 import subprocess
 import json
 
-print("🌍 Excel to js converter starts...")
+print("🌍 Excel to JS converter:")
 
 # Load Excel file
 sheet_name = 'Zestawienie'
@@ -152,4 +152,4 @@ with open(outputPath, "w", encoding="utf-8") as f:
 # Set file as hidden
 subprocess.run(['attrib', '+H', outputPath], shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
-print("🏆 Conversion successful!")
+print("🏆 Conversion done!")
