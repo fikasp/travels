@@ -7043,6 +7043,24 @@ const data = {
         zoom: 13,
         gallery: []
       }
+    },
+    "Węgry": {
+      coor: [
+        47.159,
+        19.305
+      ],
+      zoom: 8,
+      "Budapeszt": {
+        coor: [
+          47.5024133,
+          19.0351599
+        ],
+        date: [
+          2013
+        ],
+        zoom: 13,
+        gallery: []
+      }
     }
   }
 }
