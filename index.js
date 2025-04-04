@@ -1280,8 +1280,14 @@ const data = {
 					},
 					{
 						catg: cat.nature,
+						name: 'Park Strzelecki',
+						coor: [50.0653419, 19.9499595],
+						date: [2025],
+					},
+					{
+						catg: cat.nature,
 						name: 'Park Szymborskiej',
-						coor: [50.0653109, 19.9290866],
+						coor: [50.0652007, 19.9293548],
 						date: [2023],
 					},
 					{
@@ -1935,6 +1941,25 @@ const data = {
 						name: 'Kościół św. Kazimierza Królewicza (Reformatów) [Stare Miasto]/Wnętrze',
 						coor: [50.0648736, 19.936232],
 						date: [2020],
+					},
+					{
+						catg: cat.religion,
+						name: 'Kościół św. Marka [Stare Miasto]/Zewnętrze',
+						coor: [50.0645624, 19.9376985],
+						date: [2024],
+						top: true,
+					},
+					{
+						catg: cat.religion,
+						name: 'Kościół św. Marka [Stare Miasto]/Wnętrze',
+						coor: [50.0645624, 19.9376985],
+						date: [2024],
+					},
+					{
+						catg: cat.religion,
+						name: 'Kościół św. Marka [Stare Miasto]/Organy',
+						coor: [50.0645624, 19.9376985],
+						date: [2024],
 					},
 					{
 						catg: cat.religion,
