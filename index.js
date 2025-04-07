@@ -1726,6 +1726,7 @@ const data = {
 						coor: [50.0623993, 19.9335618],
 						date: [
 							2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024,
+							2025,
 						],
 						top: true,
 					},
@@ -2093,6 +2094,25 @@ const data = {
 						name: 'Kościół św. Wojciecha [Stare Miasto]/Organy',
 						coor: [50.0608927, 19.9377394],
 						date: [2022],
+					},
+					{
+						catg: cat.religion,
+						name: 'Kościół Świętej Trójcy (Bonifratrów) [Kazimierz]/Zewnętrze',
+						coor: [50.0470362, 19.944184],
+						date: [2025],
+						top: true,
+					},
+					{
+						catg: cat.religion,
+						name: 'Kościół Świętej Trójcy (Bonifratrów) [Kazimierz]/Wnętrze',
+						coor: [50.0470362, 19.944184],
+						date: [2025],
+					},
+					{
+						catg: cat.religion,
+						name: 'Kościół Świętej Trójcy (Bonifratrów) [Kazimierz]/Organy',
+						coor: [50.0470362, 19.944184],
+						date: [2025],
 					},
 					{
 						catg: cat.religion,
