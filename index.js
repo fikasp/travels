@@ -6693,6 +6693,30 @@ const data = {
         zoom: 13,
         gallery: []
       },
+      "Darłowo": {
+        "abbr": "ZSLD",
+        coor: [
+          54.4410759,
+          16.3816935
+        ],
+        date: [
+          2024
+        ],
+        zoom: 14,
+        gallery: []
+      },
+      "Dźwirzyno": {
+        "abbr": "ZKLD",
+        coor: [
+          54.164331,
+          15.4247189
+        ],
+        date: [
+          2014
+        ],
+        zoom: 14,
+        gallery: []
+      },
       "KOŁOBRZEG": {
         "abbr": "ZKL",
         coor: [
