@@ -3,6 +3,7 @@ const cat = {
   all: "Wszystkie",
   profil: "Profilówki",
   general: "Ogólne",
+  space: "Przestrzeń",
   gastro: "Gastronomia",
   history: "Historia", 
   religion: "Religia",
@@ -6853,7 +6854,7 @@ const data = {
             ]
           },
           {
-            catg: cat.general,
+            catg: cat.space,
             name: "Port Vell",
             coor: [
               41.375448,
@@ -6930,7 +6931,7 @@ const data = {
             ]
           },
           {
-            catg: cat.history,
+            catg: cat.space,
             name: "La Rambla 1",
             coor: [
               41.3844442,
@@ -6941,7 +6942,7 @@ const data = {
             ]
           },
           {
-            catg: cat.history,
+            catg: cat.space,
             name: "La Rambla 2",
             coor: [
               41.3770662,
@@ -6963,7 +6964,7 @@ const data = {
             ]
           },
           {
-            catg: cat.history,
+            catg: cat.space,
             name: "Plac Hiszpański",
             coor: [
               41.374031,

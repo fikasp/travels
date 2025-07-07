@@ -15,6 +15,7 @@ const cat = {
   all: "Wszystkie",
   profil: "Profilówki",
   general: "Ogólne",
+  space: "Przestrzeń",
   gastro: "Gastronomia",
   history: "Historia", 
   religion: "Religia",
@@ -38,6 +39,7 @@ category_map = {
     "Religia": "cat.religion",
     "Gastronomia": "cat.gastro",
     "Ogólne": "cat.general",
+    "Przestrzeń": "cat.space",
     "Profilówki": "cat.profil",
     "Wszystkie": "cat.all"
 }
