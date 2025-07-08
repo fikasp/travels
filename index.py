@@ -1,3 +1,4 @@
+import re
 import pandas as pd
 import subprocess
 import json
@@ -13,43 +14,30 @@ df = pd.read_excel(file_path, sheet_name=sheet_name, dtype=str)
 const_definitions = """
 const cat = {
   all: "Wszystkie",
-  profil: "Profilówki",
-  general: "Ogólne",
-  space: "Przestrzeń",
-  gastro: "Gastronomia",
-  history: "Historia", 
-  religion: "Religia",
-  culture: "Kultura", 
-  nature: "Natura", 
+  profil: "Profilowe",
+  O: "Ogólne",
+  S: "Sakralne",
+  H: "Historyczne", 
+  N: "Nowoczesne",
+  G: "Gastronomiczne",
+  Z: "Zielone", 
 }
 const ranges = {
   mountains: "GÓRY",
   poland: "POLSKA",
-  world: "EUROPA"
+  world: "EUROPA",
 }
 const startCity = "KRAKÓW"
 const mapActive = true
 """
 
-# Category mapping
-category_map = {
-    "Natura": "cat.nature",
-    "Kultura": "cat.culture",
-    "Historia": "cat.history",
-    "Religia": "cat.religion",
-    "Gastronomia": "cat.gastro",
-    "Ogólne": "cat.general",
-    "Przestrzeń": "cat.space",
-    "Profilówki": "cat.profil",
-    "Wszystkie": "cat.all"
-}
+# Category and ranges mapping
+def get_reverse_map(source, obj_name):
+    body = re.search(rf'{obj_name}\s*=\s*\{{(.*?)\}}', source, re.DOTALL).group(1)
+    return {v: f"{obj_name}.{k}" for k, v in re.findall(r'(\w+):\s*"([^"]+)"', body)}
 
-# Range mapping
-ranges_map = {
-    "GÓRY": "ranges.mountains",
-    "POLSKA": "ranges.poland",
-    "EUROPA": "ranges.world"
-}
+category_map = get_reverse_map(const_definitions, "cat")
+ranges_map = get_reverse_map(const_definitions, "ranges")
 
 # Initialize data structure
 output = {ranges_map["GÓRY"]: {}, ranges_map["POLSKA"]: {}, ranges_map["EUROPA"]: {}}

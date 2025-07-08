@@ -1,19 +1,18 @@
 
 const cat = {
   all: "Wszystkie",
-  profil: "Profilówki",
-  general: "Ogólne",
-  space: "Przestrzeń",
-  gastro: "Gastronomia",
-  history: "Historia", 
-  religion: "Religia",
-  culture: "Kultura", 
-  nature: "Natura", 
+  profil: "Profilowe",
+  O: "Ogólne",
+  S: "Sakralne",
+  H: "Historyczne", 
+  N: "Nowoczesne",
+  G: "Gastronomiczne",
+  Z: "Zielone", 
 }
 const ranges = {
   mountains: "GÓRY",
   poland: "POLSKA",
-  world: "EUROPA"
+  world: "EUROPA",
 }
 const startCity = "KRAKÓW"
 const mapActive = true
@@ -221,7 +220,7 @@ const data = {
         zoom: 15,
         gallery: [
           {
-            catg: cat.culture,
+            catg: cat.O,
             name: "Schronisko Cyrla",
             coor: [
               49.4919324,
@@ -613,7 +612,7 @@ const data = {
         zoom: 16,
         gallery: [
           {
-            catg: cat.nature,
+            catg: cat.O,
             name: "Wejście",
             coor: [
               50.4809883,
@@ -860,7 +859,7 @@ const data = {
         zoom: 15,
         gallery: [
           {
-            catg: cat.nature,
+            catg: cat.O,
             name: "Rusinowa Polana 1 S",
             coor: [
               49.2611673,
@@ -871,7 +870,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.O,
             name: "Rusinowa Polana 2 SE",
             coor: [
               49.2624556,
@@ -882,7 +881,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.O,
             name: "Rusinowa Polana 3 N",
             coor: [
               49.2612373,
@@ -1600,7 +1599,7 @@ const data = {
         zoom: 13,
         gallery: [
           {
-            catg: cat.gastro,
+            catg: cat.G,
             name: "Babcia Malina",
             coor: [
               50.0641711,
@@ -1616,7 +1615,7 @@ const data = {
             ]
           },
           {
-            catg: cat.gastro,
+            catg: cat.G,
             name: "Camelot",
             coor: [
               50.0629977,
@@ -1627,7 +1626,7 @@ const data = {
             ]
           },
           {
-            catg: cat.gastro,
+            catg: cat.G,
             name: "Chata",
             coor: [
               50.0680329,
@@ -1641,7 +1640,7 @@ const data = {
             ]
           },
           {
-            catg: cat.gastro,
+            catg: cat.G,
             name: "Cyklop",
             coor: [
               50.0615022,
@@ -1652,7 +1651,7 @@ const data = {
             ]
           },
           {
-            catg: cat.gastro,
+            catg: cat.G,
             name: "Dziórawy Kocioł",
             coor: [
               50.0574492,
@@ -1666,7 +1665,7 @@ const data = {
             ]
           },
           {
-            catg: cat.gastro,
+            catg: cat.G,
             name: "Gruzińskie Chaczapuri",
             coor: [
               50.0600244,
@@ -1677,7 +1676,7 @@ const data = {
             ]
           },
           {
-            catg: cat.gastro,
+            catg: cat.G,
             name: "Hoang Hai",
             coor: [
               50.053134,
@@ -1688,7 +1687,7 @@ const data = {
             ]
           },
           {
-            catg: cat.gastro,
+            catg: cat.G,
             name: "Ministerstwo",
             coor: [
               50.0567048,
@@ -1700,7 +1699,7 @@ const data = {
             ]
           },
           {
-            catg: cat.gastro,
+            catg: cat.G,
             name: "Pod Wawelem",
             coor: [
               50.0545978,
@@ -1711,7 +1710,7 @@ const data = {
             ]
           },
           {
-            catg: cat.gastro,
+            catg: cat.G,
             name: "Taco Mexicano",
             coor: [
               50.058228,
@@ -1724,7 +1723,7 @@ const data = {
             ]
           },
           {
-            catg: cat.gastro,
+            catg: cat.G,
             name: "Tratoria Da Marco",
             coor: [
               50.0669835,
@@ -1737,7 +1736,7 @@ const data = {
             ]
           },
           {
-            catg: cat.gastro,
+            catg: cat.G,
             name: "Wierzynek",
             coor: [
               50.0603882,
@@ -1748,7 +1747,7 @@ const data = {
             ]
           },
           {
-            catg: cat.history,
+            catg: cat.H,
             name: "Barbakan",
             coor: [
               50.065502,
@@ -1759,91 +1758,7 @@ const data = {
             ]
           },
           {
-            catg: cat.history,
-            name: "Kopiec Jana Pawła II",
-            coor: [
-              50.0442493,
-              19.9172446
-            ],
-            date: []
-          },
-          {
-            catg: cat.history,
-            name: "Kopiec Kościuszki",
-            coor: [
-              50.0549104,
-              19.8933542
-            ],
-            date: [
-              2013
-            ]
-          },
-          {
-            catg: cat.history,
-            name: "Kopiec Krakusa",
-            coor: [
-              50.0380789,
-              19.9584353
-            ],
-            date: [
-              2012,
-              2013,
-              2015,
-              2020
-            ]
-          },
-          {
-            catg: cat.history,
-            name: "Kopiec Piłsudskiego",
-            coor: [
-              50.0600489,
-              19.8471665
-            ],
-            date: [
-              2012,
-              2016,
-              2020,
-              2023
-            ]
-          },
-          {
-            catg: cat.history,
-            name: "Kopiec Wandy",
-            coor: [
-              50.0702176,
-              20.0680733
-            ],
-            date: [
-              2015
-            ]
-          },
-          {
-            catg: cat.history,
-            name: "Smocza Jama",
-            coor: [
-              50.0531383,
-              19.9336463
-            ],
-            date: [
-              2021
-            ]
-          },
-          {
-            catg: cat.culture,
-            name: "Centrum Kongresowe",
-            coor: [
-              50.0479388,
-              19.9313933
-            ],
-            date: [
-              2014,
-              2018,
-              2021,
-              2023
-            ]
-          },
-          {
-            catg: cat.culture,
+            catg: cat.H,
             name: "Filharmonia Krakowska",
             coor: [
               50.0588177,
@@ -1869,7 +1784,7 @@ const data = {
             ]
           },
           {
-            catg: cat.culture,
+            catg: cat.H,
             name: "Kino Kijów",
             coor: [
               50.0583287,
@@ -1880,7 +1795,7 @@ const data = {
             ]
           },
           {
-            catg: cat.culture,
+            catg: cat.H,
             name: "Kino pod Baranami",
             coor: [
               50.0615969,
@@ -1891,7 +1806,66 @@ const data = {
             ]
           },
           {
-            catg: cat.culture,
+            catg: cat.H,
+            name: "Kopiec Jana Pawła II",
+            coor: [
+              50.0442493,
+              19.9172446
+            ],
+            date: []
+          },
+          {
+            catg: cat.H,
+            name: "Kopiec Kościuszki",
+            coor: [
+              50.0549104,
+              19.8933542
+            ],
+            date: [
+              2013
+            ]
+          },
+          {
+            catg: cat.H,
+            name: "Kopiec Krakusa",
+            coor: [
+              50.0380789,
+              19.9584353
+            ],
+            date: [
+              2012,
+              2013,
+              2015,
+              2020
+            ]
+          },
+          {
+            catg: cat.H,
+            name: "Kopiec Piłsudskiego",
+            coor: [
+              50.0600489,
+              19.8471665
+            ],
+            date: [
+              2012,
+              2016,
+              2020,
+              2023
+            ]
+          },
+          {
+            catg: cat.H,
+            name: "Kopiec Wandy",
+            coor: [
+              50.0702176,
+              20.0680733
+            ],
+            date: [
+              2015
+            ]
+          },
+          {
+            catg: cat.H,
             name: "Muzeum Farmacji",
             coor: [
               50.0632249,
@@ -1902,18 +1876,7 @@ const data = {
             ]
           },
           {
-            catg: cat.culture,
-            name: "Muzeum Lotnictwa",
-            coor: [
-              50.0770862,
-              19.9898386
-            ],
-            date: [
-              2020
-            ]
-          },
-          {
-            catg: cat.culture,
+            catg: cat.H,
             name: "Muzeum Narodowe",
             coor: [
               50.0604312,
@@ -1924,7 +1887,101 @@ const data = {
             ]
           },
           {
-            catg: cat.culture,
+            catg: cat.H,
+            name: "Smocza Jama",
+            coor: [
+              50.0531383,
+              19.9336463
+            ],
+            date: [
+              2021
+            ]
+          },
+          {
+            catg: cat.H,
+            name: "Sukiennice",
+            coor: [
+              50.0616951,
+              19.9373585
+            ],
+            date: []
+          },
+          {
+            catg: cat.H,
+            name: "Teatr Bagatela",
+            coor: [
+              50.0636528,
+              19.9322623
+            ],
+            date: [
+              2012,
+              2014,
+              2015
+            ]
+          },
+          {
+            catg: cat.H,
+            name: "Teatr Słowackiego",
+            coor: [
+              50.0639404,
+              19.9430662
+            ],
+            date: [
+              2017,
+              2018,
+              2022
+            ]
+          },
+          {
+            catg: cat.H,
+            name: "Teatr Stary",
+            coor: [
+              50.0631621,
+              19.9353603
+            ],
+            date: [
+              2023
+            ]
+          },
+          {
+            catg: cat.H,
+            name: "Teatr Stu",
+            coor: [
+              50.0563845,
+              19.9264419
+            ],
+            date: [
+              2011,
+              2024
+            ]
+          },
+          {
+            catg: cat.N,
+            name: "Centrum Kongresowe",
+            coor: [
+              50.0479388,
+              19.9313933
+            ],
+            date: [
+              2014,
+              2018,
+              2021,
+              2023
+            ]
+          },
+          {
+            catg: cat.N,
+            name: "Muzeum Lotnictwa",
+            coor: [
+              50.0770862,
+              19.9898386
+            ],
+            date: [
+              2020
+            ]
+          },
+          {
+            catg: cat.N,
             name: "Opera Krakowska",
             coor: [
               50.0659255,
@@ -1940,7 +1997,7 @@ const data = {
             ]
           },
           {
-            catg: cat.culture,
+            catg: cat.N,
             name: "Stadion Cracovia",
             coor: [
               50.0579722,
@@ -1951,16 +2008,7 @@ const data = {
             ]
           },
           {
-            catg: cat.culture,
-            name: "Sukiennice",
-            coor: [
-              50.0616951,
-              19.9373585
-            ],
-            date: []
-          },
-          {
-            catg: cat.culture,
+            catg: cat.N,
             name: "Tauron Arena",
             coor: [
               50.0677041,
@@ -1975,56 +2023,7 @@ const data = {
             ]
           },
           {
-            catg: cat.culture,
-            name: "Teatr Bagatela",
-            coor: [
-              50.0636528,
-              19.9322623
-            ],
-            date: [
-              2012,
-              2014,
-              2015
-            ]
-          },
-          {
-            catg: cat.culture,
-            name: "Teatr Słowackiego",
-            coor: [
-              50.0639404,
-              19.9430662
-            ],
-            date: [
-              2017,
-              2018,
-              2022
-            ]
-          },
-          {
-            catg: cat.culture,
-            name: "Teatr Stary",
-            coor: [
-              50.0631621,
-              19.9353603
-            ],
-            date: [
-              2023
-            ]
-          },
-          {
-            catg: cat.culture,
-            name: "Teatr Stu",
-            coor: [
-              50.0563845,
-              19.9264419
-            ],
-            date: [
-              2011,
-              2024
-            ]
-          },
-          {
-            catg: cat.culture,
+            catg: cat.N,
             name: "Teatr Variete",
             coor: [
               50.0568383,
@@ -2035,7 +2034,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Błonia",
             coor: [
               50.0592327,
@@ -2047,7 +2046,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Bulwar Czerwieński",
             coor: [
               50.0511733,
@@ -2058,7 +2057,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Bulwar Inflandzki",
             coor: [
               50.047894,
@@ -2069,7 +2068,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Bulwar Kurlandzki",
             coor: [
               50.0537635,
@@ -2080,7 +2079,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Bulwar Wołyński",
             coor: [
               50.0475426,
@@ -2091,7 +2090,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Dolina Prądnika",
             coor: [
               50.0993033,
@@ -2102,7 +2101,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Kamieniołom Liban",
             coor: [
               50.0366077,
@@ -2113,7 +2112,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Las Wolski",
             coor: [
               50.0549345,
@@ -2128,7 +2127,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Lasek Mogilski",
             coor: [
               50.055396,
@@ -2139,7 +2138,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Łąki Nowohuckie",
             coor: [
               50.064147,
@@ -2150,7 +2149,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Młynówka Królewska",
             coor: [
               50.0737019,
@@ -2167,7 +2166,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Ogród Botaniczny",
             coor: [
               50.0622908,
@@ -2182,7 +2181,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Park Aleksandry",
             coor: [
               50.0120277,
@@ -2193,7 +2192,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Park Dąbie",
             coor: [
               50.0556785,
@@ -2204,7 +2203,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Park Decjusza",
             coor: [
               50.0651904,
@@ -2216,7 +2215,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Park Dębnicki",
             coor: [
               50.0493132,
@@ -2227,7 +2226,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Park dworku Matejki",
             coor: [
               50.0813687,
@@ -2238,7 +2237,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Park Jalu Kurka",
             coor: [
               50.0692983,
@@ -2249,7 +2248,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Park Jerzmanowskich",
             coor: [
               50.0173638,
@@ -2260,7 +2259,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Park Jordana",
             coor: [
               50.0627454,
@@ -2275,7 +2274,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Park Kleparski",
             coor: [
               50.0761601,
@@ -2286,7 +2285,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Park Kościuszki",
             coor: [
               50.0931848,
@@ -2297,7 +2296,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Park Krakowski",
             coor: [
               50.0685821,
@@ -2310,7 +2309,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Park Krowoderski",
             coor: [
               50.0880704,
@@ -2321,7 +2320,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Park Leśny Witkowice",
             coor: [
               50.1072653,
@@ -2332,7 +2331,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Park Lilli Wenedy",
             coor: [
               50.0205763,
@@ -2343,7 +2342,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Park Lotników Polskich",
             coor: [
               50.0734609,
@@ -2354,7 +2353,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Park Reduta",
             coor: [
               50.0963439,
@@ -2365,7 +2364,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Park rzeczny Wilgi",
             coor: [
               50.0319077,
@@ -2376,7 +2375,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Park Strzelecki",
             coor: [
               50.0653419,
@@ -2387,7 +2386,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Park Szymborskiej",
             coor: [
               50.0652007,
@@ -2398,7 +2397,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Park Tysiąclecia",
             coor: [
               50.0892544,
@@ -2409,7 +2408,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Park Wyspiańskiego",
             coor: [
               50.085964,
@@ -2420,7 +2419,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Park Zaczarowanej Dorożki",
             coor: [
               50.0867384,
@@ -2431,7 +2430,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Park Zielony Jar Wandy",
             coor: [
               50.0942516,
@@ -2442,7 +2441,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Park Żeromskiego",
             coor: [
               50.0672426,
@@ -2453,7 +2452,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Planty",
             coor: [
               50.0595737,
@@ -2467,7 +2466,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Planty Bieńczyckie",
             coor: [
               50.0859777,
@@ -2478,7 +2477,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Planty Dietlowskie",
             coor: [
               50.054907,
@@ -2489,7 +2488,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Planty Mistrzejowickie",
             coor: [
               50.0992896,
@@ -2500,7 +2499,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Planty Nowackiego",
             coor: [
               50.0435878,
@@ -2511,7 +2510,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Zakrzówek",
             coor: [
               50.0372692,
@@ -2525,7 +2524,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Zalew Bagry",
             coor: [
               50.0312047,
@@ -2536,7 +2535,7 @@ const data = {
             ]
           },
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Zalew Nowohucki",
             coor: [
               50.0790657,
@@ -2548,7 +2547,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Bazylika Bożego Ciała [Kazimierz]/Zewnętrze",
             coor: [
               50.049761,
@@ -2565,7 +2564,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Bazylika Bożego Ciała [Kazimierz]/Wnętrze",
             coor: [
               50.049761,
@@ -2581,7 +2580,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Bazylika Bożego Ciała [Kazimierz]/Organy",
             coor: [
               50.049761,
@@ -2597,7 +2596,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Bazylika MB Wniebowziętej (Cystersów) [Mogiła]/Zewnętrze",
             coor: [
               50.0647909,
@@ -2609,7 +2608,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Bazylika MB Wniebowziętej (Cystersów) [Mogiła]/Wnętrze",
             coor: [
               50.0647909,
@@ -2620,7 +2619,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Bazylika MB Wniebowziętej (Cystersów) [Mogiła]/Ołtarz",
             coor: [
               50.0647909,
@@ -2631,7 +2630,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Bazylika Miłosierdzia Bożego [Łagiewniki]/Zewnętrze",
             coor: [
               50.0199731,
@@ -2647,7 +2646,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Bazylika Miłosierdzia Bożego [Łagiewniki]/Wnętrze",
             coor: [
               50.0199731,
@@ -2662,7 +2661,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Bazylika Miłosierdzia Bożego [Łagiewniki]/Organy",
             coor: [
               50.0199731,
@@ -2677,7 +2676,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Bazylika Najświętszego Serca Pana Jezusa (Jezuitów) [Wesoła]/Zewnętrze",
             coor: [
               50.0621049,
@@ -2699,7 +2698,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Bazylika Najświętszego Serca Pana Jezusa (Jezuitów) [Wesoła]/Wnętrze",
             coor: [
               50.0621049,
@@ -2720,7 +2719,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Bazylika Najświętszego Serca Pana Jezusa (Jezuitów) [Wesoła]/Organy",
             coor: [
               50.0621049,
@@ -2741,7 +2740,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Bazylika Nawiedzenia NMP (Karmelitów) na Piasku [Piasek]/Zewnętrze",
             coor: [
               50.0651482,
@@ -2763,7 +2762,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Bazylika Nawiedzenia NMP (Karmelitów) na Piasku [Piasek]/Wnętrze",
             coor: [
               50.0651482,
@@ -2784,7 +2783,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Bazylika Nawiedzenia NMP (Karmelitów) na Piasku [Piasek]/Organy",
             coor: [
               50.0651482,
@@ -2805,7 +2804,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Bazylika św. Floriana [Kleparz]/Zewnętrze",
             coor: [
               50.0675457,
@@ -2828,7 +2827,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Bazylika św. Floriana [Kleparz]/Wnętrze",
             coor: [
               50.0675457,
@@ -2850,7 +2849,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Bazylika św. Floriana [Kleparz]/Organy",
             coor: [
               50.0675457,
@@ -2872,7 +2871,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Bazylika św. Franciszka z Asyżu (Franciszkanów) [Stare Miasto]/Zewnętrze",
             coor: [
               50.0592224,
@@ -2888,7 +2887,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Bazylika św. Franciszka z Asyżu (Franciszkanów) [Stare Miasto]/Wnętrze",
             coor: [
               50.0592224,
@@ -2903,7 +2902,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Bazylika św. Franciszka z Asyżu (Franciszkanów) [Stare Miasto]/Organy",
             coor: [
               50.0592224,
@@ -2918,7 +2917,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Bazylika św. Stanisława i św. Wacława (Wawel) [Stare Miasto]/Zewnętrze",
             coor: [
               50.0546555,
@@ -2933,7 +2932,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Bazylika Świętej Trójcy (Dominikanów) [Stare Miasto]/Zewnętrze",
             coor: [
               50.0592982,
@@ -2948,7 +2947,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Bazylika Świętej Trójcy (Dominikanów) [Stare Miasto]/Wnętrze",
             coor: [
               50.0592982,
@@ -2962,7 +2961,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Bazylika Świętej Trójcy (Dominikanów) [Stare Miasto]/Organy",
             coor: [
               50.0592982,
@@ -2976,7 +2975,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Bazylika Wniebowzięcia NMP (Mariacka) [Stare Miasto]/Zewnętrze",
             coor: [
               50.0616606,
@@ -2997,7 +2996,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Bazylika Wniebowzięcia NMP (Mariacka) [Stare Miasto]/Wnętrze",
             coor: [
               50.0616606,
@@ -3017,7 +3016,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Bazylika Wniebowzięcia NMP (Mariacka) [Stare Miasto]/Organy",
             coor: [
               50.0616606,
@@ -3037,7 +3036,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół Chrystusa Odkupiciela (Redemptorystów) [Tonie]/Zewnętrze",
             coor: [
               50.0949545,
@@ -3049,7 +3048,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół Chrystusa Odkupiciela (Redemptorystów) [Tonie]/Wnętrze",
             coor: [
               50.0949545,
@@ -3060,7 +3059,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół Chrystusa Odkupiciela (Redemptorystów) [Tonie]/Organy",
             coor: [
               50.0949545,
@@ -3071,7 +3070,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół MB Częstochowskiej (Cystersów) [Szklane Domy]/Zewnętrze",
             coor: [
               50.0755594,
@@ -3083,7 +3082,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół MB Częstochowskiej (Cystersów) [Szklane Domy]/Wnętrze",
             coor: [
               50.0755594,
@@ -3094,7 +3093,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół MB Częstochowskiej (Cystersów) [Szklane Domy]/Organy",
             coor: [
               50.0755594,
@@ -3105,7 +3104,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół MB Królowej Polski (Arka Pana) [Bieńczyce]/Zewnętrze",
             coor: [
               50.0849916,
@@ -3119,7 +3118,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół MB Królowej Polski (Arka Pana) [Bieńczyce]/Wnętrze",
             coor: [
               50.0849916,
@@ -3132,7 +3131,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół MB Królowej Polski (Arka Pana) [Bieńczyce]/Organy",
             coor: [
               50.0849916,
@@ -3145,7 +3144,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół MB Królowej Polski [Wola Justowska]/Zewnętrze",
             coor: [
               50.063794,
@@ -3157,7 +3156,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół MB Nieustającej Pomocy [Mydlniki]/Zewnętrze",
             coor: [
               50.0835992,
@@ -3169,7 +3168,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół MB Nieustającej Pomocy [Mydlniki]/Wnętrze",
             coor: [
               50.0835992,
@@ -3180,7 +3179,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół NMP Matki Kościoła [Prądnik Biały]/Zewnętrze",
             coor: [
               50.0968773,
@@ -3192,7 +3191,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół NMP Matki Kościoła [Prądnik Biały]/Wnętrze",
             coor: [
               50.0968773,
@@ -3203,7 +3202,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół NMP Matki Kościoła [Prądnik Biały]/Organy",
             coor: [
               50.0968773,
@@ -3214,7 +3213,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół Podwyższenia Krzyża Świętego [Kurdwanów]/Zewnętrze",
             coor: [
               50.0114313,
@@ -3226,7 +3225,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół Podwyższenia Krzyża Świętego [Kurdwanów]/Wnętrze",
             coor: [
               50.0114313,
@@ -3237,7 +3236,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół Podwyższenia Krzyża Świętego [Kurdwanów]/Organy",
             coor: [
               50.0114313,
@@ -3248,7 +3247,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół Przemienienia Pańskiego (Pijarów) [Stare Miasto]/Zewnętrze",
             coor: [
               50.0649433,
@@ -3261,7 +3260,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół Przemienienia Pańskiego (Pijarów) [Stare Miasto]/Wnętrze",
             coor: [
               50.0649433,
@@ -3273,7 +3272,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół Przemienienia Pańskiego (Pijarów) [Stare Miasto]/Organy",
             coor: [
               50.0649433,
@@ -3285,7 +3284,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Agnieszki [Stradom]/Zewnętrze",
             coor: [
               50.0512697,
@@ -3297,7 +3296,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Agnieszki [Stradom]/Wnętrze",
             coor: [
               50.0512697,
@@ -3308,7 +3307,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Agnieszki [Stradom]/Organy",
             coor: [
               50.0512697,
@@ -3319,7 +3318,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Anny [Stare Miasto]/Zewnętrze",
             coor: [
               50.0623993,
@@ -3342,7 +3341,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Anny [Stare Miasto]/Wnętrze",
             coor: [
               50.0623993,
@@ -3363,7 +3362,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Anny [Stare Miasto]/Organy",
             coor: [
               50.0623993,
@@ -3384,7 +3383,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Antoniego Padewskiego [Bronowice]/Zewnętrze",
             coor: [
               50.0871953,
@@ -3396,7 +3395,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Antoniego Padewskiego [Bronowice]/Wnętrze",
             coor: [
               50.0871953,
@@ -3407,7 +3406,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Antoniego Padewskiego [Bronowice]/Organy",
             coor: [
               50.0871953,
@@ -3418,7 +3417,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Bartłomieja (Cystersów) [Mogiła]/Zewnętrze",
             coor: [
               50.0656707,
@@ -3430,7 +3429,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Franciszka z Asyżu (Reformatów) [Bronowice]/Zewnętrze",
             coor: [
               50.0916705,
@@ -3442,7 +3441,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Franciszka z Asyżu (Reformatów) [Bronowice]/Wnętrze",
             coor: [
               50.0916705,
@@ -3453,7 +3452,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Franciszka z Asyżu (Reformatów) [Bronowice]/Organy",
             coor: [
               50.0916705,
@@ -3464,7 +3463,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Idziego (Dominikanów) [Stare Miasto]/Zewnętrze",
             coor: [
               50.0551859,
@@ -3476,7 +3475,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Idziego (Dominikanów) [Stare Miasto]/Wnętrze",
             coor: [
               50.0551859,
@@ -3487,7 +3486,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Idziego (Dominikanów) [Stare Miasto]/Organy",
             coor: [
               50.0551859,
@@ -3498,7 +3497,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Jadwigi Królowej [Krowodrza]/Zewnętrze",
             coor: [
               50.0840261,
@@ -3511,7 +3510,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Jadwigi Królowej [Krowodrza]/Wnętrze",
             coor: [
               50.0840261,
@@ -3523,7 +3522,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Jadwigi Królowej [Krowodrza]/Organy",
             coor: [
               50.0840261,
@@ -3535,7 +3534,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Jana Chrzciciela [Krzesławice]/Zewnętrze",
             coor: [
               50.080947,
@@ -3546,7 +3545,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Jana Ewangelisty (Prezentek) [Stare Miasto]/Zewnętrze",
             coor: [
               50.0631406,
@@ -3558,7 +3557,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Jana Ewangelisty (Prezentek) [Stare Miasto]/Wnętrze",
             coor: [
               50.0631406,
@@ -3569,7 +3568,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Jana Ewangelisty (Prezentek) [Stare Miasto]/Organy",
             coor: [
               50.0631406,
@@ -3580,7 +3579,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Jana Kantego [Bronowice]/Zewnętrze",
             coor: [
               50.0801053,
@@ -3598,7 +3597,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Jana Kantego [Bronowice]/Wnętrze",
             coor: [
               50.0801053,
@@ -3615,7 +3614,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Jana Kantego [Bronowice]/Organy",
             coor: [
               50.0801053,
@@ -3632,7 +3631,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Jana Pawła II [Łagiewniki]/Zewnętrze",
             coor: [
               50.013136,
@@ -3646,7 +3645,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Jana Pawła II [Łagiewniki]/Wnętrze",
             coor: [
               50.013136,
@@ -3659,7 +3658,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Jana Pawła II [Łagiewniki]/Organy",
             coor: [
               50.013136,
@@ -3672,7 +3671,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Józefa [Bieńczyce]/Zewnętrze",
             coor: [
               50.0892923,
@@ -3684,7 +3683,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Józefa [Bieńczyce]/Wnętrze",
             coor: [
               50.0892923,
@@ -3695,7 +3694,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Józefa [Bieńczyce]/Organy",
             coor: [
               50.0892923,
@@ -3706,7 +3705,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Karola Boromeusza [Żabiniec]/Zewnętrze",
             coor: [
               50.0873631,
@@ -3718,7 +3717,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Karola Boromeusza [Żabiniec]/Wnętrze",
             coor: [
               50.0873631,
@@ -3729,7 +3728,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Karola Boromeusza [Żabiniec]/Organy",
             coor: [
               50.0873631,
@@ -3740,7 +3739,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Kazimierza Królewicza (Reformatów) [Stare Miasto]/Zewnętrze",
             coor: [
               50.0648736,
@@ -3752,7 +3751,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Kazimierza Królewicza (Reformatów) [Stare Miasto]/Wnętrze",
             coor: [
               50.0648736,
@@ -3763,7 +3762,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Marka [Stare Miasto]/Zewnętrze",
             coor: [
               50.0645624,
@@ -3775,7 +3774,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Marka [Stare Miasto]/Wnętrze",
             coor: [
               50.0645624,
@@ -3786,7 +3785,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Marka [Stare Miasto]/Organy",
             coor: [
               50.0645624,
@@ -3797,7 +3796,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Mikołaja z Tolentino (Augustianów) [Bieżanów]/Zewnętrze",
             coor: [
               50.0185392,
@@ -3809,7 +3808,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Mikołaja z Tolentino (Augustianów) [Bieżanów]/Wnętrze",
             coor: [
               50.0185392,
@@ -3820,7 +3819,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Piotra i Pawła [Stare Miasto]/Zewnętrze",
             coor: [
               50.0569304,
@@ -3834,7 +3833,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Piotra i Pawła [Stare Miasto]/Wnętrze",
             coor: [
               50.0569304,
@@ -3847,7 +3846,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Piotra i Pawła [Stare Miasto]/Organy",
             coor: [
               50.0569304,
@@ -3860,7 +3859,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Piotra i Pawła (Benedyktynów) [Tyniec]/Zewnętrze",
             coor: [
               50.01912,
@@ -3872,7 +3871,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Piotra i Pawła (Benedyktynów) [Tyniec]/Wnętrze",
             coor: [
               50.01912,
@@ -3883,7 +3882,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Piotra i Pawła (Benedyktynów) [Tyniec]/Organy",
             coor: [
               50.01912,
@@ -3894,7 +3893,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Stanisława Biskupa [Dąbie]/Zewnętrze",
             coor: [
               50.0606292,
@@ -3907,7 +3906,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Stanisława Biskupa [Dąbie]/Wnętrze",
             coor: [
               50.0606292,
@@ -3919,7 +3918,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Stanisława Biskupa [Dąbie]/Organy",
             coor: [
               50.0606292,
@@ -3931,7 +3930,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Szczepana [Nowa Wieś]/Zewnętrze",
             coor: [
               50.0716327,
@@ -3952,7 +3951,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Szczepana [Nowa Wieś]/Wnętrze",
             coor: [
               50.0716327,
@@ -3972,7 +3971,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Szczepana [Nowa Wieś]/Organy",
             coor: [
               50.0716327,
@@ -3992,7 +3991,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Wincentego a Paulo (Misjonarzy) [Kleparz]/Zewnętrze",
             coor: [
               50.0681947,
@@ -4014,7 +4013,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Wincentego a Paulo (Misjonarzy) [Kleparz]/Wnętrze",
             coor: [
               50.0681947,
@@ -4035,7 +4034,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Wincentego a Paulo (Misjonarzy) [Kleparz]/Ołtarz",
             coor: [
               50.0681947,
@@ -4056,7 +4055,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Wojciecha [Stare Miasto]/Zewnętrze",
             coor: [
               50.0608927,
@@ -4068,7 +4067,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Wojciecha [Stare Miasto]/Wnętrze",
             coor: [
               50.0608927,
@@ -4079,7 +4078,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół św. Wojciecha [Stare Miasto]/Organy",
             coor: [
               50.0608927,
@@ -4090,7 +4089,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół Świętej Trójcy (Bonifratrów) [Kazimierz]/Zewnętrze",
             coor: [
               50.0470362,
@@ -4102,7 +4101,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół Świętej Trójcy (Bonifratrów) [Kazimierz]/Wnętrze",
             coor: [
               50.0470362,
@@ -4113,7 +4112,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół Świętej Trójcy (Bonifratrów) [Kazimierz]/Organy",
             coor: [
               50.0470362,
@@ -4124,7 +4123,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół Zesłania Ducha Świętego [Ruczaj]/Zewnętrze",
             coor: [
               50.027853,
@@ -4136,7 +4135,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół Zesłania Ducha Świętego [Ruczaj]/Wnętrze",
             coor: [
               50.027853,
@@ -4147,7 +4146,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół Zesłania Ducha Świętego [Ruczaj]/Organy",
             coor: [
               50.027853,
@@ -4158,7 +4157,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół Zmartwychwstania Pańskiego (Zmartwychwstańców) [Piasek]/Zewnętrze",
             coor: [
               50.0665815,
@@ -4174,7 +4173,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół Zmartwychwstania Pańskiego (Zmartwychwstańców) [Piasek]/Wnętrze",
             coor: [
               50.0665815,
@@ -4189,7 +4188,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół Zmartwychwstania Pańskiego (Zmartwychwstańców) [Piasek]/Organy",
             coor: [
               50.0665815,
@@ -4204,7 +4203,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół Zwiastowania NMP (Kapucynów) [Piasek]/Zewnętrze",
             coor: [
               50.0619697,
@@ -4216,7 +4215,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół Zwiastowania NMP (Kapucynów) [Piasek]/Wnętrze",
             coor: [
               50.0619697,
@@ -4227,7 +4226,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół Zwiastowania NMP (Kapucynów) [Piasek]/Organy",
             coor: [
               50.0619697,
@@ -4611,7 +4610,7 @@ const data = {
         zoom: 15,
         gallery: [
           {
-            catg: cat.history,
+            catg: cat.O,
             name: "Rynek",
             coor: [
               49.83461,
@@ -4622,7 +4621,7 @@ const data = {
             ]
           },
           {
-            catg: cat.history,
+            catg: cat.H,
             name: "Gimnazjum",
             coor: [
               49.8348547,
@@ -4633,7 +4632,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół Narodzenia NMP 1",
             coor: [
               49.8341869,
@@ -4645,7 +4644,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół Narodzenia NMP 2",
             coor: [
               49.8341869,
@@ -4656,7 +4655,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościół Narodzenia NMP 3",
             coor: [
               49.8341869,
@@ -4667,7 +4666,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościółek św. Jakuba 1",
             coor: [
               49.8287336,
@@ -4679,7 +4678,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościółek św. Jakuba 2",
             coor: [
               49.8287336,
@@ -4690,7 +4689,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Kościółek św. Jakuba 3",
             coor: [
               49.8287336,
@@ -4822,7 +4821,7 @@ const data = {
         zoom: 15,
         gallery: [
           {
-            catg: cat.nature,
+            catg: cat.Z,
             name: "Park Zdrojowy",
             coor: [
               49.6061283,
@@ -6810,95 +6809,7 @@ const data = {
         zoom: 13,
         gallery: [
           {
-            catg: cat.general,
-            name: "Panorama 1",
-            coor: [
-              41.370879,
-              2.170465
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: cat.general,
-            name: "Panorama 2",
-            coor: [
-              41.3708729,
-              2.1703362
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: cat.general,
-            name: "Panorama 3",
-            coor: [
-              41.3708548,
-              2.1702102
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: cat.general,
-            name: "Panorama 4",
-            coor: [
-              41.3708367,
-              2.1700788
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: cat.space,
-            name: "Port Vell",
-            coor: [
-              41.375448,
-              2.1802014
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: cat.culture,
-            name: "Escuela Massana",
-            coor: [
-              41.3811035,
-              2.1709612
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: cat.culture,
-            name: "Muzeum MNAC",
-            coor: [
-              41.3712695,
-              2.1513033
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: cat.culture,
-            name: "Stadion Olimpijski",
-            coor: [
-              41.3657862,
-              2.1556699
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: cat.history,
+            catg: cat.H,
             name: "Casa Batllo",
             coor: [
               41.3916745,
@@ -6909,7 +6820,7 @@ const data = {
             ]
           },
           {
-            catg: cat.history,
+            catg: cat.H,
             name: "Casa Mila",
             coor: [
               41.3951927,
@@ -6920,40 +6831,7 @@ const data = {
             ]
           },
           {
-            catg: cat.history,
-            name: "La Boqueria",
-            coor: [
-              41.3820252,
-              2.1722916
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: cat.space,
-            name: "La Rambla 1",
-            coor: [
-              41.3844442,
-              2.1707815
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: cat.space,
-            name: "La Rambla 2",
-            coor: [
-              41.3770662,
-              2.1765482
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: cat.history,
+            catg: cat.H,
             name: "Most Biskupi",
             coor: [
               41.3832765,
@@ -6964,7 +6842,117 @@ const data = {
             ]
           },
           {
-            catg: cat.space,
+            catg: cat.H,
+            name: "Muzeum MNAC",
+            coor: [
+              41.3712695,
+              2.1513033
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: cat.N,
+            name: "Escuela Massana",
+            coor: [
+              41.3811035,
+              2.1709612
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: cat.N,
+            name: "La Boqueria",
+            coor: [
+              41.3820252,
+              2.1722916
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: cat.N,
+            name: "Stadion Olimpijski",
+            coor: [
+              41.3657862,
+              2.1556699
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: cat.O,
+            name: "La Rambla 1",
+            coor: [
+              41.3844442,
+              2.1707815
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: cat.O,
+            name: "La Rambla 2",
+            coor: [
+              41.3770662,
+              2.1765482
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: cat.O,
+            name: "Panorama 1",
+            coor: [
+              41.370879,
+              2.170465
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: cat.O,
+            name: "Panorama 2",
+            coor: [
+              41.3708729,
+              2.1703362
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: cat.O,
+            name: "Panorama 3",
+            coor: [
+              41.3708548,
+              2.1702102
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: cat.O,
+            name: "Panorama 4",
+            coor: [
+              41.3708367,
+              2.1700788
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: cat.O,
             name: "Plac Hiszpański",
             coor: [
               41.374031,
@@ -6975,7 +6963,18 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.O,
+            name: "Port Vell",
+            coor: [
+              41.375448,
+              2.1802014
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: cat.S,
             name: "Bazylika La Merce",
             coor: [
               41.3796303,
@@ -6986,7 +6985,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Bazylika NMP Morza",
             coor: [
               41.3837841,
@@ -6997,7 +6996,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Katedra św. Eulalii 1",
             coor: [
               41.3842671,
@@ -7008,7 +7007,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Katedra św. Eulalii 2",
             coor: [
               41.3838385,
@@ -7019,7 +7018,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Katedra św. Eulalii 3",
             coor: [
               41.3836754,
@@ -7030,7 +7029,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Sagrada Familia 1",
             coor: [
               41.4040464,
@@ -7041,7 +7040,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Sagrada Familia 2",
             coor: [
               41.402952,
@@ -7052,7 +7051,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Sagrada Familia 3",
             coor: [
               41.403463,
@@ -7063,7 +7062,7 @@ const data = {
             ]
           },
           {
-            catg: cat.religion,
+            catg: cat.S,
             name: "Sagrada Familia 4",
             coor: [
               41.4035957,
