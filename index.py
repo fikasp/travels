@@ -27,7 +27,7 @@ const ranges = {
   poland: "POLSKA",
   world: "EUROPA",
 }
-const startCity = ""
+const startCity = "KRAKÓW"
 const mapActive = false
 """
 
