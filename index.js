@@ -14,8 +14,8 @@ const ranges = {
   poland: "POLSKA",
   world: "EUROPA",
 }
-const startCity = "KRAKÓW"
-const mapActive = true
+const startCity = ""
+const mapActive = false
 
 const data = {
   [ranges.mountains]: {
@@ -2034,519 +2034,6 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
-            name: "Błonia",
-            coor: [
-              50.0592327,
-              19.9206054
-            ],
-            date: [
-              2016,
-              2017
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Bulwar Czerwieński",
-            coor: [
-              50.0511733,
-              19.9346495
-            ],
-            date: [
-              2021
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Bulwar Inflandzki",
-            coor: [
-              50.047894,
-              19.9368703
-            ],
-            date: [
-              2021
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Bulwar Kurlandzki",
-            coor: [
-              50.0537635,
-              19.9621367
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Bulwar Wołyński",
-            coor: [
-              50.0475426,
-              19.934746
-            ],
-            date: [
-              2021
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Dolina Prądnika",
-            coor: [
-              50.0993033,
-              19.9383402
-            ],
-            date: [
-              2023
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Kamieniołom Liban",
-            coor: [
-              50.0366077,
-              19.9565578
-            ],
-            date: [
-              2015
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Las Wolski",
-            coor: [
-              50.0549345,
-              19.843111
-            ],
-            date: [
-              2012,
-              2016,
-              2020,
-              2021,
-              2023
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Lasek Mogilski",
-            coor: [
-              50.055396,
-              20.0580633
-            ],
-            date: [
-              2023
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Łąki Nowohuckie",
-            coor: [
-              50.064147,
-              20.0370187
-            ],
-            date: [
-              2024
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Młynówka Królewska",
-            coor: [
-              50.0737019,
-              19.9268711
-            ],
-            date: [
-              2016,
-              2017,
-              2018,
-              2019,
-              2021,
-              2022,
-              2023
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Ogród Botaniczny",
-            coor: [
-              50.0622908,
-              19.9581242
-            ],
-            date: [
-              2016,
-              2018,
-              2019,
-              2021,
-              2023
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Park Aleksandry",
-            coor: [
-              50.0120277,
-              20.0139785
-            ],
-            date: [
-              2021
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Park Dąbie",
-            coor: [
-              50.0556785,
-              19.9778706
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Park Decjusza",
-            coor: [
-              50.0651904,
-              19.8730016
-            ],
-            date: [
-              2018,
-              2021
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Park Dębnicki",
-            coor: [
-              50.0493132,
-              19.9167645
-            ],
-            date: [
-              2022
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Park dworku Matejki",
-            coor: [
-              50.0813687,
-              20.0546193
-            ],
-            date: [
-              2023
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Park Jalu Kurka",
-            coor: [
-              50.0692983,
-              19.9414515
-            ],
-            date: [
-              2023
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Park Jerzmanowskich",
-            coor: [
-              50.0173638,
-              19.9944413
-            ],
-            date: [
-              2021
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Park Jordana",
-            coor: [
-              50.0627454,
-              19.9174833
-            ],
-            date: [
-              2016,
-              2017,
-              2018,
-              2020,
-              2023
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Park Kleparski",
-            coor: [
-              50.0761601,
-              19.9382973
-            ],
-            date: [
-              2023
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Park Kościuszki",
-            coor: [
-              50.0931848,
-              19.9415052
-            ],
-            date: [
-              2023
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Park Krakowski",
-            coor: [
-              50.0685821,
-              19.924854
-            ],
-            date: [
-              2018,
-              2019,
-              2023
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Park Krowoderski",
-            coor: [
-              50.0880704,
-              19.9222684
-            ],
-            date: [
-              2020
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Park Leśny Witkowice",
-            coor: [
-              50.1072653,
-              19.9451101
-            ],
-            date: [
-              2023
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Park Lilli Wenedy",
-            coor: [
-              50.0205763,
-              20.0026917
-            ],
-            date: [
-              2021
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Park Lotników Polskich",
-            coor: [
-              50.0734609,
-              19.9951816
-            ],
-            date: [
-              2020
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Park Reduta",
-            coor: [
-              50.0963439,
-              19.9853271
-            ],
-            date: [
-              2024
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Park rzeczny Wilgi",
-            coor: [
-              50.0319077,
-              19.9281478
-            ],
-            date: [
-              2023
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Park Strzelecki",
-            coor: [
-              50.0653419,
-              19.9499595
-            ],
-            date: [
-              2025
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Park Szymborskiej",
-            coor: [
-              50.0652007,
-              19.9293548
-            ],
-            date: [
-              2023
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Park Tysiąclecia",
-            coor: [
-              50.0892544,
-              19.9982178
-            ],
-            date: [
-              2020
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Park Wyspiańskiego",
-            coor: [
-              50.085964,
-              19.920702
-            ],
-            date: [
-              2020
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Park Zaczarowanej Dorożki",
-            coor: [
-              50.0867384,
-              19.9663854
-            ],
-            date: [
-              2020
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Park Zielony Jar Wandy",
-            coor: [
-              50.0942516,
-              20.0585675
-            ],
-            date: [
-              2022
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Park Żeromskiego",
-            coor: [
-              50.0672426,
-              20.0416106
-            ],
-            date: [
-              2024
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Planty",
-            coor: [
-              50.0595737,
-              19.9411619
-            ],
-            date: [
-              2013,
-              2015,
-              2022,
-              2023
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Planty Bieńczyckie",
-            coor: [
-              50.0859777,
-              20.0252008
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Planty Dietlowskie",
-            coor: [
-              50.054907,
-              19.9443483
-            ],
-            date: [
-              2025
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Planty Mistrzejowickie",
-            coor: [
-              50.0992896,
-              20.0046873
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Planty Nowackiego",
-            coor: [
-              50.0435878,
-              19.9428785
-            ],
-            date: [
-              2024
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Zakrzówek",
-            coor: [
-              50.0372692,
-              19.9104452
-            ],
-            date: [
-              2006,
-              2017,
-              2020,
-              2023
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Zalew Bagry",
-            coor: [
-              50.0312047,
-              19.9972844
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Zalew Nowohucki",
-            coor: [
-              50.0790657,
-              20.0526667
-            ],
-            date: [
-              2019,
-              2023
-            ]
-          },
-          {
             catg: cat.S,
             name: "Bazylika Bożego Ciała [Kazimierz]/Zewnętrze",
             coor: [
@@ -3946,7 +3433,8 @@ const data = {
               2021,
               2022,
               2023,
-              2024
+              2024,
+              2025
             ],
             "top": true
           },
@@ -3967,7 +3455,8 @@ const data = {
               2021,
               2022,
               2023,
-              2024
+              2024,
+              2025
             ]
           },
           {
@@ -3987,7 +3476,8 @@ const data = {
               2021,
               2022,
               2023,
-              2024
+              2024,
+              2025
             ]
           },
           {
@@ -4233,6 +3723,519 @@ const data = {
               19.9299502
             ],
             date: [
+              2023
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Błonia",
+            coor: [
+              50.0592327,
+              19.9206054
+            ],
+            date: [
+              2016,
+              2017
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Bulwar Czerwieński",
+            coor: [
+              50.0511733,
+              19.9346495
+            ],
+            date: [
+              2021
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Bulwar Inflandzki",
+            coor: [
+              50.047894,
+              19.9368703
+            ],
+            date: [
+              2021
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Bulwar Kurlandzki",
+            coor: [
+              50.0537635,
+              19.9621367
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Bulwar Wołyński",
+            coor: [
+              50.0475426,
+              19.934746
+            ],
+            date: [
+              2021
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Dolina Prądnika",
+            coor: [
+              50.0993033,
+              19.9383402
+            ],
+            date: [
+              2023
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Kamieniołom Liban",
+            coor: [
+              50.0366077,
+              19.9565578
+            ],
+            date: [
+              2015
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Las Wolski",
+            coor: [
+              50.0549345,
+              19.843111
+            ],
+            date: [
+              2012,
+              2016,
+              2020,
+              2021,
+              2023
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Lasek Mogilski",
+            coor: [
+              50.055396,
+              20.0580633
+            ],
+            date: [
+              2023
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Łąki Nowohuckie",
+            coor: [
+              50.064147,
+              20.0370187
+            ],
+            date: [
+              2024
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Młynówka Królewska",
+            coor: [
+              50.0737019,
+              19.9268711
+            ],
+            date: [
+              2016,
+              2017,
+              2018,
+              2019,
+              2021,
+              2022,
+              2023
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Ogród Botaniczny",
+            coor: [
+              50.0622908,
+              19.9581242
+            ],
+            date: [
+              2016,
+              2018,
+              2019,
+              2021,
+              2023
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Park Aleksandry",
+            coor: [
+              50.0120277,
+              20.0139785
+            ],
+            date: [
+              2021
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Park Dąbie",
+            coor: [
+              50.0556785,
+              19.9778706
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Park Decjusza",
+            coor: [
+              50.0651904,
+              19.8730016
+            ],
+            date: [
+              2018,
+              2021
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Park Dębnicki",
+            coor: [
+              50.0493132,
+              19.9167645
+            ],
+            date: [
+              2022
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Park dworku Matejki",
+            coor: [
+              50.0813687,
+              20.0546193
+            ],
+            date: [
+              2023
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Park Jalu Kurka",
+            coor: [
+              50.0692983,
+              19.9414515
+            ],
+            date: [
+              2023
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Park Jerzmanowskich",
+            coor: [
+              50.0173638,
+              19.9944413
+            ],
+            date: [
+              2021
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Park Jordana",
+            coor: [
+              50.0627454,
+              19.9174833
+            ],
+            date: [
+              2016,
+              2017,
+              2018,
+              2020,
+              2023
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Park Kleparski",
+            coor: [
+              50.0761601,
+              19.9382973
+            ],
+            date: [
+              2023
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Park Kościuszki",
+            coor: [
+              50.0931848,
+              19.9415052
+            ],
+            date: [
+              2023
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Park Krakowski",
+            coor: [
+              50.0685821,
+              19.924854
+            ],
+            date: [
+              2018,
+              2019,
+              2023
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Park Krowoderski",
+            coor: [
+              50.0880704,
+              19.9222684
+            ],
+            date: [
+              2020
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Park Leśny Witkowice",
+            coor: [
+              50.1072653,
+              19.9451101
+            ],
+            date: [
+              2023
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Park Lilli Wenedy",
+            coor: [
+              50.0205763,
+              20.0026917
+            ],
+            date: [
+              2021
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Park Lotników Polskich",
+            coor: [
+              50.0734609,
+              19.9951816
+            ],
+            date: [
+              2020
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Park Reduta",
+            coor: [
+              50.0963439,
+              19.9853271
+            ],
+            date: [
+              2024
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Park rzeczny Wilgi",
+            coor: [
+              50.0319077,
+              19.9281478
+            ],
+            date: [
+              2023
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Park Strzelecki",
+            coor: [
+              50.0653419,
+              19.9499595
+            ],
+            date: [
+              2025
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Park Szymborskiej",
+            coor: [
+              50.0652007,
+              19.9293548
+            ],
+            date: [
+              2023
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Park Tysiąclecia",
+            coor: [
+              50.0892544,
+              19.9982178
+            ],
+            date: [
+              2020
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Park Wyspiańskiego",
+            coor: [
+              50.085964,
+              19.920702
+            ],
+            date: [
+              2020
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Park Zaczarowanej Dorożki",
+            coor: [
+              50.0867384,
+              19.9663854
+            ],
+            date: [
+              2020
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Park Zielony Jar Wandy",
+            coor: [
+              50.0942516,
+              20.0585675
+            ],
+            date: [
+              2022
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Park Żeromskiego",
+            coor: [
+              50.0672426,
+              20.0416106
+            ],
+            date: [
+              2024
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Planty",
+            coor: [
+              50.0595737,
+              19.9411619
+            ],
+            date: [
+              2013,
+              2015,
+              2022,
+              2023
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Planty Bieńczyckie",
+            coor: [
+              50.0859777,
+              20.0252008
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Planty Dietlowskie",
+            coor: [
+              50.054907,
+              19.9443483
+            ],
+            date: [
+              2025
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Planty Mistrzejowickie",
+            coor: [
+              50.0992896,
+              20.0046873
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Planty Nowackiego",
+            coor: [
+              50.0435878,
+              19.9428785
+            ],
+            date: [
+              2024
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Zakrzówek",
+            coor: [
+              50.0372692,
+              19.9104452
+            ],
+            date: [
+              2006,
+              2017,
+              2020,
+              2023
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Zalew Bagry",
+            coor: [
+              50.0312047,
+              19.9972844
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Zalew Nowohucki",
+            coor: [
+              50.0790657,
+              20.0526667
+            ],
+            date: [
+              2019,
               2023
             ]
           }

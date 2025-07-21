@@ -27,8 +27,8 @@ const ranges = {
   poland: "POLSKA",
   world: "EUROPA",
 }
-const startCity = "KRAKÓW"
-const mapActive = true
+const startCity = ""
+const mapActive = false
 """
 
 # Category and ranges mapping
