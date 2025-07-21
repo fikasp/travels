@@ -1377,7 +1377,6 @@
       
     // @func add routes
     function addRoutes() {
-      // Remove existing polylines from the map
       $routeLayers.forEach(layer => $map.removeLayer(layer))
       $routeLayers = []
 
@@ -1397,19 +1396,19 @@
 
         let toggled = false
 
-        polyline.on('mouseover', () => {
+        const highlight = () => {
           if (!toggled) {
             polyline.setStyle({ weight: activeWeight })
           }
-        })
+        }
 
-        polyline.on('mouseout', () => {
+        const resetHighlight = () => {
           if (!toggled) {
             polyline.setStyle({ weight: defaultWeight })
           }
-        })
+        }
 
-        polyline.on('click', () => {
+        const toggleRoute = () => {
           toggled = !toggled
           polyline.setStyle({
             color: toggled ? activeColor : defaultColor,
@@ -1418,17 +1417,23 @@
           if (toggled) {
             polyline.bringToFront()
           }
-        })
+        }
 
+        polyline.on('mouseover', highlight)
+        polyline.on('mouseout', resetHighlight)
+        polyline.on('touchstart', toggleRoute)
+        polyline.on('click', toggleRoute)
+
+        // Format file name
         const fileName = route.name
           .split('/')
           .pop()
           .replace(/\.gpx$/i, '')
           .replace(/^\d{4}\/\d{4}-\d{2}\//, '')
           .replace(/(\d{4}-\d{2}-\d{2})\.\d+\s+-\s+/, '$1 - ')
+
         polyline.bindPopup(fileName)
 
-        // Save the created polyline to remove it next time
         $routeLayers.push(polyline)
       })
     }

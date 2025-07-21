@@ -1,49 +1,74 @@
 import gpxpy
 from simplification.cutil import simplify_coords
 from pathlib import Path
+import subprocess
 
-TOLERANCE = 0.0001 
-base_folder = Path(r'b:\Prywatne\Lifebook\Trasy')
+# CONFIGURATION
+TOLERANCE = 0.0001
+APPEND_MODE = True
+
+base_folder = Path(r'b:\Prywatne\Lifebook\Trasy\2024')
 output_file = Path(r'b:\Prywatne\Wycieczki\routes.js')
 
-routes = []
-
-for gpx_path in base_folder.rglob('*.gpx'):
-    print(f"Przetwarzam plik: {gpx_path}")  # <-- tutaj log
+def set_file_hidden(filepath, hide=True):
     try:
-        with gpx_path.open('r', encoding='utf-8') as gpx_file:
-            gpx = gpxpy.parse(gpx_file)
-
-        coords = []
-        for track in gpx.tracks:
-            for segment in track.segments:
-                for point in segment.points:
-                    coords.append([point.longitude, point.latitude])
-
-        if not coords:
-            continue
-
-        simplified = simplify_coords(coords, TOLERANCE)
-
-        # Względna ścieżka jako identyfikator
-        relative_name = str(gpx_path.relative_to(base_folder)).replace('\\', '/')
-
-        routes.append({
-            'name': relative_name,
-            'coords': simplified
-        })
-
+        subprocess.run(['attrib', '+H' if hide else '-H', str(filepath)], check=True, shell=True)
     except Exception as e:
-        print(f"Błąd w pliku {gpx_path}: {e}")
+        print(f"⚠️ Couldn't {'hide' if hide else 'unhide'} file: {e}")
 
-# --- Zapis do routes.js ---
-with output_file.open('w', encoding='utf-8') as f:
-    f.write("const routes = [\n")
-    for route in routes:
-        f.write(f"  {{ name: '{route['name']}', coords: [\n")
-        for lon, lat in route['coords']:
-            f.write(f"    [{lat}, {lon}],\n")
-        f.write("  ] },\n")
-    f.write("]")
+def extract_coordinates(gpx_path):
+    try:
+        with gpx_path.open('r', encoding='utf-8') as f:
+            gpx = gpxpy.parse(f)
+        coords = [[pt.longitude, pt.latitude]
+                  for trk in gpx.tracks
+                  for seg in trk.segments
+                  for pt in seg.points]
+        return simplify_coords(coords, TOLERANCE) if coords else None
+    except Exception as e:
+        print(f"❌ Error parsing {gpx_path}: {e}")
+        return None
 
-print(f"✔ Zapisano {output_file.name} ({len(routes)} tras)")
+def format_route_entry(name, coords):
+    lines = [f"  {{ name: '{name}', coords: ["]
+    for lon, lat in coords:
+        lines.append(f"    [{lat:.7f}, {lon:.7f}],")
+    lines.append("  ] },")
+    return "\n".join(lines)
+
+# Start processing
+set_file_hidden(output_file, hide=False)
+
+# Find new GPX routes
+new_entries = []
+for gpx_file in base_folder.rglob('*.gpx'):
+    relative_name = str(gpx_file.relative_to(base_folder)).replace('\\', '/')
+    print(f"📄 {relative_name}")
+    coords = extract_coordinates(gpx_file)
+    if coords:
+        new_entries.append(format_route_entry(relative_name, coords))
+
+if not new_entries:
+    print("⚠️ No routes found.")
+else:
+    if APPEND_MODE and output_file.exists():
+        with output_file.open('r+', encoding='utf-8') as f:
+            content = f.read().rstrip()
+            if content.endswith("]\n"):
+                content = content[:-2]
+            elif content.endswith("]"):
+                content = content[:-1]
+            if not content.strip().endswith("["):
+                content += ",\n"
+            content += "\n" + "\n".join(new_entries) + "\n]"
+            f.seek(0)
+            f.write(content)
+            f.truncate()
+    else:
+        with output_file.open('w', encoding='utf-8') as f:
+            f.write("const routes = [\n")
+            f.write("\n".join(new_entries))
+            f.write("\n]\n")
+
+set_file_hidden(output_file)
+print(f"✅ {'Appended to' if APPEND_MODE else 'Wrote'} {output_file.name} ({len(new_entries)} routes)")

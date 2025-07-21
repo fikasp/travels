@@ -1,6 +1,6 @@
-import xml.etree.ElementTree as ET
-import glob
 import os
+import glob
+import xml.etree.ElementTree as ET
 from openpyxl import Workbook
 
 def convertXmlObject(element):  
