@@ -600,6 +600,14 @@
     $selectViewMode.addEventListener('change', setViewMode)
     $selectCategory.addEventListener('change', setCategory)
     $selectDate.addEventListener('change', setDate)
+    enableSwipeOnSelects([
+        $selectCity,
+        $selectRegion,
+        $selectRange,
+        $selectViewMode,
+        $selectCategory,
+        $selectDate
+      ])
     // photo
     $photo.addEventListener("click", hidePhoto)
     $photo.addEventListener("touchstart", touchstart)
@@ -684,6 +692,47 @@
          showNextPhoto(e)
       }
     }
+
+    // @func enable swipe on selects
+    function enableSwipeOnSelects(selectElements) {
+
+      selectElements.forEach($select => {
+        let startX = 0
+        let startY = 0
+        const threshold = 30
+
+        $select.addEventListener('touchstart', e => {
+          const touch = e.changedTouches[0]
+          startX = touch.pageX
+          startY = touch.pageY
+        }, { passive: true })
+
+        $select.addEventListener('touchend', e => {
+          const touch = e.changedTouches[0]
+          const diffX = touch.pageX - startX
+          const diffY = touch.pageY - startY
+
+          if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > threshold) {
+            const options = $select.options
+            let newIndex = $select.selectedIndex
+
+            if (diffX < 0) {
+              // swipe left
+              if (newIndex < options.length - 1) newIndex++
+            } else {
+              // swipe right
+              if (newIndex > 0) newIndex--
+            }
+
+            if (newIndex !== $select.selectedIndex) {
+              $select.selectedIndex = newIndex
+              $select.dispatchEvent(new Event('change'))
+            }
+          }
+        }, { passive: true })
+      })
+    }
+
 
     // @func change margin
     function changeMargin(){
@@ -1389,16 +1438,32 @@
         const year = route.name.slice(0, 4)
         if ($dateFilter !== cat.all && year !== $dateFilter.toString()) return
 
+        let toggled = false
+
         const polyline = L.polyline(route.coords, {
           color: defaultColor,
           weight: defaultWeight
         }).addTo($map)
 
-        let toggled = false
+        const hitbox = L.polyline(route.coords, {
+          color: 'transparent',
+          pane: 'shadowPane',
+          weight: 20,
+          opacity: 0,
+        }).addTo($map)
+
+        const updateStyle = () => {
+          polyline.setStyle({
+            color: toggled ? activeColor : defaultColor,
+            weight: toggled ? activeWeight : defaultWeight
+          })
+          if (toggled) polyline.bringToFront()
+        }
 
         const highlight = () => {
           if (!toggled) {
             polyline.setStyle({ weight: activeWeight })
+            polyline.bringToFront()
           }
         }
 
@@ -1410,21 +1475,21 @@
 
         const toggleRoute = () => {
           toggled = !toggled
-          polyline.setStyle({
-            color: toggled ? activeColor : defaultColor,
-            weight: toggled ? activeWeight : defaultWeight
-          })
+          updateStyle()
+
           if (toggled) {
-            polyline.bringToFront()
+            polyline.openPopup()
+          } else {
+            polyline.closePopup()
           }
         }
 
-        polyline.on('mouseover', highlight)
-        polyline.on('mouseout', resetHighlight)
-        polyline.on('touchstart', toggleRoute)
-        polyline.on('click', toggleRoute)
+        hitbox.on('mouseover', highlight)
+        hitbox.on('mouseout', resetHighlight)
+        hitbox.on('touchstart', toggleRoute)
+        hitbox.on('click', toggleRoute)
 
-        // Format file name
+        // Format name
         const fileName = route.name
           .split('/')
           .pop()
@@ -1435,6 +1500,7 @@
         polyline.bindPopup(fileName)
 
         $routeLayers.push(polyline)
+        $routeLayers.push(hitbox)
       })
     }
 
