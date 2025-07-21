@@ -6,9 +6,10 @@ import subprocess
 # CONFIGURATION
 TOLERANCE = 0.0001
 APPEND_MODE = True
+YEAR = 2023
 
-base_folder = Path(r'b:\Prywatne\Lifebook\Trasy\2024')
-output_file = Path(r'b:\Prywatne\Wycieczki\routes.js')
+base_folder = Path(fr'b:\Prywatne\Lifebook\Trasy\{YEAR}')
+output_file = Path(fr'b:\Prywatne\Wycieczki\routes.js')
 
 def set_file_hidden(filepath, hide=True):
     try:
