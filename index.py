@@ -26,6 +26,7 @@ const ranges = {
   mountains: "GÓRY",
   poland: "POLSKA",
   world: "EUROPA",
+  roads: "DROGI",
 }
 const startCity = "KRAKÓW"
 const mapActive = true
@@ -40,14 +41,19 @@ category_map = get_reverse_map(const_definitions, "cat")
 ranges_map = get_reverse_map(const_definitions, "ranges")
 
 # Initialize data structure
-output = {ranges_map["GÓRY"]: {}, ranges_map["POLSKA"]: {}, ranges_map["EUROPA"]: {}}
+output = {
+    ranges_map["DROGI"]: {},
+    ranges_map["POLSKA"]: {}, 
+    ranges_map["EUROPA"]: {}, 
+    ranges_map["GÓRY"]: {}, 
+    }
 
 # Track the last processed range and region
 last_region = None
 last_range = None
 
 for _, row in df.iterrows():
-    range_raw, region, city, abbr, zoom, coors, date, category, description, top = row
+    range_raw, region, city, abbr, zoom, scale, coors, date, category, description, top = row
 
     # Skip rows without a valid region
     if not pd.notna(region) or not pd.notna(range_raw):
@@ -67,6 +73,9 @@ for _, row in df.iterrows():
     # Convert zoom level
     zoom = int(zoom) if pd.notna(zoom) and str(zoom).isdigit() else None
 
+    # Convert scale value 
+    scale = float(scale) if pd.notna(scale) else 1
+
     # Convert date values
     date_list = [int(d) for d in date.split(",") if d.strip().isdigit()] if pd.notna(date) else []
 
@@ -85,6 +94,7 @@ for _, row in df.iterrows():
             "coor": coor,
             "date": date_list,
             "zoom": zoom,
+            "scale": scale,
             "gallery": []
         })
         output[range][region][city] = city_obj
@@ -94,7 +104,8 @@ for _, row in df.iterrows():
         catg = category_map.get(category, "cat.general")
         gallery_item = {
             "catg": catg, 
-            "name": description, 
+            "name": description,
+            "scale": scale, 
             "coor": coor, 
             "date": date_list
         }
@@ -120,6 +131,7 @@ js_output = js_output.replace('"coor"', 'coor')
 js_output = js_output.replace('"date"', 'date')
 js_output = js_output.replace('"name"', 'name')
 js_output = js_output.replace('"gallery"', 'gallery')
+js_output = js_output.replace('"scale"', 'scale')
 js_output = js_output.replace('"zoom"', 'zoom')
 
 # Replace category and range values

@@ -4,1731 +4,1827 @@
 -->
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Podróże</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- favicon -->
-  <link rel="icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA/4QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEREREREREREREREREREREREAAAAAAAAREQAAAAAAABERAAAAAAAAEREAAAAAAAAREQAAAAAAABERAAAAAAAAEREAAAAAAAAREQAAAAAAABERAAAAAAAAEREAAAAAAAAREQAAAAAAABERAAAAAAAAEREREREREREREREREREREREAAAAAAAAAAD/8AAA//AAAP/wAAD/8AAA//AAAP/wAAD/8AAA//AAAP/wAAD/8AAA//AAAP/wAAAAAAAAAAAAA" type="image/png">
-  <!-- font awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-  <!-- leaflet -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
-  <script src="routes.js"></script>
-  <script src="index.js"></script>
+	<head>
+		<title>Podróże</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- favicon -->
+		<link
+			rel="icon"
+			href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA/4QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEREREREREREREREREREREREAAAAAAAAREQAAAAAAABERAAAAAAAAEREAAAAAAAAREQAAAAAAABERAAAAAAAAEREAAAAAAAAREQAAAAAAABERAAAAAAAAEREAAAAAAAAREQAAAAAAABERAAAAAAAAEREREREREREREREREREREREAAAAAAAAAAD/8AAA//AAAP/wAAD/8AAA//AAAP/wAAD/8AAA//AAAP/wAAD/8AAA//AAAP/wAAAAAAAAAAAAA"
+			type="image/png"
+		/>
+		<!-- font awesome -->
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+		/>
+		<!-- leaflet -->
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css"
+		/>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
+		<script src="routes.js"></script>
+		<script src="index.js"></script>
 
-  <!-- @r STYLE 
+		<!-- @r STYLE 
   -->
-  <style>
-    /* @p general 
+		<style>
+			/* @p general 
     */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    * {
-      scrollbar-width: thin;
-      scrollbar-color: #222 #333;
-      }
-    *::-webkit-scrollbar {
-      width: 10px
-    }
-    *::-webkit-scrollbar-track {
-      background-color: #333;
-      border-radius: 20px;
-    }
-    *::-webkit-scrollbar-thumb {
-      background-color: #222;
-      border-radius: 20px;
-    } 
-    html {
-      color: #fff;
-      background: #000;
-      font-family: verdana, sans-serif;
-      font-size: 14px;
-      --accent: #444;
-      --viewHeight: 0px;
-      --marginTop: 0px;
-    }
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			* {
+				scrollbar-width: thin;
+				scrollbar-color: #222 #333;
+			}
+			*::-webkit-scrollbar {
+				width: 10px;
+			}
+			*::-webkit-scrollbar-track {
+				background-color: #333;
+				border-radius: 20px;
+			}
+			*::-webkit-scrollbar-thumb {
+				background-color: #222;
+				border-radius: 20px;
+			}
+			html {
+				color: #fff;
+				background: #000;
+				font-family: verdana, sans-serif;
+				font-size: 14px;
+				--accent: #444;
+				--viewHeight: 0px;
+				--marginTop: 0px;
+			}
 
-    /* @p header 
+			/* @p header 
     */
-    .header {
-      z-index: 2000;
-      background-color: black;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      padding: 5px 50px;
-      min-height: 40px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.3s ease-out;
-      box-shadow: 0 0 10px 0 black;
-      }
-      .header.hide {
-        transform: translateY(-120%);
-      }
-      .header_pair {
-        display: flex;
-        padding: 5px 0px;
-        flex-grow: 1;
-      }
-      @media (min-width: 1000px) {
-        .header_pair {
-        width: 33%;
-        }
-      }
-      @media (min-width: 1900px) {
-        .header_pair {
-        width: auto;
-        }
-      }
-      
-      .header_label {
-        text-align: right;
-        width: 80px;
-        padding: 5px;
-      }
-      .header_button {
-        padding: 5px 10px;
-        transition: color 0.2s;
-        text-align: center;
-        cursor: pointer;
-      }
-        .header_button:hover {
-          color: gray;
-        }
-      .header_select {
-        flex-grow: 1;
-        text-align: center;
-        font-family: verdana;
-        padding: 3px;
-        width: 160px;
-        color: #000;
-        background: #fff;
-        border-radius: 2px;
-        transition: .2s;
-      }
-        .header_select:focus {
-          color: var(--accent);
-        }
-      .header_option {
-        padding: 5px;
-        background: #fff;
-        color: black;
-      }
-      .header_bars {
-        z-index: 3000;
-        position: fixed;
-        width: 30px;
-        height: 30px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        top: 10px;
-        right: 10px;
-        font-size: 20px;
-        border-radius: 2px;
-        background-color: rgb(0, 0, 0, 50%);
-        transition: 0.5s
-      }
-        .header_bars:hover {
-          background-color: rgb(0, 0, 0, 100%);
-        }
-      .header_emblem {
-        z-index: 3000;
-        position: fixed;
-        height: 60px;
-        top: 5px;
-        left: 0;
-      }
+			.header {
+				z-index: 2000;
+				background-color: black;
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				padding: 5px 50px;
+				min-height: 40px;
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				justify-content: center;
+				transition: transform 0.3s ease-out;
+				box-shadow: 0 0 10px 0 black;
+			}
+			.header.hide {
+				transform: translateY(-120%);
+			}
+			.header_pair {
+				display: flex;
+				padding: 5px 0px;
+				flex-grow: 1;
+			}
+			@media (min-width: 1000px) {
+				.header_pair {
+					width: 33%;
+				}
+			}
+			@media (min-width: 1900px) {
+				.header_pair {
+					width: auto;
+				}
+			}
 
-    /* @p gallery 
+			.header_label {
+				text-align: right;
+				width: 80px;
+				padding: 5px;
+			}
+			.header_button {
+				padding: 5px 10px;
+				transition: color 0.2s;
+				text-align: center;
+				cursor: pointer;
+			}
+			.header_button:hover {
+				color: gray;
+			}
+			.header_select {
+				flex-grow: 1;
+				text-align: center;
+				font-family: verdana;
+				padding: 3px;
+				width: 160px;
+				color: #000;
+				background: #fff;
+				border-radius: 2px;
+				transition: 0.2s;
+			}
+			.header_select:focus {
+				color: var(--accent);
+			}
+			.header_option {
+				padding: 5px;
+				background: #fff;
+				color: black;
+			}
+			.header_bars {
+				z-index: 3000;
+				position: fixed;
+				width: 30px;
+				height: 30px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				top: 10px;
+				right: 10px;
+				font-size: 20px;
+				border-radius: 2px;
+				background-color: rgb(0, 0, 0, 50%);
+				transition: 0.5s;
+			}
+			.header_bars:hover {
+				background-color: rgb(0, 0, 0, 100%);
+			}
+			.header_emblem {
+				z-index: 3000;
+				position: fixed;
+				height: 60px;
+				top: 5px;
+				left: 0;
+			}
+
+			/* @p gallery 
     */
-    .gallery {
-      z-index: 1000;
-      position: fixed;
-      margin-top: 0;
-      left: 0;
-      top: 0;
-      width: 100%;
-      max-height: 100vh;
-      overflow: auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
-      transition: top 0.3s ease-out, width 1s ease-out;
-      padding-bottom: 3px;
-      gap: 0 3px;
-      }
-      @media (max-width: 1280px) {
-        .gallery.half {
-          grid-template-columns: repeat(3, auto);
-        }
-      }
-      @media (max-width: 1000px) {
-        .gallery {
-          grid-template-columns: repeat(4, auto);
-        }
-      }
-      @media (max-width: 640px) {
-        .gallery {
-          grid-template-columns: repeat(3, auto);
-        }
-        .gallery.half {
-          grid-template-columns: repeat(2, auto);
-        }
-      }
-      @media (max-width: 300px) {
-        .gallery.half {
-          grid-template-columns: repeat(1, auto);
-        }
-      }
-      .gallery_background {
-        z-index: 900;
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100vh;
-        transition: top 0.3s ease-out, width 1s ease-out;
-        box-shadow: 0 0 5px 0 black;
-        background-color: rgb(0, 0, 0, 80%);
-        backdrop-filter: blur(5px);
-      }
-      .gallery_background.half {
-        width: 50%
-      }
-      .gallery_box {
-        position: relative
-      }
-      .gallery_box:hover .gallery_text {
-        opacity: 1;
-      }
-      .gallery_text {
-        font-size: 11px;
-        position: absolute;
-        padding: 10px;
-        width: 100%;
-        text-align: center;
-        text-shadow: 0 0 5px #000;
-        bottom: 0px;
-        transition: opacity 0.3s ease-out;
-        opacity: 0;
-      }
-        @media (max-width: 1000px) {
-          .gallery_text {
-            font-size: 10px;
-          }
-        }
-      .gallery img {
-        width: 100%;
-        aspect-ratio: 4/3;
-        object-fit: cover;
-        box-shadow: 0 0 5px 0 black;
-      }
-      .gallery.top {
-        top: var(--marginTop);
-        max-height: calc(100vh - var(--marginTop));
-      }
-      .gallery.half {
-        width: 50%;
-      }
+			.gallery {
+				z-index: 1000;
+				position: fixed;
+				margin-top: 0;
+				left: 0;
+				top: 0;
+				width: 100%;
+				max-height: 100vh;
+				overflow: auto;
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+				transition: top 0.3s ease-out, width 1s ease-out;
+				padding-bottom: 3px;
+				gap: 0 3px;
+			}
+			@media (max-width: 1280px) {
+				.gallery.half {
+					grid-template-columns: repeat(3, auto);
+				}
+			}
+			@media (max-width: 1000px) {
+				.gallery {
+					grid-template-columns: repeat(4, auto);
+				}
+			}
+			@media (max-width: 640px) {
+				.gallery {
+					grid-template-columns: repeat(3, auto);
+				}
+				.gallery.half {
+					grid-template-columns: repeat(2, auto);
+				}
+			}
+			@media (max-width: 300px) {
+				.gallery.half {
+					grid-template-columns: repeat(1, auto);
+				}
+			}
+			.gallery_background {
+				z-index: 900;
+				position: fixed;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100vh;
+				transition: top 0.3s ease-out, width 1s ease-out;
+				box-shadow: 0 0 5px 0 black;
+				background-color: rgb(0, 0, 0, 80%);
+				backdrop-filter: blur(5px);
+			}
+			.gallery_background.half {
+				width: 50%;
+			}
+			.gallery_box {
+				position: relative;
+			}
+			.gallery_box:hover .gallery_text {
+				opacity: 1;
+			}
+			.gallery_text {
+				font-size: 11px;
+				position: absolute;
+				padding: 10px;
+				width: 100%;
+				text-align: center;
+				text-shadow: 0 0 5px #000;
+				bottom: 0px;
+				transition: opacity 0.3s ease-out;
+				opacity: 0;
+			}
+			@media (max-width: 1000px) {
+				.gallery_text {
+					font-size: 10px;
+				}
+			}
+			.gallery img {
+				width: 100%;
+				aspect-ratio: 4/3;
+				object-fit: cover;
+				box-shadow: 0 0 5px 0 black;
+			}
+			.gallery.top {
+				top: var(--marginTop);
+				max-height: calc(100vh - var(--marginTop));
+			}
+			.gallery.half {
+				width: 50%;
+			}
 
-    /* @p photo 
+			/* @p photo 
     */
-    .photo {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: fixed;
-      z-index: 4000;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.9);
-      }
-      .photo_arrow {
-        z-index: 2;
-        display: flex;
-        align-items: center;
-        position: absolute;
-        font-size: 30px;
-        text-shadow: 0 0 3px #000;
-        color: #888;
-        transition: 1s;
-        z-index: 1;
-        }
-        .photo_arrow:hover {
-          color: white;
-          text-shadow: 0 0 20px var(--accent);
-        }
-      .photo_next {
-        height: 100%;
-        right: 8px;
-        top: 0px;
-        padding: 0 10px 0 90px;
-      }
-      .photo_previous {
-        height: 100%;
-        left: 8px;
-        top: 0px;
-        padding: 0 90px 0 10px;
-      }
-      .photo_close {
-        padding: 0 6px;
-        right: 10px;
-        top: 10px;
-        z-index: 100;
-      }
-      .photo_play {
-        font-size: 24px;
-        padding: 0 6px;
-        left: 10px;
-        top: 13px;
-        z-index: 100;
-      }
-      .photo_pause {
-        font-size: 24px;
-        padding: 0 6px;
-        left: 10px;
-        top: 13px;
-        z-index: 100;
-      }
-      .photo_group {
-        display: flex;
-        position: relative;
-        max-width: calc(100vw - 100px);
-        max-height: calc(100vh - 30px);
-        min-width: 300px;
-        min-height: 40px;
-        object-fit: cover;
-        box-shadow: 0 0 30px #111;
-        transition: 0.5s;
-        }
-      .photo_image {
-        position: relative;
-        max-width: calc(100vw - 100px);
-        max-height: calc(100vh - 30px);
-        object-fit: cover;
-        transition: 0.5s;
-        }
-      .photo_name {
-        font-size: 1.2rem;
-        position: absolute;
-        text-align: center;
-        width: 100%;
-        left: 0px;
-        bottom: 5px;
-        padding: 5px 15px;
-        text-shadow: 0 0 5px #000;
-        color: #fff;
-        z-index: 1;
-      }
-      @media (max-height: 600px) {
-        .photo_group {
-          max-height: 100vh;
-        }
-        .photo_image {
-          max-height: 100vh;
-        }
-      }
-      @media (max-width: 1200px) {
-        .photo_group {
-          max-width: 100vw;
-        }
-        .photo_image {
-          max-width: 100vw;
-        }
-        .photo_name {
-          position: fixed;
-        }
-      }
+			.photo {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				position: fixed;
+				z-index: 4000;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0, 0, 0, 0.9);
+			}
+			.photo_arrow {
+				z-index: 2;
+				display: flex;
+				align-items: center;
+				position: absolute;
+				font-size: 30px;
+				text-shadow: 0 0 3px #000;
+				color: #888;
+				transition: 1s;
+				z-index: 1;
+			}
+			.photo_arrow:hover {
+				color: white;
+				text-shadow: 0 0 20px var(--accent);
+			}
+			.photo_next {
+				height: 100%;
+				right: 8px;
+				top: 0px;
+				padding: 0 10px 0 90px;
+			}
+			.photo_previous {
+				height: 100%;
+				left: 8px;
+				top: 0px;
+				padding: 0 90px 0 10px;
+			}
+			.photo_close {
+				padding: 0 6px;
+				right: 10px;
+				top: 10px;
+				z-index: 100;
+			}
+			.photo_play {
+				font-size: 24px;
+				padding: 0 6px;
+				left: 10px;
+				top: 13px;
+				z-index: 100;
+			}
+			.photo_pause {
+				font-size: 24px;
+				padding: 0 6px;
+				left: 10px;
+				top: 13px;
+				z-index: 100;
+			}
+			.photo_group {
+				display: flex;
+				position: relative;
+				max-width: calc(100vw - 100px);
+				max-height: calc(100vh - 30px);
+				min-width: 300px;
+				min-height: 40px;
+				object-fit: cover;
+				box-shadow: 0 0 30px #111;
+				transition: 0.5s;
+			}
+			.photo_image {
+				position: relative;
+				max-width: calc(100vw - 100px);
+				max-height: calc(100vh - 30px);
+				object-fit: cover;
+				transition: 0.5s;
+			}
+			.photo_name {
+				font-size: 1.2rem;
+				position: absolute;
+				text-align: center;
+				width: 100%;
+				left: 0px;
+				bottom: 5px;
+				padding: 5px 15px;
+				text-shadow: 0 0 5px #000;
+				color: #fff;
+				z-index: 1;
+			}
+			@media (max-height: 600px) {
+				.photo_group {
+					max-height: 100vh;
+				}
+				.photo_image {
+					max-height: 100vh;
+				}
+			}
+			@media (max-width: 1200px) {
+				.photo_group {
+					max-width: 100vw;
+				}
+				.photo_image {
+					max-width: 100vw;
+				}
+				.photo_name {
+					position: fixed;
+				}
+			}
 
-    /* @p map 
+			/* @p map 
     */
-    .map {
-      width: 100%;
-      min-height: 100vh;
-      height: 100%;
-      position: fixed;
-    }
+			.map {
+				width: 100%;
+				min-height: 100vh;
+				height: 100%;
+				position: fixed;
+			}
 
-    .leaflet-control-zoom-in,
-    .leaflet-control-zoom-out {
-      display: none !important;
-    }
-    .leaflet-control-attribution {
-      display: none;
-    }
-    .leaflet-popup-content-wrapper,
-    .leaflet-popup-tip {
-      opacity: 0.8; 
-      color: #fff;
-      background-color: #222;
-      transition: opacity 0.2s ease;
-    }
+			.leaflet-control-zoom-in,
+			.leaflet-control-zoom-out {
+				display: none !important;
+			}
+			.leaflet-control-attribution {
+				display: none;
+			}
+			.leaflet-popup-content-wrapper,
+			.leaflet-popup-tip {
+				opacity: 0.8;
+				color: #fff;
+				background-color: #222;
+				transition: opacity 0.2s ease;
+			}
 
-    /* @p markers 
+			/* @p markers 
     */
-    .marker {
-      box-shadow: 0px 0px 2px 1px #666;
-      border: 1px solid gray;
-      object-fit: cover;
-      transition: all 0.5s;
-    }
-      .marker-profilowe {
-        border: 1px solid black;
-      }
-      .marker-gastronomiczne {
-        border: 1px solid orange;
-      }
-      .marker-historyczne {
-        border: 1px solid red;
-      }      
-      .marker-nowoczesne {
-        border: 1px solid darkviolet;
-      }
-      .marker-ogólne {
-        border: 1px solid blue;
-      }
-      .marker-sakralne {
-        border: 1px solid dodgerblue;
-      }
-      .marker-zielone {
-        border: 1px solid green;
-      }
-      .marker-tooltip {
-        color: #fff;
-        background-color: #222;
-        padding: 6px;
-        font-family: Verdana;
-        font-size: 11px;
-        white-space: pre;
-        text-align: center;
-        transition: opacity 0.5s ease-in-out;
-        box-shadow: 0px 0px 2px 1px #666;
-        border: 1px solid #222;
-      }
-      .leaflet-tooltip-bottom:before {
-        border-bottom-color: #222 !important;
-      }
+			.marker {
+				box-shadow: 0px 0px 2px 1px #666;
+				border: 1px solid gray;
+				object-fit: cover;
+				transition: all 0.5s;
+			}
+			.marker-profilowe {
+				border: 1px solid black;
+			}
+			.marker-gastronomiczne {
+				border: 1px solid orange;
+			}
+			.marker-historyczne {
+				border: 1px solid red;
+			}
+			.marker-nowoczesne {
+				border: 1px solid darkviolet;
+			}
+			.marker-ogólne {
+				border: 1px solid blue;
+			}
+			.marker-sakralne {
+				border: 1px solid dodgerblue;
+			}
+			.marker-zielone {
+				border: 1px solid green;
+			}
+			.marker-tooltip {
+				color: #fff;
+				background-color: #222;
+				padding: 6px;
+				font-family: Verdana;
+				font-size: 11px;
+				white-space: pre;
+				text-align: center;
+				transition: opacity 0.5s ease-in-out;
+				box-shadow: 0px 0px 2px 1px #666;
+				border: 1px solid #222;
+			}
+			.leaflet-tooltip-bottom:before {
+				border-bottom-color: #222 !important;
+			}
 
-    /* @p display 
+			/* @p display 
     */
-    .none {
-      display: none;
-    }
-    .show {
-      animation: show 0.5s;
-    }
-    .hide {
-      animation: hide 0.5s;
-    }
+			.none {
+				display: none;
+			}
+			.show {
+				animation: show 0.5s;
+			}
+			.hide {
+				animation: hide 0.5s;
+			}
 
-    @keyframes show { 
-      from {
-        opacity: 0
-      } to {
-        opacity: 1
-      }
-    }
-    @keyframes hide {
-      from {
-        opacity: 1
-      } to {
-        opacity: 0
-      }
-    }
-  </style>
-</head>
+			@keyframes show {
+				from {
+					opacity: 0;
+				}
+				to {
+					opacity: 1;
+				}
+			}
+			@keyframes hide {
+				from {
+					opacity: 1;
+				}
+				to {
+					opacity: 0;
+				}
+			}
+		</style>
+	</head>
 
-<body>
-  <!-- @r HTML 
+	<body>
+		<!-- @r HTML 
   -->
 
-  <!-- emblem -->
-  <img class="header_emblem">
-  <!-- bar -->
-  <div class="header_bars">
-    <i class="fa-solid fa-bars"></i>
-  </div>
-  <div class="header hide">
+		<!-- emblem -->
+		<img class="header_emblem" />
+		<!-- bar -->
+		<div class="header_bars">
+			<i class="fa-solid fa-bars"></i>
+		</div>
+		<div class="header hide">
+			<!-- View -->
+			<div class="header_pair">
+				<label class="header_label" for="view">Widok:</label>
+				<select class="header_select" id="view">
+					<option class="header_option" value="map">Mapa</option>
+					<option class="header_option" value="map&gallery">
+						Mapa i galeria
+					</option>
+					<option class="header_option" value="gallery">Galeria</option>
+				</select>
+			</div>
+			<!-- Range -->
+			<div class="header_pair">
+				<label class="header_label" for="range">Zakres:</label>
+				<select class="header_select" id="range"></select>
+			</div>
+			<!-- Region -->
+			<div class="header_pair">
+				<label class="header_label" for="region">Rejon:</label>
+				<select class="header_select" id="region"></select>
+			</div>
+			<!-- City -->
+			<div class="header_pair">
+				<label class="header_label" for="city">Miejsce:</label>
+				<select class="header_select" id="city"></select>
+			</div>
+			<!-- Category -->
+			<div class="header_pair">
+				<label class="header_label" for="category">Kategoria:</label>
+				<select class="header_select" id="category"></select>
+			</div>
+			<!-- Date -->
+			<div class="header_pair">
+				<label class="header_label" for="date">Data:</label>
+				<select class="header_select" id="date"></select>
+			</div>
+		</div>
 
-    <!-- View -->
-    <div class="header_pair">
-      <label class="header_label" for="view">Widok:</label>
-      <select class="header_select" id="view">
-        <option class="header_option" value="map">Mapa</option>
-        <option class="header_option" value="map&gallery">Mapa i galeria</option>
-        <option class="header_option" value="gallery">Galeria</option>
-      </select>
-    </div>
-    <!-- Range -->
-    <div class="header_pair">
-      <label class="header_label" for="range">Zakres:</label>
-      <select class="header_select" id="range"></select>
-    </div>
-    <!-- Region -->
-    <div class="header_pair">
-      <label class="header_label" for="region">Rejon:</label>
-      <select class="header_select" id="region"></select>
-    </div>
-    <!-- City -->
-    <div class="header_pair">
-      <label class="header_label" for="city">Miejsce:</label>
-      <select class="header_select" id="city"></select>
-    </div>
-    <!-- Category -->
-    <div class="header_pair">
-      <label class="header_label" for="category">Kategoria:</label>
-      <select class="header_select" id="category">
-      </select>
-    </div>
-    <!-- Date -->
-    <div class="header_pair">
-      <label class="header_label" for="date">Data:</label>
-      <select class="header_select" id="date">
-      </select>
-    </div>
-  </div>
-
-  <!-- @p GALLERY 
+		<!-- @p GALLERY 
   -->
-  <div class="gallery none"></div>
-  <div class="gallery_background none"></div>
+		<div class="gallery none"></div>
+		<div class="gallery_background none"></div>
 
-  <!-- @p PHOTO 
+		<!-- @p PHOTO 
   -->
-  <div class="photo none">
-    <!-- arrow play -->
-    <div class="photo_arrow photo_play"><i class="fa-solid fa-play"></i></div>
-    <!-- arrow pause -->
-    <div class="photo_arrow photo_pause none"><i class="fa-solid fa-pause"></i></div>
-    <!-- arrow close -->
-    <div class="photo_arrow photo_close"><i class="fa-solid fa-xmark"></i></div>
-    <!-- arrow previous -->
-    <div class="photo_arrow photo_previous"><i class="fa-solid fa-angle-left"></i></div>
-    <!-- arrow next -->
-    <div class="photo_arrow photo_next"><i class="fa-solid fa-angle-right"></i></div>
-    <!-- photo group-->
-    <div class="photo_group">
-      <!-- image -->
-      <img class="photo_image" draggable="false">
-      <!-- name -->
-      <div class="photo_name"></div>
-    </div>
-  </div>
+		<div class="photo none">
+			<!-- arrow play -->
+			<div class="photo_arrow photo_play"><i class="fa-solid fa-play"></i></div>
+			<!-- arrow pause -->
+			<div class="photo_arrow photo_pause none">
+				<i class="fa-solid fa-pause"></i>
+			</div>
+			<!-- arrow close -->
+			<div class="photo_arrow photo_close">
+				<i class="fa-solid fa-xmark"></i>
+			</div>
+			<!-- arrow previous -->
+			<div class="photo_arrow photo_previous">
+				<i class="fa-solid fa-angle-left"></i>
+			</div>
+			<!-- arrow next -->
+			<div class="photo_arrow photo_next">
+				<i class="fa-solid fa-angle-right"></i>
+			</div>
+			<!-- photo group-->
+			<div class="photo_group">
+				<!-- image -->
+				<img class="photo_image" draggable="false" />
+				<!-- name -->
+				<div class="photo_name"></div>
+			</div>
+		</div>
 
-  <!-- @p MAP 
+		<!-- @p MAP 
   -->
-  <div class="map" id="map"></div>
-
-  <script>
-  // @r SCRIPTS
-  // @g GLOBAL 
-  //
-    let $map // leaflet map
-    let $marginTop = 0 // margin top
-    // tables
-    let $photos = [] // table of photos
-    let $markers = [] // table of markers    
-    let $citiesArray = [] // table with prepared data    
-    let $filteredData = [] // table with filtered data    
-    let $routeLayers = [] // table with added polylines
-    // filters
-    let $viewMode = "map" // state of view mode
-    let $categoryFilter = cat.profil // state of category filter
-    let $dateFilter = cat.all // state of data filter
-    // flags
-    let $isInitialRender = true // flag for initial render
-    let $isHiglightActive = true // flag for marker higlight activ
-    let $isGalleryAndMap = false // flag for gallery and map open
-    let $isPhotoClicked = false // flag for photo clicked
-    let $isPhotoLoading = false // flag for photo loading
-    let $isPhotoOpen = false // flag for photo open
-    let $isMenuOpen = false  // flag for menu open
-    // photo
-    let $touchStartX // touch start position
-    let $touchEndX // touch end position
-    let $interval // interval for presentation
-    let $index = 0 // index of photo
-
-  // @g HANDLES
-  //
-    const $root = document.querySelector('html')
-    // header
-    const $headerDiv = document.querySelector('.header')
-    const $headerEmblem = document.querySelector('.header_emblem')
-    const $headerBars = document.querySelector('.header_bars')
-    // gallery
-    const $gallery = document.querySelector('.gallery')
-    const $galleryBackground = document.querySelector('.gallery_background')
-    // photo
-    const $photo = document.querySelector('.photo')
-    const $photoGroup = document.querySelector('.photo_group')
-    const $photoName = document.querySelector('.photo_name')
-    const $photoImage = document.querySelector('.photo_image')
-    const $photoPrevious = document.querySelector('.photo_previous')
-    const $photoNext = document.querySelector('.photo_next')
-    const $photoPause = document.querySelector('.photo_pause')
-    const $photoPlay = document.querySelector('.photo_play')
-    // selects
-    const $selectCity = document.querySelector('#city')
-    const $selectRegion = document.querySelector('#region')
-    const $selectRange = document.querySelector('#range')
-    const $selectViewMode = document.querySelector('#view')
-    const $selectCategory = document.querySelector('#category')
-    const $selectDate = document.querySelector('#date')
-    // mobile
-    const $isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
-
-  // @g LISTENERS
-  //
-    // window
-    window.addEventListener('load', main)
-    window.addEventListener('keyup', checkKeys)
-    window.addEventListener('resize', changeMargin)
-    window.addEventListener('wheel', checkWheel)
-    // header
-    $headerDiv.addEventListener("touchstart", touchstart)
-    $headerDiv.addEventListener("touchmove", touchmove)
-    $headerDiv.addEventListener("touchend", touchend)
-    $headerBars.addEventListener('click', showHideMenu)
-    $headerEmblem.addEventListener('click', showHideMenu)
-    $selectCity.addEventListener('change', setCity)
-    $selectRegion.addEventListener('change', setRegion)
-    $selectRange.addEventListener('change', setRange)
-    $selectViewMode.addEventListener('change', setViewMode)
-    $selectCategory.addEventListener('change', setCategory)
-    $selectDate.addEventListener('change', setDate)
-    addListenersToSelects([
-        $selectCity,
-        $selectRegion,
-        $selectRange,
-        $selectViewMode,
-        $selectCategory,
-        $selectDate
-      ])
-    // photo
-    $photo.addEventListener("click", hidePhoto)
-    $photo.addEventListener("touchstart", touchstart)
-    $photo.addEventListener("touchmove", touchmove)
-    $photo.addEventListener("touchend", touchend)
-    $photoPlay.addEventListener("click", togglePresentation)
-    $photoPause.addEventListener("click", togglePresentation)
-    $photoPrevious.addEventListener("click", showPreviousPhoto)
-    $photoNext.addEventListener("click", showNextPhoto)
-
-  // @g GENERAL
-  //
-    // @b main
-    function main() {
-      console.log(data)
-      // console.log(mapRegions(data[$selectRange.value]))
-      console.log("main()")
-      changeMargin()
-      prepareMap()
-      prepareData()
-      prepareDates()
-      prepareCategories()
-      prepareRanges()
-      addRoutes()
-      setRange()
-    }
-
-    // @b check keys
-    function checkKeys(e) {
-      console.log(`checkKeys(${e.key})`)
-
-      if (e.key === "ArrowLeft") {
-        showPreviousPhoto(e)
-      }
-      if (e.key === "ArrowRight") {
-        showNextPhoto(e)
-      }
-      if (e.key === "Escape") {
-        hidePhoto(e)
-      }
-      if (e.key === "F2") {
-        showHideMenu(e)
-      }
-      if (e.key === "F9") {
-        togglePresentation(e)
-      }
-    }
-
-    // @b check wheel
-    function checkWheel(e){
-      if ($isPhotoOpen) {
-        if (e.deltaY > 0) {
-          showNextPhoto(e) 
-        } else {
-          showPreviousPhoto(e)
-        }
-      }
-    }
-
-    // @b check touch
-    function touchstart(e) {
-      $touchStartX = e.touches[0].pageX
-      $touchStartY = e.touches[0].pageY
-      $touchEndY = $touchStartY
-      $touchEndX = $touchStartX
-    }
-    function touchmove(e) {
-      $touchEndX = e.touches[0].pageX
-      $touchEndY = e.touches[0].pageY
-    }
-    function touchend(e) {
-      const deltaX = $touchEndX - $touchStartX
-      const deltaY = $touchEndY - $touchStartY
-      console.log("touchX:", deltaX)
-      console.log("touchY:", deltaY)
-      if (deltaY < -50 && $isMenuOpen) {
-        showHideMenu()
-      }
-      if (deltaX > 50) {
-         showPreviousPhoto(e)
-      } else if (deltaX < -50) {
-         showNextPhoto(e)
-      }
-    }
-
-    // @b add listeners to selects
-    function addListenersToSelects(selectElements) {
-
-      selectElements.forEach($select => {
-        let startX = 0
-        let startY = 0
-        const threshold = 30
-
-        // swipe
-        $select.addEventListener('touchstart', e => {
-          const touch = e.changedTouches[0]
-          startX = touch.pageX
-          startY = touch.pageY
-        }, { passive: true })
-
-        $select.addEventListener('touchend', e => {
-          const touch = e.changedTouches[0]
-          const diffX = touch.pageX - startX
-          const diffY = touch.pageY - startY
-
-          if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > threshold) {
-            const options = $select.options
-            let newIndex = $select.selectedIndex
-
-            if (diffX < 0) {
-              // swipe left
-              if (newIndex < options.length - 1) newIndex++
-            } else {
-              // swipe right
-              if (newIndex > 0) newIndex--
-            }
-
-            if (newIndex !== $select.selectedIndex) {
-              $select.selectedIndex = newIndex
-              $select.dispatchEvent(new Event('change'))
-            }
-          }
-        }, { passive: true })
-
-        // scroll
-        $select.addEventListener('wheel', e => {
-          e.preventDefault()
-          const options = $select.options
-          let newIndex = $select.selectedIndex
-
-          if (e.deltaY > 0) {
-            // down
-            if (newIndex < options.length - 1) newIndex++
-          } else {
-            // up
-            if (newIndex > 0) newIndex--
-          }
-
-          if (newIndex !== $select.selectedIndex) {
-            $select.selectedIndex = newIndex
-            $select.dispatchEvent(new Event('change'))
-          }
-        }, { passive: false })
-      })
-    }
-
-    // @b change margin
-    function changeMargin(){
-      console.log(`changeMargin()`)
-      const windowHeight = window.innerHeight
-      const headerHeight = $headerDiv.offsetHeight
-      const viewHeight = windowHeight - headerHeight
-      $marginTop = headerHeight
-
-      $root.style.setProperty('--viewHeight', `${viewHeight}px`)
-      $root.style.setProperty('--marginTop', `${headerHeight}px`) 
-    }
-
-  // @g DATA
-  //
-    // @b prepare data
-    function prepareData() {
-      console.log("prepareData()")
-      $citiesArray = []
-
-      for (const range in data) {
-        for (const region in data[range]) {
-          for (const city in data[range][region]) {
-            const cityObj = data[range][region][city]
-
-            // gallery photos
-            if(cityObj.gallery) {
-              cityObj.gallery.forEach(item => {
-            
-                //prepare path
-                function preparePath() {
-                  const capitalizedCity = capitalizeName(city)
-
-                  // path for mountains
-                  if (range == ranges.mountains) {
-                    return `Góry/${region}/${capitalizedCity}/Zdjęcia/${item.name}.jpg`
-
-                  // path for world
-                  } else if (range == ranges.world) {
-                    return `Świat/${region}/${capitalizedCity}/Zdjęcia/${item.name}.jpg`
-
-                  // path for Kraków
-                  } else if (city == 'KRAKÓW') {
-                    return `Kraków/Zdjęcia/${item.catg}/${item.name}.jpg`
-
-                  // path for other cities in Poland
-                  } else {
-                    return `Polska/${region}/${capitalizedCity}/Zdjęcia/${item.name}.jpg`
-                  }
-                }
-
-                const newItem = {
-                  city: city,
-                  region: region,
-                  range: range,
-                  coor: item.coor,
-                  catg: item.catg,
-                  date: item.date,
-                  name: item.name,
-                  url: preparePath()
-                }
-                if (item.top) {
-                  newItem.top = item.top
-                }
-                $citiesArray.push(newItem)
-              })
-            }
-            // profile photo
-            if (cityObj.coor && cityObj.date) {
-              cityObj.date.forEach(year => {
-                function prepareProfilePath() {
-                  let path = ""
-                  if (range == ranges.mountains) {
-                    path = `Góry/Zdjęcia/${capitalizeName(city)} ${year}.jpg`
-                  } else if (range == ranges.world) {
-                    path = `Świat/Zdjęcia/${capitalizeName(city)}.jpg`
-                  } else if (range == ranges.poland) {
-                    path = `Polska/Zdjęcia/${capitalizeName(city)}.jpg`
-                  }
-                  return path
-                }
-
-                const newItem = {
-                  city: city,
-                  region: region,
-                  range: range,
-                  coor: cityObj.coor,
-                  date: [year],
-                  name: [year],
-                  catg: cat.profil,
-                  url: prepareProfilePath()
-                }
-                $citiesArray.push(newItem)
-              });
-            }
-          }
-        }
-      }
-    }
-
-    // @b filter data
-    function filterData() {
-      console.log("filterData()")
-      // get data from original array
-      $filteredData = $citiesArray
-
-      // filter by range
-      if ($selectRegion.value == cat.all) {
-        $filteredData = $filteredData.filter(item => $selectRange.value === item.range)
-      } else if ($selectCity.value == cat.all) {
-        $filteredData = $filteredData.filter(item => $selectRegion.value === item.region)
-      } else {
-        $filteredData = $citiesArray.filter(item => $selectCity.value === item.city)
-      }
-
-      // filter by category filter
-      if($categoryFilter != cat.all) {
-        $filteredData = $filteredData.filter(item => {
-          return item.catg == $categoryFilter
-        })
-      }
-      // filter by date filter
-      if($dateFilter != cat.all) {
-        $filteredData = $filteredData.filter(item => {
-          return item.date?.some(date => date == Number($dateFilter))
-        })
-      }
-      
-      // sort data
-      $filteredData = sortData($filteredData)
-
-      // add id to filtered items
-      $filteredData.forEach((item, index) => item.id = index)
-    }
-
-    // @b sort data
-    function sortData(array) {
-      const categoryOrder = Object.values(cat)
-      const namePriority = { "zewnętrze": 1, "wnętrze": 2, "organy": 3 }
-
-      array.sort((a, b) => {
-        if (findRegion(a.city) < findRegion(b.city)) return -1
-        if (findRegion(a.city) > findRegion(b.city)) return 1
-
-        // sort by city
-        if (a.city < b.city) return -1
-        if (a.city > b.city) return 1
-
-        // sort by category
-        const categoryA = categoryOrder.indexOf(a.catg)
-        const categoryB = categoryOrder.indexOf(b.catg)
-        if (categoryA < categoryB) return -1
-        if (categoryA > categoryB) return 1
-
-        // ensure a.name and b.name are valid strings
-        const nameA = typeof a.name === "string" ? a.name : ""
-        const nameB = typeof b.name === "string" ? b.name : ""
-
-        // sort by basilica name (everything before the last "/")
-        const baseNameA = nameA.substring(0, nameA.lastIndexOf("/")) || nameA
-        const baseNameB = nameB.substring(0, nameB.lastIndexOf("/")) || nameB
-
-        if (baseNameA < baseNameB) return -1
-        if (baseNameA > baseNameB) return 1
-
-        // sort by name priority inside the same basilica
-        const suffixA = nameA.substring(nameA.lastIndexOf("/") + 1).toLowerCase()
-        const suffixB = nameB.substring(nameB.lastIndexOf("/") + 1).toLowerCase()
-
-        const priorityA = namePriority[suffixA] || 4
-        const priorityB = namePriority[suffixB] || 4
-
-        return priorityA - priorityB
-      })
-
-      return array
-    }
-
-    
-    // @b update data
-    function updateData() {
-      console.log("updateData()")
-      filterData()
-      prepareMarkers()
-      prepareGallery()   
-      addRoutes()
-      console.log($filteredData)
-    }
-
-  // @g HEADER
-
-    // @b show hide menu
-    function showHideMenu() {
-      console.log("showHideMenu()")
-      $headerDiv.classList.toggle('hide')
-      $photoGroup.classList.toggle('top')
-      $photoImage.classList.toggle('top')
-      $gallery.classList.toggle('top')
-      $isMenuOpen = !$isMenuOpen
-    }
-    
-    // @b prepare ranges
-      function prepareRanges(){
-      console.log(`prepareRange()`)
-      const ranges = Object.keys(data)
-
-      $selectRange.innerHTML = ""
-      const selectedRange = $isInitialRender ? findRange(startCity) : null
-      ranges.forEach(range => {
-        createOption($selectRange, range, selectedRange)
-      })
-    }
-
-    // @b prepare regions
-    function prepareRegions(){
-      console.log(`prepareRegions(${$selectRange.value})`)
-      const regions = Object.keys(data[$selectRange.value])
-
-      $selectRegion.innerHTML = ""
-      createOption($selectRegion, cat.all)
-
-      const selectedRegion = $isInitialRender ? findRegion(startCity) : null
-      regions.forEach(region => {
-        createOption($selectRegion, region, selectedRegion)
-      })
-    }
-
-    // @b prepare cities
-      function prepareCities(){
-
-      if($selectRegion.value == cat.all) {
-        $selectCity.innerHTML =""
-        createOption($selectCity, cat.all)
-        return
-      }
-
-      const newCities = data[$selectRange.value][$selectRegion.value]
-      console.log(`prepareCities(${$selectRegion.value})`)
-
-      $selectCity.innerHTML =""
-      createOption($selectCity, cat.all)
-
-      const selectedCity = $isInitialRender ? startCity : null
-      Object.keys(newCities).forEach(city => {
-        if (city !== "coor" && city !== "zoom") {
-          createOption($selectCity, city, selectedCity)
-        }
-      })
-      $isInitialRender = false
-    }
-
-      // @b prepare categories
-      function prepareCategories() {
-      console.log("prepareCategories()")
-
-      Object.values(cat).forEach(category => {
-        createOption($selectCategory, category, $categoryFilter)
-      })
-    }
-
-      // @b prepare dates
-      function prepareDates() {
-      console.log("prepareDates()")
-
-      createOption($selectDate, cat.all)
-      for (let year = 2025; year >= 2006; year-- ) {
-        createOption($selectDate, year, $dateFilter)
-      }
-    }
-
-    // @b set emblem
-    function setEmblem() {
-      console.log(`setEmblem(${$selectCity.value})`)
-   
-      if($selectRange.value == ranges.mountains || $selectCity.value == cat.all) {
-        $headerEmblem.classList.add("none")
-
-      } else {
-        $headerEmblem.classList.remove("none")
-          
-        const capitalizedCity = capitalizeName($selectCity.value)
-        const capitalizedRegion = capitalizeName($selectRegion.value)
-        
-        let path = ""
-        if ($selectRange.value == ranges.world) {
-          path = `Świat/${capitalizedRegion}/${capitalizedCity}/${capitalizedCity}.gif`
-
-        } else if ($selectRange.value == ranges.poland) {
-          path = `Polska/${capitalizedRegion}/${capitalizedCity}/${capitalizedCity}.gif`
-        }
-        $headerEmblem.setAttribute("src", path)
-        $headerEmblem.setAttribute("alt", "Herb")
-      }
-    }
-
-    // @b set title
-    function setTitle() {      
-      let title = ""
-      if ($selectRegion.value == cat.all) {
-        title = $selectRange.value
-      } else if ($selectCity.value == cat.all) {
-        title = $selectRegion.value
-      } else {
-        title = $selectCity.value
-      }
-      document.title = title
-      console.log(`setTitle(${title})`)
-    }
-    // @b set city
-    function setCity() {
-      console.log(`setCity(${$selectCity.value})`)
-      setEmblem()
-      setTitle()
-      setMapView()
-      updateData()
-    }
-
-    // @b set region
-    function setRegion(){
-      console.log(`setRegion(${$selectRegion.value})`)
-      prepareCities()
-      setEmblem()
-      setTitle()
-      setMapView()
-      updateData()
-    }
-
-    // @b set range
-    function setRange() {
-      console.log(`setRange(${$selectRange.value})`)
-      prepareRegions()
-      prepareCities()
-      setEmblem()
-      setTitle()
-      setMapView()
-      updateData()
-    }
-
-    // @b set view mode
-    function setViewMode() {
-
-      $viewMode = $selectViewMode.value
-      console.log(`setViewMode(${$viewMode})`)
-
-      // add class to gallery and background
-      function classAdd(className) {
-        $gallery.classList.add(className)
-        $galleryBackground.classList.add(className)
-      }
-      // remove class from gallery and background
-      function classRemove(className) {
-        $gallery.classList.remove(className)
-        $galleryBackground.classList.remove(className)
-      }
-
-      if ($viewMode == "map") {
-        $isGalleryAndMap = false
-        hidePhoto()
-        classAdd('hide')
-        setTimeout(() => {
-          $isHiglightActive = true 
-          classRemove('hide')
-          classRemove('show')
-          classAdd('none')
-        }, 400)
-
-      } else if ($viewMode == "map&gallery"){
-        $isGalleryAndMap = true
-        classRemove('none')
-        classAdd('show')
-        classAdd('half')
-        setTimeout(() => {
-          $isHiglightActive = true
-        }, 1000)
-
-      } else if ($viewMode == "gallery") {
-        $isGalleryAndMap = false
-        $isHiglightActive = false
-        classRemove('none')
-        classRemove('half')
-        classAdd('show')
-      }
-      setMapView()
-      }
-
-    // @b set category
-    function setCategory(category) {
-      if (category == cat.profil || category == cat.all) {
-        $selectCategory.value = category
-      }
-      $categoryFilter = $selectCategory.value
-      console.log(`setCategory()`)
-      updateData()
-    }
-
-    // @b set dates
-    function setDate() {
-      $dateFilter = $selectDate.value
-      console.log(`setDate(${$dateFilter})`)
-      updateData()
-    }
-
-  // @g GALLERY
-
-    // @b prepare gallery
-    function prepareGallery() {
-      console.log("prepareGallery()")
-      //clear gallery
-      $gallery.innerHTML = ""
-      // create imgs for filtered table
-      $filteredData.forEach(item => {
-
-        let description = `${item.city}: ${item.name}`
-
-        // gallery box
-        const box = document.createElement("div")
-        box.className = "gallery_box"
-        box.isClicked = false
-
-        // gallery text
-        const text = document.createElement("div")
-        text.className = "gallery_text"
-        text.textContent = description
-        text.setAttribute("id", item.id)
-        text.addEventListener("click", (e) => showClickedPhoto(box)(e))
-        text.addEventListener("mouseover", highlightMarker)
-        text.addEventListener("mouseout", resetMarker)
-
-        // gallery img
-        const img = document.createElement("img")
-        img.setAttribute("src", item.url)
-        img.setAttribute("alt", description)
-        img.setAttribute("id", item.id)
-        img.addEventListener("click", (e) => showClickedPhoto(box)(e))
-        img.addEventListener("mouseover", highlightMarker)
-        img.addEventListener("mouseout", resetMarker)
-
-        box.appendChild(img)
-        box.appendChild(text)
-        $gallery.appendChild(box)
-        $photos.push(box)
-      })
-    }
-
-    // @b show photo
-    function showPhoto(imgID) {
-      console.log(`showPhoto(${imgID})`)
-
-      if ($isPhotoLoading) return
-      $isPhotoLoading = true
-
-      if (imgID == 0) {
-        $photoPrevious.classList.add("none")
-      } else {
-        $photoPrevious.classList.remove("none")
-      }
-
-      if (imgID == $filteredData.length - 1) {
-        $photoNext.classList.add("none")
-      } else {
-        $photoNext.classList.remove("none")
-      }
-
-      const image = document.getElementById(imgID)
-      $photoImage.setAttribute("src", image.src)
-
-      let loadingTimeout = setTimeout(() => {
-        $photoName.textContent = "Ładowanie zdjęcia..."
-      }, 500)
-
-      console.log(`showPhoto(${imgID}) - start`)
-      $photoImage.onload = () => {
-        clearTimeout(loadingTimeout)
-        $photoName.textContent = image.alt
-        console.log(`showPhoto(${imgID}) - loaded`)
-        $isPhotoLoading = false
-      }
-
-      $photoImage.onerror = () => {
-        clearTimeout(loadingTimeout)
-        $photoName.textContent = "Zdjęcie jest niedostępne."
-        console.log(`showPhoto(${imgID}) - error`)
-        $isPhotoLoading = false
-      }
-      $isPhotoOpen = true
-    }
-
-    // @b show clicked box
-    const showClickedPhoto = (clickedPhoto) => (e) => {  
-      console.log(`showClickedPhoto(${clickedPhoto.isClicked})`)  
-
-      $photos.forEach(photo => {
-        if (photo !== clickedPhoto) {
-          photo.isClicked = false
-        }
-      })
-
-      if($isMobile) {
-        if (clickedPhoto.isClicked) {
-          showSelectedPhoto(e)
-          clickedPhoto.isClicked = false
-        } else {
-          clickedPhoto.isClicked = true
-        }
-      } else {
-        showSelectedPhoto(e)
-      }
-    }
-
-    // @b show clicked marker
-    const showClickedMarker = (clickedMarker) => (e) => {  
-      console.log(`showClickedMarker(${clickedMarker.isClicked})`)  
-
-      $markers.forEach(marker => {
-        if (marker !== clickedMarker) {
-          marker.isClicked = false
-        }
-      })
-
-      if($isMobile) {
-        if (clickedMarker.isClicked) {
-          showSelectedPhoto(e)
-          clickedMarker.isClicked = false
-        } else {
-          clickedMarker.isClicked = true
-        }
-      } else {
-        showSelectedPhoto(e)
-      }
-    }
-
-    // @b show selected photo
-    function showSelectedPhoto(e) {      
-
-      let imgID = e.target.id
-      console.log(`showSelectedPhoto(${imgID})`)
-
-      showPhoto(imgID)
-      $index = imgID
-
-      setTimeout(() => {
-        $photo.classList.remove("none")
-        $photo.classList.add("show")
-      },100)
-
-    }
-
-    // @b show previous photo
-    function showPreviousPhoto(e){
-      console.log("showPreviousPhoto()")
-
-      e.stopPropagation()
-      if ($isPhotoLoading) return
-      if ($index > 0) {
-        $index = parseInt($index) - 1
-        showPhoto($index)
-      } 
-    }
-
-    // @b show next photo
-    function showNextPhoto(e) {
-      console.log("showNextPhoto()")
-      
-      e.stopPropagation()
-      if ($isPhotoLoading) return
-      if ($index < $filteredData.length - 1) {
-        $index = parseInt($index) + 1
-        showPhoto($index)
-      } 
-    }
-    
-    // @b toggle presentation
-    function togglePresentation(e) {
-      console.log(`togglePresentation()`)
-
-      if ($interval) {
-        clearInterval($interval)
-        $interval = null
-
-        $photoPause.classList.add("none")
-        $photoPlay.classList.remove("none")
-      } else {
-        showPhoto($index)
-
-        $photo.classList.remove("none")
-        $photo.classList.add("show")
-        $photoPause.classList.remove("none")
-        $photoPlay.classList.add("none")
-
-        $interval = setInterval(() => {
-          if($isPhotoLoading) return
-          if ($index < $filteredData.length - 1) {
-            showNextPhoto(e)
-          } else {
-            $index = 0
-            showPhoto($index)
-          }
-        }, 3000)
-      }
-
-      e?.stopPropagation()
-    }
-
-    // @b hide photo
-    function hidePhoto() {
-      console.log("hidePhoto()")
-      clearInterval($interval)
-      $interval = null
-
-      $isPhotoOpen = false
-      $photoName.textContent = ""
-      $photo.classList.add("hide")
-      setTimeout(() => {
-        $photo.classList.add("none")
-        $photo.classList.remove("show")
-        $photo.classList.remove("hide")
-        $photoPlay.classList.remove("none")
-        $photoPause.classList.add("none")
-      }, 400)
-    }
-
-  // @g MAP
-
-    // @b prepare map
-    function prepareMap() {
-      console.log("prepareMap()")
-      // leaflet map view
-      $map = L.map('map')
-      // add leaflet openstreetmap
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: 'Map data from <a href="https://www.openstreetmap.org/">OpenStreetMap</a>', 
-        maxZoom: 18}).addTo($map)
-  
-      // remove zoom controls
-      const zoomControl = L.control.zoom()
-      zoomControl.addTo($map)
-      $map.removeControl(zoomControl)
-
-      // keyboard disabled
-      $map.keyboard.disable()
-  
-      // getting coordinates from map
-      if (mapActive) {
-        $map.on('click', (e) => {
-          const lat = e.latlng.lat.toFixed(7)
-          const lng = e.latlng.lng.toFixed(7)
-          console.log(`${lat},${lng}`)
-          // alert(`${lat},${lng}`)
-        })
-      }
-    }
-
-    // @b set map view
-    function setMapView() {
-      console.log(`setMapView()`)
-
-      if($selectRegion.value == cat.all) {
-        if ($selectRange.value == ranges.mountains) {
-          $map.setView(...setCoor([50.1029645,19.4293213], 8)) 
-        } else if ($selectRange.value == ranges.poland) {
-          $map.setView(...setCoor([52.2159333,19.1344222], 7)) 
-        } else {
-          $map.setView(...setCoor([46.7248004,9.2504883], 6)) 
-        }
-
-      } else if($selectCity.value == cat.all) {
-        const region = data[$selectRange.value][$selectRegion.value]
-        $map.setView(...setCoor(region.coor, region.zoom))
-
-      } else {
-        const city = data[$selectRange.value][$selectRegion.value][$selectCity.value]
-        $map.setView(...setCoor(city.coor, city.zoom))
-      }
-    }
-
-    // @b set coordinates
-    function setCoor(coor, zoom) {
-      if ($isGalleryAndMap) {
-        const mapZoom = $map.getZoom()
-        const mapPoint = $map.latLngToContainerPoint(coor)
-        const scale = Math.pow(2, zoom - mapZoom)
-        const width = window.innerWidth
-        const shift = ( window.innerWidth / 4 ) / scale
-        const newX = mapPoint.x - shift
-        const newCoor = $map.containerPointToLatLng([newX, mapPoint.y])
-        return [newCoor, zoom]
-      } else {
-        return [coor,zoom]
-      }
-    } 
-      
-    // @b add routes
-    function addRoutes() {
-      $routeLayers.forEach(layer => $map.removeLayer(layer))
-      $routeLayers = []
-
-      // default styles
-      const defaultColor = 'black'
-      const defaultWeight = 2
-
-      // active styles
-      const activeColor = 'dodgerblue'
-      const activeWeight = 6
-
-      // primary activities and styles
-      const primaryActivities = ['cycling', 'skiing']
-      const primaryColor = '#444'
-
-      // secondary activities and styles
-      const secondaryActivities = ['walking', 'europe_walking']
-      const secondaryColor = '#666'
-
-      routes.forEach(route => {
-        const year = route.name.slice(0, 4)
-        if ($dateFilter !== cat.all && year !== $dateFilter.toString()) return
-        if (route.range !== $selectRange.value) return
-
-        let toggled = false
-
-        // prepare route color
-        let routeColor = defaultColor
-        if (primaryActivities.includes(route.activity)) {
-          routeColor = primaryColor
-        } else if (secondaryActivities.includes(route.activity)) {
-          routeColor = secondaryColor
-        }
-
-        const polyline = L.polyline(route.coords, {
-          color: routeColor,
-          weight: defaultWeight
-        }).addTo($map)
-
-        const hitbox = L.polyline(route.coords, {
-          color: 'transparent',
-          pane: 'shadowPane',
-          weight: 20,
-          opacity: 0,
-        }).addTo($map)
-
-        const updateStyle = () => {
-          polyline.setStyle({
-            color: toggled ? activeColor : routeColor,
-            weight: toggled ? activeWeight : defaultWeight
-          })
-          if (toggled) polyline.bringToFront()
-        }
-
-        const highlight = () => {
-          if (!toggled) {
-            polyline.setStyle({ weight: activeWeight })
-            polyline.bringToFront()
-          }
-        }
-
-        const resetHighlight = () => {
-          if (!toggled) {
-            polyline.setStyle({ weight: defaultWeight })
-          }
-        }
-
-        const toggleRoute = () => {
-          toggled = !toggled
-          updateStyle()
-
-          if (toggled) {
-            polyline.openPopup()
-          } else {
-            polyline.closePopup()
-          }
-        }
-
-        hitbox.on('mouseover', highlight)
-        hitbox.on('mouseout', resetHighlight)
-        hitbox.on('touchstart', toggleRoute)
-        hitbox.on('click', toggleRoute)
-
-        polyline.bindPopup(route.name)
-
-        $routeLayers.push(polyline)
-        $routeLayers.push(hitbox)
-      })
-    }
-
-  // @g MARKERS
-
-    // @b prepare markers
-    function prepareMarkers() {
-      console.log("prepareMarkers()")
-
-      // remove all markers from map
-      $markers.forEach(marker => $map.removeLayer(marker))
-      // remove all markers from table
-      $markers = []
-      // create new markers
-      $filteredData.forEach(item => {
-        createMarker(item)
-      })
-      // add zoom listener
-      addZoomToMakers()
-    }
-
-    // @b create marker
-    function createMarker({coor, city, catg, name, url, id, top}) {
-
-      // icon
-      const zoom = $map.getZoom()
-      const icon = L.icon({
-        iconUrl: url.replace(/(\/)([^/]+)\.([^/.]+)$/, '$1webp/$2.webp'),
-        iconSize: setZoom(zoom),
-        iconAnchor: setAnchor(zoom),
-        className: `marker marker-${catg.toLowerCase()}`
-      })
-
-      let tooltipContent = `${city}:\n${name}`
-
-      const tooltipOptions = { 
-        className: 'marker-tooltip',
-        direction: 'bottom',
-        offset: [0,42],
-        opacity: 0.8,
-      }
-
-      // marker
-      const marker = L.marker(coor, {icon: icon}).addTo($map)
-      marker.id = id
-      marker.catg = catg
-      marker.isClicked = false
-      marker.bindTooltip(tooltipContent, tooltipOptions)
-      marker.on('mouseover', highlightMarker)
-      marker.on('mouseout', resetMarker)
-      marker.on('click', (e) => showClickedMarker(marker)(e))        
-
-      
-      if (top) {
-        marker.top = top
-        marker.setZIndexOffset(1)
-      }
-      $markers.push(marker)
-    }
-
-    // @b add zoom to markers
-    function addZoomToMakers(){
-      $map.on('zoomend', () => {
-        $markers.forEach(marker => {
-          updateMarkerSize(marker)
-        })
-      })
-    }
-
-    // @b highlight marker
-    function highlightMarker(e) {
-      if ($isHiglightActive) {
-        const id = e.target.id
-        const marker = $markers[id]
-        marker.setZIndexOffset(100)
-        updateMarkerSize(marker, 2)
-      }
-    }
-
-    // @b reset marker
-    function resetMarker(e) {
-      const id = e.target.id
-      const marker = $markers[id]      
-      if (marker.top) {
-        marker.setZIndexOffset(1)
-      } else {
-        marker.setZIndexOffset(0)
-      }
-      updateMarkerSize(marker)
-    }
-
-    // @b update marker size
-    function updateMarkerSize(marker, value){
-      const zoom = $map.getZoom()
-      const icon = marker.options.icon
-      let factor = 1
-      if (value) {
-        factor = value * 12 / zoom
-      }
-      icon.options.iconSize = setZoom(zoom * factor)
-      icon.options.iconAnchor = setAnchor(zoom * factor)
-      marker.setIcon(icon)
-    }
-
-    // @b set zoom of marker
-    function setZoom(zoom) {
-      const size = Math.pow(zoom,2) * 0.15
-      return [size, size]
-    }
-
-    // @b set anchor of marker
-    function setAnchor(zoom) {
-      const size = Math.pow(zoom,2) * 0.15
-      return [size * 0.5, size * 0.5]
-    }
-
-    // @g TOOLS
-
-    // @b find range
-    function findRange(city) {
-      for (const range in data) {
-        for (const region in data[range]) {
-          if (city in data[range][region]) {
-            return range
-          } else {
-            return ranges.poland
-          }
-        }
-      }
-    }
-  
-    // @b find region
-    function findRegion(city) {
-      for (const range in data) {
-        for (const region in data[range]) {
-          if (city in data[range][region]) {
-            return region
-          }
-        }
-      }
-    }
-
-    // @b capitalize name of city
-    function capitalizeName(city) {
-      return city.toLowerCase().replace(/(?:^|\s|-)([a-ż])/g, (match) => match.toUpperCase())
-    }
-
-    // @b create option
-    function createOption(parent, value, condition) {
-      const option = document.createElement('option')
-      option.classList.add("header_option")
-      option.value = value
-      option.textContent = value
-      if (condition) {
-        if (value == condition) {
-          option.setAttribute("selected", "selected")
-        }
-      }
-      parent.appendChild(option)
-    }
-
-    // @b map regions
-    function mapRegions(data) {
-      const newData = {}
-
-      for (const [regionName, regionData] of Object.entries(data)) {
-        const { coor, zoom, ...data } = regionData
-        const newCities = {}
-
-        for (const [cityName, cityData] of Object.entries(data)) {
-          const { abbr, ...rest } = cityData
-          newCities[abbr] = rest
-        }
-
-        newData[regionName] = { coor, zoom, ...newCities }
-      }
-
-      return newData
-    }
-
-    // @b debug
-    function debug(item) {
-      console.log("--->")
-      console.log(item)
-      console.log("<---")
-    }
-
-  </script>
-</body>
+		<div class="map" id="map"></div>
+
+		<script>
+			// @r SCRIPTS
+			// @g GLOBAL
+			//
+			let $map // leaflet map
+			let $marginTop = 0 // margin top
+			// tables
+			let $photos = [] // table of photos
+			let $markers = [] // table of markers
+			let $citiesArray = [] // table with prepared data
+			let $filteredData = [] // table with filtered data
+			let $routeLayers = [] // table with added polylines
+			// filters
+			let $viewMode = 'map' // state of view mode
+			let $categoryFilter = cat.profil // state of category filter
+			let $dateFilter = cat.all // state of data filter
+			// flags
+			let $isInitialRender = true // flag for initial render
+			let $isHiglightActive = true // flag for marker higlight activ
+			let $isGalleryAndMap = false // flag for gallery and map open
+			let $isPhotoClicked = false // flag for photo clicked
+			let $isPhotoLoading = false // flag for photo loading
+			let $isPhotoOpen = false // flag for photo open
+			let $isMenuOpen = false // flag for menu open
+			// photo
+			let $touchStartX // touch start position
+			let $touchEndX // touch end position
+			let $interval // interval for presentation
+			let $index = 0 // index of photo
+
+			// @g HANDLES
+			//
+			const $root = document.querySelector('html')
+			// header
+			const $headerDiv = document.querySelector('.header')
+			const $headerEmblem = document.querySelector('.header_emblem')
+			const $headerBars = document.querySelector('.header_bars')
+			// gallery
+			const $gallery = document.querySelector('.gallery')
+			const $galleryBackground = document.querySelector('.gallery_background')
+			// photo
+			const $photo = document.querySelector('.photo')
+			const $photoGroup = document.querySelector('.photo_group')
+			const $photoName = document.querySelector('.photo_name')
+			const $photoImage = document.querySelector('.photo_image')
+			const $photoPrevious = document.querySelector('.photo_previous')
+			const $photoNext = document.querySelector('.photo_next')
+			const $photoPause = document.querySelector('.photo_pause')
+			const $photoPlay = document.querySelector('.photo_play')
+			// selects
+			const $selectCity = document.querySelector('#city')
+			const $selectRegion = document.querySelector('#region')
+			const $selectRange = document.querySelector('#range')
+			const $selectViewMode = document.querySelector('#view')
+			const $selectCategory = document.querySelector('#category')
+			const $selectDate = document.querySelector('#date')
+			// mobile
+			const $isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+
+			// @g LISTENERS
+			//
+			// window
+			window.addEventListener('load', main)
+			window.addEventListener('keyup', checkKeys)
+			window.addEventListener('resize', changeMargin)
+			window.addEventListener('wheel', checkWheel)
+			// header
+			$headerDiv.addEventListener('touchstart', touchstart)
+			$headerDiv.addEventListener('touchmove', touchmove)
+			$headerDiv.addEventListener('touchend', touchend)
+			$headerBars.addEventListener('click', showHideMenu)
+			$headerEmblem.addEventListener('click', showHideMenu)
+			$selectCity.addEventListener('change', setCity)
+			$selectRegion.addEventListener('change', setRegion)
+			$selectRange.addEventListener('change', setRange)
+			$selectViewMode.addEventListener('change', setViewMode)
+			$selectCategory.addEventListener('change', setCategory)
+			$selectDate.addEventListener('change', setDate)
+			addListenersToSelects([
+				$selectCity,
+				$selectRegion,
+				$selectRange,
+				$selectViewMode,
+				$selectCategory,
+				$selectDate,
+			])
+			// photo
+			$photo.addEventListener('click', hidePhoto)
+			$photo.addEventListener('touchstart', touchstart)
+			$photo.addEventListener('touchmove', touchmove)
+			$photo.addEventListener('touchend', touchend)
+			$photoPlay.addEventListener('click', togglePresentation)
+			$photoPause.addEventListener('click', togglePresentation)
+			$photoPrevious.addEventListener('click', showPreviousPhoto)
+			$photoNext.addEventListener('click', showNextPhoto)
+
+			// @g GENERAL
+			//
+			// @b main
+			function main() {
+				console.log(data)
+				// console.log(mapRegions(data[$selectRange.value]))
+				console.log('main()')
+				changeMargin()
+				prepareMap()
+				prepareData()
+				prepareDates()
+				prepareCategories()
+				prepareRanges()
+				addRoutes()
+				setRange()
+			}
+
+			// @b check keys
+			function checkKeys(e) {
+				console.log(`checkKeys(${e.key})`)
+
+				if (e.key === 'ArrowLeft') {
+					showPreviousPhoto(e)
+				}
+				if (e.key === 'ArrowRight') {
+					showNextPhoto(e)
+				}
+				if (e.key === 'Escape') {
+					hidePhoto(e)
+				}
+				if (e.key === 'F2') {
+					showHideMenu(e)
+				}
+				if (e.key === 'F9') {
+					togglePresentation(e)
+				}
+			}
+
+			// @b check wheel
+			function checkWheel(e) {
+				if ($isPhotoOpen) {
+					if (e.deltaY > 0) {
+						showNextPhoto(e)
+					} else {
+						showPreviousPhoto(e)
+					}
+				}
+			}
+
+			// @b check touch
+			function touchstart(e) {
+				$touchStartX = e.touches[0].pageX
+				$touchStartY = e.touches[0].pageY
+				$touchEndY = $touchStartY
+				$touchEndX = $touchStartX
+			}
+			function touchmove(e) {
+				$touchEndX = e.touches[0].pageX
+				$touchEndY = e.touches[0].pageY
+			}
+			function touchend(e) {
+				const deltaX = $touchEndX - $touchStartX
+				const deltaY = $touchEndY - $touchStartY
+				console.log('touchX:', deltaX)
+				console.log('touchY:', deltaY)
+				if (deltaY < -50 && $isMenuOpen) {
+					showHideMenu()
+				}
+				if (deltaX > 50) {
+					showPreviousPhoto(e)
+				} else if (deltaX < -50) {
+					showNextPhoto(e)
+				}
+			}
+
+			// @b add listeners to selects
+			function addListenersToSelects(selectElements) {
+				selectElements.forEach(($select) => {
+					let startX = 0
+					let startY = 0
+					const threshold = 30
+
+					// swipe
+					$select.addEventListener(
+						'touchstart',
+						(e) => {
+							const touch = e.changedTouches[0]
+							startX = touch.pageX
+							startY = touch.pageY
+						},
+						{ passive: true }
+					)
+
+					$select.addEventListener(
+						'touchend',
+						(e) => {
+							const touch = e.changedTouches[0]
+							const diffX = touch.pageX - startX
+							const diffY = touch.pageY - startY
+
+							if (
+								Math.abs(diffX) > Math.abs(diffY) &&
+								Math.abs(diffX) > threshold
+							) {
+								const options = $select.options
+								let newIndex = $select.selectedIndex
+
+								if (diffX < 0) {
+									// swipe left
+									if (newIndex < options.length - 1) newIndex++
+								} else {
+									// swipe right
+									if (newIndex > 0) newIndex--
+								}
+
+								if (newIndex !== $select.selectedIndex) {
+									$select.selectedIndex = newIndex
+									$select.dispatchEvent(new Event('change'))
+								}
+							}
+						},
+						{ passive: true }
+					)
+
+					// scroll
+					$select.addEventListener(
+						'wheel',
+						(e) => {
+							e.preventDefault()
+							const options = $select.options
+							let newIndex = $select.selectedIndex
+
+							if (e.deltaY > 0) {
+								// down
+								if (newIndex < options.length - 1) newIndex++
+							} else {
+								// up
+								if (newIndex > 0) newIndex--
+							}
+
+							if (newIndex !== $select.selectedIndex) {
+								$select.selectedIndex = newIndex
+								$select.dispatchEvent(new Event('change'))
+							}
+						},
+						{ passive: false }
+					)
+				})
+			}
+
+			// @b change margin
+			function changeMargin() {
+				console.log(`changeMargin()`)
+				const windowHeight = window.innerHeight
+				const headerHeight = $headerDiv.offsetHeight
+				const viewHeight = windowHeight - headerHeight
+				$marginTop = headerHeight
+
+				$root.style.setProperty('--viewHeight', `${viewHeight}px`)
+				$root.style.setProperty('--marginTop', `${headerHeight}px`)
+			}
+
+			// @g DATA
+			//
+			// @b prepare data
+			function prepareData() {
+				console.log('prepareData()')
+				$citiesArray = []
+
+				for (const range in data) {
+					for (const region in data[range]) {
+						for (const city in data[range][region]) {
+							const cityObj = data[range][region][city]
+
+							// gallery photos
+							if (cityObj.gallery) {
+								cityObj.gallery.forEach((item) => {
+									//prepare path
+									function preparePath() {
+										const capitalizedCity = capitalizeName(city)
+
+										// path for mountains
+										if (range == ranges.mountains) {
+											return `Góry/${region}/${capitalizedCity}/Zdjęcia/${item.name}.jpg`
+
+											// path for world
+										} else if (range == ranges.world) {
+											return `Świat/${region}/${capitalizedCity}/Zdjęcia/${item.name}.jpg`
+
+											// path for Kraków
+										} else if (city == 'KRAKÓW') {
+											return `Kraków/Zdjęcia/${item.catg}/${item.name}.jpg`
+
+											// path for other cities in Poland
+										} else {
+											return `Polska/${region}/${capitalizedCity}/Zdjęcia/${item.name}.jpg`
+										}
+									}
+
+									const newItem = {
+										city: city,
+										region: region,
+										range: range,
+										coor: item.coor,
+										catg: item.catg,
+										date: item.date,
+										name: item.name,
+										scale: item.scale,
+										url: preparePath(),
+									}
+									if (item.top) {
+										newItem.top = item.top
+									}
+									$citiesArray.push(newItem)
+								})
+							}
+							// profile photo
+							if (cityObj.coor && cityObj.date) {
+								cityObj.date.forEach((year) => {
+									function prepareProfilePath() {
+										let path = ''
+										if (range == ranges.mountains) {
+											path = `Góry/Zdjęcia/${capitalizeName(city)} ${year}.jpg`
+										} else if (range == ranges.world) {
+											path = `Świat/Zdjęcia/${capitalizeName(city)}.jpg`
+										} else if (range == ranges.poland) {
+											path = `Polska/Zdjęcia/${capitalizeName(city)}.jpg`
+										}
+										return path
+									}
+
+									const newItem = {
+										city: city,
+										region: region,
+										range: range,
+										coor: cityObj.coor,
+										scale: cityObj.scale,
+										date: [year],
+										name: [year],
+										catg: cat.profil,
+										url: prepareProfilePath(),
+									}
+									$citiesArray.push(newItem)
+								})
+							}
+						}
+					}
+				}
+			}
+
+			// @b filter data
+			function filterData() {
+				console.log('filterData()')
+				// get data from original array
+				$filteredData = $citiesArray
+
+				// filter by range
+				if ($selectRegion.value == cat.all) {
+					$filteredData = $filteredData.filter(
+						(item) => $selectRange.value === item.range
+					)
+				} else if ($selectCity.value == cat.all) {
+					$filteredData = $filteredData.filter(
+						(item) => $selectRegion.value === item.region
+					)
+				} else {
+					$filteredData = $citiesArray.filter(
+						(item) => $selectCity.value === item.city
+					)
+				}
+
+				// filter by category filter
+				if ($categoryFilter != cat.all) {
+					$filteredData = $filteredData.filter((item) => {
+						return item.catg == $categoryFilter
+					})
+				}
+				// filter by date filter
+				if ($dateFilter != cat.all) {
+					$filteredData = $filteredData.filter((item) => {
+						return item.date?.some((date) => date == Number($dateFilter))
+					})
+				}
+
+				// sort data
+				$filteredData = sortData($filteredData)
+
+				// add id to filtered items
+				$filteredData.forEach((item, index) => (item.id = index))
+			}
+
+			// @b sort data
+			function sortData(array) {
+				const categoryOrder = Object.values(cat)
+				const namePriority = { zewnętrze: 1, wnętrze: 2, organy: 3 }
+
+				array.sort((a, b) => {
+					if (findRegion(a.city) < findRegion(b.city)) return -1
+					if (findRegion(a.city) > findRegion(b.city)) return 1
+
+					// sort by city
+					if (a.city < b.city) return -1
+					if (a.city > b.city) return 1
+
+					// sort by category
+					const categoryA = categoryOrder.indexOf(a.catg)
+					const categoryB = categoryOrder.indexOf(b.catg)
+					if (categoryA < categoryB) return -1
+					if (categoryA > categoryB) return 1
+
+					// ensure a.name and b.name are valid strings
+					const nameA = typeof a.name === 'string' ? a.name : ''
+					const nameB = typeof b.name === 'string' ? b.name : ''
+
+					// sort by basilica name (everything before the last "/")
+					const baseNameA = nameA.substring(0, nameA.lastIndexOf('/')) || nameA
+					const baseNameB = nameB.substring(0, nameB.lastIndexOf('/')) || nameB
+
+					if (baseNameA < baseNameB) return -1
+					if (baseNameA > baseNameB) return 1
+
+					// sort by name priority inside the same basilica
+					const suffixA = nameA
+						.substring(nameA.lastIndexOf('/') + 1)
+						.toLowerCase()
+					const suffixB = nameB
+						.substring(nameB.lastIndexOf('/') + 1)
+						.toLowerCase()
+
+					const priorityA = namePriority[suffixA] || 4
+					const priorityB = namePriority[suffixB] || 4
+
+					return priorityA - priorityB
+				})
+
+				return array
+			}
+
+			// @b update data
+			function updateData() {
+				console.log('updateData()')
+				filterData()
+				prepareMarkers()
+				prepareGallery()
+				addRoutes()
+				console.log($filteredData)
+			}
+
+			// @g HEADER
+
+			// @b show hide menu
+			function showHideMenu() {
+				console.log('showHideMenu()')
+				$headerDiv.classList.toggle('hide')
+				$photoGroup.classList.toggle('top')
+				$photoImage.classList.toggle('top')
+				$gallery.classList.toggle('top')
+				$isMenuOpen = !$isMenuOpen
+			}
+
+			// @b prepare ranges
+			function prepareRanges() {
+				console.log(`prepareRange()`)
+				const ranges = Object.keys(data)
+
+				$selectRange.innerHTML = ''
+				const selectedRange = $isInitialRender ? findRange(startCity) : null
+				ranges.forEach((range) => {
+					createOption($selectRange, range, selectedRange)
+				})
+			}
+
+			// @b prepare regions
+			function prepareRegions() {
+				console.log(`prepareRegions(${$selectRange.value})`)
+				const regions = Object.keys(data[$selectRange.value])
+
+				$selectRegion.innerHTML = ''
+				createOption($selectRegion, cat.all)
+
+				const selectedRegion = $isInitialRender ? findRegion(startCity) : null
+				regions.forEach((region) => {
+					createOption($selectRegion, region, selectedRegion)
+				})
+			}
+
+			// @b prepare cities
+			function prepareCities() {
+				if ($selectRegion.value == cat.all) {
+					$selectCity.innerHTML = ''
+					createOption($selectCity, cat.all)
+					return
+				}
+
+				const newCities = data[$selectRange.value][$selectRegion.value]
+				console.log(`prepareCities(${$selectRegion.value})`)
+
+				$selectCity.innerHTML = ''
+				createOption($selectCity, cat.all)
+
+				const selectedCity = $isInitialRender ? startCity : null
+				Object.keys(newCities).forEach((city) => {
+					if (city !== 'coor' && city !== 'zoom') {
+						createOption($selectCity, city, selectedCity)
+					}
+				})
+				$isInitialRender = false
+			}
+
+			// @b prepare categories
+			function prepareCategories() {
+				console.log('prepareCategories()')
+
+				Object.values(cat).forEach((category) => {
+					createOption($selectCategory, category, $categoryFilter)
+				})
+			}
+
+			// @b prepare dates
+			function prepareDates() {
+				console.log('prepareDates()')
+
+				createOption($selectDate, cat.all)
+				for (let year = 2025; year >= 2004; year--) {
+					createOption($selectDate, year, $dateFilter)
+				}
+			}
+
+			// @b set emblem
+			function setEmblem() {
+				console.log(`setEmblem(${$selectCity.value})`)
+
+				if (
+					$selectRange.value == ranges.roads ||
+					$selectRange.value == ranges.mountains ||
+					$selectCity.value == cat.all
+				) {
+					$headerEmblem.classList.add('none')
+				} else {
+					$headerEmblem.classList.remove('none')
+
+					const capitalizedCity = capitalizeName($selectCity.value)
+					const capitalizedRegion = capitalizeName($selectRegion.value)
+
+					let path = ''
+					if ($selectRange.value == ranges.world) {
+						path = `Świat/${capitalizedRegion}/${capitalizedCity}/${capitalizedCity}.gif`
+					} else if ($selectRange.value == ranges.poland) {
+						path = `Polska/${capitalizedRegion}/${capitalizedCity}/${capitalizedCity}.gif`
+					}
+					$headerEmblem.setAttribute('src', path)
+					$headerEmblem.setAttribute('alt', 'Herb')
+				}
+			}
+
+			// @b set title
+			function setTitle() {
+				let title = ''
+				if ($selectRegion.value == cat.all) {
+					title = $selectRange.value
+				} else if ($selectCity.value == cat.all) {
+					title = $selectRegion.value
+				} else {
+					title = $selectCity.value
+				}
+				document.title = title
+				console.log(`setTitle(${title})`)
+			}
+			// @b set city
+			function setCity() {
+				console.log(`setCity(${$selectCity.value})`)
+				setEmblem()
+				setTitle()
+				setMapView()
+				updateData()
+			}
+
+			// @b set region
+			function setRegion() {
+				console.log(`setRegion(${$selectRegion.value})`)
+				prepareCities()
+				setEmblem()
+				setTitle()
+				setMapView()
+				updateData()
+			}
+
+			// @b set range
+			function setRange() {
+				console.log(`setRange(${$selectRange.value})`)
+				prepareRegions()
+				prepareCities()
+				setEmblem()
+				setTitle()
+				setMapView()
+				updateData()
+			}
+
+			// @b set view mode
+			function setViewMode() {
+				$viewMode = $selectViewMode.value
+				console.log(`setViewMode(${$viewMode})`)
+
+				// add class to gallery and background
+				function classAdd(className) {
+					$gallery.classList.add(className)
+					$galleryBackground.classList.add(className)
+				}
+				// remove class from gallery and background
+				function classRemove(className) {
+					$gallery.classList.remove(className)
+					$galleryBackground.classList.remove(className)
+				}
+
+				if ($viewMode == 'map') {
+					$isGalleryAndMap = false
+					hidePhoto()
+					classAdd('hide')
+					setTimeout(() => {
+						$isHiglightActive = true
+						classRemove('hide')
+						classRemove('show')
+						classAdd('none')
+					}, 400)
+				} else if ($viewMode == 'map&gallery') {
+					$isGalleryAndMap = true
+					classRemove('none')
+					classAdd('show')
+					classAdd('half')
+					setTimeout(() => {
+						$isHiglightActive = true
+					}, 1000)
+				} else if ($viewMode == 'gallery') {
+					$isGalleryAndMap = false
+					$isHiglightActive = false
+					classRemove('none')
+					classRemove('half')
+					classAdd('show')
+				}
+				setMapView()
+			}
+
+			// @b set category
+			function setCategory(category) {
+				if (category == cat.profil || category == cat.all) {
+					$selectCategory.value = category
+				}
+				$categoryFilter = $selectCategory.value
+				console.log(`setCategory()`)
+				updateData()
+			}
+
+			// @b set dates
+			function setDate() {
+				$dateFilter = $selectDate.value
+				console.log(`setDate(${$dateFilter})`)
+				updateData()
+			}
+
+			// @g GALLERY
+
+			// @b prepare gallery
+			function prepareGallery() {
+				console.log('prepareGallery()')
+				//clear gallery
+				$gallery.innerHTML = ''
+				// create imgs for filtered table
+				$filteredData.forEach((item) => {
+					let description = `${item.city}: ${item.name}`
+
+					// gallery box
+					const box = document.createElement('div')
+					box.className = 'gallery_box'
+					box.isClicked = false
+
+					// gallery text
+					const text = document.createElement('div')
+					text.className = 'gallery_text'
+					text.textContent = description
+					text.setAttribute('id', item.id)
+					text.addEventListener('click', (e) => showClickedPhoto(box)(e))
+					text.addEventListener('mouseover', highlightMarker)
+					text.addEventListener('mouseout', resetMarker)
+
+					// gallery img
+					const img = document.createElement('img')
+					img.setAttribute('src', item.url)
+					img.setAttribute('alt', description)
+					img.setAttribute('id', item.id)
+					img.addEventListener('click', (e) => showClickedPhoto(box)(e))
+					img.addEventListener('mouseover', highlightMarker)
+					img.addEventListener('mouseout', resetMarker)
+
+					box.appendChild(img)
+					box.appendChild(text)
+					$gallery.appendChild(box)
+					$photos.push(box)
+				})
+			}
+
+			// @b show photo
+			function showPhoto(imgID) {
+				console.log(`showPhoto(${imgID})`)
+
+				if ($isPhotoLoading) return
+				$isPhotoLoading = true
+
+				if (imgID == 0) {
+					$photoPrevious.classList.add('none')
+				} else {
+					$photoPrevious.classList.remove('none')
+				}
+
+				if (imgID == $filteredData.length - 1) {
+					$photoNext.classList.add('none')
+				} else {
+					$photoNext.classList.remove('none')
+				}
+
+				const image = document.getElementById(imgID)
+				$photoImage.setAttribute('src', image.src)
+
+				let loadingTimeout = setTimeout(() => {
+					$photoName.textContent = 'Ładowanie zdjęcia...'
+				}, 500)
+
+				console.log(`showPhoto(${imgID}) - start`)
+				$photoImage.onload = () => {
+					clearTimeout(loadingTimeout)
+					$photoName.textContent = image.alt
+					console.log(`showPhoto(${imgID}) - loaded`)
+					$isPhotoLoading = false
+				}
+
+				$photoImage.onerror = () => {
+					clearTimeout(loadingTimeout)
+					$photoName.textContent = 'Zdjęcie jest niedostępne.'
+					console.log(`showPhoto(${imgID}) - error`)
+					$isPhotoLoading = false
+				}
+				$isPhotoOpen = true
+			}
+
+			// @b show clicked box
+			const showClickedPhoto = (clickedPhoto) => (e) => {
+				console.log(`showClickedPhoto(${clickedPhoto.isClicked})`)
+
+				$photos.forEach((photo) => {
+					if (photo !== clickedPhoto) {
+						photo.isClicked = false
+					}
+				})
+
+				if ($isMobile) {
+					if (clickedPhoto.isClicked) {
+						showSelectedPhoto(e)
+						clickedPhoto.isClicked = false
+					} else {
+						clickedPhoto.isClicked = true
+					}
+				} else {
+					showSelectedPhoto(e)
+				}
+			}
+
+			// @b show clicked marker
+			const showClickedMarker = (clickedMarker) => (e) => {
+				console.log(`showClickedMarker(${clickedMarker.isClicked})`)
+
+				$markers.forEach((marker) => {
+					if (marker !== clickedMarker) {
+						marker.isClicked = false
+					}
+				})
+
+				if ($isMobile) {
+					if (clickedMarker.isClicked) {
+						showSelectedPhoto(e)
+						clickedMarker.isClicked = false
+					} else {
+						clickedMarker.isClicked = true
+					}
+				} else {
+					showSelectedPhoto(e)
+				}
+			}
+
+			// @b show selected photo
+			function showSelectedPhoto(e) {
+				let imgID = e.target.id
+				console.log(`showSelectedPhoto(${imgID})`)
+
+				showPhoto(imgID)
+				$index = imgID
+
+				setTimeout(() => {
+					$photo.classList.remove('none')
+					$photo.classList.add('show')
+				}, 100)
+			}
+
+			// @b show previous photo
+			function showPreviousPhoto(e) {
+				console.log('showPreviousPhoto()')
+
+				e.stopPropagation()
+				if ($isPhotoLoading) return
+				if ($index > 0) {
+					$index = parseInt($index) - 1
+					showPhoto($index)
+				}
+			}
+
+			// @b show next photo
+			function showNextPhoto(e) {
+				console.log('showNextPhoto()')
+
+				e.stopPropagation()
+				if ($isPhotoLoading) return
+				if ($index < $filteredData.length - 1) {
+					$index = parseInt($index) + 1
+					showPhoto($index)
+				}
+			}
+
+			// @b toggle presentation
+			function togglePresentation(e) {
+				console.log(`togglePresentation()`)
+
+				if ($interval) {
+					clearInterval($interval)
+					$interval = null
+
+					$photoPause.classList.add('none')
+					$photoPlay.classList.remove('none')
+				} else {
+					showPhoto($index)
+
+					$photo.classList.remove('none')
+					$photo.classList.add('show')
+					$photoPause.classList.remove('none')
+					$photoPlay.classList.add('none')
+
+					$interval = setInterval(() => {
+						if ($isPhotoLoading) return
+						if ($index < $filteredData.length - 1) {
+							showNextPhoto(e)
+						} else {
+							$index = 0
+							showPhoto($index)
+						}
+					}, 3000)
+				}
+
+				e?.stopPropagation()
+			}
+
+			// @b hide photo
+			function hidePhoto() {
+				console.log('hidePhoto()')
+				clearInterval($interval)
+				$interval = null
+
+				$isPhotoOpen = false
+				$photoName.textContent = ''
+				$photo.classList.add('hide')
+				setTimeout(() => {
+					$photo.classList.add('none')
+					$photo.classList.remove('show')
+					$photo.classList.remove('hide')
+					$photoPlay.classList.remove('none')
+					$photoPause.classList.add('none')
+				}, 400)
+			}
+
+			// @g MAP
+
+			// @b prepare map
+			function prepareMap() {
+				console.log('prepareMap()')
+				// leaflet map view
+				$map = L.map('map')
+				// add leaflet openstreetmap
+				L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+					attribution:
+						'Map data from <a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
+					maxZoom: 18,
+				}).addTo($map)
+
+				// remove zoom controls
+				const zoomControl = L.control.zoom()
+				zoomControl.addTo($map)
+				$map.removeControl(zoomControl)
+
+				// keyboard disabled
+				$map.keyboard.disable()
+
+				// getting coordinates from map
+				if (mapActive) {
+					$map.on('click', (e) => {
+						const lat = e.latlng.lat.toFixed(7)
+						const lng = e.latlng.lng.toFixed(7)
+						console.log(`${lat},${lng}`)
+						// alert(`${lat},${lng}`)
+					})
+				}
+			}
+
+			// @b set map view
+			function setMapView() {
+				console.log(`setMapView()`)
+
+				if ($selectRegion.value == cat.all) {
+					if ($selectRange.value == ranges.mountains) {
+						$map.setView(...setCoor([50.1029645, 19.4293213], 8))
+					} else if ($selectRange.value == ranges.poland) {
+						$map.setView(...setCoor([52.2159333, 19.1344222], 7))
+					} else if ($selectRange.value == ranges.roads) {
+						$map.setView(...setCoor([52.2159333, 19.1344222], 7))
+					} else {
+						$map.setView(...setCoor([46.7248004, 9.2504883], 6))
+					}
+				} else if ($selectCity.value == cat.all) {
+					const region = data[$selectRange.value][$selectRegion.value]
+					$map.setView(...setCoor(region.coor, region.zoom))
+				} else {
+					const city =
+						data[$selectRange.value][$selectRegion.value][$selectCity.value]
+					$map.setView(...setCoor(city.coor, city.zoom))
+				}
+			}
+
+			// @b set coordinates
+			function setCoor(coor, zoom) {
+				if ($isGalleryAndMap) {
+					const mapZoom = $map.getZoom()
+					const mapPoint = $map.latLngToContainerPoint(coor)
+					const scale = Math.pow(2, zoom - mapZoom)
+					const width = window.innerWidth
+					const shift = window.innerWidth / 4 / scale
+					const newX = mapPoint.x - shift
+					const newCoor = $map.containerPointToLatLng([newX, mapPoint.y])
+					return [newCoor, zoom]
+				} else {
+					return [coor, zoom]
+				}
+			}
+
+			// @b add routes
+			function addRoutes() {
+				$routeLayers.forEach((layer) => $map.removeLayer(layer))
+				$routeLayers = []
+
+				// default styles
+				const defaultColor = 'black'
+				const defaultWeight = 2
+
+				// active styles
+				const activeColor = 'dodgerblue'
+				const activeWeight = 6
+
+				// primary activities
+				const primaryActivities = [
+					'cycling',
+					'europe_transport_boat',
+					'europe_cycling',
+				]
+
+				// secondary activities
+				const secondaryActivities = [
+					'walking',
+					'europe_walking',
+					'downhill_skiing',
+				]
+
+				// route loop
+				routes.forEach((route) => {
+					let routeColor = defaultColor
+					let routeWeight = defaultWeight
+					let routeName = `${route.icon} ${route.name}`
+					let toggled = false
+
+					const year = route.name.slice(0, 4)
+
+					// range filter
+					if (route.range !== $selectRange.value) return
+
+					// roads filters
+					if (route.range == 'DROGI') {
+						routeName = route.name
+
+						const roadName = route.name.split(' ')[2]
+						const roadLanes = route.name.split(' ')[4]
+
+						const roadCategoryMap = {
+							A: 'Drogi ekspresowe',
+							S: 'Drogi ekspresowe',
+							D: 'Drogi krajowe',
+						}
+						const roadCategory = roadCategoryMap[roadName.trim().charAt(0)]
+
+						// filter road category (region)
+						if (
+							$selectRegion.value !== cat.all &&
+							roadCategory !== $selectRegion.value
+						)
+							return
+						// filter road name
+						if ($selectCity.value !== cat.all && roadName !== $selectCity.value)
+							return
+
+						// filter road year
+						if ($dateFilter !== cat.all && year > $dateFilter.toString()) return
+
+						// road weights
+						if (roadCategory == roadCategoryMap.S && roadLanes == 3) {
+							routeWeight = 5
+						} else if (roadCategory == roadCategoryMap.S && roadLanes == 2) {
+							routeWeight = 4
+						} else if (roadCategory == roadCategoryMap.D && roadLanes == 2) {
+							routeWeight = 3
+						} else {
+							routeWeight = 2
+						}
+					}
+					// other routes year filter
+					else if ($dateFilter !== cat.all && year !== $dateFilter.toString())
+						return
+
+					// route color
+					if (primaryActivities.includes(route.activity)) {
+						routeColor = '#444'
+					} else if (secondaryActivities.includes(route.activity)) {
+						routeColor = '#666'
+					}
+
+					const polyline = L.polyline(route.coords, {
+						color: routeColor,
+						weight: routeWeight,
+					}).addTo($map)
+
+					const hitbox = L.polyline(route.coords, {
+						color: 'transparent',
+						pane: 'shadowPane',
+						weight: 20,
+						opacity: 0,
+					}).addTo($map)
+
+					const updateStyle = () => {
+						polyline.setStyle({
+							color: toggled ? activeColor : routeColor,
+							weight: toggled ? activeWeight : routeWeight,
+						})
+						if (toggled) polyline.bringToFront()
+					}
+
+					const highlight = () => {
+						if (!toggled) {
+							polyline.setStyle({ weight: activeWeight })
+							polyline.bringToFront()
+						}
+					}
+
+					const resetHighlight = () => {
+						if (!toggled) {
+							polyline.setStyle({ weight: routeWeight })
+						}
+					}
+
+					const toggleRoute = () => {
+						toggled = !toggled
+						updateStyle()
+
+						if (toggled) {
+							polyline.openPopup()
+						} else {
+							polyline.closePopup()
+						}
+					}
+
+					hitbox.on('mouseover', highlight)
+					hitbox.on('mouseout', resetHighlight)
+					hitbox.on('touchstart', toggleRoute)
+					hitbox.on('click', toggleRoute)
+
+					polyline.bindPopup(routeName)
+
+					$routeLayers.push(polyline)
+					$routeLayers.push(hitbox)
+				})
+			}
+
+			// @g MARKERS
+
+			// @b prepare markers
+			function prepareMarkers() {
+				console.log('prepareMarkers()')
+
+				// remove all markers from map
+				$markers.forEach((marker) => $map.removeLayer(marker))
+				// remove all markers from table
+				$markers = []
+				// create new markers
+				$filteredData.forEach((item) => {
+					createMarker(item)
+				})
+				// add zoom listener
+				addZoomToMakers()
+			}
+
+			// @b create marker
+			function createMarker({ coor, city, catg, name, url, id, top, scale }) {
+
+				// icon
+				const zoom = $map.getZoom()
+				const icon = L.icon({
+					iconUrl: url.replace(/(\/)([^/]+)\.([^/.]+)$/, '$1webp/$2.webp'),
+					iconSize: setZoom(zoom, scale),
+					iconAnchor: setAnchor(zoom, scale),
+					className: `marker marker-${catg.toLowerCase()}`,
+				})
+
+				let tooltipContent = `${city}:\n${name}`
+
+				const tooltipOptions = {
+					className: 'marker-tooltip',
+					direction: 'bottom',
+					offset: [0, 42],
+					opacity: 0.8,
+				}
+
+				// marker
+				const marker = L.marker(coor, { icon: icon }).addTo($map)
+				marker.id = id
+				marker.catg = catg
+				marker.scale = scale
+				marker.isClicked = false
+				marker.bindTooltip(tooltipContent, tooltipOptions)
+				marker.on('mouseover', highlightMarker)
+				marker.on('mouseout', resetMarker)
+				marker.on('click', (e) => showClickedMarker(marker)(e))
+
+				if (top) {
+					marker.top = top
+					marker.setZIndexOffset(1)
+				}
+				$markers.push(marker)
+			}
+
+			// @b add zoom to markers
+			function addZoomToMakers() {
+				$map.on('zoomend', () => {
+					$markers.forEach((marker) => {
+						updateMarkerSize(marker)
+					})
+				})
+			}
+
+			// @b highlight marker
+			function highlightMarker(e) {
+				if ($isHiglightActive) {
+					const id = e.target.id
+					const marker = $markers[id]
+					marker.setZIndexOffset(100)
+					updateMarkerSize(marker, 2)
+				}
+			}
+
+			// @b reset marker
+			function resetMarker(e) {
+				const id = e.target.id
+				const marker = $markers[id]
+				if (marker.top) {
+					marker.setZIndexOffset(1)
+				} else {
+					marker.setZIndexOffset(0)
+				}
+				updateMarkerSize(marker)
+			}
+
+			// @b update marker size
+			function updateMarkerSize(marker, value) {
+				const zoom = $map.getZoom()
+				const icon = marker.options.icon
+				let scale = marker.scale
+				let factor = 1
+				if (value) {
+					factor = (value * 12) / zoom
+					scale = 1
+				}
+				icon.options.iconSize = setZoom(zoom * factor, scale)
+				icon.options.iconAnchor = setAnchor(zoom * factor, scale)
+				marker.setIcon(icon)
+			}
+
+			// @b set zoom of marker
+			function setZoom(zoom, scale = 1) {
+				const size = Math.pow(zoom, 2) * 0.15 * scale
+				return [size, size]
+			}
+
+			// @b set anchor of marker
+			function setAnchor(zoom, scale = 1) {
+				const size = Math.pow(zoom, 2) * 0.15 * scale
+				return [size * 0.5, size * 0.5]
+			}
+
+			// @g TOOLS
+
+			// @b find range
+			function findRange(city) {
+				for (const range in data) {
+					for (const region in data[range]) {
+						if (city in data[range][region]) {
+							return range
+						} else {
+							return ranges.poland
+						}
+					}
+				}
+			}
+
+			// @b find region
+			function findRegion(city) {
+				for (const range in data) {
+					for (const region in data[range]) {
+						if (city in data[range][region]) {
+							return region
+						}
+					}
+				}
+			}
+
+			// @b capitalize name of city
+			function capitalizeName(city) {
+				return city
+					.toLowerCase()
+					.replace(/(?:^|\s|-)([a-ż])/g, (match) => match.toUpperCase())
+			}
+
+			// @b create option
+			function createOption(parent, value, condition) {
+				const option = document.createElement('option')
+				option.classList.add('header_option')
+				option.value = value
+				option.textContent = value
+				if (condition) {
+					if (value == condition) {
+						option.setAttribute('selected', 'selected')
+					}
+				}
+				parent.appendChild(option)
+			}
+
+			// @b map regions
+			function mapRegions(data) {
+				const newData = {}
+
+				for (const [regionName, regionData] of Object.entries(data)) {
+					const { coor, zoom, ...data } = regionData
+					const newCities = {}
+
+					for (const [cityName, cityData] of Object.entries(data)) {
+						const { abbr, ...rest } = cityData
+						newCities[abbr] = rest
+					}
+
+					newData[regionName] = { coor, zoom, ...newCities }
+				}
+
+				return newData
+			}
+
+			// @b debug
+			function debug(item) {
+				console.log('--->')
+				console.log(item)
+				console.log('<---')
+			}
+		</script>
+	</body>
 </html>

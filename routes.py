@@ -6,14 +6,21 @@ import gpxpy
 
 
 # @r CONFIG
-
 TOLERANCE = 0.0001
 APPEND_MODE = False
+ROADS_MODE = False
 YEAR = 0 # 0 if all
 
 # @p Setup paths
 script_dir = Path(__file__).parent.resolve()
-base_folder = script_dir / "Trasy" if YEAR == 0 else script_dir / "Trasy" / str(YEAR)
+
+if ROADS_MODE:
+    base_folder = script_dir / "Drogi" / "Zestawienie"
+elif YEAR == 0:
+    base_folder = script_dir / "Trasy"
+else:
+    base_folder = script_dir / "Trasy" / str(YEAR)
+
 output_file = script_dir / "routes.js"
 
 # @p Activities
@@ -26,7 +33,7 @@ activity_emojis = {
     "transport_public": "🚌",
     "europe_transport_public": "🚌",
     "europe_transport_boat": "🚢",
-    "europe_walking": "🚶",    
+    "europe_walking": "🚶",
 }
 
 # @r FUNCTIONS
@@ -40,7 +47,9 @@ def get_name(gpx):
 
 
 # @b Get range
-def get_range(activity):
+def get_range(activity, roads_mode=False):
+    if roads_mode:
+        return "DROGI"
     if activity:
         activity = activity.strip().lower()
         if activity == "hiking":
@@ -95,7 +104,7 @@ def extract_data(gpx_path):
             name = get_name(gpx)
             segments = get_segments(gpx)
             activity = get_activity(gpx)
-            range = get_range(activity)
+            range = get_range(activity, ROADS_MODE)
 
             if not segments:
                 return []
@@ -112,8 +121,8 @@ def extract_data(gpx_path):
 
 
 # @b Format data into JS object
-def format_route_entry(name, range, activity, coords):
-    lines = [f"  {{ name: '{name}', range: '{range}', activity: '{activity}', coords: ["]
+def format_route_entry(name, icon, range, activity, coords):
+    lines = [f"  {{ name: '{name}', icon: '{icon}', range: '{range}', activity: '{activity}', coords: ["]
     for item in coords:
         if item is None:
             continue
@@ -144,18 +153,19 @@ for gpx_file in base_folder.rglob('*.gpx'):
     extracted = extract_data(gpx_file)
     for name, range, activity, coords in extracted:
         icon = get_activity_icon(activity)
-        activity_display = f"{activity} {icon}"
     
         if range == "POLSKA":
-            print(f"✅ 🇵🇱{icon} {name} -> {activity}")
+            print(f"✅ 🇵🇱 {icon} {name} -> {activity}")
         elif range == "EUROPA":
-            print(f"✅ 🇪🇺{icon} {name} -> {activity}")
+            print(f"✅ 🇪🇺 {icon} {name} -> {activity}")
         elif range == "GÓRY":
-            print(f"✅ 🇬🇾{icon} {name} -> {activity}")
+            print(f"✅ 🇬🇾 {icon} {name} -> {activity}")
+        elif range == "DROGI":
+            print(f"✅ 🇩🇬 {name} ")
         else:
             print(f"🟥❌ {icon} {name} -> {range} -> {activity} ")
 
-        new_entries.append(format_route_entry(name, range, activity, coords))
+        new_entries.append(format_route_entry(name, icon, range, activity, coords))
 
 
 # @p Write data to JS file

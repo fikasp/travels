@@ -13,1019 +13,124 @@ const ranges = {
   mountains: "GÓRY",
   poland: "POLSKA",
   world: "EUROPA",
+  roads: "DROGI",
 }
 const startCity = "KRAKÓW"
 const mapActive = true
 
 const data = {
-  [ranges.mountains]: {
-    "Beskid Mały": {
+  [ranges.roads]: {
+    "Drogi ekspresowe": {
       coor: [
-        49.7797122,
-        19.3057251
+        52.2159333,
+        19.1344225
       ],
-      zoom: 12,
-      "Czupel": {
+      zoom: 7,
+      "A1": {
         coor: [
-          49.7678918,
-          19.1609716
+          52.2159333,
+          19.1344225
         ],
-        date: [
-          2021
-        ],
-        zoom: 15,
+        date: [],
+        zoom: 7,
+        scale: 1.0,
         gallery: []
       },
-      "Leskowiec": {
+      "A2": {
         coor: [
-          49.7955468,
-          19.4458866
+          52.2159333,
+          19.1344226
         ],
-        date: [
-          2010
+        date: [],
+        zoom: 7,
+        scale: 1.0,
+        gallery: []
+      },
+      "A4": {
+        coor: [
+          52.2159333,
+          19.1344227
         ],
-        zoom: 12,
+        date: [],
+        zoom: 7,
+        scale: 1.0,
+        gallery: []
+      },
+      "S1": {
+        coor: [
+          52.2159333,
+          19.1344225
+        ],
+        date: [],
+        zoom: 7,
+        scale: 1.0,
+        gallery: []
+      },
+      "S2": {
+        coor: [
+          52.2159333,
+          19.1344226
+        ],
+        date: [],
+        zoom: 7,
+        scale: 1.0,
+        gallery: []
+      },
+      "S3": {
+        coor: [
+          52.2159333,
+          19.1344227
+        ],
+        date: [],
+        zoom: 7,
+        scale: 1.0,
         gallery: []
       }
     },
-    "Beskid Makowski": {
+    "Drogi krajowe": {
       coor: [
-        49.7212609,
-        19.7503281
+        52.2159333,
+        19.1344228
       ],
-      zoom: 12,
-      "Barnasiówka": {
+      zoom: 7,
+      "DK1": {
         coor: [
-          49.8371244,
-          19.883666
+          52.2159333,
+          19.1344228
         ],
-        date: [
-          2018
-        ],
-        zoom: 15,
+        date: [],
+        zoom: 7,
+        scale: 1.0,
         gallery: []
       },
-      "Chełm": {
+      "DK2": {
         coor: [
-          49.7994147,
-          19.9494714
+          52.2159333,
+          19.1344229
         ],
-        date: [
-          2007,
-          2013
-        ],
-        zoom: 15,
+        date: [],
+        zoom: 7,
+        scale: 1.0,
         gallery: []
       },
-      "Kamiennik": {
+      "DK3": {
         coor: [
-          49.7895073,
-          20.0567651
+          52.2159333,
+          19.134423
         ],
-        date: [
-          2008,
-          2016
-        ],
-        zoom: 15,
+        date: [],
+        zoom: 7,
+        scale: 1.0,
         gallery: []
       },
-      "Koskowa Góra": {
+      "DK7": {
         coor: [
-          49.7507241,
-          19.7829866
+          52.2159333,
+          19.134423
         ],
-        date: [
-          2010
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Kotoń": {
-        coor: [
-          49.7691529,
-          19.8961544
-        ],
-        date: [
-          2018,
-          2024
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Lubomir": {
-        coor: [
-          49.7668523,
-          20.0596189
-        ],
-        date: [
-          2016
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Łysina": {
-        coor: [
-          49.7758324,
-          20.0483322
-        ],
-        date: [
-          2008,
-          2016
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Mędralowa": {
-        coor: [
-          49.6132057,
-          19.4624734
-        ],
-        date: [
-          2021
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Plebańska Góra": {
-        coor: [
-          49.8226878,
-          19.9162388
-        ],
-        date: [
-          2013,
-          2018,
-          2023
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Sucha Polana": {
-        coor: [
-          49.7830375,
-          20.0510144
-        ],
-        date: [
-          2008,
-          2016
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Uklejna": {
-        coor: [
-          49.8103793,
-          19.9761593
-        ],
-        date: [
-          2007,
-          2013,
-          2020,
-          2021
-        ],
-        zoom: 15,
-        gallery: []
-      }
-    },
-    "Beskid Niski": {
-      coor: [
-        49.4264395,
-        21.1024618
-      ],
-      zoom: 12,
-      "Lackowa": {
-        coor: [
-          49.4264395,
-          21.1024618
-        ],
-        date: [
-          2021
-        ],
-        zoom: 15,
-        gallery: []
-      }
-    },
-    "Beskid Sądecki": {
-      coor: [
-        49.4716938,
-        20.6913757
-      ],
-      zoom: 12,
-      "Hala Łabowska": {
-        coor: [
-          49.4723456,
-          20.8101922
-        ],
-        date: [
-          2022
-        ],
-        zoom: 15,
-        gallery: [
-          {
-            catg: cat.H,
-            name: "Schronisko Cyrla",
-            coor: [
-              49.4919324,
-              20.7159394
-            ],
-            date: [
-              2022
-            ]
-          }
-        ]
-      },
-      "Jaworzyna Krynicka": {
-        coor: [
-          49.4221686,
-          20.912904
-        ],
-        date: [
-          2010
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Koziarz": {
-        coor: [
-          49.5009807,
-          20.4465008
-        ],
-        date: [
-          2022
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Przehyba": {
-        coor: [
-          49.4655582,
-          20.5601621
-        ],
-        date: [
-          2017
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Radziejowa": {
-        coor: [
-          49.4491556,
-          20.6042576
-        ],
-        date: [
-          2021
-        ],
-        zoom: 15,
-        gallery: []
-      }
-    },
-    "Beskid Śląski": {
-      coor: [
-        49.6520709,
-        18.9239502
-      ],
-      zoom: 12,
-      "Barania Góra": {
-        coor: [
-          49.6114468,
-          19.0105534
-        ],
-        date: [
-          2024
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Stożek Wielki": {
-        coor: [
-          49.6055095,
-          18.8231206
-        ],
-        date: [
-          2010
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Skrzyczne": {
-        coor: [
-          49.6845403,
-          19.0302944
-        ],
-        date: [
-          2021
-        ],
-        zoom: 15,
-        gallery: []
-      }
-    },
-    "Beskid Wyspowy": {
-      coor: [
-        49.6882885,
-        20.1914978
-      ],
-      zoom: 12,
-      "Ciecień": {
-        coor: [
-          49.7735737,
-          20.1426816
-        ],
-        date: [
-          2020
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Ćwilin": {
-        coor: [
-          49.6881289,
-          20.1890731
-        ],
-        date: [
-          2024
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Lubogoszcz": {
-        coor: [
-          49.7125481,
-          20.0988007
-        ],
-        date: [
-          2014
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Luboń": {
-        coor: [
-          49.6534602,
-          19.9918556
-        ],
-        date: [
-          2008
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Modyń": {
-        coor: [
-          49.6212064,
-          20.3760552
-        ],
-        date: [
-          2023
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Mogielica": {
-        coor: [
-          49.6552452,
-          20.2767169
-        ],
-        date: [
-          2017
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Szczebel": {
-        coor: [
-          49.6884274,
-          20.0104594
-        ],
-        date: [
-          2008
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Śnieżnica": {
-        coor: [
-          49.7159613,
-          20.1781511
-        ],
-        date: [
-          2020
-        ],
-        zoom: 15,
-        gallery: []
-      }
-    },
-    "Beskid Żywiecki": {
-      coor: [
-        49.5087143,
-        19.2868423
-      ],
-      zoom: 12,
-      "Babia Góra": {
-        coor: [
-          49.5730083,
-          19.529314
-        ],
-        date: [
-          2009,
-          2012,
-          2014
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Hala Lipowska": {
-        coor: [
-          49.5319771,
-          19.2261386
-        ],
-        date: [
-          2018
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Krawców Wierch": {
-        coor: [
-          49.4760998,
-          19.218564
-        ],
-        date: [
-          2018
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Pilsko": {
-        coor: [
-          49.5279452,
-          19.3167758
-        ],
-        date: [
-          2016
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Polica": {
-        coor: [
-          49.6232776,
-          19.6197796
-        ],
-        date: [
-          2020
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Wielka Racza": {
-        coor: [
-          49.4127323,
-          18.9696336
-        ],
-        date: [
-          2011,
-          2018
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Wielka Rycerzowa": {
-        coor: [
-          49.4018768,
-          19.0462375
-        ],
-        date: [
-          2011,
-          2018
-        ],
-        zoom: 15,
-        gallery: []
-      }
-    },
-    "Gorce": {
-      coor: [
-        49.5301109,
-        20.1926994
-      ],
-      zoom: 13,
-      "Gorc": {
-        coor: [
-          49.5649719,
-          20.2530384
-        ],
-        date: [
-          2019
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Lubań": {
-        coor: [
-          49.4892318,
-          20.338912
-        ],
-        date: [
-          2020
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Magurki": {
-        coor: [
-          49.530675,
-          20.1826787
-        ],
-        date: [
-          2021
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Turbacz": {
-        coor: [
-          49.5428247,
-          20.1113749
-        ],
-        date: [
-          2009,
-          2014
-        ],
-        zoom: 15,
-        gallery: []
-      }
-    },
-    "Pieniny": {
-      coor: [
-        49.4116433,
-        20.4675293
-      ],
-      zoom: 13,
-      "Sokolica": {
-        coor: [
-          49.4176042,
-          20.4403853
-        ],
-        date: [
-          2009,
-          2012,
-          2016
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Trzy Korony": {
-        coor: [
-          49.4138194,
-          20.4141855
-        ],
-        date: [
-          2012,
-          2023
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Wysoka": {
-        coor: [
-          49.3802285,
-          20.555495
-        ],
-        date: [
-          2014
-        ],
-        zoom: 15,
-        gallery: []
-      }
-    },
-    "Sudety": {
-      coor: [
-        50.6133103,
-        16.0297394
-      ],
-      zoom: 11,
-      "Szczeliniec Wielki": {
-        coor: [
-          50.4848045,
-          16.3410258
-        ],
-        date: [
-          2023
-        ],
-        zoom: 16,
-        gallery: [
-          {
-            catg: cat.Z,
-            name: "Wejście",
-            coor: [
-              50.4809883,
-              16.3398081
-            ],
-            date: [
-              2023
-            ]
-          }
-        ]
-      }
-    },
-    "Świętokrzyskie": {
-      coor: [
-        50.8915834,
-        20.8966398
-      ],
-      zoom: 13,
-      "Łysica": {
-        coor: [
-          50.8915834,
-          20.8966398
-        ],
-        date: [
-          2013
-        ],
-        zoom: 15,
-        gallery: []
-      }
-    },
-    "Tatry Zachodnie": {
-      coor: [
-        49.2377759,
-        19.8749542
-      ],
-      zoom: 13,
-      "Ciemniak": {
-        coor: [
-          49.2309805,
-          19.9034286
-        ],
-        date: [
-          2010,
-          2015
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Giewont": {
-        coor: [
-          49.2509367,
-          19.9341023
-        ],
-        date: [
-          2009,
-          2013
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Goryczkowa Czuba": {
-        coor: [
-          49.2322556,
-          19.9576306
-        ],
-        date: [
-          2012
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Grześ": {
-        coor: [
-          49.236571,
-          19.7667217
-        ],
-        date: [
-          2016
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Jarząbczy Wierch": {
-        coor: [
-          49.1974662,
-          19.7950888
-        ],
-        date: [
-          2023
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Kasprowy Wierch": {
-        coor: [
-          49.2317651,
-          19.9815774
-        ],
-        date: [
-          2012,
-          2017
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Kończysty Wierch": {
-        coor: [
-          49.2056822,
-          19.80762
-        ],
-        date: [
-          2017
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Kopa Kondracka": {
-        coor: [
-          49.2363188,
-          19.9322891
-        ],
-        date: [
-          2010
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Kopieniec Wielki": {
-        coor: [
-          49.2716479,
-          20.0162905
-        ],
-        date: [
-          2024
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Krzesanica": {
-        coor: [
-          49.231639,
-          19.9095011
-        ],
-        date: [
-          2010,
-          2015
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Małołączniak": {
-        coor: [
-          49.2357023,
-          19.9192429
-        ],
-        date: [
-          2010,
-          2015
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Nosal": {
-        coor: [
-          49.2764253,
-          19.9894577
-        ],
-        date: [
-          2024
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Ornak": {
-        coor: [
-          49.2188305,
-          19.8329401
-        ],
-        date: [
-          2024
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Rakoń": {
-        coor: [
-          49.2159432,
-          19.7584391
-        ],
-        date: [
-          2016
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Sarnia Skała": {
-        coor: [
-          49.2646436,
-          19.942106
-        ],
-        date: [
-          2023
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Starorobociański Wierch": {
-        coor: [
-          49.199345,
-          19.8198938
-        ],
-        date: [
-          2017
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Wołowiec": {
-        coor: [
-          49.2075327,
-          19.7630739
-        ],
-        date: [
-          2023
-        ],
-        zoom: 15,
-        gallery: []
-      }
-    },
-    "Tatry Wysokie": {
-      coor: [
-        49.2121026,
-        20.0493622
-      ],
-      zoom: 13,
-      "Gęsia Szyja": {
-        coor: [
-          49.2590247,
-          20.0765276
-        ],
-        date: [
-          2024
-        ],
-        zoom: 15,
-        gallery: [
-          {
-            catg: cat.Z,
-            name: "Rusinowa Polana 1 S",
-            coor: [
-              49.2611673,
-              20.0922453
-            ],
-            date: [
-              2024
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Rusinowa Polana 2 SE",
-            coor: [
-              49.2624556,
-              20.091269
-            ],
-            date: [
-              2024
-            ]
-          },
-          {
-            catg: cat.Z,
-            name: "Rusinowa Polana 3 N",
-            coor: [
-              49.2612373,
-              20.0884044
-            ],
-            date: [
-              2024
-            ]
-          }
-        ]
-      },
-      "Granaty": {
-        coor: [
-          49.2247692,
-          20.0325716
-        ],
-        date: [
-          2022
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Kościelec": {
-        coor: [
-          49.2251791,
-          20.0145686
-        ],
-        date: [
-          2021
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Karb": {
-        coor: [
-          49.2288156,
-          20.011704
-        ],
-        date: [
-          2016,
-          2021
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Kozi Wierch": {
-        coor: [
-          49.2183189,
-          20.0286984
-        ],
-        date: [
-          2022
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Kozia Przełęcz": {
-        coor: [
-          49.2195488,
-          20.0253189
-        ],
-        date: [
-          2012
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Krzyżne": {
-        coor: [
-          49.2286509,
-          20.0472862
-        ],
-        date: [
-          2011
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Liliowe": {
-        coor: [
-          49.2255435,
-          19.9913299
-        ],
-        date: [
-          2012
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Rysy": {
-        coor: [
-          49.1792488,
-          20.0884581
-        ],
-        date: [
-          2013
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Szpiglasowy Wierch": {
-        coor: [
-          49.1972734,
-          20.0401139
-        ],
-        date: [
-          2012,
-          2013
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Świnica": {
-        coor: [
-          49.2194191,
-          20.0093061
-        ],
-        date: [
-          2011
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Świstowa Czuba": {
-        coor: [
-          49.2164513,
-          20.0575215
-        ],
-        date: [
-          2020
-        ],
-        zoom: 15,
-        gallery: []
-      },
-      "Zawrat": {
-        coor: [
-          49.2190863,
-          20.0163925
-        ],
-        date: [
-          2011
-        ],
-        zoom: 15,
+        date: [],
+        zoom: 7,
+        scale: 1.0,
         gallery: []
       }
     }
@@ -1047,6 +152,7 @@ const data = {
           2020
         ],
         zoom: 13,
+        scale: 2.5,
         gallery: []
       },
       "Boguszów-Gorce": {
@@ -1059,6 +165,7 @@ const data = {
           2023
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Bystrzyca Kłodzka": {
@@ -1071,6 +178,7 @@ const data = {
           2023
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "GŁOGÓW": {
@@ -1083,6 +191,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "JELENIA GÓRA": {
@@ -1095,6 +204,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "Kamienna Góra": {
@@ -1107,6 +217,7 @@ const data = {
           2023
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Karpacz": {
@@ -1119,6 +230,7 @@ const data = {
           2023
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Kłodzko": {
@@ -1131,6 +243,7 @@ const data = {
           2023
         ],
         zoom: 14,
+        scale: 1.0,
         gallery: []
       },
       "Kowary": {
@@ -1143,6 +256,7 @@ const data = {
           2023
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Międzylesie": {
@@ -1155,6 +269,7 @@ const data = {
           2023
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Nowa Ruda": {
@@ -1167,6 +282,7 @@ const data = {
           2023
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "LEGNICA": {
@@ -1179,6 +295,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "LUBIN": {
@@ -1191,6 +308,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "Polanica-Zdrój": {
@@ -1203,6 +321,7 @@ const data = {
           2023
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "ŚWIDNICA": {
@@ -1215,6 +334,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "WAŁBRZYCH": {
@@ -1227,6 +347,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "Złoty Stok": {
@@ -1239,6 +360,7 @@ const data = {
           2023
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       }
     },
@@ -1258,6 +380,7 @@ const data = {
           2020
         ],
         zoom: 14,
+        scale: 2.0,
         gallery: []
       },
       "TORUŃ": {
@@ -1270,6 +393,7 @@ const data = {
           2013
         ],
         zoom: 14,
+        scale: 2.0,
         gallery: []
       },
       "GRUDZIĄDZ": {
@@ -1282,6 +406,7 @@ const data = {
           2013
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "INOWROCŁAW": {
@@ -1294,6 +419,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "Sępólno Krajeńskie": {
@@ -1306,6 +432,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "WŁOCŁAWEK": {
@@ -1318,6 +445,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       }
     },
@@ -1337,6 +465,7 @@ const data = {
           2021
         ],
         zoom: 13,
+        scale: 2.0,
         gallery: []
       },
       "BIAŁA PODLASKA": {
@@ -1349,6 +478,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "CHEŁM": {
@@ -1361,6 +491,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "Kazimierz Dolny": {
@@ -1373,6 +504,7 @@ const data = {
           2021
         ],
         zoom: 16,
+        scale: 1.0,
         gallery: []
       },
       "PUŁAWY": {
@@ -1385,6 +517,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "Szczebrzeszyn": {
@@ -1397,6 +530,7 @@ const data = {
           2022
         ],
         zoom: 16,
+        scale: 1.0,
         gallery: []
       },
       "ZAMOŚĆ": {
@@ -1409,6 +543,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       }
     },
@@ -1428,6 +563,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 2.0,
         gallery: []
       },
       "GORZÓW WIELKOPOLSKI": {
@@ -1440,6 +576,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 2.0,
         gallery: []
       }
     },
@@ -1459,6 +596,7 @@ const data = {
           2020
         ],
         zoom: 12,
+        scale: 2.5,
         gallery: []
       },
       "BEŁCHATÓW": {
@@ -1471,6 +609,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "Kutno": {
@@ -1483,6 +622,7 @@ const data = {
           2013
         ],
         zoom: 14,
+        scale: 1.0,
         gallery: []
       },
       "Opoczno": {
@@ -1495,6 +635,7 @@ const data = {
           2022
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "PABIANICE": {
@@ -1507,6 +648,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "PIOTRKÓW TRYBUNALSKI": {
@@ -1519,6 +661,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "RADOMSKO": {
@@ -1531,6 +674,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "Sieradz": {
@@ -1543,6 +687,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.0,
         gallery: []
       },
       "SKIERNIEWICE": {
@@ -1555,6 +700,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "TOMASZÓW MAZOWIECKI": {
@@ -1567,6 +713,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "ZGIERZ": {
@@ -1579,6 +726,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       }
     },
@@ -1594,12 +742,16 @@ const data = {
           50.0616779,
           19.9373317
         ],
-        date: [],
+        date: [
+          2022
+        ],
         zoom: 13,
+        scale: 2.5,
         gallery: [
           {
             catg: cat.G,
             name: "Babcia Malina",
+            scale: 1.0,
             coor: [
               50.0641711,
               19.9420658
@@ -1616,6 +768,7 @@ const data = {
           {
             catg: cat.G,
             name: "Camelot",
+            scale: 1.0,
             coor: [
               50.0629977,
               19.9390986
@@ -1627,6 +780,7 @@ const data = {
           {
             catg: cat.G,
             name: "Chata",
+            scale: 1.0,
             coor: [
               50.0680329,
               19.9375489
@@ -1641,6 +795,7 @@ const data = {
           {
             catg: cat.G,
             name: "Cyklop",
+            scale: 1.0,
             coor: [
               50.0615022,
               19.9416608
@@ -1652,6 +807,7 @@ const data = {
           {
             catg: cat.G,
             name: "Dziórawy Kocioł",
+            scale: 1.0,
             coor: [
               50.0574492,
               19.9384166
@@ -1666,6 +822,7 @@ const data = {
           {
             catg: cat.G,
             name: "Gruzińskie Chaczapuri",
+            scale: 1.0,
             coor: [
               50.0600244,
               19.9375925
@@ -1677,6 +834,7 @@ const data = {
           {
             catg: cat.G,
             name: "Hoang Hai",
+            scale: 1.0,
             coor: [
               50.053134,
               19.9294835
@@ -1688,6 +846,7 @@ const data = {
           {
             catg: cat.G,
             name: "Ministerstwo",
+            scale: 1.0,
             coor: [
               50.0567048,
               19.9374296
@@ -1700,6 +859,7 @@ const data = {
           {
             catg: cat.G,
             name: "Pod Wawelem",
+            scale: 1.0,
             coor: [
               50.0545978,
               19.939338
@@ -1711,6 +871,7 @@ const data = {
           {
             catg: cat.G,
             name: "Taco Mexicano",
+            scale: 1.0,
             coor: [
               50.058228,
               19.9389457
@@ -1724,6 +885,7 @@ const data = {
           {
             catg: cat.G,
             name: "Tratoria Da Marco",
+            scale: 1.0,
             coor: [
               50.0669835,
               19.9713555
@@ -1737,6 +899,7 @@ const data = {
           {
             catg: cat.G,
             name: "Wierzynek",
+            scale: 1.0,
             coor: [
               50.0603882,
               19.9374135
@@ -1748,6 +911,7 @@ const data = {
           {
             catg: cat.H,
             name: "Barbakan",
+            scale: 1.0,
             coor: [
               50.065502,
               19.9416393
@@ -1759,6 +923,7 @@ const data = {
           {
             catg: cat.H,
             name: "Filharmonia Krakowska",
+            scale: 1.0,
             coor: [
               50.0588177,
               19.9327424
@@ -1785,6 +950,7 @@ const data = {
           {
             catg: cat.H,
             name: "Kino Kijów",
+            scale: 1.0,
             coor: [
               50.0583287,
               19.9249023
@@ -1796,6 +962,7 @@ const data = {
           {
             catg: cat.H,
             name: "Kino pod Baranami",
+            scale: 1.0,
             coor: [
               50.0615969,
               19.9352033
@@ -1807,6 +974,7 @@ const data = {
           {
             catg: cat.H,
             name: "Kopiec Jana Pawła II",
+            scale: 1.0,
             coor: [
               50.0442493,
               19.9172446
@@ -1816,6 +984,7 @@ const data = {
           {
             catg: cat.H,
             name: "Kopiec Kościuszki",
+            scale: 1.0,
             coor: [
               50.0549104,
               19.8933542
@@ -1827,6 +996,7 @@ const data = {
           {
             catg: cat.H,
             name: "Kopiec Krakusa",
+            scale: 1.0,
             coor: [
               50.0380789,
               19.9584353
@@ -1841,6 +1011,7 @@ const data = {
           {
             catg: cat.H,
             name: "Kopiec Piłsudskiego",
+            scale: 1.0,
             coor: [
               50.0600489,
               19.8471665
@@ -1855,6 +1026,7 @@ const data = {
           {
             catg: cat.H,
             name: "Kopiec Wandy",
+            scale: 1.0,
             coor: [
               50.0702176,
               20.0680733
@@ -1866,6 +1038,7 @@ const data = {
           {
             catg: cat.H,
             name: "Muzeum Farmacji",
+            scale: 1.0,
             coor: [
               50.0632249,
               19.9403264
@@ -1877,6 +1050,7 @@ const data = {
           {
             catg: cat.H,
             name: "Muzeum Narodowe",
+            scale: 1.0,
             coor: [
               50.0604312,
               19.9236229
@@ -1888,6 +1062,7 @@ const data = {
           {
             catg: cat.H,
             name: "Smocza Jama",
+            scale: 1.0,
             coor: [
               50.0531383,
               19.9336463
@@ -1899,6 +1074,7 @@ const data = {
           {
             catg: cat.H,
             name: "Sukiennice",
+            scale: 1.0,
             coor: [
               50.0616951,
               19.9373585
@@ -1908,6 +1084,7 @@ const data = {
           {
             catg: cat.H,
             name: "Teatr Bagatela",
+            scale: 1.0,
             coor: [
               50.0636528,
               19.9322623
@@ -1921,6 +1098,7 @@ const data = {
           {
             catg: cat.H,
             name: "Teatr Słowackiego",
+            scale: 1.0,
             coor: [
               50.0639404,
               19.9430662
@@ -1934,6 +1112,7 @@ const data = {
           {
             catg: cat.H,
             name: "Teatr Stary",
+            scale: 1.0,
             coor: [
               50.0631621,
               19.9353603
@@ -1945,6 +1124,7 @@ const data = {
           {
             catg: cat.H,
             name: "Teatr Stu",
+            scale: 1.0,
             coor: [
               50.0563845,
               19.9264419
@@ -1957,6 +1137,7 @@ const data = {
           {
             catg: cat.N,
             name: "Centrum Kongresowe",
+            scale: 1.0,
             coor: [
               50.0479388,
               19.9313933
@@ -1971,6 +1152,7 @@ const data = {
           {
             catg: cat.N,
             name: "Muzeum Lotnictwa",
+            scale: 1.0,
             coor: [
               50.0770862,
               19.9898386
@@ -1982,6 +1164,7 @@ const data = {
           {
             catg: cat.N,
             name: "Opera Krakowska",
+            scale: 1.0,
             coor: [
               50.0659255,
               19.9561957
@@ -1998,6 +1181,7 @@ const data = {
           {
             catg: cat.N,
             name: "Stadion Cracovia",
+            scale: 1.0,
             coor: [
               50.0579722,
               19.9204123
@@ -2009,6 +1193,7 @@ const data = {
           {
             catg: cat.N,
             name: "Tauron Arena",
+            scale: 1.0,
             coor: [
               50.0677041,
               19.9915552
@@ -2024,6 +1209,7 @@ const data = {
           {
             catg: cat.N,
             name: "Teatr Variete",
+            scale: 1.0,
             coor: [
               50.0568383,
               19.963911
@@ -2035,6 +1221,7 @@ const data = {
           {
             catg: cat.S,
             name: "Bazylika Bożego Ciała [Kazimierz]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.049761,
               19.9448419
@@ -2052,6 +1239,7 @@ const data = {
           {
             catg: cat.S,
             name: "Bazylika Bożego Ciała [Kazimierz]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.049761,
               19.9448419
@@ -2068,6 +1256,7 @@ const data = {
           {
             catg: cat.S,
             name: "Bazylika Bożego Ciała [Kazimierz]/Organy",
+            scale: 1.0,
             coor: [
               50.049761,
               19.9448419
@@ -2084,6 +1273,7 @@ const data = {
           {
             catg: cat.S,
             name: "Bazylika MB Wniebowziętej (Cystersów) [Mogiła]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0647909,
               20.0533479
@@ -2096,6 +1286,7 @@ const data = {
           {
             catg: cat.S,
             name: "Bazylika MB Wniebowziętej (Cystersów) [Mogiła]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0647909,
               20.0533479
@@ -2107,6 +1298,7 @@ const data = {
           {
             catg: cat.S,
             name: "Bazylika MB Wniebowziętej (Cystersów) [Mogiła]/Ołtarz",
+            scale: 1.0,
             coor: [
               50.0647909,
               20.0533479
@@ -2118,6 +1310,7 @@ const data = {
           {
             catg: cat.S,
             name: "Bazylika Miłosierdzia Bożego [Łagiewniki]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0199731,
               19.9376053
@@ -2134,6 +1327,7 @@ const data = {
           {
             catg: cat.S,
             name: "Bazylika Miłosierdzia Bożego [Łagiewniki]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0199731,
               19.9376053
@@ -2149,6 +1343,7 @@ const data = {
           {
             catg: cat.S,
             name: "Bazylika Miłosierdzia Bożego [Łagiewniki]/Organy",
+            scale: 1.0,
             coor: [
               50.0199731,
               19.9376053
@@ -2164,6 +1359,7 @@ const data = {
           {
             catg: cat.S,
             name: "Bazylika Najświętszego Serca Pana Jezusa (Jezuitów) [Wesoła]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0621049,
               19.9488384
@@ -2186,6 +1382,7 @@ const data = {
           {
             catg: cat.S,
             name: "Bazylika Najświętszego Serca Pana Jezusa (Jezuitów) [Wesoła]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0621049,
               19.9488384
@@ -2207,6 +1404,7 @@ const data = {
           {
             catg: cat.S,
             name: "Bazylika Najświętszego Serca Pana Jezusa (Jezuitów) [Wesoła]/Organy",
+            scale: 1.0,
             coor: [
               50.0621049,
               19.9488384
@@ -2228,6 +1426,7 @@ const data = {
           {
             catg: cat.S,
             name: "Bazylika Nawiedzenia NMP (Karmelitów) na Piasku [Piasek]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0651482,
               19.9319217
@@ -2250,6 +1449,7 @@ const data = {
           {
             catg: cat.S,
             name: "Bazylika Nawiedzenia NMP (Karmelitów) na Piasku [Piasek]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0651482,
               19.9319217
@@ -2271,6 +1471,7 @@ const data = {
           {
             catg: cat.S,
             name: "Bazylika Nawiedzenia NMP (Karmelitów) na Piasku [Piasek]/Organy",
+            scale: 1.0,
             coor: [
               50.0651482,
               19.9319217
@@ -2292,6 +1493,7 @@ const data = {
           {
             catg: cat.S,
             name: "Bazylika św. Floriana [Kleparz]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0675457,
               19.9432674
@@ -2315,6 +1517,7 @@ const data = {
           {
             catg: cat.S,
             name: "Bazylika św. Floriana [Kleparz]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0675457,
               19.9432674
@@ -2337,6 +1540,7 @@ const data = {
           {
             catg: cat.S,
             name: "Bazylika św. Floriana [Kleparz]/Organy",
+            scale: 1.0,
             coor: [
               50.0675457,
               19.9432674
@@ -2359,6 +1563,7 @@ const data = {
           {
             catg: cat.S,
             name: "Bazylika św. Franciszka z Asyżu (Franciszkanów) [Stare Miasto]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0592224,
               19.9360898
@@ -2375,6 +1580,7 @@ const data = {
           {
             catg: cat.S,
             name: "Bazylika św. Franciszka z Asyżu (Franciszkanów) [Stare Miasto]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0592224,
               19.9360898
@@ -2390,6 +1596,7 @@ const data = {
           {
             catg: cat.S,
             name: "Bazylika św. Franciszka z Asyżu (Franciszkanów) [Stare Miasto]/Organy",
+            scale: 1.0,
             coor: [
               50.0592224,
               19.9360898
@@ -2405,6 +1612,7 @@ const data = {
           {
             catg: cat.S,
             name: "Bazylika św. Stanisława i św. Wacława (Wawel) [Stare Miasto]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0546555,
               19.9354514
@@ -2420,6 +1628,7 @@ const data = {
           {
             catg: cat.S,
             name: "Bazylika Świętej Trójcy (Dominikanów) [Stare Miasto]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0592982,
               19.9394265
@@ -2435,6 +1644,7 @@ const data = {
           {
             catg: cat.S,
             name: "Bazylika Świętej Trójcy (Dominikanów) [Stare Miasto]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0592982,
               19.9394265
@@ -2449,6 +1659,7 @@ const data = {
           {
             catg: cat.S,
             name: "Bazylika Świętej Trójcy (Dominikanów) [Stare Miasto]/Organy",
+            scale: 1.0,
             coor: [
               50.0592982,
               19.9394265
@@ -2463,6 +1674,7 @@ const data = {
           {
             catg: cat.S,
             name: "Bazylika Wniebowzięcia NMP (Mariacka) [Stare Miasto]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0616606,
               19.9394506
@@ -2484,6 +1696,7 @@ const data = {
           {
             catg: cat.S,
             name: "Bazylika Wniebowzięcia NMP (Mariacka) [Stare Miasto]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0616606,
               19.9394506
@@ -2504,6 +1717,7 @@ const data = {
           {
             catg: cat.S,
             name: "Bazylika Wniebowzięcia NMP (Mariacka) [Stare Miasto]/Organy",
+            scale: 1.0,
             coor: [
               50.0616606,
               19.9394506
@@ -2524,6 +1738,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół Chrystusa Odkupiciela (Redemptorystów) [Tonie]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0949545,
               19.9042198
@@ -2536,6 +1751,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół Chrystusa Odkupiciela (Redemptorystów) [Tonie]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0949545,
               19.9042198
@@ -2547,6 +1763,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół Chrystusa Odkupiciela (Redemptorystów) [Tonie]/Organy",
+            scale: 1.0,
             coor: [
               50.0949545,
               19.9042198
@@ -2558,6 +1775,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół MB Częstochowskiej (Cystersów) [Szklane Domy]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0755594,
               20.0454086
@@ -2570,6 +1788,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół MB Częstochowskiej (Cystersów) [Szklane Domy]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0755594,
               20.0454086
@@ -2581,6 +1800,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół MB Częstochowskiej (Cystersów) [Szklane Domy]/Organy",
+            scale: 1.0,
             coor: [
               50.0755594,
               20.0454086
@@ -2592,6 +1812,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół MB Królowej Polski (Arka Pana) [Bieńczyce]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0849916,
               20.0293207
@@ -2606,6 +1827,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół MB Królowej Polski (Arka Pana) [Bieńczyce]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0849916,
               20.0293207
@@ -2619,6 +1841,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół MB Królowej Polski (Arka Pana) [Bieńczyce]/Organy",
+            scale: 1.0,
             coor: [
               50.0849916,
               20.0293207
@@ -2632,6 +1855,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół MB Królowej Polski [Wola Justowska]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.063794,
               19.8621279
@@ -2644,6 +1868,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół MB Nieustającej Pomocy [Mydlniki]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0835992,
               19.8451817
@@ -2656,6 +1881,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół MB Nieustającej Pomocy [Mydlniki]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0835992,
               19.8451817
@@ -2667,6 +1893,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół NMP Matki Kościoła [Prądnik Biały]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0968773,
               19.9323052
@@ -2679,6 +1906,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół NMP Matki Kościoła [Prądnik Biały]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0968773,
               19.9323052
@@ -2690,6 +1918,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół NMP Matki Kościoła [Prądnik Biały]/Organy",
+            scale: 1.0,
             coor: [
               50.0968773,
               19.9323052
@@ -2701,6 +1930,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół Podwyższenia Krzyża Świętego [Kurdwanów]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0114313,
               19.961139
@@ -2713,6 +1943,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół Podwyższenia Krzyża Świętego [Kurdwanów]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0114313,
               19.961139
@@ -2724,6 +1955,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół Podwyższenia Krzyża Świętego [Kurdwanów]/Organy",
+            scale: 1.0,
             coor: [
               50.0114313,
               19.961139
@@ -2735,6 +1967,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół Przemienienia Pańskiego (Pijarów) [Stare Miasto]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0649433,
               19.9398878
@@ -2748,6 +1981,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół Przemienienia Pańskiego (Pijarów) [Stare Miasto]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0649433,
               19.9398878
@@ -2760,6 +1994,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół Przemienienia Pańskiego (Pijarów) [Stare Miasto]/Organy",
+            scale: 1.0,
             coor: [
               50.0649433,
               19.9398878
@@ -2772,6 +2007,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Agnieszki [Stradom]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0512697,
               19.9397135
@@ -2784,6 +2020,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Agnieszki [Stradom]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0512697,
               19.9397135
@@ -2795,6 +2032,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Agnieszki [Stradom]/Organy",
+            scale: 1.0,
             coor: [
               50.0512697,
               19.9397135
@@ -2806,6 +2044,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Anny [Stare Miasto]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0623993,
               19.9335618
@@ -2829,6 +2068,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Anny [Stare Miasto]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0623993,
               19.9335618
@@ -2850,6 +2090,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Anny [Stare Miasto]/Organy",
+            scale: 1.0,
             coor: [
               50.0623993,
               19.9335618
@@ -2871,6 +2112,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Antoniego Padewskiego [Bronowice]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0871953,
               19.874403
@@ -2883,6 +2125,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Antoniego Padewskiego [Bronowice]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0871953,
               19.874403
@@ -2894,6 +2137,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Antoniego Padewskiego [Bronowice]/Organy",
+            scale: 1.0,
             coor: [
               50.0871953,
               19.874403
@@ -2905,6 +2149,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Bartłomieja (Cystersów) [Mogiła]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0656707,
               20.0517601
@@ -2917,6 +2162,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Franciszka z Asyżu (Reformatów) [Bronowice]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0916705,
               19.8809355
@@ -2929,6 +2175,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Franciszka z Asyżu (Reformatów) [Bronowice]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0916705,
               19.8809355
@@ -2940,6 +2187,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Franciszka z Asyżu (Reformatów) [Bronowice]/Organy",
+            scale: 1.0,
             coor: [
               50.0916705,
               19.8809355
@@ -2951,6 +2199,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Idziego (Dominikanów) [Stare Miasto]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0551859,
               19.9381498
@@ -2963,6 +2212,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Idziego (Dominikanów) [Stare Miasto]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0551859,
               19.9381498
@@ -2974,6 +2224,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Idziego (Dominikanów) [Stare Miasto]/Organy",
+            scale: 1.0,
             coor: [
               50.0551859,
               19.9381498
@@ -2985,6 +2236,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Jadwigi Królowej [Krowodrza]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0840261,
               19.9227378
@@ -2998,6 +2250,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Jadwigi Królowej [Krowodrza]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0840261,
               19.9227378
@@ -3010,6 +2263,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Jadwigi Królowej [Krowodrza]/Organy",
+            scale: 1.0,
             coor: [
               50.0840261,
               19.9227378
@@ -3022,6 +2276,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Jana Chrzciciela [Krzesławice]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.080947,
               20.0560302
@@ -3033,6 +2288,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Jana Ewangelisty (Prezentek) [Stare Miasto]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0631406,
               19.9389464
@@ -3045,6 +2301,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Jana Ewangelisty (Prezentek) [Stare Miasto]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0631406,
               19.9389464
@@ -3056,6 +2313,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Jana Ewangelisty (Prezentek) [Stare Miasto]/Organy",
+            scale: 1.0,
             coor: [
               50.0631406,
               19.9389464
@@ -3067,6 +2325,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Jana Kantego [Bronowice]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0801053,
               19.8887005
@@ -3085,6 +2344,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Jana Kantego [Bronowice]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0801053,
               19.8887005
@@ -3102,6 +2362,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Jana Kantego [Bronowice]/Organy",
+            scale: 1.0,
             coor: [
               50.0801053,
               19.8887005
@@ -3119,6 +2380,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Jana Pawła II [Łagiewniki]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.013136,
               19.9364009
@@ -3133,6 +2395,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Jana Pawła II [Łagiewniki]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.013136,
               19.9364009
@@ -3146,6 +2409,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Jana Pawła II [Łagiewniki]/Organy",
+            scale: 1.0,
             coor: [
               50.013136,
               19.9364009
@@ -3159,6 +2423,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Józefa [Bieńczyce]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0892923,
               20.0132006
@@ -3171,6 +2436,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Józefa [Bieńczyce]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0892923,
               20.0132006
@@ -3182,6 +2448,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Józefa [Bieńczyce]/Organy",
+            scale: 1.0,
             coor: [
               50.0892923,
               20.0132006
@@ -3193,6 +2460,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Karola Boromeusza [Żabiniec]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0873631,
               19.9459201
@@ -3205,6 +2473,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Karola Boromeusza [Żabiniec]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0873631,
               19.9459201
@@ -3216,6 +2485,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Karola Boromeusza [Żabiniec]/Organy",
+            scale: 1.0,
             coor: [
               50.0873631,
               19.9459201
@@ -3227,6 +2497,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Kazimierza Królewicza (Reformatów) [Stare Miasto]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0648736,
               19.936232
@@ -3239,6 +2510,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Kazimierza Królewicza (Reformatów) [Stare Miasto]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0648736,
               19.936232
@@ -3250,6 +2522,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Marka [Stare Miasto]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0645624,
               19.9376985
@@ -3262,6 +2535,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Marka [Stare Miasto]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0645624,
               19.9376985
@@ -3273,6 +2547,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Marka [Stare Miasto]/Organy",
+            scale: 1.0,
             coor: [
               50.0645624,
               19.9376985
@@ -3284,6 +2559,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Mikołaja z Tolentino (Augustianów) [Bieżanów]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0185392,
               19.9941355
@@ -3296,6 +2572,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Mikołaja z Tolentino (Augustianów) [Bieżanów]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0185392,
               19.9941355
@@ -3307,6 +2584,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Piotra i Pawła [Stare Miasto]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0569304,
               19.9390644
@@ -3321,6 +2599,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Piotra i Pawła [Stare Miasto]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0569304,
               19.9390644
@@ -3334,6 +2613,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Piotra i Pawła [Stare Miasto]/Organy",
+            scale: 1.0,
             coor: [
               50.0569304,
               19.9390644
@@ -3347,6 +2627,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Piotra i Pawła (Benedyktynów) [Tyniec]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.01912,
               19.802371
@@ -3359,6 +2640,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Piotra i Pawła (Benedyktynów) [Tyniec]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.01912,
               19.802371
@@ -3370,6 +2652,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Piotra i Pawła (Benedyktynów) [Tyniec]/Organy",
+            scale: 1.0,
             coor: [
               50.01912,
               19.802371
@@ -3381,6 +2664,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Stanisława Biskupa [Dąbie]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0606292,
               19.9834925
@@ -3394,6 +2678,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Stanisława Biskupa [Dąbie]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0606292,
               19.9834925
@@ -3406,6 +2691,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Stanisława Biskupa [Dąbie]/Organy",
+            scale: 1.0,
             coor: [
               50.0606292,
               19.9834925
@@ -3418,6 +2704,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Szczepana [Nowa Wieś]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0716327,
               19.9271339
@@ -3440,6 +2727,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Szczepana [Nowa Wieś]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0716327,
               19.9271339
@@ -3461,6 +2749,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Szczepana [Nowa Wieś]/Organy",
+            scale: 1.0,
             coor: [
               50.0716327,
               19.9271339
@@ -3482,6 +2771,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Wincentego a Paulo (Misjonarzy) [Kleparz]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0681947,
               19.9414301
@@ -3504,6 +2794,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Wincentego a Paulo (Misjonarzy) [Kleparz]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0681947,
               19.9414301
@@ -3525,6 +2816,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Wincentego a Paulo (Misjonarzy) [Kleparz]/Ołtarz",
+            scale: 1.0,
             coor: [
               50.0681947,
               19.9414301
@@ -3546,6 +2838,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Wojciecha [Stare Miasto]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0608927,
               19.9377394
@@ -3558,6 +2851,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Wojciecha [Stare Miasto]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0608927,
               19.9377394
@@ -3569,6 +2863,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół św. Wojciecha [Stare Miasto]/Organy",
+            scale: 1.0,
             coor: [
               50.0608927,
               19.9377394
@@ -3580,6 +2875,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół Świętej Trójcy (Bonifratrów) [Kazimierz]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0470362,
               19.944184
@@ -3592,6 +2888,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół Świętej Trójcy (Bonifratrów) [Kazimierz]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0470362,
               19.944184
@@ -3603,6 +2900,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół Świętej Trójcy (Bonifratrów) [Kazimierz]/Organy",
+            scale: 1.0,
             coor: [
               50.0470362,
               19.944184
@@ -3614,6 +2912,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół Zesłania Ducha Świętego [Ruczaj]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.027853,
               19.91645
@@ -3626,6 +2925,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół Zesłania Ducha Świętego [Ruczaj]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.027853,
               19.91645
@@ -3637,6 +2937,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół Zesłania Ducha Świętego [Ruczaj]/Organy",
+            scale: 1.0,
             coor: [
               50.027853,
               19.91645
@@ -3648,6 +2949,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół Zmartwychwstania Pańskiego (Zmartwychwstańców) [Piasek]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0665815,
               19.9339575
@@ -3664,6 +2966,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół Zmartwychwstania Pańskiego (Zmartwychwstańców) [Piasek]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0665815,
               19.9339575
@@ -3679,6 +2982,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół Zmartwychwstania Pańskiego (Zmartwychwstańców) [Piasek]/Organy",
+            scale: 1.0,
             coor: [
               50.0665815,
               19.9339575
@@ -3694,6 +2998,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół Zwiastowania NMP (Kapucynów) [Piasek]/Zewnętrze",
+            scale: 1.0,
             coor: [
               50.0619697,
               19.9299502
@@ -3706,6 +3011,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół Zwiastowania NMP (Kapucynów) [Piasek]/Wnętrze",
+            scale: 1.0,
             coor: [
               50.0619697,
               19.9299502
@@ -3717,6 +3023,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół Zwiastowania NMP (Kapucynów) [Piasek]/Organy",
+            scale: 1.0,
             coor: [
               50.0619697,
               19.9299502
@@ -3728,6 +3035,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Błonia",
+            scale: 1.0,
             coor: [
               50.0592327,
               19.9206054
@@ -3740,6 +3048,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Bulwar Czerwieński",
+            scale: 1.0,
             coor: [
               50.0511733,
               19.9346495
@@ -3751,6 +3060,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Bulwar Inflandzki",
+            scale: 1.0,
             coor: [
               50.047894,
               19.9368703
@@ -3762,6 +3072,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Bulwar Kurlandzki",
+            scale: 1.0,
             coor: [
               50.0537635,
               19.9621367
@@ -3773,6 +3084,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Bulwar Wołyński",
+            scale: 1.0,
             coor: [
               50.0475426,
               19.934746
@@ -3784,6 +3096,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Dolina Prądnika",
+            scale: 1.0,
             coor: [
               50.0993033,
               19.9383402
@@ -3795,6 +3108,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Kamieniołom Liban",
+            scale: 1.0,
             coor: [
               50.0366077,
               19.9565578
@@ -3806,6 +3120,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Las Wolski",
+            scale: 1.0,
             coor: [
               50.0549345,
               19.843111
@@ -3821,6 +3136,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Lasek Mogilski",
+            scale: 1.0,
             coor: [
               50.055396,
               20.0580633
@@ -3832,6 +3148,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Łąki Nowohuckie",
+            scale: 1.0,
             coor: [
               50.064147,
               20.0370187
@@ -3843,6 +3160,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Młynówka Królewska",
+            scale: 1.0,
             coor: [
               50.0737019,
               19.9268711
@@ -3860,6 +3178,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Ogród Botaniczny",
+            scale: 1.0,
             coor: [
               50.0622908,
               19.9581242
@@ -3875,6 +3194,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Park Aleksandry",
+            scale: 1.0,
             coor: [
               50.0120277,
               20.0139785
@@ -3886,6 +3206,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Park Dąbie",
+            scale: 1.0,
             coor: [
               50.0556785,
               19.9778706
@@ -3897,6 +3218,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Park Decjusza",
+            scale: 1.0,
             coor: [
               50.0651904,
               19.8730016
@@ -3909,6 +3231,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Park Dębnicki",
+            scale: 1.0,
             coor: [
               50.0493132,
               19.9167645
@@ -3920,6 +3243,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Park dworku Matejki",
+            scale: 1.0,
             coor: [
               50.0813687,
               20.0546193
@@ -3931,6 +3255,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Park Jalu Kurka",
+            scale: 1.0,
             coor: [
               50.0692983,
               19.9414515
@@ -3942,6 +3267,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Park Jerzmanowskich",
+            scale: 1.0,
             coor: [
               50.0173638,
               19.9944413
@@ -3953,6 +3279,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Park Jordana",
+            scale: 1.0,
             coor: [
               50.0627454,
               19.9174833
@@ -3968,6 +3295,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Park Kleparski",
+            scale: 1.0,
             coor: [
               50.0761601,
               19.9382973
@@ -3979,6 +3307,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Park Kościuszki",
+            scale: 1.0,
             coor: [
               50.0931848,
               19.9415052
@@ -3990,6 +3319,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Park Krakowski",
+            scale: 1.0,
             coor: [
               50.0685821,
               19.924854
@@ -4003,6 +3333,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Park Krowoderski",
+            scale: 1.0,
             coor: [
               50.0880704,
               19.9222684
@@ -4014,6 +3345,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Park Leśny Witkowice",
+            scale: 1.0,
             coor: [
               50.1072653,
               19.9451101
@@ -4025,6 +3357,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Park Lilli Wenedy",
+            scale: 1.0,
             coor: [
               50.0205763,
               20.0026917
@@ -4036,6 +3369,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Park Lotników Polskich",
+            scale: 1.0,
             coor: [
               50.0734609,
               19.9951816
@@ -4047,6 +3381,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Park Reduta",
+            scale: 1.0,
             coor: [
               50.0963439,
               19.9853271
@@ -4058,6 +3393,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Park rzeczny Wilgi",
+            scale: 1.0,
             coor: [
               50.0319077,
               19.9281478
@@ -4069,6 +3405,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Park Strzelecki",
+            scale: 1.0,
             coor: [
               50.0653419,
               19.9499595
@@ -4080,6 +3417,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Park Szymborskiej",
+            scale: 1.0,
             coor: [
               50.0652007,
               19.9293548
@@ -4091,6 +3429,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Park Tysiąclecia",
+            scale: 1.0,
             coor: [
               50.0892544,
               19.9982178
@@ -4102,6 +3441,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Park Wyspiańskiego",
+            scale: 1.0,
             coor: [
               50.085964,
               19.920702
@@ -4113,6 +3453,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Park Zaczarowanej Dorożki",
+            scale: 1.0,
             coor: [
               50.0867384,
               19.9663854
@@ -4124,6 +3465,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Park Zielony Jar Wandy",
+            scale: 1.0,
             coor: [
               50.0942516,
               20.0585675
@@ -4135,6 +3477,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Park Żeromskiego",
+            scale: 1.0,
             coor: [
               50.0672426,
               20.0416106
@@ -4146,6 +3489,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Planty",
+            scale: 1.0,
             coor: [
               50.0595737,
               19.9411619
@@ -4160,6 +3504,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Planty Bieńczyckie",
+            scale: 1.0,
             coor: [
               50.0859777,
               20.0252008
@@ -4171,6 +3516,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Planty Dietlowskie",
+            scale: 1.0,
             coor: [
               50.054907,
               19.9443483
@@ -4182,6 +3528,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Planty Mistrzejowickie",
+            scale: 1.0,
             coor: [
               50.0992896,
               20.0046873
@@ -4193,6 +3540,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Planty Nowackiego",
+            scale: 1.0,
             coor: [
               50.0435878,
               19.9428785
@@ -4204,6 +3552,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Zakrzówek",
+            scale: 1.0,
             coor: [
               50.0372692,
               19.9104452
@@ -4218,6 +3567,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Zalew Bagry",
+            scale: 1.0,
             coor: [
               50.0312047,
               19.9972844
@@ -4229,6 +3579,7 @@ const data = {
           {
             catg: cat.Z,
             name: "Zalew Nowohucki",
+            scale: 1.0,
             coor: [
               50.0790657,
               20.0526667
@@ -4250,6 +3601,7 @@ const data = {
           2020
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Andrychów": {
@@ -4262,6 +3614,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Biecz": {
@@ -4274,6 +3627,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Bobowa": {
@@ -4286,6 +3640,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Bochnia": {
@@ -4298,6 +3653,7 @@ const data = {
           2016
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Brzesko": {
@@ -4310,6 +3666,7 @@ const data = {
           2016
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Brzeszcze": {
@@ -4322,6 +3679,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Bukowno": {
@@ -4334,6 +3692,7 @@ const data = {
           2019
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Chełmek": {
@@ -4346,6 +3705,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Chrzanów": {
@@ -4358,6 +3718,7 @@ const data = {
           2020
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Ciężkowice": {
@@ -4370,6 +3731,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Czarny Dunajec": {
@@ -4382,6 +3744,7 @@ const data = {
           2023
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Czchów": {
@@ -4394,6 +3757,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Dąbrowa Tarnowska": {
@@ -4406,6 +3770,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Dobczyce": {
@@ -4418,6 +3783,7 @@ const data = {
           2014
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Gorlice": {
@@ -4430,6 +3796,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Grybów": {
@@ -4442,6 +3809,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Jordanów": {
@@ -4454,6 +3822,7 @@ const data = {
           2020
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Kalwaria Zebrzydowska": {
@@ -4466,6 +3835,7 @@ const data = {
           2016
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Kęty": {
@@ -4478,6 +3848,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Koszyce": {
@@ -4490,6 +3861,7 @@ const data = {
           2021
         ],
         zoom: 16,
+        scale: 1.0,
         gallery: []
       },
       "Krynica-Zdrój": {
@@ -4502,6 +3874,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Krzeszowice": {
@@ -4514,6 +3887,7 @@ const data = {
           2013
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Książ Wielki": {
@@ -4526,6 +3900,7 @@ const data = {
           2023
         ],
         zoom: 16,
+        scale: 1.0,
         gallery: []
       },
       "Libiąż": {
@@ -4538,6 +3913,7 @@ const data = {
           2020
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Limanowa": {
@@ -4550,6 +3926,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Maków Podhalański": {
@@ -4562,6 +3939,7 @@ const data = {
           2020
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Miechów": {
@@ -4574,6 +3952,7 @@ const data = {
           2019
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Mszana Dolna": {
@@ -4586,6 +3965,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Muszyna": {
@@ -4598,6 +3978,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Myślenice": {
@@ -4610,10 +3991,12 @@ const data = {
           2022
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: [
           {
             catg: cat.O,
             name: "Rynek",
+            scale: 1.0,
             coor: [
               49.83461,
               19.93819
@@ -4625,6 +4008,7 @@ const data = {
           {
             catg: cat.H,
             name: "Gimnazjum",
+            scale: 1.0,
             coor: [
               49.8348547,
               19.9368703
@@ -4636,6 +4020,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół Narodzenia NMP 1",
+            scale: 1.0,
             coor: [
               49.8341869,
               19.9365056
@@ -4648,6 +4033,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół Narodzenia NMP 2",
+            scale: 1.0,
             coor: [
               49.8341869,
               19.9365056
@@ -4659,6 +4045,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościół Narodzenia NMP 3",
+            scale: 1.0,
             coor: [
               49.8341869,
               19.9365056
@@ -4670,6 +4057,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościółek św. Jakuba 1",
+            scale: 1.0,
             coor: [
               49.8287336,
               19.9405289
@@ -4682,6 +4070,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościółek św. Jakuba 2",
+            scale: 1.0,
             coor: [
               49.8287336,
               19.9405289
@@ -4693,6 +4082,7 @@ const data = {
           {
             catg: cat.S,
             name: "Kościółek św. Jakuba 3",
+            scale: 1.0,
             coor: [
               49.8287336,
               19.9405289
@@ -4713,6 +4103,7 @@ const data = {
           2015
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Nowe Brzesko": {
@@ -4725,6 +4116,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "NOWY SĄCZ": {
@@ -4737,6 +4129,7 @@ const data = {
           2013
         ],
         zoom: 15,
+        scale: 1.5,
         gallery: []
       },
       "Nowy Targ": {
@@ -4749,6 +4142,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Nowy Wiśnicz": {
@@ -4761,6 +4155,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Olkusz": {
@@ -4773,6 +4168,7 @@ const data = {
           2019
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Oświęcim": {
@@ -4785,6 +4181,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Piwniczna-Zdrój": {
@@ -4797,6 +4194,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Proszowice": {
@@ -4809,6 +4207,7 @@ const data = {
           2019
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Rabka-Zdrój": {
@@ -4821,10 +4220,12 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: [
           {
             catg: cat.Z,
             name: "Park Zdrojowy",
+            scale: 1.0,
             coor: [
               49.6061283,
               19.9635637
@@ -4845,6 +4246,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Ryglice": {
@@ -4857,6 +4259,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Skała": {
@@ -4869,6 +4272,7 @@ const data = {
           2019
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Skawina": {
@@ -4882,6 +4286,7 @@ const data = {
           2023
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Słomniki": {
@@ -4894,6 +4299,7 @@ const data = {
           2019
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Stary Sącz": {
@@ -4906,6 +4312,7 @@ const data = {
           2013
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Sucha Beskidzka": {
@@ -4918,6 +4325,7 @@ const data = {
           2020
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Sułkowice": {
@@ -4930,6 +4338,7 @@ const data = {
           2018
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Szczawnica": {
@@ -4942,6 +4351,7 @@ const data = {
           2016
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Szczucin": {
@@ -4954,6 +4364,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Świątniki Górne": {
@@ -4966,6 +4377,7 @@ const data = {
           2013
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "TARNÓW": {
@@ -4978,6 +4390,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.5,
         gallery: []
       },
       "Trzebinia": {
@@ -4990,6 +4403,7 @@ const data = {
           2020
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Tuchów": {
@@ -5002,6 +4416,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Wadowice": {
@@ -5014,6 +4429,7 @@ const data = {
           2016
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Wieliczka": {
@@ -5027,6 +4443,7 @@ const data = {
           2023
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Wojnicz": {
@@ -5039,6 +4456,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Wolbrom": {
@@ -5051,6 +4469,7 @@ const data = {
           2019
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Zakliczyn": {
@@ -5063,6 +4482,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Zakopane": {
@@ -5075,6 +4495,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Zator": {
@@ -5087,6 +4508,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Żabno": {
@@ -5099,6 +4521,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       }
     },
@@ -5118,6 +4541,7 @@ const data = {
           2021
         ],
         zoom: 12,
+        scale: 2.5,
         gallery: []
       },
       "Ciechanów": {
@@ -5130,6 +4554,7 @@ const data = {
           2020
         ],
         zoom: 14,
+        scale: 1.0,
         gallery: []
       },
       "Garwolin": {
@@ -5142,6 +4567,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "LEGIONOWO": {
@@ -5154,6 +4580,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "Milanówek": {
@@ -5166,6 +4593,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Mława": {
@@ -5178,6 +4606,7 @@ const data = {
           2020
         ],
         zoom: 14,
+        scale: 1.0,
         gallery: []
       },
       "OSTROŁĘKA": {
@@ -5190,6 +4619,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "OTWOCK": {
@@ -5202,6 +4632,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "PIASECZNO": {
@@ -5214,6 +4645,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "PŁOCK": {
@@ -5226,6 +4658,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "PRUSZKÓW": {
@@ -5238,6 +4671,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "RADOM": {
@@ -5250,6 +4684,7 @@ const data = {
           2020
         ],
         zoom: 13,
+        scale: 1.5,
         gallery: []
       },
       "SIEDLCE": {
@@ -5262,6 +4697,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       }
     },
@@ -5281,6 +4717,7 @@ const data = {
           2020
         ],
         zoom: 13,
+        scale: 2.0,
         gallery: []
       },
       "KĘDZIERZYN-KOŹLE": {
@@ -5293,6 +4730,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "Nysa": {
@@ -5305,6 +4743,7 @@ const data = {
           2023
         ],
         zoom: 14,
+        scale: 1.0,
         gallery: []
       },
       "Otmuchów": {
@@ -5317,6 +4756,7 @@ const data = {
           2023
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Paczków": {
@@ -5329,6 +4769,7 @@ const data = {
           2023
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Prudnik": {
@@ -5341,6 +4782,7 @@ const data = {
           2023
         ],
         zoom: 14,
+        scale: 1.0,
         gallery: []
       }
     },
@@ -5360,6 +4802,7 @@ const data = {
           2022
         ],
         zoom: 13,
+        scale: 2.0,
         gallery: []
       },
       "DĘBICA": {
@@ -5372,6 +4815,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "Jasło": {
@@ -5384,6 +4828,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.0,
         gallery: []
       },
       "KROSNO": {
@@ -5396,6 +4841,7 @@ const data = {
           2017
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "MIELEC": {
@@ -5408,6 +4854,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "PRZEMYŚL": {
@@ -5420,6 +4867,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "Sanok": {
@@ -5432,6 +4880,7 @@ const data = {
           2017
         ],
         zoom: 14,
+        scale: 1.0,
         gallery: []
       },
       "STALOWA WOLA": {
@@ -5444,6 +4893,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "TARNOBRZEG": {
@@ -5456,6 +4906,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       }
     },
@@ -5475,6 +4926,7 @@ const data = {
           2022
         ],
         zoom: 13,
+        scale: 2.0,
         gallery: []
       },
       "SUWAŁKI": {
@@ -5487,6 +4939,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "ŁOMŻA": {
@@ -5499,6 +4952,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       }
     },
@@ -5518,6 +4972,7 @@ const data = {
           2022
         ],
         zoom: 13,
+        scale: 2.0,
         gallery: []
       },
       "GDYNIA": {
@@ -5530,6 +4985,7 @@ const data = {
           2022
         ],
         zoom: 13,
+        scale: 1.5,
         gallery: []
       },
       "Hel": {
@@ -5542,6 +4998,7 @@ const data = {
           2013
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Krynica Morska": {
@@ -5554,6 +5011,7 @@ const data = {
           2020
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Łeba": {
@@ -5566,6 +5024,7 @@ const data = {
           2013
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Malbork": {
@@ -5578,6 +5037,7 @@ const data = {
           2020
         ],
         zoom: 14,
+        scale: 1.0,
         gallery: []
       },
       "RUMIA": {
@@ -5590,6 +5050,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "SŁUPSK": {
@@ -5602,6 +5063,7 @@ const data = {
           2017
         ],
         zoom: 14,
+        scale: 1.0,
         gallery: []
       },
       "Sopot": {
@@ -5614,6 +5076,7 @@ const data = {
           2008
         ],
         zoom: 14,
+        scale: 1.0,
         gallery: []
       },
       "STAROGARD GDAŃSKI": {
@@ -5626,6 +5089,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "TCZEW": {
@@ -5638,6 +5102,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "Ustka": {
@@ -5650,6 +5115,7 @@ const data = {
           2017
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "WEJHEROWO": {
@@ -5662,6 +5128,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       }
     },
@@ -5681,6 +5148,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 2.0,
         gallery: []
       },
       "BĘDZIN": {
@@ -5693,6 +5161,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "BIELSKO-BIAŁA": {
@@ -5705,6 +5174,7 @@ const data = {
           2016
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "Bieruń": {
@@ -5717,6 +5187,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.0,
         gallery: []
       },
       "BYTOM": {
@@ -5729,6 +5200,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "CHORZÓW": {
@@ -5741,6 +5213,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "Cieszyn": {
@@ -5753,6 +5226,7 @@ const data = {
           2015
         ],
         zoom: 14,
+        scale: 1.0,
         gallery: []
       },
       "Czechowice-Dziedzice": {
@@ -5765,6 +5239,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.0,
         gallery: []
       },
       "Czeladź": {
@@ -5777,6 +5252,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.0,
         gallery: []
       },
       "CZĘSTOCHOWA": {
@@ -5789,6 +5265,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "DĄBROWA GÓRNICZA": {
@@ -5801,6 +5278,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "GLIWICE": {
@@ -5813,6 +5291,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "Imielin": {
@@ -5825,6 +5304,7 @@ const data = {
           2024
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "JASTRZĘBIE-ZDRÓJ": {
@@ -5837,6 +5317,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "JAWORZNO": {
@@ -5849,6 +5330,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "Koziegłowy": {
@@ -5861,6 +5343,7 @@ const data = {
           2024
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Lędziny": {
@@ -5873,6 +5356,7 @@ const data = {
           2024
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Łazy": {
@@ -5885,6 +5369,7 @@ const data = {
           2024
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Mikołów": {
@@ -5897,6 +5382,7 @@ const data = {
           2024
         ],
         zoom: 14,
+        scale: 1.0,
         gallery: []
       },
       "MYSŁOWICE": {
@@ -5909,6 +5395,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "Myszków": {
@@ -5921,6 +5408,7 @@ const data = {
           2024
         ],
         zoom: 14,
+        scale: 1.0,
         gallery: []
       },
       "Ogrodzieniec": {
@@ -5933,6 +5421,7 @@ const data = {
           2019
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "PIEKARY ŚLĄSKIE": {
@@ -5945,6 +5434,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "Pilica": {
@@ -5957,6 +5447,7 @@ const data = {
           2019
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Poręba": {
@@ -5969,6 +5460,7 @@ const data = {
           2024
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Pszczyna": {
@@ -5981,6 +5473,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.0,
         gallery: []
       },
       "RACIBÓRZ": {
@@ -5993,6 +5486,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "RUDA ŚLĄSKA": {
@@ -6005,6 +5499,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "RYBNIK": {
@@ -6017,6 +5512,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "SIEMIANOWICE ŚLĄSKIE": {
@@ -6029,6 +5525,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "Siewierz": {
@@ -6041,6 +5538,7 @@ const data = {
           2024
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Sławków": {
@@ -6053,6 +5551,7 @@ const data = {
           2019
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "SOSNOWIEC": {
@@ -6065,6 +5564,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "Szczekociny": {
@@ -6077,6 +5577,7 @@ const data = {
           2023
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Szczyrk": {
@@ -6089,6 +5590,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "ŚWIĘTOCHŁOWICE": {
@@ -6101,6 +5603,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.5,
         gallery: []
       },
       "TARNOWSKIE GÓRY": {
@@ -6113,6 +5616,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "TYCHY": {
@@ -6125,6 +5629,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "Wisła": {
@@ -6137,6 +5642,7 @@ const data = {
           2024
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "WODZISŁAW ŚLĄSKI": {
@@ -6149,6 +5655,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "ZABRZE": {
@@ -6161,6 +5668,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "ZAWIERCIE": {
@@ -6173,6 +5681,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "Żarki": {
@@ -6185,6 +5694,7 @@ const data = {
           2024
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "ŻORY": {
@@ -6197,6 +5707,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "Żywiec": {
@@ -6209,6 +5720,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.0,
         gallery: []
       }
     },
@@ -6228,6 +5740,7 @@ const data = {
           2013
         ],
         zoom: 13,
+        scale: 2.0,
         gallery: []
       },
       "Busko-Zdrój": {
@@ -6240,6 +5753,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.0,
         gallery: []
       },
       "Chęciny": {
@@ -6252,6 +5766,7 @@ const data = {
           2013
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Chmielnik": {
@@ -6264,6 +5779,7 @@ const data = {
           2024
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Działoszyce": {
@@ -6276,6 +5792,7 @@ const data = {
           2023
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Jędrzejów": {
@@ -6288,6 +5805,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.0,
         gallery: []
       },
       "Kazimierza Wielka": {
@@ -6300,6 +5818,7 @@ const data = {
           2019
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Nowy Korczyn": {
@@ -6312,6 +5831,7 @@ const data = {
           2023
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Oleśnica": {
@@ -6324,6 +5844,7 @@ const data = {
           2024
         ],
         zoom: 16,
+        scale: 1.0,
         gallery: []
       },
       "Opatowiec": {
@@ -6336,6 +5857,7 @@ const data = {
           2023
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "OSTROWIEC ŚWIĘTOKRZYSKI": {
@@ -6348,6 +5870,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "Pacanów": {
@@ -6360,6 +5883,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Pińczów": {
@@ -6372,6 +5896,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Sandomierz": {
@@ -6384,6 +5909,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.0,
         gallery: []
       },
       "Sędziszów": {
@@ -6396,6 +5922,7 @@ const data = {
           2023
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Skalbmierz": {
@@ -6408,6 +5935,7 @@ const data = {
           2019
         ],
         zoom: 16,
+        scale: 1.0,
         gallery: []
       },
       "SKARŻYSKO-KAMIENNA": {
@@ -6420,6 +5948,7 @@ const data = {
           2020
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "STARACHOWICE": {
@@ -6432,6 +5961,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "Staszów": {
@@ -6444,6 +5974,7 @@ const data = {
           2024
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Stopnica": {
@@ -6456,6 +5987,7 @@ const data = {
           2021
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Szydłów": {
@@ -6468,6 +6000,7 @@ const data = {
           2024
         ],
         zoom: 16,
+        scale: 1.0,
         gallery: []
       },
       "Wiślica": {
@@ -6480,6 +6013,7 @@ const data = {
           2023
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Wodzisław": {
@@ -6492,6 +6026,7 @@ const data = {
           2023
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       }
     },
@@ -6511,6 +6046,7 @@ const data = {
           2020
         ],
         zoom: 13,
+        scale: 2.0,
         gallery: []
       },
       "ELBLĄG": {
@@ -6523,6 +6059,7 @@ const data = {
           2020
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "EŁK": {
@@ -6535,6 +6072,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "Frombork": {
@@ -6547,6 +6085,7 @@ const data = {
           2020
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Nidzica": {
@@ -6559,6 +6098,7 @@ const data = {
           2020
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Olsztynek": {
@@ -6571,6 +6111,7 @@ const data = {
           2020
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Orneta": {
@@ -6583,6 +6124,7 @@ const data = {
           2020
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       }
     },
@@ -6602,6 +6144,7 @@ const data = {
           2020
         ],
         zoom: 13,
+        scale: 2.5,
         gallery: []
       },
       "GNIEZNO": {
@@ -6614,6 +6157,7 @@ const data = {
           2020
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "KALISZ": {
@@ -6626,6 +6170,7 @@ const data = {
           2020
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "KONIN": {
@@ -6638,6 +6183,7 @@ const data = {
           2020
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "LESZNO": {
@@ -6650,6 +6196,7 @@ const data = {
           2020
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "OSTRÓW WIELKOPOLSKI": {
@@ -6662,6 +6209,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "PIŁA": {
@@ -6674,6 +6222,7 @@ const data = {
           2021
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       }
     },
@@ -6693,6 +6242,7 @@ const data = {
           2016
         ],
         zoom: 13,
+        scale: 2.0,
         gallery: []
       },
       "Darłowo": {
@@ -6705,6 +6255,7 @@ const data = {
           2024
         ],
         zoom: 14,
+        scale: 1.0,
         gallery: []
       },
       "Dźwirzyno": {
@@ -6717,6 +6268,7 @@ const data = {
           2014
         ],
         zoom: 14,
+        scale: 1.0,
         gallery: []
       },
       "KOŁOBRZEG": {
@@ -6729,6 +6281,7 @@ const data = {
           2014
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "KOSZALIN": {
@@ -6741,6 +6294,7 @@ const data = {
           2018
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "Mielno": {
@@ -6753,6 +6307,7 @@ const data = {
           2018
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Międzyzdroje": {
@@ -6765,6 +6320,7 @@ const data = {
           2016
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "STARGARD": {
@@ -6777,6 +6333,7 @@ const data = {
           2022
         ],
         zoom: 14,
+        scale: 1.5,
         gallery: []
       },
       "Świnoujście": {
@@ -6789,6 +6346,7 @@ const data = {
           2016
         ],
         zoom: 14,
+        scale: 1.0,
         gallery: []
       }
     }
@@ -6809,10 +6367,12 @@ const data = {
           2019
         ],
         zoom: 13,
+        scale: 2.0,
         gallery: [
           {
             catg: cat.H,
             name: "Casa Batllo",
+            scale: 1.0,
             coor: [
               41.3916745,
               2.164949
@@ -6824,6 +6384,7 @@ const data = {
           {
             catg: cat.H,
             name: "Casa Mila",
+            scale: 1.0,
             coor: [
               41.3951927,
               2.161784
@@ -6835,6 +6396,7 @@ const data = {
           {
             catg: cat.H,
             name: "Most Biskupi",
+            scale: 1.0,
             coor: [
               41.3832765,
               2.1764436
@@ -6846,6 +6408,7 @@ const data = {
           {
             catg: cat.H,
             name: "Muzeum MNAC",
+            scale: 1.0,
             coor: [
               41.3712695,
               2.1513033
@@ -6857,6 +6420,7 @@ const data = {
           {
             catg: cat.N,
             name: "Escuela Massana",
+            scale: 1.0,
             coor: [
               41.3811035,
               2.1709612
@@ -6868,6 +6432,7 @@ const data = {
           {
             catg: cat.N,
             name: "La Boqueria",
+            scale: 1.0,
             coor: [
               41.3820252,
               2.1722916
@@ -6879,6 +6444,7 @@ const data = {
           {
             catg: cat.N,
             name: "Stadion Olimpijski",
+            scale: 1.0,
             coor: [
               41.3657862,
               2.1556699
@@ -6890,6 +6456,7 @@ const data = {
           {
             catg: cat.O,
             name: "La Rambla 1",
+            scale: 1.0,
             coor: [
               41.3844442,
               2.1707815
@@ -6901,6 +6468,7 @@ const data = {
           {
             catg: cat.O,
             name: "La Rambla 2",
+            scale: 1.0,
             coor: [
               41.3770662,
               2.1765482
@@ -6912,6 +6480,7 @@ const data = {
           {
             catg: cat.O,
             name: "Panorama 1",
+            scale: 1.0,
             coor: [
               41.370879,
               2.170465
@@ -6923,6 +6492,7 @@ const data = {
           {
             catg: cat.O,
             name: "Panorama 2",
+            scale: 1.0,
             coor: [
               41.3708729,
               2.1703362
@@ -6934,6 +6504,7 @@ const data = {
           {
             catg: cat.O,
             name: "Panorama 3",
+            scale: 1.0,
             coor: [
               41.3708548,
               2.1702102
@@ -6945,6 +6516,7 @@ const data = {
           {
             catg: cat.O,
             name: "Panorama 4",
+            scale: 1.0,
             coor: [
               41.3708367,
               2.1700788
@@ -6956,6 +6528,7 @@ const data = {
           {
             catg: cat.O,
             name: "Plac Hiszpański",
+            scale: 1.0,
             coor: [
               41.374031,
               2.1497905
@@ -6967,6 +6540,7 @@ const data = {
           {
             catg: cat.O,
             name: "Port Vell",
+            scale: 1.0,
             coor: [
               41.375448,
               2.1802014
@@ -6978,6 +6552,7 @@ const data = {
           {
             catg: cat.S,
             name: "Bazylika La Merce",
+            scale: 1.0,
             coor: [
               41.3796303,
               2.1796837
@@ -6989,6 +6564,7 @@ const data = {
           {
             catg: cat.S,
             name: "Bazylika NMP Morza",
+            scale: 1.0,
             coor: [
               41.3837841,
               2.1820065
@@ -7000,6 +6576,7 @@ const data = {
           {
             catg: cat.S,
             name: "Katedra św. Eulalii 1",
+            scale: 1.0,
             coor: [
               41.3842671,
               2.1761566
@@ -7011,6 +6588,7 @@ const data = {
           {
             catg: cat.S,
             name: "Katedra św. Eulalii 2",
+            scale: 1.0,
             coor: [
               41.3838385,
               2.1770149
@@ -7022,6 +6600,7 @@ const data = {
           {
             catg: cat.S,
             name: "Katedra św. Eulalii 3",
+            scale: 1.0,
             coor: [
               41.3836754,
               2.1767923
@@ -7033,6 +6612,7 @@ const data = {
           {
             catg: cat.S,
             name: "Sagrada Familia 1",
+            scale: 1.0,
             coor: [
               41.4040464,
               2.1747029
@@ -7044,6 +6624,7 @@ const data = {
           {
             catg: cat.S,
             name: "Sagrada Familia 2",
+            scale: 1.0,
             coor: [
               41.402952,
               2.1741557
@@ -7055,6 +6636,7 @@ const data = {
           {
             catg: cat.S,
             name: "Sagrada Familia 3",
+            scale: 1.0,
             coor: [
               41.403463,
               2.1750569
@@ -7066,6 +6648,7 @@ const data = {
           {
             catg: cat.S,
             name: "Sagrada Familia 4",
+            scale: 1.0,
             coor: [
               41.4035957,
               2.1743488
@@ -7085,6 +6668,7 @@ const data = {
           2019
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Madryt": {
@@ -7096,6 +6680,7 @@ const data = {
           2019
         ],
         zoom: 13,
+        scale: 2.5,
         gallery: []
       },
       "Requena": {
@@ -7107,6 +6692,7 @@ const data = {
           2019
         ],
         zoom: 15,
+        scale: 1.0,
         gallery: []
       },
       "Saragossa": {
@@ -7118,6 +6704,7 @@ const data = {
           2019
         ],
         zoom: 13,
+        scale: 1.0,
         gallery: []
       },
       "Walencja": {
@@ -7129,6 +6716,7 @@ const data = {
           2019
         ],
         zoom: 13,
+        scale: 1.0,
         gallery: []
       }
     },
@@ -7147,6 +6735,7 @@ const data = {
           2019
         ],
         zoom: 13,
+        scale: 2.5,
         gallery: []
       }
     },
@@ -7165,6 +6754,1100 @@ const data = {
           2013
         ],
         zoom: 13,
+        scale: 2.5,
+        gallery: []
+      }
+    }
+  },
+  [ranges.mountains]: {
+    "Beskid Mały": {
+      coor: [
+        49.7797122,
+        19.3057251
+      ],
+      zoom: 12,
+      "Czupel": {
+        coor: [
+          49.7678918,
+          19.1609716
+        ],
+        date: [
+          2021
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Leskowiec": {
+        coor: [
+          49.7955468,
+          19.4458866
+        ],
+        date: [
+          2010
+        ],
+        zoom: 12,
+        scale: 1.0,
+        gallery: []
+      }
+    },
+    "Beskid Makowski": {
+      coor: [
+        49.7212609,
+        19.7503281
+      ],
+      zoom: 12,
+      "Barnasiówka": {
+        coor: [
+          49.8371244,
+          19.883666
+        ],
+        date: [
+          2018
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Chełm": {
+        coor: [
+          49.7994147,
+          19.9494714
+        ],
+        date: [
+          2007,
+          2013
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Kamiennik": {
+        coor: [
+          49.7895073,
+          20.0567651
+        ],
+        date: [
+          2008,
+          2016
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Koskowa Góra": {
+        coor: [
+          49.7507241,
+          19.7829866
+        ],
+        date: [
+          2010
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Kotoń": {
+        coor: [
+          49.7691529,
+          19.8961544
+        ],
+        date: [
+          2018,
+          2024
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Lubomir": {
+        coor: [
+          49.7668523,
+          20.0596189
+        ],
+        date: [
+          2016
+        ],
+        zoom: 15,
+        scale: 2.0,
+        gallery: []
+      },
+      "Łysina": {
+        coor: [
+          49.7758324,
+          20.0483322
+        ],
+        date: [
+          2008,
+          2016
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Mędralowa": {
+        coor: [
+          49.6132057,
+          19.4624734
+        ],
+        date: [
+          2021
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Plebańska Góra": {
+        coor: [
+          49.8226878,
+          19.9162388
+        ],
+        date: [
+          2013,
+          2018,
+          2023
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Sucha Polana": {
+        coor: [
+          49.7830375,
+          20.0510144
+        ],
+        date: [
+          2008,
+          2016
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Uklejna": {
+        coor: [
+          49.8103793,
+          19.9761593
+        ],
+        date: [
+          2007,
+          2013,
+          2020,
+          2021
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      }
+    },
+    "Beskid Niski": {
+      coor: [
+        49.4264395,
+        21.1024618
+      ],
+      zoom: 12,
+      "Lackowa": {
+        coor: [
+          49.4264395,
+          21.1024618
+        ],
+        date: [
+          2021
+        ],
+        zoom: 15,
+        scale: 2.0,
+        gallery: []
+      }
+    },
+    "Beskid Sądecki": {
+      coor: [
+        49.4716938,
+        20.6913757
+      ],
+      zoom: 12,
+      "Hala Łabowska": {
+        coor: [
+          49.4723456,
+          20.8101922
+        ],
+        date: [
+          2022
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: [
+          {
+            catg: cat.H,
+            name: "Schronisko Cyrla",
+            scale: 1.0,
+            coor: [
+              49.4919324,
+              20.7159394
+            ],
+            date: [
+              2022
+            ]
+          }
+        ]
+      },
+      "Jaworzyna Krynicka": {
+        coor: [
+          49.4221686,
+          20.912904
+        ],
+        date: [
+          2010
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Koziarz": {
+        coor: [
+          49.5009807,
+          20.4465008
+        ],
+        date: [
+          2022
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Przehyba": {
+        coor: [
+          49.4655582,
+          20.5601621
+        ],
+        date: [
+          2017
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Radziejowa": {
+        coor: [
+          49.4491556,
+          20.6042576
+        ],
+        date: [
+          2021
+        ],
+        zoom: 15,
+        scale: 2.0,
+        gallery: []
+      }
+    },
+    "Beskid Śląski": {
+      coor: [
+        49.6520709,
+        18.9239502
+      ],
+      zoom: 12,
+      "Barania Góra": {
+        coor: [
+          49.6114468,
+          19.0105534
+        ],
+        date: [
+          2024
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Stożek Wielki": {
+        coor: [
+          49.6055095,
+          18.8231206
+        ],
+        date: [
+          2010
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Skrzyczne": {
+        coor: [
+          49.6845403,
+          19.0302944
+        ],
+        date: [
+          2021
+        ],
+        zoom: 15,
+        scale: 2.0,
+        gallery: []
+      }
+    },
+    "Beskid Wyspowy": {
+      coor: [
+        49.6882885,
+        20.1914978
+      ],
+      zoom: 12,
+      "Ciecień": {
+        coor: [
+          49.7735737,
+          20.1426816
+        ],
+        date: [
+          2020
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Ćwilin": {
+        coor: [
+          49.6881289,
+          20.1890731
+        ],
+        date: [
+          2024
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Lubogoszcz": {
+        coor: [
+          49.7125481,
+          20.0988007
+        ],
+        date: [
+          2014
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Luboń": {
+        coor: [
+          49.6534602,
+          19.9918556
+        ],
+        date: [
+          2008
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Modyń": {
+        coor: [
+          49.6212064,
+          20.3760552
+        ],
+        date: [
+          2023
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Mogielica": {
+        coor: [
+          49.6552452,
+          20.2767169
+        ],
+        date: [
+          2017
+        ],
+        zoom: 15,
+        scale: 2.0,
+        gallery: []
+      },
+      "Szczebel": {
+        coor: [
+          49.6884274,
+          20.0104594
+        ],
+        date: [
+          2008
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Śnieżnica": {
+        coor: [
+          49.7159613,
+          20.1781511
+        ],
+        date: [
+          2020
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      }
+    },
+    "Beskid Żywiecki": {
+      coor: [
+        49.5087143,
+        19.2868423
+      ],
+      zoom: 12,
+      "Babia Góra": {
+        coor: [
+          49.5730083,
+          19.529314
+        ],
+        date: [
+          2009,
+          2012,
+          2014
+        ],
+        zoom: 15,
+        scale: 2.0,
+        gallery: []
+      },
+      "Hala Lipowska": {
+        coor: [
+          49.5319771,
+          19.2261386
+        ],
+        date: [
+          2018
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Krawców Wierch": {
+        coor: [
+          49.4760998,
+          19.218564
+        ],
+        date: [
+          2018
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Pilsko": {
+        coor: [
+          49.5279452,
+          19.3167758
+        ],
+        date: [
+          2016
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Polica": {
+        coor: [
+          49.6232776,
+          19.6197796
+        ],
+        date: [
+          2020
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Wielka Racza": {
+        coor: [
+          49.4127323,
+          18.9696336
+        ],
+        date: [
+          2011,
+          2018
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Wielka Rycerzowa": {
+        coor: [
+          49.4018768,
+          19.0462375
+        ],
+        date: [
+          2011,
+          2018
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      }
+    },
+    "Gorce": {
+      coor: [
+        49.5301109,
+        20.1926994
+      ],
+      zoom: 13,
+      "Gorc": {
+        coor: [
+          49.5649719,
+          20.2530384
+        ],
+        date: [
+          2019
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Lubań": {
+        coor: [
+          49.4892318,
+          20.338912
+        ],
+        date: [
+          2020
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Magurki": {
+        coor: [
+          49.530675,
+          20.1826787
+        ],
+        date: [
+          2021
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Turbacz": {
+        coor: [
+          49.5428247,
+          20.1113749
+        ],
+        date: [
+          2009,
+          2014
+        ],
+        zoom: 15,
+        scale: 2.0,
+        gallery: []
+      }
+    },
+    "Pieniny": {
+      coor: [
+        49.4116433,
+        20.4675293
+      ],
+      zoom: 13,
+      "Sokolica": {
+        coor: [
+          49.4176042,
+          20.4403853
+        ],
+        date: [
+          2009,
+          2012,
+          2016
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Trzy Korony": {
+        coor: [
+          49.4138194,
+          20.4141855
+        ],
+        date: [
+          2012,
+          2023
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Wysoka": {
+        coor: [
+          49.3802285,
+          20.555495
+        ],
+        date: [
+          2014
+        ],
+        zoom: 15,
+        scale: 2.0,
+        gallery: []
+      }
+    },
+    "Sudety": {
+      coor: [
+        50.6133103,
+        16.0297394
+      ],
+      zoom: 11,
+      "Szczeliniec Wielki": {
+        coor: [
+          50.4848045,
+          16.3410258
+        ],
+        date: [
+          2023
+        ],
+        zoom: 16,
+        scale: 1.0,
+        gallery: [
+          {
+            catg: cat.Z,
+            name: "Wejście",
+            scale: 1.0,
+            coor: [
+              50.4809883,
+              16.3398081
+            ],
+            date: [
+              2023
+            ]
+          }
+        ]
+      }
+    },
+    "Świętokrzyskie": {
+      coor: [
+        50.8915834,
+        20.8966398
+      ],
+      zoom: 13,
+      "Łysica": {
+        coor: [
+          50.8915834,
+          20.8966398
+        ],
+        date: [
+          2013
+        ],
+        zoom: 15,
+        scale: 2.0,
+        gallery: []
+      }
+    },
+    "Tatry Zachodnie": {
+      coor: [
+        49.2377759,
+        19.8749542
+      ],
+      zoom: 13,
+      "Ciemniak": {
+        coor: [
+          49.2309805,
+          19.9034286
+        ],
+        date: [
+          2010,
+          2015
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Giewont": {
+        coor: [
+          49.2509367,
+          19.9341023
+        ],
+        date: [
+          2009,
+          2013
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Goryczkowa Czuba": {
+        coor: [
+          49.2322556,
+          19.9576306
+        ],
+        date: [
+          2012
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Grześ": {
+        coor: [
+          49.236571,
+          19.7667217
+        ],
+        date: [
+          2016
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Jarząbczy Wierch": {
+        coor: [
+          49.1974662,
+          19.7950888
+        ],
+        date: [
+          2023
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Kasprowy Wierch": {
+        coor: [
+          49.2317651,
+          19.9815774
+        ],
+        date: [
+          2012,
+          2017
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Kończysty Wierch": {
+        coor: [
+          49.2056822,
+          19.80762
+        ],
+        date: [
+          2017
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Kopa Kondracka": {
+        coor: [
+          49.2363188,
+          19.9322891
+        ],
+        date: [
+          2010
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Kopieniec Wielki": {
+        coor: [
+          49.2716479,
+          20.0162905
+        ],
+        date: [
+          2024
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Krzesanica": {
+        coor: [
+          49.231639,
+          19.9095011
+        ],
+        date: [
+          2010,
+          2015
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Małołączniak": {
+        coor: [
+          49.2357023,
+          19.9192429
+        ],
+        date: [
+          2010,
+          2015
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Nosal": {
+        coor: [
+          49.2764253,
+          19.9894577
+        ],
+        date: [
+          2024
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Ornak": {
+        coor: [
+          49.2188305,
+          19.8329401
+        ],
+        date: [
+          2024
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Rakoń": {
+        coor: [
+          49.2159432,
+          19.7584391
+        ],
+        date: [
+          2016
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Sarnia Skała": {
+        coor: [
+          49.2646436,
+          19.942106
+        ],
+        date: [
+          2023
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Starorobociański Wierch": {
+        coor: [
+          49.199345,
+          19.8198938
+        ],
+        date: [
+          2017
+        ],
+        zoom: 15,
+        scale: 2.0,
+        gallery: []
+      },
+      "Wołowiec": {
+        coor: [
+          49.2075327,
+          19.7630739
+        ],
+        date: [
+          2023
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      }
+    },
+    "Tatry Wysokie": {
+      coor: [
+        49.2121026,
+        20.0493622
+      ],
+      zoom: 13,
+      "Gęsia Szyja": {
+        coor: [
+          49.2590247,
+          20.0765276
+        ],
+        date: [
+          2024
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: [
+          {
+            catg: cat.Z,
+            name: "Rusinowa Polana 1 S",
+            scale: 1.0,
+            coor: [
+              49.2611673,
+              20.0922453
+            ],
+            date: [
+              2024
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Rusinowa Polana 2 SE",
+            scale: 1.0,
+            coor: [
+              49.2624556,
+              20.091269
+            ],
+            date: [
+              2024
+            ]
+          },
+          {
+            catg: cat.Z,
+            name: "Rusinowa Polana 3 N",
+            scale: 1.0,
+            coor: [
+              49.2612373,
+              20.0884044
+            ],
+            date: [
+              2024
+            ]
+          }
+        ]
+      },
+      "Granaty": {
+        coor: [
+          49.2247692,
+          20.0325716
+        ],
+        date: [
+          2022
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Kościelec": {
+        coor: [
+          49.2251791,
+          20.0145686
+        ],
+        date: [
+          2021
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Karb": {
+        coor: [
+          49.2288156,
+          20.011704
+        ],
+        date: [
+          2016,
+          2021
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Kozi Wierch": {
+        coor: [
+          49.2183189,
+          20.0286984
+        ],
+        date: [
+          2022
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Kozia Przełęcz": {
+        coor: [
+          49.2195488,
+          20.0253189
+        ],
+        date: [
+          2012
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Krzyżne": {
+        coor: [
+          49.2286509,
+          20.0472862
+        ],
+        date: [
+          2011
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Liliowe": {
+        coor: [
+          49.2255435,
+          19.9913299
+        ],
+        date: [
+          2012
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Rysy": {
+        coor: [
+          49.1792488,
+          20.0884581
+        ],
+        date: [
+          2013
+        ],
+        zoom: 15,
+        scale: 2.0,
+        gallery: []
+      },
+      "Szpiglasowy Wierch": {
+        coor: [
+          49.1972734,
+          20.0401139
+        ],
+        date: [
+          2012,
+          2013
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Świnica": {
+        coor: [
+          49.2194191,
+          20.0093061
+        ],
+        date: [
+          2011
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Świstowa Czuba": {
+        coor: [
+          49.2164513,
+          20.0575215
+        ],
+        date: [
+          2020
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Zawrat": {
+        coor: [
+          49.2190863,
+          20.0163925
+        ],
+        date: [
+          2011
+        ],
+        zoom: 15,
+        scale: 1.0,
         gallery: []
       }
     }
