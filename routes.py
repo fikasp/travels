@@ -1,5 +1,6 @@
 from pathlib import Path
 from simplification.cutil import simplify_coords
+import xml.etree.ElementTree as ET
 import subprocess
 import gpxpy
 
@@ -8,13 +9,25 @@ import gpxpy
 
 TOLERANCE = 0.0001
 APPEND_MODE = False
-YEAR = 2025 # 0 if all
+YEAR = 0 # 0 if all
 
 # @p Setup paths
 script_dir = Path(__file__).parent.resolve()
 base_folder = script_dir / "Trasy" if YEAR == 0 else script_dir / "Trasy" / str(YEAR)
 output_file = script_dir / "routes.js"
 
+# @p Activities
+activity_emojis = {
+    "walking": "🚶",
+    "hiking": "🥾",
+    "cycling": "🚴",
+    "downhill_skiing": "🎿",
+    "transport_car": "🚗",
+    "transport_public": "🚌",
+    "europe_transport_public": "🚌",
+    "europe_transport_boat": "🚢",
+    "europe_walking": "🚶",    
+}
 
 # @r FUNCTIONS
 
@@ -27,15 +40,18 @@ def get_name(gpx):
 
 
 # @b Get range
-def get_range(gpx):
-    for trk in gpx.tracks:
-        if trk.type:
-            return trk.type.strip()
+def get_range(activity):
+    if activity:
+        activity = activity.strip().lower()
+        if activity == "hiking":
+            return "GÓRY"
+        elif activity.startswith("europe_"):
+            return "EUROPA"
     return "POLSKA"
 
 
 # @b Get coordinates
-def get_coords(gpx):
+def get_segments(gpx):
     all_segments = []
     for trk in gpx.tracks:
         for seg in trk.segments:
@@ -46,22 +62,49 @@ def get_coords(gpx):
     return all_segments if all_segments else None
 
 
+# @b Get activity
+def get_activity(gpx):
+
+    # Namespace dla locus
+    LOCUS_NS = "{http://www.locusmap.eu}"
+
+    for trk in gpx.tracks:
+        # trk.extensions to lista Elementów XML z xml.etree.ElementTree
+        if not trk.extensions:
+            continue
+        for ext in trk.extensions:
+            # szukamy w rozszerzeniach elementu locus:activity
+            for elem in ext.iter():
+                local_name = elem.tag.split('}')[-1] if '}' in elem.tag else elem.tag
+                ns = elem.tag.split('}')[0] + "}" if '}' in elem.tag else ''
+                if local_name == "activity" and ns == LOCUS_NS:
+                    return elem.text.strip() if elem.text else None
+    return None
+
+# @b Get activity icon
+def get_activity_icon(activity: str) -> str:
+    if not activity:
+        return "❓"
+    return activity_emojis.get(activity.lower(), "❓")
+
 # @b Extract data from GPX file
 def extract_data(gpx_path):
     try:
         with gpx_path.open('r', encoding='utf-8') as f:
             gpx = gpxpy.parse(f)
             name = get_name(gpx)
-            range = get_range(gpx)
-            segments = get_coords(gpx)
+            segments = get_segments(gpx)
+            activity = get_activity(gpx)
+            range = get_range(activity)
+
             if not segments:
                 return []
             if len(segments) == 1:
                 # Return single segment with plain name
-                return [(name, range, segments[0])]
+                return [(name, range, activity, segments[0])]
             else:
                 # Return multiple segments with numbered names
-                return [(f"{name} {i+1}/{len(segments)}", range, seg) for i, seg in enumerate(segments)]
+                return [(f"{name} {i+1}/{len(segments)}", range, activity, seg) for i, seg in enumerate(segments)]
     except Exception as e:
         print(f"❌ Error parsing {gpx_path}: {e}")
         return []
@@ -69,8 +112,8 @@ def extract_data(gpx_path):
 
 
 # @b Format data into JS object
-def format_route_entry(name, coords, range):
-    lines = [f"  {{ name: '{name}', range: '{range}', coords: ["]
+def format_route_entry(name, range, activity, coords):
+    lines = [f"  {{ name: '{name}', range: '{range}', activity: '{activity}', coords: ["]
     for item in coords:
         if item is None:
             continue
@@ -99,17 +142,20 @@ new_entries = []
 # @p Extract and format data
 for gpx_file in base_folder.rglob('*.gpx'):
     extracted = extract_data(gpx_file)
-    for name, range, coords in extracted:
+    for name, range, activity, coords in extracted:
+        icon = get_activity_icon(activity)
+        activity_display = f"{activity} {icon}"
+    
         if range == "POLSKA":
-            print(f"✅ 🇵🇱 {name}")
+            print(f"✅ 🇵🇱{icon} {name} -> {activity}")
         elif range == "EUROPA":
-            print(f"✅ 🇪🇺 {name}")
+            print(f"✅ 🇪🇺{icon} {name} -> {activity}")
         elif range == "GÓRY":
-            print(f"✅ 🇬🇾 {name}")
+            print(f"✅ 🇬🇾{icon} {name} -> {activity}")
         else:
-            print(f"🟥 ❌ {name} -> {range} ")
+            print(f"🟥❌ {icon} {name} -> {range} -> {activity} ")
 
-        new_entries.append(format_route_entry(name, coords, range))
+        new_entries.append(format_route_entry(name, range, activity, coords))
 
 
 # @p Write data to JS file

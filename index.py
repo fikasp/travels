@@ -20,7 +20,7 @@ const cat = {
   H: "Historyczne", 
   N: "Nowoczesne",
   G: "Gastronomiczne",
-  P: "Przyrodnicze", 
+  Z: "Zielone", 
 }
 const ranges = {
   mountains: "GÓRY",

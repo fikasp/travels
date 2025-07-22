@@ -402,7 +402,7 @@
       .marker-sakralne {
         border: 1px solid dodgerblue;
       }
-      .marker-przyrodnicze {
+      .marker-zielone {
         border: 1px solid green;
       }
       .marker-tooltip {
@@ -1458,10 +1458,21 @@
       $routeLayers.forEach(layer => $map.removeLayer(layer))
       $routeLayers = []
 
+      // default styles
       const defaultColor = 'black'
-      const activeColor = 'dodgerblue'
       const defaultWeight = 2
+
+      // active styles
+      const activeColor = 'dodgerblue'
       const activeWeight = 6
+
+      // primary activities and styles
+      const primaryActivities = ['cycling', 'skiing']
+      const primaryColor = '#444'
+
+      // secondary activities and styles
+      const secondaryActivities = ['walking', 'europe_walking']
+      const secondaryColor = '#666'
 
       routes.forEach(route => {
         const year = route.name.slice(0, 4)
@@ -1470,8 +1481,16 @@
 
         let toggled = false
 
+        // prepare route color
+        let routeColor = defaultColor
+        if (primaryActivities.includes(route.activity)) {
+          routeColor = primaryColor
+        } else if (secondaryActivities.includes(route.activity)) {
+          routeColor = secondaryColor
+        }
+
         const polyline = L.polyline(route.coords, {
-          color: defaultColor,
+          color: routeColor,
           weight: defaultWeight
         }).addTo($map)
 
@@ -1484,7 +1503,7 @@
 
         const updateStyle = () => {
           polyline.setStyle({
-            color: toggled ? activeColor : defaultColor,
+            color: toggled ? activeColor : routeColor,
             weight: toggled ? activeWeight : defaultWeight
           })
           if (toggled) polyline.bringToFront()
