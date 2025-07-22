@@ -714,9 +714,9 @@
 				if (deltaY < -50 && $isMenuOpen) {
 					showHideMenu()
 				}
-				if (deltaX > 50) {
+				if (deltaX > 50 && $isPhotoOpen) {
 					showPreviousPhoto(e)
-				} else if (deltaX < -50) {
+				} else if (deltaX < -50 && $isPhotoOpen) {
 					showNextPhoto(e)
 				}
 			}
@@ -1265,7 +1265,13 @@
 					$photoNext.classList.remove('none')
 				}
 
-				const image = document.getElementById(imgID)
+				const image = document.getElementById(String(imgID))
+				if (!image) {
+					console.warn(`Brak elementu o ID ${imgID}`)
+					$photoName.textContent = 'Nie znaleziono zdjęcia.'
+					$isPhotoLoading = false
+					return
+				}
 				$photoImage.setAttribute('src', image.src)
 
 				let loadingTimeout = setTimeout(() => {
