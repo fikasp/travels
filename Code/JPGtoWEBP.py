@@ -5,7 +5,7 @@ from PIL import Image
 print("📷 JPG to WEBP converter:")
 
 # Input folder path
-input_folder = 'b:\Prywatne\Wycieczki\Kraków\Zdjęcia\Historyczne'
+input_folder = 'b:\Prywatne\Wycieczki\Góry\Zdjęcia'
 
 # Subfolder for webp
 webp_folder = os.path.join(input_folder, 'webp')

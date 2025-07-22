@@ -1,4 +1,6 @@
-<!-- @sup HEAD 
+<!-- @r ! TRAVELS !
+-->
+<!-- @r HEAD 
 -->
 <!DOCTYPE html>
 <html>
@@ -17,10 +19,10 @@
   <script src="routes.js"></script>
   <script src="index.js"></script>
 
-  <!-- @sup STYLE 
+  <!-- @r STYLE 
   -->
   <style>
-    /* @sub general 
+    /* @p general 
     */
     * {
       margin: 0;
@@ -52,7 +54,7 @@
       --marginTop: 0px;
     }
 
-    /* @sub header 
+    /* @p header 
     */
     .header {
       z-index: 2000;
@@ -148,7 +150,7 @@
         left: 0;
       }
 
-    /* @sub gallery 
+    /* @p gallery 
     */
     .gallery {
       z-index: 1000;
@@ -239,7 +241,7 @@
         width: 50%;
       }
 
-    /* @sub photo 
+    /* @p photo 
     */
     .photo {
       display: flex;
@@ -350,7 +352,7 @@
         }
       }
 
-    /* @sub map 
+    /* @p map 
     */
     .map {
       width: 100%;
@@ -374,7 +376,7 @@
       transition: opacity 0.2s ease;
     }
 
-    /* @sub markers 
+    /* @p markers 
     */
     .marker {
       box-shadow: 0px 0px 2px 1px #666;
@@ -400,7 +402,7 @@
       .marker-sakralne {
         border: 1px solid dodgerblue;
       }
-      .marker-zielone {
+      .marker-przyrodnicze {
         border: 1px solid green;
       }
       .marker-tooltip {
@@ -419,7 +421,7 @@
         border-bottom-color: #222 !important;
       }
 
-    /* @sub display 
+    /* @p display 
     */
     .none {
       display: none;
@@ -449,7 +451,7 @@
 </head>
 
 <body>
-  <!-- @sup HTML 
+  <!-- @r HTML 
   -->
 
   <!-- emblem -->
@@ -498,12 +500,12 @@
     </div>
   </div>
 
-  <!-- @sub GALLERY 
+  <!-- @p GALLERY 
   -->
   <div class="gallery none"></div>
   <div class="gallery_background none"></div>
 
-  <!-- @sub PHOTO 
+  <!-- @p PHOTO 
   -->
   <div class="photo none">
     <!-- arrow play -->
@@ -525,13 +527,13 @@
     </div>
   </div>
 
-  <!-- @sub MAP 
+  <!-- @p MAP 
   -->
   <div class="map" id="map"></div>
 
   <script>
-  // @sup SCRIPTS
-  // @class GLOBAL 
+  // @r SCRIPTS
+  // @g GLOBAL 
   //
     let $map // leaflet map
     let $marginTop = 0 // margin top
@@ -559,7 +561,7 @@
     let $interval // interval for presentation
     let $index = 0 // index of photo
 
-  // @class HANDLES
+  // @g HANDLES
   //
     const $root = document.querySelector('html')
     // header
@@ -588,7 +590,7 @@
     // mobile
     const $isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
 
-  // @class LISTENERS
+  // @g LISTENERS
   //
     // window
     window.addEventListener('load', main)
@@ -607,7 +609,7 @@
     $selectViewMode.addEventListener('change', setViewMode)
     $selectCategory.addEventListener('change', setCategory)
     $selectDate.addEventListener('change', setDate)
-    enableSwipeOnSelects([
+    addListenersToSelects([
         $selectCity,
         $selectRegion,
         $selectRange,
@@ -625,9 +627,9 @@
     $photoPrevious.addEventListener("click", showPreviousPhoto)
     $photoNext.addEventListener("click", showNextPhoto)
 
-  // @class GENERAL
+  // @g GENERAL
   //
-    // @func main
+    // @b main
     function main() {
       console.log(data)
       // console.log(mapRegions(data[$selectRange.value]))
@@ -642,7 +644,7 @@
       setRange()
     }
 
-    // @func check keys
+    // @b check keys
     function checkKeys(e) {
       console.log(`checkKeys(${e.key})`)
 
@@ -663,7 +665,7 @@
       }
     }
 
-    // @func check wheel
+    // @b check wheel
     function checkWheel(e){
       if ($isPhotoOpen) {
         if (e.deltaY > 0) {
@@ -674,7 +676,7 @@
       }
     }
 
-    // @func check touch
+    // @b check touch
     function touchstart(e) {
       $touchStartX = e.touches[0].pageX
       $touchStartY = e.touches[0].pageY
@@ -700,14 +702,15 @@
       }
     }
 
-    // @func enable swipe on selects
-    function enableSwipeOnSelects(selectElements) {
+    // @b add listeners to selects
+    function addListenersToSelects(selectElements) {
 
       selectElements.forEach($select => {
         let startX = 0
         let startY = 0
         const threshold = 30
 
+        // swipe
         $select.addEventListener('touchstart', e => {
           const touch = e.changedTouches[0]
           startX = touch.pageX
@@ -737,11 +740,30 @@
             }
           }
         }, { passive: true })
+
+        // scroll
+        $select.addEventListener('wheel', e => {
+          e.preventDefault()
+          const options = $select.options
+          let newIndex = $select.selectedIndex
+
+          if (e.deltaY > 0) {
+            // down
+            if (newIndex < options.length - 1) newIndex++
+          } else {
+            // up
+            if (newIndex > 0) newIndex--
+          }
+
+          if (newIndex !== $select.selectedIndex) {
+            $select.selectedIndex = newIndex
+            $select.dispatchEvent(new Event('change'))
+          }
+        }, { passive: false })
       })
     }
 
-
-    // @func change margin
+    // @b change margin
     function changeMargin(){
       console.log(`changeMargin()`)
       const windowHeight = window.innerHeight
@@ -753,9 +775,9 @@
       $root.style.setProperty('--marginTop', `${headerHeight}px`) 
     }
 
-  // @class DATA
+  // @g DATA
   //
-    // @func prepare data
+    // @b prepare data
     function prepareData() {
       console.log("prepareData()")
       $citiesArray = []
@@ -840,7 +862,7 @@
       }
     }
 
-    // @func filter data
+    // @b filter data
     function filterData() {
       console.log("filterData()")
       // get data from original array
@@ -875,7 +897,7 @@
       $filteredData.forEach((item, index) => item.id = index)
     }
 
-    // @func sort data
+    // @b sort data
     function sortData(array) {
       const categoryOrder = Object.values(cat)
       const namePriority = { "zewnętrze": 1, "wnętrze": 2, "organy": 3 }
@@ -919,7 +941,7 @@
     }
 
     
-    // @func update data
+    // @b update data
     function updateData() {
       console.log("updateData()")
       filterData()
@@ -929,9 +951,9 @@
       console.log($filteredData)
     }
 
-  // @class HEADER
+  // @g HEADER
 
-    // @func show hide menu
+    // @b show hide menu
     function showHideMenu() {
       console.log("showHideMenu()")
       $headerDiv.classList.toggle('hide')
@@ -941,7 +963,7 @@
       $isMenuOpen = !$isMenuOpen
     }
     
-    // @func prepare ranges
+    // @b prepare ranges
       function prepareRanges(){
       console.log(`prepareRange()`)
       const ranges = Object.keys(data)
@@ -953,7 +975,7 @@
       })
     }
 
-    // @func prepare regions
+    // @b prepare regions
     function prepareRegions(){
       console.log(`prepareRegions(${$selectRange.value})`)
       const regions = Object.keys(data[$selectRange.value])
@@ -967,7 +989,7 @@
       })
     }
 
-    // @func prepare cities
+    // @b prepare cities
       function prepareCities(){
 
       if($selectRegion.value == cat.all) {
@@ -991,7 +1013,7 @@
       $isInitialRender = false
     }
 
-      // @func prepare categories
+      // @b prepare categories
       function prepareCategories() {
       console.log("prepareCategories()")
 
@@ -1000,7 +1022,7 @@
       })
     }
 
-      // @func prepare dates
+      // @b prepare dates
       function prepareDates() {
       console.log("prepareDates()")
 
@@ -1010,7 +1032,7 @@
       }
     }
 
-    // @func set emblem
+    // @b set emblem
     function setEmblem() {
       console.log(`setEmblem(${$selectCity.value})`)
    
@@ -1035,7 +1057,7 @@
       }
     }
 
-    // @func set title
+    // @b set title
     function setTitle() {      
       let title = ""
       if ($selectRegion.value == cat.all) {
@@ -1048,7 +1070,7 @@
       document.title = title
       console.log(`setTitle(${title})`)
     }
-    // @func set city
+    // @b set city
     function setCity() {
       console.log(`setCity(${$selectCity.value})`)
       setEmblem()
@@ -1057,7 +1079,7 @@
       updateData()
     }
 
-    // @func set region
+    // @b set region
     function setRegion(){
       console.log(`setRegion(${$selectRegion.value})`)
       prepareCities()
@@ -1067,7 +1089,7 @@
       updateData()
     }
 
-    // @func set range
+    // @b set range
     function setRange() {
       console.log(`setRange(${$selectRange.value})`)
       prepareRegions()
@@ -1078,7 +1100,7 @@
       updateData()
     }
 
-    // @func set view mode
+    // @b set view mode
     function setViewMode() {
 
       $viewMode = $selectViewMode.value
@@ -1125,7 +1147,7 @@
       setMapView()
       }
 
-    // @func set category
+    // @b set category
     function setCategory(category) {
       if (category == cat.profil || category == cat.all) {
         $selectCategory.value = category
@@ -1135,16 +1157,16 @@
       updateData()
     }
 
-    // @func set dates
+    // @b set dates
     function setDate() {
       $dateFilter = $selectDate.value
       console.log(`setDate(${$dateFilter})`)
       updateData()
     }
 
-  // @class GALLERY
+  // @g GALLERY
 
-    // @func prepare gallery
+    // @b prepare gallery
     function prepareGallery() {
       console.log("prepareGallery()")
       //clear gallery
@@ -1184,7 +1206,7 @@
       })
     }
 
-    // @func show photo
+    // @b show photo
     function showPhoto(imgID) {
       console.log(`showPhoto(${imgID})`)
 
@@ -1227,7 +1249,7 @@
       $isPhotoOpen = true
     }
 
-    // @func show clicked box
+    // @b show clicked box
     const showClickedPhoto = (clickedPhoto) => (e) => {  
       console.log(`showClickedPhoto(${clickedPhoto.isClicked})`)  
 
@@ -1249,7 +1271,7 @@
       }
     }
 
-    // @func show clicked marker
+    // @b show clicked marker
     const showClickedMarker = (clickedMarker) => (e) => {  
       console.log(`showClickedMarker(${clickedMarker.isClicked})`)  
 
@@ -1271,7 +1293,7 @@
       }
     }
 
-    // @func show selected photo
+    // @b show selected photo
     function showSelectedPhoto(e) {      
 
       let imgID = e.target.id
@@ -1287,7 +1309,7 @@
 
     }
 
-    // @func show previous photo
+    // @b show previous photo
     function showPreviousPhoto(e){
       console.log("showPreviousPhoto()")
 
@@ -1299,7 +1321,7 @@
       } 
     }
 
-    // @func show next photo
+    // @b show next photo
     function showNextPhoto(e) {
       console.log("showNextPhoto()")
       
@@ -1311,7 +1333,7 @@
       } 
     }
     
-    // @func toggle presentation
+    // @b toggle presentation
     function togglePresentation(e) {
       console.log(`togglePresentation()`)
 
@@ -1343,7 +1365,7 @@
       e?.stopPropagation()
     }
 
-    // @func hide photo
+    // @b hide photo
     function hidePhoto() {
       console.log("hidePhoto()")
       clearInterval($interval)
@@ -1361,9 +1383,9 @@
       }, 400)
     }
 
-  // @class MAP
+  // @g MAP
 
-    // @func prepare map
+    // @b prepare map
     function prepareMap() {
       console.log("prepareMap()")
       // leaflet map view
@@ -1387,12 +1409,12 @@
           const lat = e.latlng.lat.toFixed(7)
           const lng = e.latlng.lng.toFixed(7)
           console.log(`${lat},${lng}`)
-          alert(`${lat},${lng}`)
+          // alert(`${lat},${lng}`)
         })
       }
     }
 
-    // @func set map view
+    // @b set map view
     function setMapView() {
       console.log(`setMapView()`)
 
@@ -1415,7 +1437,7 @@
       }
     }
 
-    // @func set coordinates
+    // @b set coordinates
     function setCoor(coor, zoom) {
       if ($isGalleryAndMap) {
         const mapZoom = $map.getZoom()
@@ -1431,7 +1453,7 @@
       }
     } 
       
-    // @func add routes
+    // @b add routes
     function addRoutes() {
       $routeLayers.forEach(layer => $map.removeLayer(layer))
       $routeLayers = []
@@ -1444,6 +1466,7 @@
       routes.forEach(route => {
         const year = route.name.slice(0, 4)
         if ($dateFilter !== cat.all && year !== $dateFilter.toString()) return
+        if (route.range !== $selectRange.value) return
 
         let toggled = false
 
@@ -1496,24 +1519,16 @@
         hitbox.on('touchstart', toggleRoute)
         hitbox.on('click', toggleRoute)
 
-        // Format name
-        const fileName = route.name
-          .split('/')
-          .pop()
-          .replace(/\.gpx$/i, '')
-          .replace(/^\d{4}\/\d{4}-\d{2}\//, '')
-          .replace(/(\d{4}-\d{2}-\d{2})\.\d+\s+-\s+/, '$1 - ')
-
-        polyline.bindPopup(fileName)
+        polyline.bindPopup(route.name)
 
         $routeLayers.push(polyline)
         $routeLayers.push(hitbox)
       })
     }
 
-  // @class MARKERS
+  // @g MARKERS
 
-    // @func prepare markers
+    // @b prepare markers
     function prepareMarkers() {
       console.log("prepareMarkers()")
 
@@ -1529,7 +1544,7 @@
       addZoomToMakers()
     }
 
-    // @func create marker
+    // @b create marker
     function createMarker({coor, city, catg, name, url, id, top}) {
 
       // icon
@@ -1568,7 +1583,7 @@
       $markers.push(marker)
     }
 
-    // @func add zoom to markers
+    // @b add zoom to markers
     function addZoomToMakers(){
       $map.on('zoomend', () => {
         $markers.forEach(marker => {
@@ -1577,7 +1592,7 @@
       })
     }
 
-    // @func highlight marker
+    // @b highlight marker
     function highlightMarker(e) {
       if ($isHiglightActive) {
         const id = e.target.id
@@ -1587,7 +1602,7 @@
       }
     }
 
-    // @func reset marker
+    // @b reset marker
     function resetMarker(e) {
       const id = e.target.id
       const marker = $markers[id]      
@@ -1599,7 +1614,7 @@
       updateMarkerSize(marker)
     }
 
-    // @func update marker size
+    // @b update marker size
     function updateMarkerSize(marker, value){
       const zoom = $map.getZoom()
       const icon = marker.options.icon
@@ -1612,21 +1627,21 @@
       marker.setIcon(icon)
     }
 
-    // @func set zoom of marker
+    // @b set zoom of marker
     function setZoom(zoom) {
       const size = Math.pow(zoom,2) * 0.15
       return [size, size]
     }
 
-    // @func set anchor of marker
+    // @b set anchor of marker
     function setAnchor(zoom) {
       const size = Math.pow(zoom,2) * 0.15
       return [size * 0.5, size * 0.5]
     }
 
-    // @class TOOLS
+    // @g TOOLS
 
-    // @func find range
+    // @b find range
     function findRange(city) {
       for (const range in data) {
         for (const region in data[range]) {
@@ -1639,7 +1654,7 @@
       }
     }
   
-    // @func find region
+    // @b find region
     function findRegion(city) {
       for (const range in data) {
         for (const region in data[range]) {
@@ -1650,12 +1665,12 @@
       }
     }
 
-    // @func capitalize name of city
+    // @b capitalize name of city
     function capitalizeName(city) {
       return city.toLowerCase().replace(/(?:^|\s|-)([a-ż])/g, (match) => match.toUpperCase())
     }
 
-    // @func create option
+    // @b create option
     function createOption(parent, value, condition) {
       const option = document.createElement('option')
       option.classList.add("header_option")
@@ -1669,7 +1684,7 @@
       parent.appendChild(option)
     }
 
-    // @func map regions
+    // @b map regions
     function mapRegions(data) {
       const newData = {}
 
@@ -1688,7 +1703,7 @@
       return newData
     }
 
-    // @func debug
+    // @b debug
     function debug(item) {
       console.log("--->")
       console.log(item)

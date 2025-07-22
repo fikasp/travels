@@ -20,7 +20,7 @@ const cat = {
   H: "Historyczne", 
   N: "Nowoczesne",
   G: "Gastronomiczne",
-  Z: "Zielone", 
+  P: "Przyrodnicze", 
 }
 const ranges = {
   mountains: "GÓRY",
@@ -28,7 +28,7 @@ const ranges = {
   world: "EUROPA",
 }
 const startCity = "KRAKÓW"
-const mapActive = false
+const mapActive = true
 """
 
 # Category and ranges mapping
@@ -104,14 +104,14 @@ for _, row in df.iterrows():
 
     # If the region changes, print a log message
     if last_region and (region != last_region or range_raw.strip() != last_range):
-        print(f"✅ Processed region: {last_range}/{last_region}")
+        print(f"✅ {last_range}/{last_region}")
 
     last_range = range_raw.strip()
     last_region = region
 
 # Final region processing log
 if last_region:
-    print(f"✅ Processed region: {last_range}/{last_region}")
+    print(f"✅ {last_range}/{last_region}")
 
 # Convert to JavaScript
 js_output = const_definitions + "\nconst data = " + json.dumps(output, indent=2, ensure_ascii=False)
