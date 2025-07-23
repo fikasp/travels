@@ -1,5 +1,6 @@
 
 const cat = {
+  none: "Brak",
   all: "Wszystkie",
   profil: "Profilowe",
   O: "Ogólne",

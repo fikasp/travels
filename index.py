@@ -13,6 +13,7 @@ df = pd.read_excel(file_path, sheet_name=sheet_name, dtype=str)
 # Define categories and ranges
 const_definitions = """
 const cat = {
+  none: "Brak",
   all: "Wszystkie",
   profil: "Profilowe",
   O: "Ogólne",
