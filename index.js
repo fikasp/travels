@@ -133,6 +133,110 @@ const data = {
         scale: 1.0,
         gallery: []
       }
+    },
+    "Drogi wojewódzkie": {
+      coor: [
+        52.2159333,
+        19.134423
+      ],
+      zoom: 7,
+      "DW901": {
+        coor: [
+          52.2159333,
+          19.134423
+        ],
+        date: [],
+        zoom: 7,
+        scale: 1.0,
+        gallery: []
+      },
+      "DW902": {
+        coor: [
+          52.2159333,
+          19.134423
+        ],
+        date: [],
+        zoom: 7,
+        scale: 1.0,
+        gallery: []
+      }
+    },
+    "Drogi Krakowa": {
+      coor: [
+        50.0616779,
+        19.9373317
+      ],
+      zoom: 12,
+      "1 obwodnica": {
+        coor: [
+          50.0616779,
+          19.9373317
+        ],
+        date: [],
+        zoom: 12,
+        scale: 1.0,
+        gallery: []
+      },
+      "2 obwodnica": {
+        coor: [
+          50.0616779,
+          19.9373317
+        ],
+        date: [],
+        zoom: 12,
+        scale: 1.0,
+        gallery: []
+      },
+      "3 obwodnica": {
+        coor: [
+          50.0616779,
+          19.9373317
+        ],
+        date: [],
+        zoom: 12,
+        scale: 1.0,
+        gallery: []
+      },
+      "4 obwodnica": {
+        coor: [
+          50.0616779,
+          19.9373317
+        ],
+        date: [],
+        zoom: 12,
+        scale: 1.0,
+        gallery: []
+      },
+      "Trasa łagiewnicka": {
+        coor: [
+          50.0616779,
+          19.9373317
+        ],
+        date: [],
+        zoom: 12,
+        scale: 1.0,
+        gallery: []
+      },
+      "Trasa nowotarska": {
+        coor: [
+          50.0616779,
+          19.9373317
+        ],
+        date: [],
+        zoom: 12,
+        scale: 1.0,
+        gallery: []
+      },
+      "Trasa wolbromska": {
+        coor: [
+          50.0616779,
+          19.9373317
+        ],
+        date: [],
+        zoom: 12,
+        scale: 1.0,
+        gallery: []
+      }
     }
   },
   [ranges.poland]: {

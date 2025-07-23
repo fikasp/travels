@@ -1500,6 +1500,24 @@
 				}
 			}
 
+			// @b get color for route
+			function getColorForRoute(year) {
+				const minYear = 2004
+				const maxYear = 2025
+
+				// Clamp year
+				const clampedYear = Math.max(minYear, Math.min(maxYear, parseInt(year)))
+
+				// Normalize to 0–1
+				const ratio = (clampedYear - minYear) / (maxYear - minYear)
+
+				// Map to 0–255 (intensity of blue)
+				const blue = Math.round(ratio * 255)
+				const hex = blue.toString(16).padStart(2, '0')
+
+				return `#0000${hex}`
+			}
+
 			// @b add routes
 			function addRoutes() {
 				$routeLayers.forEach((layer) => $map.removeLayer(layer))
@@ -1535,13 +1553,14 @@
 					let toggled = false
 
 					const year = route.name.slice(0, 4)
-
+					
 					// range filter
 					if (route.range !== $selectRange.value) return
-
+					
 					// roads filters
 					if (route.range == 'DROGI') {
 						routeName = route.name
+						routeColor = getColorForRoute(year)
 
 						const roadName = route.name.split(' ')[2]
 						const roadLanes = route.name.split(' ')[4]
@@ -1549,9 +1568,14 @@
 						const roadCategoryMap = {
 							A: 'Drogi ekspresowe',
 							S: 'Drogi ekspresowe',
-							D: 'Drogi krajowe',
+							DK: 'Drogi krajowe',
+							DW: 'Drogi wojewódzkie',
+							K: 'Drogi Krakowa',
 						}
-						const roadCategory = roadCategoryMap[roadName.trim().charAt(0)]
+						const roadKey = Object.keys(roadCategoryMap).find((key) =>
+							roadName.startsWith(key)
+						)
+						const roadCategory = roadCategoryMap[roadKey]
 
 						// filter road category (region)
 						if (
@@ -1567,11 +1591,11 @@
 						if ($dateFilter !== cat.all && year > $dateFilter.toString()) return
 
 						// road weights
-						if (roadCategory == roadCategoryMap.S && roadLanes == 3) {
+						if (roadLanes == 3) {
 							routeWeight = 5
-						} else if (roadCategory == roadCategoryMap.S && roadLanes == 2) {
+						} else if (roadLanes == 2) {
 							routeWeight = 4
-						} else if (roadCategory == roadCategoryMap.D && roadLanes == 2) {
+						} else if (roadLanes == 1) {
 							routeWeight = 3
 						} else {
 							routeWeight = 2
@@ -1664,7 +1688,6 @@
 
 			// @b create marker
 			function createMarker({ coor, city, catg, name, url, id, top, scale }) {
-
 				// icon
 				const zoom = $map.getZoom()
 				const icon = L.icon({
