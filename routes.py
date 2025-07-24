@@ -9,7 +9,7 @@ import gpxpy
 # @g CONFIG
 TOLERANCE = 0.0001
 APPEND_MODE = False
-ROADS_MODE = False
+ROADS_MODE = True
 YEAR = 0 # 0 if all
 
 # @b Setup paths
