@@ -1,6 +1,6 @@
 const data = {
   "DROGI": {
-    "Drogi ekspresowe": {
+    "Ekspresowe": {
       coor: [
         52.05,
         19.25
@@ -67,7 +67,7 @@ const data = {
         gallery: []
       }
     },
-    "Drogi krajowe": {
+    "Krajowe": {
       coor: [
         52.05,
         19.25
@@ -114,7 +114,7 @@ const data = {
         gallery: []
       }
     },
-    "Drogi wojewódzkie": {
+    "Wojewódzkie": {
       coor: [
         52.05,
         19.25
@@ -141,7 +141,7 @@ const data = {
         gallery: []
       }
     },
-    "Drogi Krakowa": {
+    "Krakowskie": {
       coor: [
         50.05,
         19.94

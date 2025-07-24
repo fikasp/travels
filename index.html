@@ -1,7 +1,5 @@
 <!-- @r >> TRAVELS
 -->
-<!-- HEAD 
--->
 <!DOCTYPE html>
 <html>
 	<head>
@@ -30,10 +28,10 @@
 		<script src="index.js"></script>
 
 		<!-- @r > STYLE 
-  -->
+  	-->
 		<style>
 			/* @r General 
-    */
+				*/
 			* {
 				margin: 0;
 				padding: 0;
@@ -58,14 +56,14 @@
 				color: #fff;
 				background: #000;
 				font-family: verdana, sans-serif;
-				font-size: 14px;
+				font-size: 13px;
 				--accent: #4af;
 				--viewHeight: 0px;
 				--marginTop: 0px;
 			}
 
 			/* @r Header 
-    	*/
+				*/
 			.header {
 				z-index: 2000;
 				background-color: black;
@@ -83,7 +81,7 @@
 				box-shadow: 0 0 10px 0 black;
 			}
 			.header.hide {
-				transform: translateY(-120%);
+				transform: translateY(-130%);
 			}
 			.header_pair {
 				display: flex;
@@ -162,7 +160,7 @@
 			}
 
 			/* @r Footer 
-    	*/
+				*/
 			.footer {
 				z-index: 3000;
 				position: fixed;
@@ -203,6 +201,7 @@
 				top: 50%;
 				left: 50%;
 				transform: translate(-50%, -50%);
+				font-size: 13px;
 				text-align: center;
 				pointer-events: none;
 				color: black;
@@ -221,7 +220,7 @@
 			}
 
 			/* @r Gallery 
-    */
+				*/
 			.gallery {
 				z-index: 1000;
 				position: fixed;
@@ -313,7 +312,7 @@
 			}
 
 			/* @r Photo 
-    */
+				*/
 			.photo {
 				display: flex;
 				justify-content: center;
@@ -424,11 +423,11 @@
 			}
 
 			/* @r Map 
-    */
+				*/
 			.map {
 				width: 100%;
-				min-height: 100vh;
 				height: 100%;
+				min-height: 100vh;
 				position: fixed;
 			}
 
@@ -446,10 +445,11 @@
 				font-family: verdana;
 				background-color: #222;
 				transition: opacity 0.3s ease;
+				border-radius: 6px;
 			}
 
 			/* @r Markers 
-    */
+				*/
 			.marker {
 				box-shadow: 0px 0px 2px 1px #666;
 				border: 1px solid gray;
@@ -494,7 +494,7 @@
 			}
 
 			/* @r Display 
-    */
+				*/
 			.none {
 				display: none;
 			}
@@ -526,7 +526,7 @@
 
 	<body>
 		<!-- @p > HTML 
-  -->
+  	-->
 		<!-- @p Header
   	-->
 		<!-- Bar -->
@@ -559,12 +559,12 @@
 			</div>
 			<!-- Region -->
 			<div class="header_pair">
-				<label class="header_label" for="region">Obszar:</label>
+				<label class="header_label" for="region" id="labelRegion"></label>
 				<select class="header_select" id="region"></select>
 			</div>
 			<!-- City -->
 			<div class="header_pair">
-				<label class="header_label" for="city">Miejsce:</label>
+				<label class="header_label" for="city" id="labelCity"></label>
 				<select class="header_select" id="city"></select>
 			</div>
 		</div>
@@ -626,7 +626,7 @@
 		<script>
 			// @g > SCRIPTS
 
-			// @g Enums
+			// @b Enums
 			const enums = {
 				ALL: 'all',
 				NONE: 'none',
@@ -634,6 +634,7 @@
 				MAP: 'map',
 				MAP_GALLERY: 'map&gallery',
 				GALLERY: 'gallery',
+				EMPTY: '',
 			}
 
 			const labels = {
@@ -677,7 +678,7 @@
 			const startCity = 'KRAKÓW'
 			const mapActive = true
 
-			// @g Global
+			// @b Globals
 			let $map // leaflet map
 			let $distanceControl = null // distance control
 			let $activityControl = null // activity control
@@ -707,7 +708,7 @@
 			let $interval // interval for presentation
 			let $index = 0 // index of photo
 
-			// @g Handles
+			// @b Handles
 			//
 			const $root = document.querySelector('html')
 			// header
@@ -731,6 +732,8 @@
 			const $photoPause = document.querySelector('.photo_pause')
 			const $photoPlay = document.querySelector('.photo_play')
 			// selects
+			const $labelCity = document.querySelector('#labelCity')
+			const $labelRegion = document.querySelector('#labelRegion')
 			const $selectCity = document.querySelector('#city')
 			const $selectRegion = document.querySelector('#region')
 			const $selectRange = document.querySelector('#range')
@@ -741,7 +744,7 @@
 			// mobile
 			const $isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
 
-			// @g Listeners
+			// @b Listeners
 			//
 			// window
 			window.addEventListener('load', main)
@@ -780,9 +783,7 @@
 			$photoPrevious.addEventListener('click', showPreviousPhoto)
 			$photoNext.addEventListener('click', showNextPhoto)
 
-			// @g General
-			//
-			// @b Main
+			// @g Main
 			function main() {
 				console.log(data)
 				// console.log(mapRegions(data[$selectRange.value]))
@@ -857,7 +858,7 @@
 				}
 			}
 
-			// @b add listeners to selects
+			// @b add selects listeners
 			function addListenersToSelects(selectElements) {
 				selectElements.forEach(($select) => {
 					let startX = 0
@@ -1172,7 +1173,7 @@
 
 			// @b prepare ranges
 			function prepareRanges() {
-				console.log(`prepareRange()`)
+				console.log(`prepareRanges()`)
 				const ranges = Object.keys(data)
 
 				$selectRange.innerHTML = ''
@@ -1180,6 +1181,7 @@
 				ranges.forEach((range) => {
 					createOption($selectRange, range, range, selectedRange)
 				})
+				setLabels()
 			}
 
 			// @b prepare regions
@@ -1200,10 +1202,10 @@
 			function prepareCities() {
 				if ($selectRegion.value == enums.ALL) {
 					$selectCity.innerHTML = ''
-					createOption($selectCity, enums.ALL, labels.ALL)
 					return
 				}
 
+				createOption($selectCity, enums.ALL, labels.ALL)
 				const newCities = data[$selectRange.value][$selectRegion.value]
 				console.log(`prepareCities(${$selectRegion.value})`)
 
@@ -1256,6 +1258,26 @@
 				}
 			}
 
+			// @b set labels
+			function setLabels() {
+				console.log(`setLabels()`)
+				const range = $selectRange.value
+
+				if (range == ranges.ROADS) {
+					$labelRegion.textContent = 'Rodzaj:'
+					$labelCity.textContent = 'Droga:'
+				} else if (range == ranges.POLAND) {
+					$labelRegion.textContent = 'Region:'
+					$labelCity.textContent = 'Miasto:'
+				} else if (range == ranges.WORLD) {
+					$labelRegion.textContent = 'Państwo:'
+					$labelCity.textContent = 'Miasto:'
+				} else if (range == ranges.MOUNTAINS) {
+					$labelRegion.textContent = 'Pasmo:'
+					$labelCity.textContent = 'Szczyt:'
+				}
+			}
+
 			// @b set emblem
 			function setEmblem() {
 				console.log(`setEmblem(${$selectCity.value})`)
@@ -1263,7 +1285,8 @@
 				if (
 					$selectRange.value == ranges.ROADS ||
 					$selectRange.value == ranges.MOUNTAINS ||
-					$selectCity.value == enums.ALL
+					$selectCity.value == enums.ALL ||
+					$selectCity.value == ''
 				) {
 					$headerEmblem.classList.add('none')
 				} else {
@@ -1320,6 +1343,7 @@
 				console.log(`setRange(${$selectRange.value})`)
 				prepareRegions()
 				prepareCities()
+				setLabels()
 				setEmblem()
 				setTitle()
 				setMapView()
@@ -1831,7 +1855,7 @@
 				// Loop through all routes
 				routes.forEach((route) => {
 					// Skip route if it doesn't match the active filters
-					if (!filterRoute(route)) return
+					if (shouldRouteSkip(route)) return
 
 					// Create route polyline and interactive hitbox layer
 					const { polyline, hitbox } = createRouteLayer(route)
@@ -1844,16 +1868,22 @@
 				setDistance(totalLength)
 			}
 
-			// @b filter route
-			function filterRoute(route) {
+			// @b should route skip
+			function shouldRouteSkip(route) {
 				const year = route.name.slice(0, 4)
 				const activity = route.activity
 				// Exclude routes not matching selected activity
-				if ($activityFilter !== enums.ALL && route.activity !== $activityFilter)
-					return false
+				if (
+					$activityFilter !== enums.ALL &&
+					$activityFilter !== route.activity
+				) {
+					return true
+				}
 
 				// Skip routes that don't match selected range
-				if (route.range !== $selectRange.value) return false
+				if (route.range !== $selectRange.value) {
+					return true
+				}
 
 				if (route.range === ranges.ROADS) {
 					// For road routes, extract info from name
@@ -1861,11 +1891,11 @@
 					const roadLanes = route.name.split(' ')[4]
 
 					const roadCategoryMap = {
-						A: 'Drogi ekspresowe',
-						S: 'Drogi ekspresowe',
-						DK: 'Drogi krajowe',
-						DW: 'Drogi wojewódzkie',
-						K: 'Drogi Krakowa',
+						A: 'Ekspresowe',
+						S: 'Ekspresowe',
+						DK: 'Krajowe',
+						DW: 'Wojewódzkie',
+						K: 'Krakowskie',
 					}
 
 					// Determine road category
@@ -1877,24 +1907,31 @@
 					// Filter by region
 					if (
 						$selectRegion.value !== enums.ALL &&
-						roadCategory !== $selectRegion.value
-					)
-						return false
+						$selectRegion.value !== roadCategory
+					) {
+						return true
+					}
 
 					// Filter by road name
-					if ($selectCity.value !== enums.ALL && roadName !== $selectCity.value)
-						return false
+					if (
+						$selectCity.value !== enums.ALL &&
+						$selectCity.value !== enums.EMPTY &&
+						$selectCity.value !== roadName
+					) {
+						return true
+					}
 
 					// Filter by year
-					if ($dateFilter !== enums.ALL && year > $dateFilter.toString())
-						return false
+					if ($dateFilter !== enums.ALL && year > $dateFilter.toString()) {
+						return true
+					}
 				} else {
 					// For non-road routes: filter by year
-					if ($dateFilter !== enums.ALL && year !== $dateFilter.toString())
-						return false
+					if ($dateFilter !== enums.ALL && year !== $dateFilter.toString()) {
+						return true
+					}
 				}
-
-				return true
+				return false
 			}
 
 			// @b get color for route
