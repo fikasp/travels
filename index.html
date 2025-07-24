@@ -839,6 +839,7 @@
 					$select.addEventListener(
 						'touchstart',
 						(e) => {
+							e.stopPropagation()
 							const touch = e.changedTouches[0]
 							startX = touch.pageX
 							startY = touch.pageY
@@ -849,6 +850,7 @@
 					$select.addEventListener(
 						'touchend',
 						(e) => {
+							e.stopPropagation()
 							const touch = e.changedTouches[0]
 							const diffX = touch.pageX - startX
 							const diffY = touch.pageY - startY
