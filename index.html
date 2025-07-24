@@ -170,6 +170,9 @@
 				bottom: 0px;
 				left: 0px;
 				width: 100vw;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
 				background: transparent;
 				transition: transform 0.3s ease-out;
 				box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -179,13 +182,18 @@
 				transform: translateY(+120%);
 			}
 			.footer_view select {
-				border: none;
+				color: black;
+				font-size: 13px;
+				width: 128px;
 				padding: 6px;
+				border: none;
+				outline: none;
 				text-align: center;
 				background: transparent;
 				font-family: verdana;
-				font-size: 13px;
-				color: black;
+				appearance: none;
+				-webkit-appearance: none;
+				-moz-appearance: none;
 			}
 			.footer_view select option {
 				background: lightgray;
@@ -206,10 +214,7 @@
 				}
 			}
 			.footer_distance {
-				position: absolute;
-				bottom: 0px;
-				right: 0px;
-				padding: 7px 10px;
+				padding: 7px 20px;
 				background: transparent;
 				color: black;
 				text-align: center;
