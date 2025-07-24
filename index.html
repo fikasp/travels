@@ -1,4 +1,4 @@
-<!-- @r TRAVELS
+<!-- @r >> TRAVELS
 -->
 <!-- HEAD 
 -->
@@ -29,7 +29,7 @@
 		<script src="routes.js"></script>
 		<script src="index.js"></script>
 
-		<!-- @r STYLE 
+		<!-- @r > STYLE 
   -->
 		<style>
 			/* @r General 
@@ -160,11 +160,17 @@
 				top: 5px;
 				left: 0;
 			}
+
 			.header_view {
+				z-index: 2000;
 				position: fixed;
 				bottom: 10px;
 				left: 10px;
 			}
+			.header_view.hide {
+				display: none;
+			}
+
 			.header_view select {
 				text-align: center;
 				background: rgba(0, 0, 0, 0.8);
@@ -176,6 +182,7 @@
 			}
 
 			.header_distance {
+				z-index: 100;
 				background: rgba(0, 0, 0, 0.8);
 				box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 				backdrop-filter: blur(10px);
@@ -187,6 +194,9 @@
 				width: 123px;
 				bottom: 10px;
 				right: 10px;
+			}
+			.header_distance.hide {
+				display: none;
 			}
 
 			/* @r Gallery 
@@ -202,7 +212,7 @@
 				overflow: auto;
 				display: grid;
 				grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-				transition: top 0.3s ease-out, width 1s ease-out;
+				transition: 0.2s;
 				padding-bottom: 3px;
 				gap: 0 3px;
 			}
@@ -236,7 +246,7 @@
 				top: 0;
 				width: 100%;
 				height: 100vh;
-				transition: top 0.3s ease-out, width 1s ease-out;
+				transition: 0.2s;
 				box-shadow: 0 0 5px 0 black;
 				background-color: rgb(0, 0, 0, 80%);
 				backdrop-filter: blur(5px);
@@ -258,7 +268,7 @@
 				text-align: center;
 				text-shadow: 0 0 5px #000;
 				bottom: 0px;
-				transition: opacity 0.3s ease-out;
+				transition: opacity 0.2s ease-out;
 				opacity: 0;
 			}
 			@media (max-width: 1000px) {
@@ -350,14 +360,14 @@
 				min-height: 40px;
 				object-fit: cover;
 				box-shadow: 0 0 30px #111;
-				transition: 0.5s;
+				transition: 0.3s;
 			}
 			.photo_image {
 				position: relative;
 				max-width: calc(100vw - 100px);
 				max-height: calc(100vh - 30px);
 				object-fit: cover;
-				transition: 0.5s;
+				transition: 0.3s;
 			}
 			.photo_name {
 				font-size: 1.2rem;
@@ -412,7 +422,7 @@
 				opacity: 0.8;
 				color: #fff;
 				background-color: #222;
-				transition: opacity 0.2s ease;
+				transition: opacity 0.3s ease;
 			}
 
 			/* @r Markers 
@@ -492,7 +502,7 @@
 	</head>
 
 	<body>
-		<!-- @p HTML 
+		<!-- @p > HTML 
   -->
 		<!-- @p Header
   	-->
@@ -503,21 +513,23 @@
 		<div class="header_bars">
 			<i class="fa-solid fa-bars"></i>
 		</div>
+		<!-- View -->
+		<div class="header_view hide">
+			<select class="header_select" id="view"></select>
+		</div>
+		<!-- Distance -->
+		<div class="header_distance hide"></div>
 
 		<div class="header hide">
-			<!-- View -->
-			<div class="header_view">
-				<select class="header_select" id="view"></select>
+			<!-- Category -->
+			<div class="header_pair">
+				<label class="header_label" for="category">Foto:</label>
+				<select class="header_select" id="category"></select>
 			</div>
 			<!-- Activity -->
 			<div class="header_pair">
 				<label class="header_label" for="activity">Trasy:</label>
 				<select class="header_select" id="activity"></select>
-			</div>
-			<!-- Category -->
-			<div class="header_pair">
-				<label class="header_label" for="category">Zdjęcia:</label>
-				<select class="header_select" id="category"></select>
 			</div>
 			<!-- Date -->
 			<div class="header_pair">
@@ -539,17 +551,15 @@
 				<label class="header_label" for="city">Miejsce:</label>
 				<select class="header_select" id="city"></select>
 			</div>
-			<!-- Distance -->
-			<div class="header_distance">Dystans</div>
 		</div>
 
 		<!-- @p Gallery
-  -->
+  	-->
 		<div class="gallery none"></div>
 		<div class="gallery_background none"></div>
 
 		<!-- @p Photo 
-  -->
+ 		-->
 		<div class="photo none">
 			<!-- arrow play -->
 			<div class="photo_arrow photo_play">
@@ -581,13 +591,13 @@
 		</div>
 
 		<!-- @p Map 
-  -->
+  	-->
 		<div class="map" id="map"></div>
 
 		<script>
-			// @g SCRIPTS
+			// @g > SCRIPTS
 
-			// @g ENUMS
+			// @g Enums
 			const enums = {
 				ALL: 'all',
 				NONE: 'none',
@@ -623,7 +633,6 @@
 				transport_car: '🚗 Samochód',
 				cycling: '🚴 Rower',
 				walking: '🚶 Spacer',
-				hiking: '🥾 Wędrówka',
 				downhill_skiing: '🎿 Narty',
 				transport_public: '🚌 Autokar',
 				transport_train: '🚆 Pociąg',
@@ -639,7 +648,7 @@
 			const startCity = 'KRAKÓW'
 			const mapActive = true
 
-			// @g GLOBAL
+			// @g Global
 			let $map // leaflet map
 			let $distanceControl = null // distance control
 			let $activityControl = null // activity control
@@ -669,12 +678,13 @@
 			let $interval // interval for presentation
 			let $index = 0 // index of photo
 
-			// @g HANDLES
+			// @g Handles
 			//
 			const $root = document.querySelector('html')
 			// header
 			const $headerDiv = document.querySelector('.header')
 			const $headerEmblem = document.querySelector('.header_emblem')
+			const $headerView = document.querySelector('.header_view')
 			const $headerDistance = document.querySelector('.header_distance')
 			const $headerBars = document.querySelector('.header_bars')
 			// gallery
@@ -700,7 +710,7 @@
 			// mobile
 			const $isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
 
-			// @g LISTENERS
+			// @g Listeners
 			//
 			// window
 			window.addEventListener('load', main)
@@ -739,9 +749,9 @@
 			$photoPrevious.addEventListener('click', showPreviousPhoto)
 			$photoNext.addEventListener('click', showNextPhoto)
 
-			// @g GENERAL
+			// @g General
 			//
-			// @b MAIN
+			// @b Main
 			function main() {
 				console.log(data)
 				// console.log(mapRegions(data[$selectRange.value]))
@@ -904,7 +914,7 @@
 				$root.style.setProperty('--marginTop', `${headerHeight}px`)
 			}
 
-			// @g DATA
+			// @g Data
 			//
 			// @b prepare data
 			function prepareData() {
@@ -1092,12 +1102,14 @@
 				console.log($filteredData)
 			}
 
-			// @g HEADER
+			// @g Header
 
 			// @b show hide menu
 			function showHideMenu() {
 				console.log('showHideMenu()')
 				$headerDiv.classList.toggle('hide')
+				$headerDistance.classList.toggle('hide')
+				$headerView.classList.toggle('hide')
 				$photoGroup.classList.toggle('top')
 				$photoImage.classList.toggle('top')
 				$gallery.classList.toggle('top')
@@ -1333,7 +1345,7 @@
 				updateData()
 			}
 
-			// @g GALLERY
+			// @g Gallery
 
 			// @b prepare gallery
 			function prepareGallery() {
@@ -1555,7 +1567,7 @@
 				}, 400)
 			}
 
-			// @g MAP
+			// @g Map
 
 			// @b prepare map
 			function prepareMap() {
@@ -1628,7 +1640,7 @@
 				}
 			}
 
-			// @g MARKERS
+			// @g Markers
 
 			// @b prepare markers
 			function prepareMarkers() {
@@ -1742,7 +1754,7 @@
 				return [size * 0.5, size * 0.5]
 			}
 
-			// @g ROUTES
+			// @g Routes
 
 			// @b prepare routes
 			function prepareRoutes() {
@@ -1960,7 +1972,7 @@
 				$headerDistance.textContent = `${distanceFormatted} km`
 			}
 
-			// @g TOOLS
+			// @g Tools
 
 			// @b find range
 			function findRange(city) {
