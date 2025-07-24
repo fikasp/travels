@@ -65,7 +65,7 @@
 			}
 
 			/* @r Header 
-    */
+    	*/
 			.header {
 				z-index: 2000;
 				background-color: black;
@@ -162,46 +162,58 @@
 				right: 0px;
 			}
 
-			.header_view {
+			/* @r Footer 
+    	*/
+			.footer {
 				z-index: 3000;
 				position: fixed;
-				bottom: 10px;
-				left: 10px;
-			}
-			.header_view.hide {
-				display: none;
-			}
-
-			.header_view select {
-				text-align: center;
-				background: rgba(0, 0, 0, 0.4);
-				box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+				bottom: 0px;
+				left: 0px;
+				width: 100vw;
+				background: transparent;
+				transition: transform 0.3s ease-out;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 				backdrop-filter: blur(5px);
+			}
+			.footer.hide {
+				transform: translateY(+120%);
+			}
+			.footer_view select {
 				border: none;
 				padding: 6px;
-				border-radius: 2px;
-				width: 128px;
-			}
-			.header_view select option {
-				background: rgba(0, 0, 0, 0.5);
-			}
-
-			.header_distance {
-				z-index: 100;
-				background: rgba(0, 0, 0, 0.4);
-				box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
-				backdrop-filter: blur(5px);
-				font-size: 13px;
-				border-radius: 2px;
-				padding: 7px 10px;
 				text-align: center;
-				position: fixed;
-				width: 128px;
-				bottom: 10px;
-				right: 10px;
+				background: transparent;
+				font-family: verdana;
+				font-size: 13px;
+				color: black;
 			}
-			.header_distance.hide {
-				display: none;
+			.footer_view select option {
+				background: lightgray;
+				color: black;
+			}
+			.footer_copyright {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				text-align: center;
+				pointer-events: none;
+				color: black;
+			}
+			@media (max-width: 600px) {
+				.footer_copyright {
+					display: none;
+				}
+			}
+			.footer_distance {
+				position: absolute;
+				bottom: 0px;
+				right: 0px;
+				padding: 7px 10px;
+				background: transparent;
+				color: black;
+				text-align: center;
+				font-size: 13px;
 			}
 
 			/* @r Gallery 
@@ -520,12 +532,6 @@
 		<div class="header_bars">
 			<i class="fa-solid fa-bars"></i>
 		</div>
-		<!-- View -->
-		<div class="header_view hide">
-			<select class="header_select" id="view"></select>
-		</div>
-		<!-- Distance -->
-		<div class="header_distance hide"></div>
 
 		<div class="header hide">
 			<!-- Category -->
@@ -558,6 +564,19 @@
 				<label class="header_label" for="city">Miejsce:</label>
 				<select class="header_select" id="city"></select>
 			</div>
+		</div>
+
+		<!-- @p Footer
+  	-->
+		<div class="footer hide">
+			<!-- View -->
+			<div class="footer_view">
+				<select class="footer_select" id="view"></select>
+			</div>
+			<!-- Distance -->
+			<div class="footer_copyright">2025 © Przemysław Fikas</div>
+			<!-- Distance -->
+			<div class="footer_distance"></div>
 		</div>
 
 		<!-- @p Gallery
@@ -691,9 +710,11 @@
 			// header
 			const $headerDiv = document.querySelector('.header')
 			const $headerEmblem = document.querySelector('.header_emblem')
-			const $headerView = document.querySelector('.header_view')
-			const $headerDistance = document.querySelector('.header_distance')
 			const $headerBars = document.querySelector('.header_bars')
+			// footer
+			const $footerDiv = document.querySelector('.footer')
+			const $footerDistance = document.querySelector('.footer_distance')
+			const $footerView = document.querySelector('.footer_view')
 			// gallery
 			const $gallery = document.querySelector('.gallery')
 			const $galleryBackground = document.querySelector('.gallery_background')
@@ -1126,8 +1147,7 @@
 				}
 
 				$headerDiv.classList.toggle('hide')
-				$headerDistance.classList.toggle('hide')
-				$headerView.classList.toggle('hide')
+				$footerDiv.classList.toggle('hide')
 				$photoGroup.classList.toggle('top')
 				$photoImage.classList.toggle('top')
 				$gallery.classList.toggle('top')
@@ -2007,7 +2027,7 @@
 					minimumFractionDigits: 0,
 					maximumFractionDigits: 0,
 				})
-				$headerDistance.textContent = `${distanceFormatted} km`
+				$footerDistance.textContent = `${distanceFormatted} km`
 			}
 
 			// @g Tools
