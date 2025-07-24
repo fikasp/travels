@@ -1101,22 +1101,6 @@ const data = {
           },
           {
             catg: "S",
-            name: "Bazylika św. Stanisława i św. Wacława (Wawel) [Stare Miasto]/Zewnętrze",
-            scale: 1.0,
-            coor: [
-              50.0546555,
-              19.9354514
-            ],
-            date: [
-              2018,
-              2020,
-              2021,
-              2023
-            ],
-            "top": true
-          },
-          {
-            catg: "S",
             name: "Bazylika Świętej Trójcy (Dominikanów) [Stare Miasto]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -1638,19 +1622,6 @@ const data = {
           },
           {
             catg: "S",
-            name: "Kościół św. Bartłomieja (Cystersów) [Mogiła]/Zewnętrze",
-            scale: 1.0,
-            coor: [
-              50.0656707,
-              20.0517601
-            ],
-            date: [
-              2023
-            ],
-            "top": true
-          },
-          {
-            catg: "S",
             name: "Kościół św. Franciszka z Asyżu (Reformatów) [Bronowice]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -1761,18 +1732,6 @@ const data = {
             date: [
               2020,
               2021
-            ]
-          },
-          {
-            catg: "S",
-            name: "Kościół św. Jana Chrzciciela [Krzesławice]/Zewnętrze",
-            scale: 1.0,
-            coor: [
-              50.080947,
-              20.0560302
-            ],
-            date: [
-              2023
             ]
           },
           {
@@ -1986,31 +1945,6 @@ const data = {
           },
           {
             catg: "S",
-            name: "Kościół św. Kazimierza Królewicza (Reformatów) [Stare Miasto]/Zewnętrze",
-            scale: 1.0,
-            coor: [
-              50.0648736,
-              19.936232
-            ],
-            date: [
-              2020
-            ],
-            "top": true
-          },
-          {
-            catg: "S",
-            name: "Kościół św. Kazimierza Królewicza (Reformatów) [Stare Miasto]/Wnętrze",
-            scale: 1.0,
-            coor: [
-              50.0648736,
-              19.936232
-            ],
-            date: [
-              2020
-            ]
-          },
-          {
-            catg: "S",
             name: "Kościół św. Marka [Stare Miasto]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -2044,31 +1978,6 @@ const data = {
             ],
             date: [
               2024
-            ]
-          },
-          {
-            catg: "S",
-            name: "Kościół św. Mikołaja z Tolentino (Augustianów) [Bieżanów]/Zewnętrze",
-            scale: 1.0,
-            coor: [
-              50.0185392,
-              19.9941355
-            ],
-            date: [
-              2021
-            ],
-            "top": true
-          },
-          {
-            catg: "S",
-            name: "Kościół św. Mikołaja z Tolentino (Augustianów) [Bieżanów]/Wnętrze",
-            scale: 1.0,
-            coor: [
-              50.0185392,
-              19.9941355
-            ],
-            date: [
-              2021
             ]
           },
           {
