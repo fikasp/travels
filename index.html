@@ -1108,6 +1108,17 @@
 			// @b show hide menu
 			function showHideMenu() {
 				console.log('showHideMenu()')
+				if ($isMobile) {
+					const el = document.documentElement
+					if (el.requestFullscreen) {
+						el.requestFullscreen()
+					} else if (el.webkitRequestFullscreen) {
+						el.webkitRequestFullscreen()
+					} else if (el.msRequestFullscreen) {
+						el.msRequestFullscreen()
+					}
+				}
+
 				$headerDiv.classList.toggle('hide')
 				$headerDistance.classList.toggle('hide')
 				$headerView.classList.toggle('hide')
