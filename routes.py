@@ -6,13 +6,13 @@ import subprocess
 import gpxpy
 
 
-# @r CONFIG
+# @g CONFIG
 TOLERANCE = 0.0001
-APPEND_MODE = True
-ROADS_MODE = True
+APPEND_MODE = False
+ROADS_MODE = False
 YEAR = 0 # 0 if all
 
-# @p Setup paths
+# @b Setup paths
 script_dir = Path(__file__).parent.resolve()
 
 if ROADS_MODE:
@@ -24,21 +24,18 @@ else:
 
 output_file = script_dir / "routes.js"
 
-# @p Activities
+# @b Activities
 activities = {
-    "walking": "🚶",
-    "hiking": "🥾",
-    "cycling": "🚴",
-    "downhill_skiing": "🎿",
-    "transport_car": "🚗",
-    "transport_public": "🚌",
-    "transport_train": "🚆",
-    "europe_transport_public": "🚌",
-    "europe_transport_boat": "🚢",
-    "europe_walking": "🚶",
+    'transport_car': '🚗',
+    'cycling': '🚴',
+    'walking': '🚶',
+    'hiking': '🥾',
+    'downhill_skiing': '🎿',
+    'transport_public': '🚌',
+    'transport_train': '🚆',
 }
 
-# @r FUNCTIONS
+# @g FUNCTIONS
 
 # @b Get name
 def get_name(gpx):
@@ -90,35 +87,13 @@ def get_activity(gpx):
     return None
 
 # @b Get activity icon
-def get_activity_icon(activity: str) -> str:
+def get_activity_icon(activity):
     if not activity:
         return "❓"
     return activities.get(activity.lower(), "❓")
 
-# @b Extract data from GPX file
-def extract_data(gpx_path):
-    try:
-        with gpx_path.open('r', encoding='utf-8') as f:
-            gpx = gpxpy.parse(f)
-            name = get_name(gpx)
-            segments = get_segments(gpx)
-            activity = get_activity(gpx)
-            range_ = get_range(activity, ROADS_MODE)
 
-            if not segments:
-                return []
-            if len(segments) == 1:
-                # Return single segment with plain name
-                return [(name, range_, activity, segments[0])]
-            else:
-                # Return multiple segments with numbered names
-                return [(f"{name} {i+1}/{len(segments)}", range_, activity, seg) for i, seg in enumerate(segments)]
-    except Exception as e:
-        print(f"❌ Error parsing {gpx_path}: {e}")
-        return []
-
-
-# @b Calculate distance between two points
+# @b Calculate distance between points
 def calculate_distance(lon1, lat1, lon2, lat2):
     R = 6371.0
     phi1 = math.radians(lat1)
@@ -145,16 +120,50 @@ def calculate_total_length(coords):
     return total
 
 
+# @b Extract data from GPX file
+def extract_data(gpx_path):
+    try:
+        with gpx_path.open('r', encoding='utf-8') as f:
+            gpx = gpxpy.parse(f)
+            name = get_name(gpx)
+            segments = get_segments(gpx)
+            activity = get_activity(gpx)
+            range_ = get_range(activity, ROADS_MODE)
+
+            if activity and activity.startswith("europe_"):
+                activity = activity[len("europe_"):]
+
+            if not segments:
+                return []
+            if len(segments) == 1:
+                # Return single segment with plain name
+                return [(name, range_, activity, segments[0])]
+            else:
+                # Return multiple segments with numbered names
+                return [(f"{name} {i+1}/{len(segments)}", range_, activity, seg) for i, seg in enumerate(segments)]
+    except Exception as e:
+        print(f"❌ Error parsing {gpx_path}: {e}")
+        return []
+
+
 # @b Format data into JS object
 def format_route_entry(name, icon, range_, activity, length, coords):
-    lines = [f"  {{ name: '{name}', icon: '{icon}', range: '{range_}', activity: '{activity}', length: {length:.2f}, coords: ["]
+    lines = [
+        "  {",
+        f"    name: '{name}',",
+        f"    range: '{range_}',",
+        f"    activity: '{activity}',",
+        f"    icon: '{icon}',",
+        f"    length: {length:.2f},",
+        "    coords: ["
+    ]
     for item in coords:
         if item is None:
             continue
-        else:
-            lon, lat = item
-            lines.append(f"    [{lat:.7f}, {lon:.7f}],")
-    lines.append("  ] },")
+        lon, lat = item
+        lines.append(f"      [{lat:.7f}, {lon:.7f}],")
+    lines.append("    ]")
+    lines.append("  },")
     return "\n".join(lines)
 
 
@@ -166,14 +175,14 @@ def set_file_hidden(filepath, hide=True):
         print(f"⚠️ Couldn't {'hide' if hide else 'unhide'} file: {e}")
 
 
-# @r MAIN PROCESSING
+# @g MAIN PROCESSING
 
 # Unhide output file before writing
 set_file_hidden(output_file, hide=False)  
 
 new_entries = []
 
-# @p Extract and format data
+# @b Extract and format data
 for gpx_file in base_folder.rglob('*.gpx'):
     extracted = extract_data(gpx_file)
     for name, range_, activity, coords in extracted:
@@ -181,24 +190,24 @@ for gpx_file in base_folder.rglob('*.gpx'):
         length = calculate_total_length(coords)
     
         if range_ == "POLSKA":
-            print(f"✅ 🇵🇱 {icon} {name} -> {activity}")
+            print(f"✅ 🇵🇱 {icon} {name}")
         elif range_ == "EUROPA":
-            print(f"✅ 🇪🇺 {icon} {name} -> {activity}")
+            print(f"✅ 🇪🇺 {icon} {name}")
         elif range_ == "GÓRY":
-            print(f"✅ 🇬🇾 {icon} {name} -> {activity}")
+            print(f"✅ 🇬🇾 {icon} {name}")
         elif range_ == "DROGI":
             print(f"✅ 🇩🇬 {name} ")
         else:
-            print(f"🟥❌ {icon} {name} -> {range_} -> {activity} ")
+            print(f"🟥❌ {icon} {name} -> {range_}")
 
         new_entries.append(format_route_entry(name, icon, range_, activity, length, coords))
 
 
-# @p Write data to JS file
+# @b Write data to JS file
 if not new_entries:
     print("⚠️ No routes found.")
 else:
-    if APPEND_MODE and output_file.exists():
+    if (APPEND_MODE or ROADS_MODE) and output_file.exists():
         # Append mode
         with output_file.open('r+', encoding='utf-8') as f:
             content = f.read().rstrip()
@@ -223,4 +232,4 @@ else:
 set_file_hidden(output_file)  
 
 # Summary
-print(f"🏆 {'Appended' if APPEND_MODE else 'Wrote'} {len(new_entries)} routes!")
+print(f"🏆 {'Appended' if (APPEND_MODE or ROADS_MODE) else 'Wrote'} {len(new_entries)} routes!")

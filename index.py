@@ -10,43 +10,12 @@ sheet_name = 'Zestawienie'
 file_path = 'b:\\Prywatne\\Wycieczki\\Travels.xlsx'
 df = pd.read_excel(file_path, sheet_name=sheet_name, dtype=str)
 
-# Define categories and ranges
-const_definitions = """
-const cat = {
-  none: "Brak",
-  all: "Wszystkie",
-  profil: "Profilowe",
-  O: "Ogólne",
-  S: "Sakralne",
-  H: "Historyczne", 
-  N: "Nowoczesne",
-  G: "Gastronomiczne",
-  Z: "Zielone", 
-}
-const ranges = {
-  mountains: "GÓRY",
-  poland: "POLSKA",
-  world: "EUROPA",
-  roads: "DROGI",
-}
-const startCity = "KRAKÓW"
-const mapActive = true
-"""
-
-# Category and ranges mapping
-def get_reverse_map(source, obj_name):
-    body = re.search(rf'{obj_name}\s*=\s*\{{(.*?)\}}', source, re.DOTALL).group(1)
-    return {v: f"{obj_name}.{k}" for k, v in re.findall(r'(\w+):\s*"([^"]+)"', body)}
-
-category_map = get_reverse_map(const_definitions, "cat")
-ranges_map = get_reverse_map(const_definitions, "ranges")
-
 # Initialize data structure
 output = {
-    ranges_map["DROGI"]: {},
-    ranges_map["POLSKA"]: {}, 
-    ranges_map["EUROPA"]: {}, 
-    ranges_map["GÓRY"]: {}, 
+    "DROGI": {},
+    "POLSKA": {}, 
+    "EUROPA": {}, 
+    "GÓRY": {}, 
     }
 
 # Track the last processed range and region
@@ -61,7 +30,7 @@ for _, row in df.iterrows():
         continue
     
     # Determine the target range
-    range = ranges_map.get(range_raw.strip(), None)
+    range = range_raw.strip()
     if not range:
         continue
 
@@ -102,9 +71,8 @@ for _, row in df.iterrows():
 
     # Add gallery data
     if pd.notna(description):
-        catg = category_map.get(category, "cat.general")
         gallery_item = {
-            "catg": catg, 
+            "catg": category, 
             "name": description,
             "scale": scale, 
             "coor": coor, 
@@ -126,7 +94,7 @@ if last_region:
     print(f"✅ {last_range}/{last_region}")
 
 # Convert to JavaScript
-js_output = const_definitions + "\nconst data = " + json.dumps(output, indent=2, ensure_ascii=False)
+js_output = "const data = " + json.dumps(output, indent=2, ensure_ascii=False)
 js_output = js_output.replace('"catg"', 'catg')
 js_output = js_output.replace('"coor"', 'coor')
 js_output = js_output.replace('"date"', 'date')
@@ -135,12 +103,6 @@ js_output = js_output.replace('"gallery"', 'gallery')
 js_output = js_output.replace('"scale"', 'scale')
 js_output = js_output.replace('"zoom"', 'zoom')
 
-# Replace category and range values
-for key in category_map.values():
-    js_output = js_output.replace(f'"{key}"', key)
-
-for key in ranges_map.values():
-    js_output = js_output.replace(f'"{key}"', f'[{key}]')
 
 # Output file path
 outputPath = "index.js"

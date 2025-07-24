@@ -1,26 +1,5 @@
-
-const cat = {
-  none: "Brak",
-  all: "Wszystkie",
-  profil: "Profilowe",
-  O: "Ogólne",
-  S: "Sakralne",
-  H: "Historyczne", 
-  N: "Nowoczesne",
-  G: "Gastronomiczne",
-  Z: "Zielone", 
-}
-const ranges = {
-  mountains: "GÓRY",
-  poland: "POLSKA",
-  world: "EUROPA",
-  roads: "DROGI",
-}
-const startCity = "KRAKÓW"
-const mapActive = true
-
 const data = {
-  [ranges.roads]: {
+  "DROGI": {
     "Drogi ekspresowe": {
       coor: [
         52.2159333,
@@ -240,7 +219,7 @@ const data = {
       }
     }
   },
-  [ranges.poland]: {
+  "POLSKA": {
     "Dolnośląskie": {
       coor: [
         50.6790568,
@@ -248,7 +227,6 @@ const data = {
       ],
       zoom: 10,
       "WROCŁAW": {
-        "abbr": "DW",
         coor: [
           51.1097396,
           17.0308739
@@ -261,7 +239,6 @@ const data = {
         gallery: []
       },
       "Boguszów-Gorce": {
-        "abbr": "DBA",
         coor: [
           50.7565667,
           16.2048125
@@ -274,7 +251,6 @@ const data = {
         gallery: []
       },
       "Bystrzyca Kłodzka": {
-        "abbr": "DKLB",
         coor: [
           50.2967487,
           16.6517651
@@ -287,7 +263,6 @@ const data = {
         gallery: []
       },
       "GŁOGÓW": {
-        "abbr": "DGL",
         coor: [
           51.6666198,
           16.090529
@@ -300,7 +275,6 @@ const data = {
         gallery: []
       },
       "JELENIA GÓRA": {
-        "abbr": "DJ",
         coor: [
           50.9030531,
           15.7340312
@@ -313,7 +287,6 @@ const data = {
         gallery: []
       },
       "Kamienna Góra": {
-        "abbr": "DKA",
         coor: [
           50.7823816,
           16.0309142
@@ -326,7 +299,6 @@ const data = {
         gallery: []
       },
       "Karpacz": {
-        "abbr": "DJEK",
         coor: [
           50.7773819,
           15.7237262
@@ -339,7 +311,6 @@ const data = {
         gallery: []
       },
       "Kłodzko": {
-        "abbr": "DKL",
         coor: [
           50.4379715,
           16.655665
@@ -352,7 +323,6 @@ const data = {
         gallery: []
       },
       "Kowary": {
-        "abbr": "DJEW",
         coor: [
           50.7932678,
           15.8354831
@@ -365,7 +335,6 @@ const data = {
         gallery: []
       },
       "Międzylesie": {
-        "abbr": "DKLM",
         coor: [
           50.1477083,
           16.666882
@@ -378,7 +347,6 @@ const data = {
         gallery: []
       },
       "Nowa Ruda": {
-        "abbr": "DKLN",
         coor: [
           50.5791592,
           16.5013146
@@ -391,7 +359,6 @@ const data = {
         gallery: []
       },
       "LEGNICA": {
-        "abbr": "DL",
         coor: [
           51.2073136,
           16.1621386
@@ -404,7 +371,6 @@ const data = {
         gallery: []
       },
       "LUBIN": {
-        "abbr": "DLU",
         coor: [
           51.3967992,
           16.2055743
@@ -417,7 +383,6 @@ const data = {
         gallery: []
       },
       "Polanica-Zdrój": {
-        "abbr": "DKLP",
         coor: [
           50.4088526,
           16.5095383
@@ -430,7 +395,6 @@ const data = {
         gallery: []
       },
       "ŚWIDNICA": {
-        "abbr": "DSW",
         coor: [
           50.8461368,
           16.4916909
@@ -443,7 +407,6 @@ const data = {
         gallery: []
       },
       "WAŁBRZYCH": {
-        "abbr": "DB",
         coor: [
           50.7674894,
           16.2820655
@@ -456,7 +419,6 @@ const data = {
         gallery: []
       },
       "Złoty Stok": {
-        "abbr": "DZAZ",
         coor: [
           50.4397516,
           16.8746245
@@ -476,7 +438,6 @@ const data = {
       ],
       zoom: 10,
       "BYDGOSZCZ": {
-        "abbr": "CB",
         coor: [
           53.1233574,
           18.0013615
@@ -489,7 +450,6 @@ const data = {
         gallery: []
       },
       "TORUŃ": {
-        "abbr": "CT",
         coor: [
           53.0095483,
           18.6104429
@@ -502,7 +462,6 @@ const data = {
         gallery: []
       },
       "GRUDZIĄDZ": {
-        "abbr": "CG",
         coor: [
           53.4935701,
           18.747831
@@ -515,7 +474,6 @@ const data = {
         gallery: []
       },
       "INOWROCŁAW": {
-        "abbr": "CIN",
         coor: [
           52.7951946,
           18.2595992
@@ -528,7 +486,6 @@ const data = {
         gallery: []
       },
       "Sępólno Krajeńskie": {
-        "abbr": "CSE",
         coor: [
           53.4554066,
           17.5347108
@@ -541,7 +498,6 @@ const data = {
         gallery: []
       },
       "WŁOCŁAWEK": {
-        "abbr": "CW",
         coor: [
           52.6606435,
           19.0681672
@@ -561,7 +517,6 @@ const data = {
       ],
       zoom: 10,
       "LUBLIN": {
-        "abbr": "LU",
         coor: [
           51.2475789,
           22.5657356
@@ -574,7 +529,6 @@ const data = {
         gallery: []
       },
       "BIAŁA PODLASKA": {
-        "abbr": "LB",
         coor: [
           52.0309013,
           23.1142151
@@ -587,7 +541,6 @@ const data = {
         gallery: []
       },
       "CHEŁM": {
-        "abbr": "LC",
         coor: [
           51.1315385,
           23.4799933
@@ -600,7 +553,6 @@ const data = {
         gallery: []
       },
       "Kazimierz Dolny": {
-        "abbr": "LPUK",
         coor: [
           51.3218894,
           21.9503617
@@ -613,7 +565,6 @@ const data = {
         gallery: []
       },
       "PUŁAWY": {
-        "abbr": "LPU",
         coor: [
           51.412775,
           21.9602054
@@ -626,7 +577,6 @@ const data = {
         gallery: []
       },
       "Szczebrzeszyn": {
-        "abbr": "LZA",
         coor: [
           50.6948266,
           22.9788119
@@ -639,7 +589,6 @@ const data = {
         gallery: []
       },
       "ZAMOŚĆ": {
-        "abbr": "LZ",
         coor: [
           50.7172928,
           23.2524347
@@ -659,7 +608,6 @@ const data = {
       ],
       zoom: 10,
       "ZIELONA GÓRA": {
-        "abbr": "FZ",
         coor: [
           51.9380279,
           15.5050135
@@ -672,7 +620,6 @@ const data = {
         gallery: []
       },
       "GORZÓW WIELKOPOLSKI": {
-        "abbr": "FG",
         coor: [
           52.7311074,
           15.2403492
@@ -692,7 +639,6 @@ const data = {
       ],
       zoom: 10,
       "ŁÓDŹ": {
-        "abbr": "EL",
         coor: [
           51.7438847,
           19.4623232
@@ -705,7 +651,6 @@ const data = {
         gallery: []
       },
       "BEŁCHATÓW": {
-        "abbr": "EBE",
         coor: [
           51.3668774,
           19.3714821
@@ -718,7 +663,6 @@ const data = {
         gallery: []
       },
       "Kutno": {
-        "abbr": "EKU",
         coor: [
           52.2314367,
           19.3613917
@@ -731,7 +675,6 @@ const data = {
         gallery: []
       },
       "Opoczno": {
-        "abbr": "EOP",
         coor: [
           51.3754472,
           20.2890015
@@ -744,7 +687,6 @@ const data = {
         gallery: []
       },
       "PABIANICE": {
-        "abbr": "EPA",
         coor: [
           51.6649495,
           19.3476748
@@ -757,7 +699,6 @@ const data = {
         gallery: []
       },
       "PIOTRKÓW TRYBUNALSKI": {
-        "abbr": "EP",
         coor: [
           51.4082713,
           19.6959597
@@ -770,7 +711,6 @@ const data = {
         gallery: []
       },
       "RADOMSKO": {
-        "abbr": "ERA",
         coor: [
           51.0673851,
           19.444288
@@ -783,7 +723,6 @@ const data = {
         gallery: []
       },
       "Sieradz": {
-        "abbr": "ESI",
         coor: [
           51.5945219,
           18.7380946
@@ -796,7 +735,6 @@ const data = {
         gallery: []
       },
       "SKIERNIEWICE": {
-        "abbr": "ES",
         coor: [
           51.9614667,
           20.1421183
@@ -809,7 +747,6 @@ const data = {
         gallery: []
       },
       "TOMASZÓW MAZOWIECKI": {
-        "abbr": "ETM",
         coor: [
           51.5307598,
           20.0126803
@@ -822,7 +759,6 @@ const data = {
         gallery: []
       },
       "ZGIERZ": {
-        "abbr": "EZG",
         coor: [
           51.8563376,
           19.405176
@@ -842,7 +778,6 @@ const data = {
       ],
       zoom: 10,
       "KRAKÓW": {
-        "abbr": "KR",
         coor: [
           50.0616779,
           19.9373317
@@ -854,7 +789,7 @@ const data = {
         scale: 2.5,
         gallery: [
           {
-            catg: cat.G,
+            catg: "G",
             name: "Babcia Malina",
             scale: 1.0,
             coor: [
@@ -871,7 +806,7 @@ const data = {
             ]
           },
           {
-            catg: cat.G,
+            catg: "G",
             name: "Camelot",
             scale: 1.0,
             coor: [
@@ -883,7 +818,7 @@ const data = {
             ]
           },
           {
-            catg: cat.G,
+            catg: "G",
             name: "Chata",
             scale: 1.0,
             coor: [
@@ -898,7 +833,7 @@ const data = {
             ]
           },
           {
-            catg: cat.G,
+            catg: "G",
             name: "Cyklop",
             scale: 1.0,
             coor: [
@@ -910,7 +845,7 @@ const data = {
             ]
           },
           {
-            catg: cat.G,
+            catg: "G",
             name: "Dziórawy Kocioł",
             scale: 1.0,
             coor: [
@@ -925,7 +860,7 @@ const data = {
             ]
           },
           {
-            catg: cat.G,
+            catg: "G",
             name: "Gruzińskie Chaczapuri",
             scale: 1.0,
             coor: [
@@ -937,7 +872,7 @@ const data = {
             ]
           },
           {
-            catg: cat.G,
+            catg: "G",
             name: "Hoang Hai",
             scale: 1.0,
             coor: [
@@ -949,7 +884,7 @@ const data = {
             ]
           },
           {
-            catg: cat.G,
+            catg: "G",
             name: "Ministerstwo",
             scale: 1.0,
             coor: [
@@ -962,7 +897,7 @@ const data = {
             ]
           },
           {
-            catg: cat.G,
+            catg: "G",
             name: "Pod Wawelem",
             scale: 1.0,
             coor: [
@@ -974,7 +909,7 @@ const data = {
             ]
           },
           {
-            catg: cat.G,
+            catg: "G",
             name: "Taco Mexicano",
             scale: 1.0,
             coor: [
@@ -988,7 +923,7 @@ const data = {
             ]
           },
           {
-            catg: cat.G,
+            catg: "G",
             name: "Tratoria Da Marco",
             scale: 1.0,
             coor: [
@@ -1002,7 +937,7 @@ const data = {
             ]
           },
           {
-            catg: cat.G,
+            catg: "G",
             name: "Wierzynek",
             scale: 1.0,
             coor: [
@@ -1014,7 +949,7 @@ const data = {
             ]
           },
           {
-            catg: cat.H,
+            catg: "H",
             name: "Barbakan",
             scale: 1.0,
             coor: [
@@ -1026,7 +961,7 @@ const data = {
             ]
           },
           {
-            catg: cat.H,
+            catg: "H",
             name: "Filharmonia Krakowska",
             scale: 1.0,
             coor: [
@@ -1053,7 +988,7 @@ const data = {
             ]
           },
           {
-            catg: cat.H,
+            catg: "H",
             name: "Kino Kijów",
             scale: 1.0,
             coor: [
@@ -1065,7 +1000,7 @@ const data = {
             ]
           },
           {
-            catg: cat.H,
+            catg: "H",
             name: "Kino pod Baranami",
             scale: 1.0,
             coor: [
@@ -1077,7 +1012,7 @@ const data = {
             ]
           },
           {
-            catg: cat.H,
+            catg: "H",
             name: "Kopiec Jana Pawła II",
             scale: 1.0,
             coor: [
@@ -1087,7 +1022,7 @@ const data = {
             date: []
           },
           {
-            catg: cat.H,
+            catg: "H",
             name: "Kopiec Kościuszki",
             scale: 1.0,
             coor: [
@@ -1099,7 +1034,7 @@ const data = {
             ]
           },
           {
-            catg: cat.H,
+            catg: "H",
             name: "Kopiec Krakusa",
             scale: 1.0,
             coor: [
@@ -1114,7 +1049,7 @@ const data = {
             ]
           },
           {
-            catg: cat.H,
+            catg: "H",
             name: "Kopiec Piłsudskiego",
             scale: 1.0,
             coor: [
@@ -1129,7 +1064,7 @@ const data = {
             ]
           },
           {
-            catg: cat.H,
+            catg: "H",
             name: "Kopiec Wandy",
             scale: 1.0,
             coor: [
@@ -1141,7 +1076,7 @@ const data = {
             ]
           },
           {
-            catg: cat.H,
+            catg: "H",
             name: "Muzeum Farmacji",
             scale: 1.0,
             coor: [
@@ -1153,7 +1088,7 @@ const data = {
             ]
           },
           {
-            catg: cat.H,
+            catg: "H",
             name: "Muzeum Narodowe",
             scale: 1.0,
             coor: [
@@ -1165,7 +1100,7 @@ const data = {
             ]
           },
           {
-            catg: cat.H,
+            catg: "H",
             name: "Smocza Jama",
             scale: 1.0,
             coor: [
@@ -1177,7 +1112,7 @@ const data = {
             ]
           },
           {
-            catg: cat.H,
+            catg: "H",
             name: "Sukiennice",
             scale: 1.0,
             coor: [
@@ -1187,7 +1122,7 @@ const data = {
             date: []
           },
           {
-            catg: cat.H,
+            catg: "H",
             name: "Teatr Bagatela",
             scale: 1.0,
             coor: [
@@ -1201,7 +1136,7 @@ const data = {
             ]
           },
           {
-            catg: cat.H,
+            catg: "H",
             name: "Teatr Słowackiego",
             scale: 1.0,
             coor: [
@@ -1215,7 +1150,7 @@ const data = {
             ]
           },
           {
-            catg: cat.H,
+            catg: "H",
             name: "Teatr Stary",
             scale: 1.0,
             coor: [
@@ -1227,7 +1162,7 @@ const data = {
             ]
           },
           {
-            catg: cat.H,
+            catg: "H",
             name: "Teatr Stu",
             scale: 1.0,
             coor: [
@@ -1240,7 +1175,7 @@ const data = {
             ]
           },
           {
-            catg: cat.N,
+            catg: "N",
             name: "Centrum Kongresowe",
             scale: 1.0,
             coor: [
@@ -1255,7 +1190,7 @@ const data = {
             ]
           },
           {
-            catg: cat.N,
+            catg: "N",
             name: "Muzeum Lotnictwa",
             scale: 1.0,
             coor: [
@@ -1267,7 +1202,7 @@ const data = {
             ]
           },
           {
-            catg: cat.N,
+            catg: "N",
             name: "Opera Krakowska",
             scale: 1.0,
             coor: [
@@ -1284,7 +1219,7 @@ const data = {
             ]
           },
           {
-            catg: cat.N,
+            catg: "N",
             name: "Stadion Cracovia",
             scale: 1.0,
             coor: [
@@ -1296,7 +1231,7 @@ const data = {
             ]
           },
           {
-            catg: cat.N,
+            catg: "N",
             name: "Tauron Arena",
             scale: 1.0,
             coor: [
@@ -1312,7 +1247,7 @@ const data = {
             ]
           },
           {
-            catg: cat.N,
+            catg: "N",
             name: "Teatr Variete",
             scale: 1.0,
             coor: [
@@ -1324,7 +1259,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Bazylika Bożego Ciała [Kazimierz]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -1342,7 +1277,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Bazylika Bożego Ciała [Kazimierz]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -1359,7 +1294,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Bazylika Bożego Ciała [Kazimierz]/Organy",
             scale: 1.0,
             coor: [
@@ -1376,7 +1311,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Bazylika MB Wniebowziętej (Cystersów) [Mogiła]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -1389,7 +1324,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Bazylika MB Wniebowziętej (Cystersów) [Mogiła]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -1401,7 +1336,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Bazylika MB Wniebowziętej (Cystersów) [Mogiła]/Ołtarz",
             scale: 1.0,
             coor: [
@@ -1413,7 +1348,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Bazylika Miłosierdzia Bożego [Łagiewniki]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -1430,7 +1365,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Bazylika Miłosierdzia Bożego [Łagiewniki]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -1446,7 +1381,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Bazylika Miłosierdzia Bożego [Łagiewniki]/Organy",
             scale: 1.0,
             coor: [
@@ -1462,7 +1397,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Bazylika Najświętszego Serca Pana Jezusa (Jezuitów) [Wesoła]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -1485,7 +1420,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Bazylika Najświętszego Serca Pana Jezusa (Jezuitów) [Wesoła]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -1507,7 +1442,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Bazylika Najświętszego Serca Pana Jezusa (Jezuitów) [Wesoła]/Organy",
             scale: 1.0,
             coor: [
@@ -1529,7 +1464,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Bazylika Nawiedzenia NMP (Karmelitów) na Piasku [Piasek]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -1552,7 +1487,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Bazylika Nawiedzenia NMP (Karmelitów) na Piasku [Piasek]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -1574,7 +1509,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Bazylika Nawiedzenia NMP (Karmelitów) na Piasku [Piasek]/Organy",
             scale: 1.0,
             coor: [
@@ -1596,7 +1531,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Bazylika św. Floriana [Kleparz]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -1620,7 +1555,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Bazylika św. Floriana [Kleparz]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -1643,7 +1578,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Bazylika św. Floriana [Kleparz]/Organy",
             scale: 1.0,
             coor: [
@@ -1666,7 +1601,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Bazylika św. Franciszka z Asyżu (Franciszkanów) [Stare Miasto]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -1683,7 +1618,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Bazylika św. Franciszka z Asyżu (Franciszkanów) [Stare Miasto]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -1699,7 +1634,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Bazylika św. Franciszka z Asyżu (Franciszkanów) [Stare Miasto]/Organy",
             scale: 1.0,
             coor: [
@@ -1715,7 +1650,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Bazylika św. Stanisława i św. Wacława (Wawel) [Stare Miasto]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -1731,7 +1666,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Bazylika Świętej Trójcy (Dominikanów) [Stare Miasto]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -1747,7 +1682,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Bazylika Świętej Trójcy (Dominikanów) [Stare Miasto]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -1762,7 +1697,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Bazylika Świętej Trójcy (Dominikanów) [Stare Miasto]/Organy",
             scale: 1.0,
             coor: [
@@ -1777,7 +1712,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Bazylika Wniebowzięcia NMP (Mariacka) [Stare Miasto]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -1799,7 +1734,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Bazylika Wniebowzięcia NMP (Mariacka) [Stare Miasto]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -1820,7 +1755,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Bazylika Wniebowzięcia NMP (Mariacka) [Stare Miasto]/Organy",
             scale: 1.0,
             coor: [
@@ -1841,7 +1776,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół Chrystusa Odkupiciela (Redemptorystów) [Tonie]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -1854,7 +1789,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół Chrystusa Odkupiciela (Redemptorystów) [Tonie]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -1866,7 +1801,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół Chrystusa Odkupiciela (Redemptorystów) [Tonie]/Organy",
             scale: 1.0,
             coor: [
@@ -1878,7 +1813,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół MB Częstochowskiej (Cystersów) [Szklane Domy]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -1891,7 +1826,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół MB Częstochowskiej (Cystersów) [Szklane Domy]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -1903,7 +1838,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół MB Częstochowskiej (Cystersów) [Szklane Domy]/Organy",
             scale: 1.0,
             coor: [
@@ -1915,7 +1850,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół MB Królowej Polski (Arka Pana) [Bieńczyce]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -1930,7 +1865,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół MB Królowej Polski (Arka Pana) [Bieńczyce]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -1944,7 +1879,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół MB Królowej Polski (Arka Pana) [Bieńczyce]/Organy",
             scale: 1.0,
             coor: [
@@ -1958,7 +1893,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół MB Królowej Polski [Wola Justowska]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -1971,7 +1906,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół MB Nieustającej Pomocy [Mydlniki]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -1984,7 +1919,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół MB Nieustającej Pomocy [Mydlniki]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -1996,7 +1931,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół NMP Matki Kościoła [Prądnik Biały]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -2009,7 +1944,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół NMP Matki Kościoła [Prądnik Biały]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -2021,7 +1956,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół NMP Matki Kościoła [Prądnik Biały]/Organy",
             scale: 1.0,
             coor: [
@@ -2033,7 +1968,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół Podwyższenia Krzyża Świętego [Kurdwanów]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -2046,7 +1981,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół Podwyższenia Krzyża Świętego [Kurdwanów]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -2058,7 +1993,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół Podwyższenia Krzyża Świętego [Kurdwanów]/Organy",
             scale: 1.0,
             coor: [
@@ -2070,7 +2005,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół Przemienienia Pańskiego (Pijarów) [Stare Miasto]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -2084,7 +2019,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół Przemienienia Pańskiego (Pijarów) [Stare Miasto]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -2097,7 +2032,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół Przemienienia Pańskiego (Pijarów) [Stare Miasto]/Organy",
             scale: 1.0,
             coor: [
@@ -2110,7 +2045,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Agnieszki [Stradom]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -2123,7 +2058,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Agnieszki [Stradom]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -2135,7 +2070,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Agnieszki [Stradom]/Organy",
             scale: 1.0,
             coor: [
@@ -2147,7 +2082,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Anny [Stare Miasto]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -2171,7 +2106,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Anny [Stare Miasto]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -2193,7 +2128,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Anny [Stare Miasto]/Organy",
             scale: 1.0,
             coor: [
@@ -2215,7 +2150,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Antoniego Padewskiego [Bronowice]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -2228,7 +2163,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Antoniego Padewskiego [Bronowice]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -2240,7 +2175,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Antoniego Padewskiego [Bronowice]/Organy",
             scale: 1.0,
             coor: [
@@ -2252,7 +2187,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Bartłomieja (Cystersów) [Mogiła]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -2265,7 +2200,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Franciszka z Asyżu (Reformatów) [Bronowice]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -2278,7 +2213,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Franciszka z Asyżu (Reformatów) [Bronowice]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -2290,7 +2225,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Franciszka z Asyżu (Reformatów) [Bronowice]/Organy",
             scale: 1.0,
             coor: [
@@ -2302,7 +2237,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Idziego (Dominikanów) [Stare Miasto]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -2315,7 +2250,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Idziego (Dominikanów) [Stare Miasto]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -2327,7 +2262,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Idziego (Dominikanów) [Stare Miasto]/Organy",
             scale: 1.0,
             coor: [
@@ -2339,7 +2274,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Jadwigi Królowej [Krowodrza]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -2353,7 +2288,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Jadwigi Królowej [Krowodrza]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -2366,7 +2301,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Jadwigi Królowej [Krowodrza]/Organy",
             scale: 1.0,
             coor: [
@@ -2379,7 +2314,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Jana Chrzciciela [Krzesławice]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -2391,7 +2326,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Jana Ewangelisty (Prezentek) [Stare Miasto]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -2404,7 +2339,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Jana Ewangelisty (Prezentek) [Stare Miasto]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -2416,7 +2351,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Jana Ewangelisty (Prezentek) [Stare Miasto]/Organy",
             scale: 1.0,
             coor: [
@@ -2428,7 +2363,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Jana Kantego [Bronowice]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -2447,7 +2382,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Jana Kantego [Bronowice]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -2465,7 +2400,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Jana Kantego [Bronowice]/Organy",
             scale: 1.0,
             coor: [
@@ -2483,7 +2418,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Jana Pawła II [Łagiewniki]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -2498,7 +2433,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Jana Pawła II [Łagiewniki]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -2512,7 +2447,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Jana Pawła II [Łagiewniki]/Organy",
             scale: 1.0,
             coor: [
@@ -2526,7 +2461,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Józefa [Bieńczyce]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -2539,7 +2474,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Józefa [Bieńczyce]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -2551,7 +2486,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Józefa [Bieńczyce]/Organy",
             scale: 1.0,
             coor: [
@@ -2563,7 +2498,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Karola Boromeusza [Żabiniec]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -2576,7 +2511,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Karola Boromeusza [Żabiniec]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -2588,7 +2523,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Karola Boromeusza [Żabiniec]/Organy",
             scale: 1.0,
             coor: [
@@ -2600,7 +2535,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Kazimierza Królewicza (Reformatów) [Stare Miasto]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -2613,7 +2548,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Kazimierza Królewicza (Reformatów) [Stare Miasto]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -2625,7 +2560,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Marka [Stare Miasto]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -2638,7 +2573,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Marka [Stare Miasto]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -2650,7 +2585,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Marka [Stare Miasto]/Organy",
             scale: 1.0,
             coor: [
@@ -2662,7 +2597,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Mikołaja z Tolentino (Augustianów) [Bieżanów]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -2675,7 +2610,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Mikołaja z Tolentino (Augustianów) [Bieżanów]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -2687,7 +2622,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Piotra i Pawła [Stare Miasto]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -2702,7 +2637,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Piotra i Pawła [Stare Miasto]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -2716,7 +2651,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Piotra i Pawła [Stare Miasto]/Organy",
             scale: 1.0,
             coor: [
@@ -2730,7 +2665,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Piotra i Pawła (Benedyktynów) [Tyniec]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -2743,7 +2678,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Piotra i Pawła (Benedyktynów) [Tyniec]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -2755,7 +2690,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Piotra i Pawła (Benedyktynów) [Tyniec]/Organy",
             scale: 1.0,
             coor: [
@@ -2767,7 +2702,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Stanisława Biskupa [Dąbie]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -2781,7 +2716,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Stanisława Biskupa [Dąbie]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -2794,7 +2729,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Stanisława Biskupa [Dąbie]/Organy",
             scale: 1.0,
             coor: [
@@ -2807,7 +2742,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Szczepana [Nowa Wieś]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -2830,7 +2765,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Szczepana [Nowa Wieś]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -2852,7 +2787,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Szczepana [Nowa Wieś]/Organy",
             scale: 1.0,
             coor: [
@@ -2874,7 +2809,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Wincentego a Paulo (Misjonarzy) [Kleparz]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -2897,7 +2832,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Wincentego a Paulo (Misjonarzy) [Kleparz]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -2919,7 +2854,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Wincentego a Paulo (Misjonarzy) [Kleparz]/Ołtarz",
             scale: 1.0,
             coor: [
@@ -2941,7 +2876,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Wojciecha [Stare Miasto]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -2954,7 +2889,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Wojciecha [Stare Miasto]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -2966,7 +2901,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół św. Wojciecha [Stare Miasto]/Organy",
             scale: 1.0,
             coor: [
@@ -2978,7 +2913,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół Świętej Trójcy (Bonifratrów) [Kazimierz]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -2991,7 +2926,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół Świętej Trójcy (Bonifratrów) [Kazimierz]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -3003,7 +2938,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół Świętej Trójcy (Bonifratrów) [Kazimierz]/Organy",
             scale: 1.0,
             coor: [
@@ -3015,7 +2950,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół Zesłania Ducha Świętego [Ruczaj]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -3028,7 +2963,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół Zesłania Ducha Świętego [Ruczaj]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -3040,7 +2975,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół Zesłania Ducha Świętego [Ruczaj]/Organy",
             scale: 1.0,
             coor: [
@@ -3052,7 +2987,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół Zmartwychwstania Pańskiego (Zmartwychwstańców) [Piasek]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -3069,7 +3004,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół Zmartwychwstania Pańskiego (Zmartwychwstańców) [Piasek]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -3085,7 +3020,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół Zmartwychwstania Pańskiego (Zmartwychwstańców) [Piasek]/Organy",
             scale: 1.0,
             coor: [
@@ -3101,7 +3036,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół Zwiastowania NMP (Kapucynów) [Piasek]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -3114,7 +3049,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół Zwiastowania NMP (Kapucynów) [Piasek]/Wnętrze",
             scale: 1.0,
             coor: [
@@ -3126,7 +3061,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół Zwiastowania NMP (Kapucynów) [Piasek]/Organy",
             scale: 1.0,
             coor: [
@@ -3138,7 +3073,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Błonia",
             scale: 1.0,
             coor: [
@@ -3151,7 +3086,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Bulwar Czerwieński",
             scale: 1.0,
             coor: [
@@ -3163,7 +3098,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Bulwar Inflandzki",
             scale: 1.0,
             coor: [
@@ -3175,7 +3110,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Bulwar Kurlandzki",
             scale: 1.0,
             coor: [
@@ -3187,7 +3122,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Bulwar Wołyński",
             scale: 1.0,
             coor: [
@@ -3199,7 +3134,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Dolina Prądnika",
             scale: 1.0,
             coor: [
@@ -3211,7 +3146,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Kamieniołom Liban",
             scale: 1.0,
             coor: [
@@ -3223,7 +3158,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Las Wolski",
             scale: 1.0,
             coor: [
@@ -3239,7 +3174,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Lasek Mogilski",
             scale: 1.0,
             coor: [
@@ -3251,7 +3186,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Łąki Nowohuckie",
             scale: 1.0,
             coor: [
@@ -3263,7 +3198,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Młynówka Królewska",
             scale: 1.0,
             coor: [
@@ -3281,7 +3216,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Ogród Botaniczny",
             scale: 1.0,
             coor: [
@@ -3297,7 +3232,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Park Aleksandry",
             scale: 1.0,
             coor: [
@@ -3309,7 +3244,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Park Dąbie",
             scale: 1.0,
             coor: [
@@ -3321,7 +3256,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Park Decjusza",
             scale: 1.0,
             coor: [
@@ -3334,7 +3269,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Park Dębnicki",
             scale: 1.0,
             coor: [
@@ -3346,7 +3281,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Park dworku Matejki",
             scale: 1.0,
             coor: [
@@ -3358,7 +3293,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Park Jalu Kurka",
             scale: 1.0,
             coor: [
@@ -3370,7 +3305,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Park Jerzmanowskich",
             scale: 1.0,
             coor: [
@@ -3382,7 +3317,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Park Jordana",
             scale: 1.0,
             coor: [
@@ -3398,7 +3333,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Park Kleparski",
             scale: 1.0,
             coor: [
@@ -3410,7 +3345,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Park Kościuszki",
             scale: 1.0,
             coor: [
@@ -3422,7 +3357,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Park Krakowski",
             scale: 1.0,
             coor: [
@@ -3436,7 +3371,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Park Krowoderski",
             scale: 1.0,
             coor: [
@@ -3448,7 +3383,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Park Leśny Witkowice",
             scale: 1.0,
             coor: [
@@ -3460,7 +3395,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Park Lilli Wenedy",
             scale: 1.0,
             coor: [
@@ -3472,7 +3407,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Park Lotników Polskich",
             scale: 1.0,
             coor: [
@@ -3484,7 +3419,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Park Reduta",
             scale: 1.0,
             coor: [
@@ -3496,7 +3431,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Park rzeczny Wilgi",
             scale: 1.0,
             coor: [
@@ -3508,7 +3443,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Park Strzelecki",
             scale: 1.0,
             coor: [
@@ -3520,7 +3455,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Park Szymborskiej",
             scale: 1.0,
             coor: [
@@ -3532,7 +3467,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Park Tysiąclecia",
             scale: 1.0,
             coor: [
@@ -3544,7 +3479,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Park Wyspiańskiego",
             scale: 1.0,
             coor: [
@@ -3556,7 +3491,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Park Zaczarowanej Dorożki",
             scale: 1.0,
             coor: [
@@ -3568,7 +3503,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Park Zielony Jar Wandy",
             scale: 1.0,
             coor: [
@@ -3580,7 +3515,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Park Żeromskiego",
             scale: 1.0,
             coor: [
@@ -3592,7 +3527,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Planty",
             scale: 1.0,
             coor: [
@@ -3607,7 +3542,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Planty Bieńczyckie",
             scale: 1.0,
             coor: [
@@ -3619,7 +3554,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Planty Dietlowskie",
             scale: 1.0,
             coor: [
@@ -3631,7 +3566,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Planty Mistrzejowickie",
             scale: 1.0,
             coor: [
@@ -3643,7 +3578,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Planty Nowackiego",
             scale: 1.0,
             coor: [
@@ -3655,7 +3590,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Zakrzówek",
             scale: 1.0,
             coor: [
@@ -3670,7 +3605,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Zalew Bagry",
             scale: 1.0,
             coor: [
@@ -3682,7 +3617,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Zalew Nowohucki",
             scale: 1.0,
             coor: [
@@ -3697,7 +3632,6 @@ const data = {
         ]
       },
       "Alwernia": {
-        "abbr": "KCHA",
         coor: [
           50.0689712,
           19.5393884
@@ -3710,7 +3644,6 @@ const data = {
         gallery: []
       },
       "Andrychów": {
-        "abbr": "KWAA",
         coor: [
           49.8536043,
           19.3442792
@@ -3723,7 +3656,6 @@ const data = {
         gallery: []
       },
       "Biecz": {
-        "abbr": "KGRB",
         coor: [
           49.7300761,
           21.2473333
@@ -3736,7 +3668,6 @@ const data = {
         gallery: []
       },
       "Bobowa": {
-        "abbr": "KGRO",
         coor: [
           49.7081045,
           20.9421676
@@ -3749,7 +3680,6 @@ const data = {
         gallery: []
       },
       "Bochnia": {
-        "abbr": "KBC",
         coor: [
           49.9693102,
           20.4276717
@@ -3762,7 +3692,6 @@ const data = {
         gallery: []
       },
       "Brzesko": {
-        "abbr": "KBR",
         coor: [
           49.9677196,
           20.6068325
@@ -3775,7 +3704,6 @@ const data = {
         gallery: []
       },
       "Brzeszcze": {
-        "abbr": "KOSB",
         coor: [
           49.9847551,
           19.1554356
@@ -3788,7 +3716,6 @@ const data = {
         gallery: []
       },
       "Bukowno": {
-        "abbr": "KOLB",
         coor: [
           50.2669806,
           19.4631708
@@ -3801,7 +3728,6 @@ const data = {
         gallery: []
       },
       "Chełmek": {
-        "abbr": "KOSC",
         coor: [
           50.1047055,
           19.2642313
@@ -3814,7 +3740,6 @@ const data = {
         gallery: []
       },
       "Chrzanów": {
-        "abbr": "KCH",
         coor: [
           50.1426376,
           19.4050956
@@ -3827,7 +3752,6 @@ const data = {
         gallery: []
       },
       "Ciężkowice": {
-        "abbr": "KTAC",
         coor: [
           49.7858188,
           20.9740162
@@ -3840,7 +3764,6 @@ const data = {
         gallery: []
       },
       "Czarny Dunajec": {
-        "abbr": "KNTC",
         coor: [
           49.4400872,
           19.8529923
@@ -3853,7 +3776,6 @@ const data = {
         gallery: []
       },
       "Czchów": {
-        "abbr": "KBRC",
         coor: [
           49.833789,
           20.672965
@@ -3866,7 +3788,6 @@ const data = {
         gallery: []
       },
       "Dąbrowa Tarnowska": {
-        "abbr": "KDA",
         coor: [
           50.175012,
           20.9862202
@@ -3879,7 +3800,6 @@ const data = {
         gallery: []
       },
       "Dobczyce": {
-        "abbr": "KMYD",
         coor: [
           49.8802702,
           20.0903249
@@ -3892,7 +3812,6 @@ const data = {
         gallery: []
       },
       "Gorlice": {
-        "abbr": "KGR",
         coor: [
           49.657638,
           21.1565888
@@ -3905,7 +3824,6 @@ const data = {
         gallery: []
       },
       "Grybów": {
-        "abbr": "KNSG",
         coor: [
           49.6248066,
           20.9447104
@@ -3918,7 +3836,6 @@ const data = {
         gallery: []
       },
       "Jordanów": {
-        "abbr": "KSUJ",
         coor: [
           49.649407,
           19.8296517
@@ -3931,7 +3848,6 @@ const data = {
         gallery: []
       },
       "Kalwaria Zebrzydowska": {
-        "abbr": "KWAK",
         coor: [
           49.8601477,
           19.6728766
@@ -3944,7 +3860,6 @@ const data = {
         gallery: []
       },
       "Kęty": {
-        "abbr": "KOSK",
         coor: [
           49.8833467,
           19.2214608
@@ -3957,7 +3872,6 @@ const data = {
         gallery: []
       },
       "Koszyce": {
-        "abbr": "KPRK",
         coor: [
           50.1665631,
           20.5755901
@@ -3970,7 +3884,6 @@ const data = {
         gallery: []
       },
       "Krynica-Zdrój": {
-        "abbr": "KNSK",
         coor: [
           49.418365,
           20.956437
@@ -3983,7 +3896,6 @@ const data = {
         gallery: []
       },
       "Krzeszowice": {
-        "abbr": "KRAK",
         coor: [
           50.1360535,
           19.6321929
@@ -3996,7 +3908,6 @@ const data = {
         gallery: []
       },
       "Książ Wielki": {
-        "abbr": "KMIK",
         coor: [
           50.4404212,
           20.1488668
@@ -4009,7 +3920,6 @@ const data = {
         gallery: []
       },
       "Libiąż": {
-        "abbr": "KCHL",
         coor: [
           50.099379,
           19.3063098
@@ -4022,7 +3932,6 @@ const data = {
         gallery: []
       },
       "Limanowa": {
-        "abbr": "KLI",
         coor: [
           49.7061409,
           20.4217279
@@ -4035,7 +3944,6 @@ const data = {
         gallery: []
       },
       "Maków Podhalański": {
-        "abbr": "KSUM",
         coor: [
           49.730024,
           19.6770608
@@ -4048,7 +3956,6 @@ const data = {
         gallery: []
       },
       "Miechów": {
-        "abbr": "KMI",
         coor: [
           50.3563385,
           20.0278723
@@ -4061,7 +3968,6 @@ const data = {
         gallery: []
       },
       "Mszana Dolna": {
-        "abbr": "KLIM",
         coor: [
           49.6779385,
           20.0819296
@@ -4074,7 +3980,6 @@ const data = {
         gallery: []
       },
       "Muszyna": {
-        "abbr": "KNSM",
         coor: [
           49.3564393,
           20.8972675
@@ -4087,7 +3992,6 @@ const data = {
         gallery: []
       },
       "Myślenice": {
-        "abbr": "KMY",
         coor: [
           49.8347232,
           19.9387157
@@ -4099,7 +4003,7 @@ const data = {
         scale: 1.0,
         gallery: [
           {
-            catg: cat.O,
+            catg: "O",
             name: "Rynek",
             scale: 1.0,
             coor: [
@@ -4111,7 +4015,7 @@ const data = {
             ]
           },
           {
-            catg: cat.H,
+            catg: "H",
             name: "Gimnazjum",
             scale: 1.0,
             coor: [
@@ -4123,7 +4027,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół Narodzenia NMP 1",
             scale: 1.0,
             coor: [
@@ -4136,7 +4040,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół Narodzenia NMP 2",
             scale: 1.0,
             coor: [
@@ -4148,7 +4052,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościół Narodzenia NMP 3",
             scale: 1.0,
             coor: [
@@ -4160,7 +4064,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościółek św. Jakuba 1",
             scale: 1.0,
             coor: [
@@ -4173,7 +4077,7 @@ const data = {
             "top": true
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościółek św. Jakuba 2",
             scale: 1.0,
             coor: [
@@ -4185,7 +4089,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Kościółek św. Jakuba 3",
             scale: 1.0,
             coor: [
@@ -4199,7 +4103,6 @@ const data = {
         ]
       },
       "Niepołomice": {
-        "abbr": "KWIN",
         coor: [
           50.0342922,
           20.2178478
@@ -4212,7 +4115,6 @@ const data = {
         gallery: []
       },
       "Nowe Brzesko": {
-        "abbr": "KPRN",
         coor: [
           50.1288082,
           20.3750736
@@ -4225,7 +4127,6 @@ const data = {
         gallery: []
       },
       "NOWY SĄCZ": {
-        "abbr": "KN",
         coor: [
           49.624897,
           20.6914937
@@ -4238,7 +4139,6 @@ const data = {
         gallery: []
       },
       "Nowy Targ": {
-        "abbr": "KNT",
         coor: [
           49.4818995,
           20.0311017
@@ -4251,7 +4151,6 @@ const data = {
         gallery: []
       },
       "Nowy Wiśnicz": {
-        "abbr": "KBCN",
         coor: [
           49.9178824,
           20.4699165
@@ -4264,7 +4163,6 @@ const data = {
         gallery: []
       },
       "Olkusz": {
-        "abbr": "KOL",
         coor: [
           50.2790388,
           19.5602989
@@ -4277,7 +4175,6 @@ const data = {
         gallery: []
       },
       "Oświęcim": {
-        "abbr": "KOS",
         coor: [
           50.0380617,
           19.2209351
@@ -4290,7 +4187,6 @@ const data = {
         gallery: []
       },
       "Piwniczna-Zdrój": {
-        "abbr": "KNSP",
         coor: [
           49.4397872,
           20.7164866
@@ -4303,7 +4199,6 @@ const data = {
         gallery: []
       },
       "Proszowice": {
-        "abbr": "KPR",
         coor: [
           50.1929357,
           20.2886957
@@ -4316,7 +4211,6 @@ const data = {
         gallery: []
       },
       "Rabka-Zdrój": {
-        "abbr": "KNTR",
         coor: [
           49.6115164,
           19.9491763
@@ -4328,7 +4222,7 @@ const data = {
         scale: 1.0,
         gallery: [
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Park Zdrojowy",
             scale: 1.0,
             coor: [
@@ -4342,7 +4236,6 @@ const data = {
         ]
       },
       "Radłów": {
-        "abbr": "KTAR",
         coor: [
           50.0838574,
           20.8495563
@@ -4355,7 +4248,6 @@ const data = {
         gallery: []
       },
       "Ryglice": {
-        "abbr": "KTAG",
         coor: [
           49.8785487,
           21.1377865
@@ -4368,7 +4260,6 @@ const data = {
         gallery: []
       },
       "Skała": {
-        "abbr": "KRAS",
         coor: [
           50.2305096,
           19.8536682
@@ -4381,7 +4272,6 @@ const data = {
         gallery: []
       },
       "Skawina": {
-        "abbr": "KRAW",
         coor: [
           49.9750513,
           19.8264384
@@ -4395,7 +4285,6 @@ const data = {
         gallery: []
       },
       "Słomniki": {
-        "abbr": "KRAM",
         coor: [
           50.2405872,
           20.0802934
@@ -4408,7 +4297,6 @@ const data = {
         gallery: []
       },
       "Stary Sącz": {
-        "abbr": "KNSS",
         coor: [
           49.5594743,
           20.6485033
@@ -4421,7 +4309,6 @@ const data = {
         gallery: []
       },
       "Sucha Beskidzka": {
-        "abbr": "KSU",
         coor: [
           49.7422351,
           19.6011114
@@ -4434,7 +4321,6 @@ const data = {
         gallery: []
       },
       "Sułkowice": {
-        "abbr": "KMYS",
         coor: [
           49.8409924,
           19.8008287
@@ -4447,7 +4333,6 @@ const data = {
         gallery: []
       },
       "Szczawnica": {
-        "abbr": "KNTS",
         coor: [
           49.4288854,
           20.4878175
@@ -4460,7 +4345,6 @@ const data = {
         gallery: []
       },
       "Szczucin": {
-        "abbr": "KDAS",
         coor: [
           50.308724,
           21.0756129
@@ -4473,7 +4357,6 @@ const data = {
         gallery: []
       },
       "Świątniki Górne": {
-        "abbr": "KRAT",
         coor: [
           49.9344487,
           19.9444342
@@ -4486,7 +4369,6 @@ const data = {
         gallery: []
       },
       "TARNÓW": {
-        "abbr": "KT",
         coor: [
           50.0126654,
           20.9884357
@@ -4499,7 +4381,6 @@ const data = {
         gallery: []
       },
       "Trzebinia": {
-        "abbr": "KCHT",
         coor: [
           50.1594943,
           19.4715714
@@ -4512,7 +4393,6 @@ const data = {
         gallery: []
       },
       "Tuchów": {
-        "abbr": "KTAT",
         coor: [
           49.9010582,
           21.059348
@@ -4525,7 +4405,6 @@ const data = {
         gallery: []
       },
       "Wadowice": {
-        "abbr": "KWA",
         coor: [
           49.8833812,
           19.4928306
@@ -4538,7 +4417,6 @@ const data = {
         gallery: []
       },
       "Wieliczka": {
-        "abbr": "KWI",
         coor: [
           49.9837548,
           20.0594312
@@ -4552,7 +4430,6 @@ const data = {
         gallery: []
       },
       "Wojnicz": {
-        "abbr": "KTAW",
         coor: [
           49.9556793,
           20.8362848
@@ -4565,7 +4442,6 @@ const data = {
         gallery: []
       },
       "Wolbrom": {
-        "abbr": "KOLW",
         coor: [
           50.3854693,
           19.7593993
@@ -4578,7 +4454,6 @@ const data = {
         gallery: []
       },
       "Zakliczyn": {
-        "abbr": "KTAZ",
         coor: [
           49.8564888,
           20.8086634
@@ -4591,7 +4466,6 @@ const data = {
         gallery: []
       },
       "Zakopane": {
-        "abbr": "KTT",
         coor: [
           49.2923818,
           19.9579901
@@ -4604,7 +4478,6 @@ const data = {
         gallery: []
       },
       "Zator": {
-        "abbr": "KOSZ",
         coor: [
           49.9961536,
           19.4375557
@@ -4617,7 +4490,6 @@ const data = {
         gallery: []
       },
       "Żabno": {
-        "abbr": "KTAB",
         coor: [
           50.1328316,
           20.8854389
@@ -4637,7 +4509,6 @@ const data = {
       ],
       zoom: 9,
       "WARSZAWA": {
-        "abbr": "WA",
         coor: [
           52.2497795,
           21.0121733
@@ -4650,7 +4521,6 @@ const data = {
         gallery: []
       },
       "Ciechanów": {
-        "abbr": "WCI",
         coor: [
           52.8823977,
           20.6185055
@@ -4663,7 +4533,6 @@ const data = {
         gallery: []
       },
       "Garwolin": {
-        "abbr": "WG",
         coor: [
           51.8974496,
           21.6168559
@@ -4676,7 +4545,6 @@ const data = {
         gallery: []
       },
       "LEGIONOWO": {
-        "abbr": "WL",
         coor: [
           52.3951754,
           20.9310365
@@ -4689,7 +4557,6 @@ const data = {
         gallery: []
       },
       "Milanówek": {
-        "abbr": "WGM",
         coor: [
           52.1261774,
           20.6636631
@@ -4702,7 +4569,6 @@ const data = {
         gallery: []
       },
       "Mława": {
-        "abbr": "WML",
         coor: [
           53.1115189,
           20.3820205
@@ -4715,7 +4581,6 @@ const data = {
         gallery: []
       },
       "OSTROŁĘKA": {
-        "abbr": "WO",
         coor: [
           53.1015163,
           21.6196132
@@ -4728,7 +4593,6 @@ const data = {
         gallery: []
       },
       "OTWOCK": {
-        "abbr": "WOT",
         coor: [
           52.10409,
           21.2684691
@@ -4741,7 +4605,6 @@ const data = {
         gallery: []
       },
       "PIASECZNO": {
-        "abbr": "WPI",
         coor: [
           52.0748573,
           21.0271078
@@ -4754,7 +4617,6 @@ const data = {
         gallery: []
       },
       "PŁOCK": {
-        "abbr": "WP",
         coor: [
           52.5451082,
           19.6849895
@@ -4767,7 +4629,6 @@ const data = {
         gallery: []
       },
       "PRUSZKÓW": {
-        "abbr": "WPR",
         coor: [
           52.1622612,
           20.8123916
@@ -4780,7 +4641,6 @@ const data = {
         gallery: []
       },
       "RADOM": {
-        "abbr": "WR",
         coor: [
           51.4006916,
           21.158182
@@ -4793,7 +4653,6 @@ const data = {
         gallery: []
       },
       "SIEDLCE": {
-        "abbr": "WS",
         coor: [
           52.1696284,
           22.283932
@@ -4813,7 +4672,6 @@ const data = {
       ],
       zoom: 11,
       "OPOLE": {
-        "abbr": "OP",
         coor: [
           50.6660257,
           17.9242533
@@ -4826,7 +4684,6 @@ const data = {
         gallery: []
       },
       "KĘDZIERZYN-KOŹLE": {
-        "abbr": "OK",
         coor: [
           50.3450017,
           18.2110673
@@ -4839,7 +4696,6 @@ const data = {
         gallery: []
       },
       "Nysa": {
-        "abbr": "ONY",
         coor: [
           50.4724537,
           17.3326707
@@ -4852,7 +4708,6 @@ const data = {
         gallery: []
       },
       "Otmuchów": {
-        "abbr": "ONYO",
         coor: [
           50.464918,
           17.1730363
@@ -4865,7 +4720,6 @@ const data = {
         gallery: []
       },
       "Paczków": {
-        "abbr": "ONYP",
         coor: [
           50.4640233,
           17.0053071
@@ -4878,7 +4732,6 @@ const data = {
         gallery: []
       },
       "Prudnik": {
-        "abbr": "OPR",
         coor: [
           50.3216656,
           17.5810486
@@ -4898,7 +4751,6 @@ const data = {
       ],
       zoom: 10,
       "RZESZÓW": {
-        "abbr": "RZ",
         coor: [
           50.0375793,
           22.0040649
@@ -4911,7 +4763,6 @@ const data = {
         gallery: []
       },
       "DĘBICA": {
-        "abbr": "RDE",
         coor: [
           50.0582719,
           21.4080673
@@ -4924,7 +4775,6 @@ const data = {
         gallery: []
       },
       "Jasło": {
-        "abbr": "RJS",
         coor: [
           49.7520239,
           21.4828205
@@ -4937,7 +4787,6 @@ const data = {
         gallery: []
       },
       "KROSNO": {
-        "abbr": "RK",
         coor: [
           49.6939069,
           21.7648119
@@ -4950,7 +4799,6 @@ const data = {
         gallery: []
       },
       "MIELEC": {
-        "abbr": "RMI",
         coor: [
           50.2859803,
           21.4200246
@@ -4963,7 +4811,6 @@ const data = {
         gallery: []
       },
       "PRZEMYŚL": {
-        "abbr": "RP",
         coor: [
           49.7821889,
           22.7688861
@@ -4976,7 +4823,6 @@ const data = {
         gallery: []
       },
       "Sanok": {
-        "abbr": "RSA",
         coor: [
           49.5610088,
           22.2064054
@@ -4989,7 +4835,6 @@ const data = {
         gallery: []
       },
       "STALOWA WOLA": {
-        "abbr": "RST",
         coor: [
           50.5688536,
           22.0662063
@@ -5002,7 +4847,6 @@ const data = {
         gallery: []
       },
       "TARNOBRZEG": {
-        "abbr": "RT",
         coor: [
           50.5741038,
           21.6720182
@@ -5022,7 +4866,6 @@ const data = {
       ],
       zoom: 10,
       "BIAŁYSTOK": {
-        "abbr": "BI",
         coor: [
           53.1300623,
           23.1638896
@@ -5035,7 +4878,6 @@ const data = {
         gallery: []
       },
       "SUWAŁKI": {
-        "abbr": "BS",
         coor: [
           54.1014008,
           22.9269058
@@ -5048,7 +4890,6 @@ const data = {
         gallery: []
       },
       "ŁOMŻA": {
-        "abbr": "BL",
         coor: [
           53.168746,
           22.0727456
@@ -5068,7 +4909,6 @@ const data = {
       ],
       zoom: 10,
       "GDAŃSK": {
-        "abbr": "GD",
         coor: [
           54.3485434,
           18.6532134
@@ -5081,7 +4921,6 @@ const data = {
         gallery: []
       },
       "GDYNIA": {
-        "abbr": "GA",
         coor: [
           54.5194002,
           18.5522604
@@ -5094,7 +4933,6 @@ const data = {
         gallery: []
       },
       "Hel": {
-        "abbr": "GPUH",
         coor: [
           54.6000139,
           18.8129067
@@ -5107,7 +4945,6 @@ const data = {
         gallery: []
       },
       "Krynica Morska": {
-        "abbr": "GNDK",
         coor: [
           54.3862181,
           19.4354796
@@ -5120,7 +4957,6 @@ const data = {
         gallery: []
       },
       "Łeba": {
-        "abbr": "GLEL",
         coor: [
           54.7672013,
           17.5578475
@@ -5133,7 +4969,6 @@ const data = {
         gallery: []
       },
       "Malbork": {
-        "abbr": "GMB",
         coor: [
           54.0387152,
           19.0280414
@@ -5146,7 +4981,6 @@ const data = {
         gallery: []
       },
       "RUMIA": {
-        "abbr": "GWER",
         coor: [
           54.573688,
           18.3955497
@@ -5159,7 +4993,6 @@ const data = {
         gallery: []
       },
       "SŁUPSK": {
-        "abbr": "GS",
         coor: [
           54.4658258,
           17.0289427
@@ -5172,7 +5005,6 @@ const data = {
         gallery: []
       },
       "Sopot": {
-        "abbr": "GSP",
         coor: [
           54.4479354,
           18.5703492
@@ -5185,7 +5017,6 @@ const data = {
         gallery: []
       },
       "STAROGARD GDAŃSKI": {
-        "abbr": "GST",
         coor: [
           53.967545,
           18.5322189
@@ -5198,7 +5029,6 @@ const data = {
         gallery: []
       },
       "TCZEW": {
-        "abbr": "GTC",
         coor: [
           54.0869922,
           18.7999839
@@ -5211,7 +5041,6 @@ const data = {
         gallery: []
       },
       "Ustka": {
-        "abbr": "GSL",
         coor: [
           54.5889746,
           16.8595505
@@ -5224,7 +5053,6 @@ const data = {
         gallery: []
       },
       "WEJHEROWO": {
-        "abbr": "GWE",
         coor: [
           54.6017448,
           18.2392681
@@ -5244,7 +5072,6 @@ const data = {
       ],
       zoom: 10,
       "KATOWICE": {
-        "abbr": "SK",
         coor: [
           50.2652318,
           19.0249407
@@ -5257,7 +5084,6 @@ const data = {
         gallery: []
       },
       "BĘDZIN": {
-        "abbr": "SBE",
         coor: [
           50.3270016,
           19.1287315
@@ -5270,7 +5096,6 @@ const data = {
         gallery: []
       },
       "BIELSKO-BIAŁA": {
-        "abbr": "SB",
         coor: [
           49.8225182,
           19.0443277
@@ -5283,7 +5108,6 @@ const data = {
         gallery: []
       },
       "Bieruń": {
-        "abbr": "SBL",
         coor: [
           50.0931194,
           19.0918082
@@ -5296,7 +5120,6 @@ const data = {
         gallery: []
       },
       "BYTOM": {
-        "abbr": "SY",
         coor: [
           50.3444368,
           18.9203399
@@ -5309,7 +5132,6 @@ const data = {
         gallery: []
       },
       "CHORZÓW": {
-        "abbr": "SH",
         coor: [
           50.2978795,
           18.9536744
@@ -5322,7 +5144,6 @@ const data = {
         gallery: []
       },
       "Cieszyn": {
-        "abbr": "SCI",
         coor: [
           49.74323,
           18.6289233
@@ -5335,7 +5156,6 @@ const data = {
         gallery: []
       },
       "Czechowice-Dziedzice": {
-        "abbr": "SBIC",
         coor: [
           49.91115,
           19.0076727
@@ -5348,7 +5168,6 @@ const data = {
         gallery: []
       },
       "Czeladź": {
-        "abbr": "SBEC",
         coor: [
           50.3080114,
           19.0693688
@@ -5361,7 +5180,6 @@ const data = {
         gallery: []
       },
       "CZĘSTOCHOWA": {
-        "abbr": "SC",
         coor: [
           50.8123821,
           19.1296005
@@ -5374,7 +5192,6 @@ const data = {
         gallery: []
       },
       "DĄBROWA GÓRNICZA": {
-        "abbr": "SD",
         coor: [
           50.3256454,
           19.187327
@@ -5387,7 +5204,6 @@ const data = {
         gallery: []
       },
       "GLIWICE": {
-        "abbr": "SG",
         coor: [
           50.2940414,
           18.6660987
@@ -5400,7 +5216,6 @@ const data = {
         gallery: []
       },
       "Imielin": {
-        "abbr": "SBLI",
         coor: [
           50.1468764,
           19.1857231
@@ -5413,7 +5228,6 @@ const data = {
         gallery: []
       },
       "JASTRZĘBIE-ZDRÓJ": {
-        "abbr": "SJZ",
         coor: [
           49.950502,
           18.5687077
@@ -5426,7 +5240,6 @@ const data = {
         gallery: []
       },
       "JAWORZNO": {
-        "abbr": "SJ",
         coor: [
           50.2032444,
           19.2759043
@@ -5439,7 +5252,6 @@ const data = {
         gallery: []
       },
       "Koziegłowy": {
-        "abbr": "SMYK",
         coor: [
           50.5977685,
           19.1615134
@@ -5452,7 +5264,6 @@ const data = {
         gallery: []
       },
       "Lędziny": {
-        "abbr": "SBLL",
         coor: [
           50.1292724,
           19.1061044
@@ -5465,7 +5276,6 @@ const data = {
         gallery: []
       },
       "Łazy": {
-        "abbr": "SZAL",
         coor: [
           50.4280075,
           19.3912715
@@ -5478,7 +5288,6 @@ const data = {
         gallery: []
       },
       "Mikołów": {
-        "abbr": "SMI",
         coor: [
           50.1692639,
           18.904531
@@ -5491,7 +5300,6 @@ const data = {
         gallery: []
       },
       "MYSŁOWICE": {
-        "abbr": "SM",
         coor: [
           50.2411087,
           19.1411072
@@ -5504,7 +5312,6 @@ const data = {
         gallery: []
       },
       "Myszków": {
-        "abbr": "SMY",
         coor: [
           50.5763591,
           19.330042
@@ -5517,7 +5324,6 @@ const data = {
         gallery: []
       },
       "Ogrodzieniec": {
-        "abbr": "SZAO",
         coor: [
           50.4530093,
           19.5521021
@@ -5530,7 +5336,6 @@ const data = {
         gallery: []
       },
       "PIEKARY ŚLĄSKIE": {
-        "abbr": "SPI",
         coor: [
           50.3824455,
           18.9471138
@@ -5543,7 +5348,6 @@ const data = {
         gallery: []
       },
       "Pilica": {
-        "abbr": "SZAP",
         coor: [
           50.4680355,
           19.6568424
@@ -5556,7 +5360,6 @@ const data = {
         gallery: []
       },
       "Poręba": {
-        "abbr": "SZAR",
         coor: [
           50.4863985,
           19.3329763
@@ -5569,7 +5372,6 @@ const data = {
         gallery: []
       },
       "Pszczyna": {
-        "abbr": "SPS",
         coor: [
           49.9785218,
           18.9404082
@@ -5582,7 +5384,6 @@ const data = {
         gallery: []
       },
       "RACIBÓRZ": {
-        "abbr": "SRC",
         coor: [
           50.0919768,
           18.2197416
@@ -5595,7 +5396,6 @@ const data = {
         gallery: []
       },
       "RUDA ŚLĄSKA": {
-        "abbr": "SL",
         coor: [
           50.2855827,
           18.8746405
@@ -5608,7 +5408,6 @@ const data = {
         gallery: []
       },
       "RYBNIK": {
-        "abbr": "SR",
         coor: [
           50.0978374,
           18.5485858
@@ -5621,7 +5420,6 @@ const data = {
         gallery: []
       },
       "SIEMIANOWICE ŚLĄSKIE": {
-        "abbr": "SI",
         coor: [
           50.3050581,
           19.0279341
@@ -5634,7 +5432,6 @@ const data = {
         gallery: []
       },
       "Siewierz": {
-        "abbr": "SBEZ",
         coor: [
           50.4685443,
           19.2368245
@@ -5647,7 +5444,6 @@ const data = {
         gallery: []
       },
       "Sławków": {
-        "abbr": "SBES",
         coor: [
           50.2984724,
           19.3885839
@@ -5660,7 +5456,6 @@ const data = {
         gallery: []
       },
       "SOSNOWIEC": {
-        "abbr": "SO",
         coor: [
           50.2779521,
           19.1272241
@@ -5673,7 +5468,6 @@ const data = {
         gallery: []
       },
       "Szczekociny": {
-        "abbr": "SZAS",
         coor: [
           50.6262199,
           19.8176998
@@ -5686,7 +5480,6 @@ const data = {
         gallery: []
       },
       "Szczyrk": {
-        "abbr": "SBIS",
         coor: [
           49.7187048,
           19.0348703
@@ -5699,7 +5492,6 @@ const data = {
         gallery: []
       },
       "ŚWIĘTOCHŁOWICE": {
-        "abbr": "SW",
         coor: [
           50.2882425,
           18.924948
@@ -5712,7 +5504,6 @@ const data = {
         gallery: []
       },
       "TARNOWSKIE GÓRY": {
-        "abbr": "STA",
         coor: [
           50.4446677,
           18.8555592
@@ -5725,7 +5516,6 @@ const data = {
         gallery: []
       },
       "TYCHY": {
-        "abbr": "ST",
         coor: [
           50.1294822,
           18.9815158
@@ -5738,7 +5528,6 @@ const data = {
         gallery: []
       },
       "Wisła": {
-        "abbr": "SCIW",
         coor: [
           49.6553216,
           18.8625705
@@ -5751,7 +5540,6 @@ const data = {
         gallery: []
       },
       "WODZISŁAW ŚLĄSKI": {
-        "abbr": "SWD",
         coor: [
           50.00275,
           18.4629321
@@ -5764,7 +5552,6 @@ const data = {
         gallery: []
       },
       "ZABRZE": {
-        "abbr": "SZ",
         coor: [
           50.3113928,
           18.7851995
@@ -5777,7 +5564,6 @@ const data = {
         gallery: []
       },
       "ZAWIERCIE": {
-        "abbr": "SZA",
         coor: [
           50.4839205,
           19.4312739
@@ -5790,7 +5576,6 @@ const data = {
         gallery: []
       },
       "Żarki": {
-        "abbr": "SMYZ",
         coor: [
           50.6260089,
           19.364031
@@ -5803,7 +5588,6 @@ const data = {
         gallery: []
       },
       "ŻORY": {
-        "abbr": "SZO",
         coor: [
           50.0439255,
           18.6991382
@@ -5816,7 +5600,6 @@ const data = {
         gallery: []
       },
       "Żywiec": {
-        "abbr": "SZY",
         coor: [
           49.6888994,
           19.2032003
@@ -5836,7 +5619,6 @@ const data = {
       ],
       zoom: 10,
       "KIELCE": {
-        "abbr": "TK",
         coor: [
           50.8725658,
           20.6235319
@@ -5849,7 +5631,6 @@ const data = {
         gallery: []
       },
       "Busko-Zdrój": {
-        "abbr": "TBU",
         coor: [
           50.4577055,
           20.7202095
@@ -5862,7 +5643,6 @@ const data = {
         gallery: []
       },
       "Chęciny": {
-        "abbr": "TKIC",
         coor: [
           50.7990965,
           20.46202
@@ -5875,7 +5655,6 @@ const data = {
         gallery: []
       },
       "Chmielnik": {
-        "abbr": "TKIH",
         coor: [
           50.6143281,
           20.7510281
@@ -5888,7 +5667,6 @@ const data = {
         gallery: []
       },
       "Działoszyce": {
-        "abbr": "TPID",
         coor: [
           50.3670534,
           20.3505045
@@ -5901,7 +5679,6 @@ const data = {
         gallery: []
       },
       "Jędrzejów": {
-        "abbr": "TJE",
         coor: [
           50.6538413,
           20.2850211
@@ -5914,7 +5691,6 @@ const data = {
         gallery: []
       },
       "Kazimierza Wielka": {
-        "abbr": "TKA",
         coor: [
           50.2644225,
           20.4952526
@@ -5927,7 +5703,6 @@ const data = {
         gallery: []
       },
       "Nowy Korczyn": {
-        "abbr": "TBUK",
         coor: [
           50.297811,
           20.8111632
@@ -5940,7 +5715,6 @@ const data = {
         gallery: []
       },
       "Oleśnica": {
-        "abbr": "TSZO",
         coor: [
           50.4502358,
           21.0637361
@@ -5953,7 +5727,6 @@ const data = {
         gallery: []
       },
       "Opatowiec": {
-        "abbr": "TKAO",
         coor: [
           50.2405769,
           20.7242864
@@ -5966,7 +5739,6 @@ const data = {
         gallery: []
       },
       "OSTROWIEC ŚWIĘTOKRZYSKI": {
-        "abbr": "TOS",
         coor: [
           50.9400551,
           21.3875967
@@ -5979,7 +5751,6 @@ const data = {
         gallery: []
       },
       "Pacanów": {
-        "abbr": "TBUP",
         coor: [
           50.3997851,
           21.0405028
@@ -5992,7 +5763,6 @@ const data = {
         gallery: []
       },
       "Pińczów": {
-        "abbr": "TPI",
         coor: [
           50.5229156,
           20.5288017
@@ -6005,7 +5775,6 @@ const data = {
         gallery: []
       },
       "Sandomierz": {
-        "abbr": "TSA",
         coor: [
           50.6766976,
           21.746428
@@ -6018,7 +5787,6 @@ const data = {
         gallery: []
       },
       "Sędziszów": {
-        "abbr": "TJES",
         coor: [
           50.5732827,
           20.0699884
@@ -6031,7 +5799,6 @@ const data = {
         gallery: []
       },
       "Skalbmierz": {
-        "abbr": "TKAS",
         coor: [
           50.3170176,
           20.3994656
@@ -6044,7 +5811,6 @@ const data = {
         gallery: []
       },
       "SKARŻYSKO-KAMIENNA": {
-        "abbr": "TSK",
         coor: [
           51.1144679,
           20.8667922
@@ -6057,7 +5823,6 @@ const data = {
         gallery: []
       },
       "STARACHOWICE": {
-        "abbr": "TST",
         coor: [
           51.0410937,
           21.0843784
@@ -6070,7 +5835,6 @@ const data = {
         gallery: []
       },
       "Staszów": {
-        "abbr": "TSZ",
         coor: [
           50.5652622,
           21.1682242
@@ -6083,7 +5847,6 @@ const data = {
         gallery: []
       },
       "Stopnica": {
-        "abbr": "TBUS",
         coor: [
           50.440124,
           20.9389865
@@ -6096,7 +5859,6 @@ const data = {
         gallery: []
       },
       "Szydłów": {
-        "abbr": "TSZS",
         coor: [
           50.5898952,
           21.0014069
@@ -6109,7 +5871,6 @@ const data = {
         gallery: []
       },
       "Wiślica": {
-        "abbr": "TBUW",
         coor: [
           50.3485755,
           20.6745636
@@ -6122,7 +5883,6 @@ const data = {
         gallery: []
       },
       "Wodzisław": {
-        "abbr": "TJEW",
         coor: [
           50.521108,
           20.1902479
@@ -6142,7 +5902,6 @@ const data = {
       ],
       zoom: 10,
       "OLSZTYN": {
-        "abbr": "NO",
         coor: [
           53.7762929,
           20.4754418
@@ -6155,7 +5914,6 @@ const data = {
         gallery: []
       },
       "ELBLĄG": {
-        "abbr": "NE",
         coor: [
           54.1584669,
           19.3960619
@@ -6168,7 +5926,6 @@ const data = {
         gallery: []
       },
       "EŁK": {
-        "abbr": "NEL",
         coor: [
           53.8201719,
           22.3546243
@@ -6181,7 +5938,6 @@ const data = {
         gallery: []
       },
       "Frombork": {
-        "abbr": "NBRF",
         coor: [
           54.3570002,
           19.6821463
@@ -6194,7 +5950,6 @@ const data = {
         gallery: []
       },
       "Nidzica": {
-        "abbr": "NNI",
         coor: [
           53.3600669,
           20.4290289
@@ -6207,7 +5962,6 @@ const data = {
         gallery: []
       },
       "Olsztynek": {
-        "abbr": "NOLO",
         coor: [
           53.5825985,
           20.2825052
@@ -6220,7 +5974,6 @@ const data = {
         gallery: []
       },
       "Orneta": {
-        "abbr": "NLIO",
         coor: [
           54.1157604,
           20.1300699
@@ -6240,7 +5993,6 @@ const data = {
       ],
       zoom: 10,
       "POZNAŃ": {
-        "abbr": "PO",
         coor: [
           52.4077697,
           16.9342929
@@ -6253,7 +6005,6 @@ const data = {
         gallery: []
       },
       "GNIEZNO": {
-        "abbr": "PGN",
         coor: [
           52.5371181,
           17.5909299
@@ -6266,7 +6017,6 @@ const data = {
         gallery: []
       },
       "KALISZ": {
-        "abbr": "PK",
         coor: [
           51.7622192,
           18.089574
@@ -6279,7 +6029,6 @@ const data = {
         gallery: []
       },
       "KONIN": {
-        "abbr": "PN",
         coor: [
           52.2104074,
           18.2545459
@@ -6292,7 +6041,6 @@ const data = {
         gallery: []
       },
       "LESZNO": {
-        "abbr": "PL",
         coor: [
           51.84296,
           16.5749574
@@ -6305,7 +6053,6 @@ const data = {
         gallery: []
       },
       "OSTRÓW WIELKOPOLSKI": {
-        "abbr": "POS",
         coor: [
           51.6493117,
           17.8166431
@@ -6318,7 +6065,6 @@ const data = {
         gallery: []
       },
       "PIŁA": {
-        "abbr": "PP",
         coor: [
           53.146529,
           16.7427456
@@ -6338,7 +6084,6 @@ const data = {
       ],
       zoom: 10,
       "SZCZECIN": {
-        "abbr": "ZS",
         coor: [
           53.425431,
           14.5471483
@@ -6351,7 +6096,6 @@ const data = {
         gallery: []
       },
       "Darłowo": {
-        "abbr": "ZSLD",
         coor: [
           54.4410759,
           16.3816935
@@ -6364,7 +6108,6 @@ const data = {
         gallery: []
       },
       "Dźwirzyno": {
-        "abbr": "ZKLD",
         coor: [
           54.164331,
           15.4247189
@@ -6377,7 +6120,6 @@ const data = {
         gallery: []
       },
       "KOŁOBRZEG": {
-        "abbr": "ZKL",
         coor: [
           54.1783674,
           15.5731523
@@ -6390,7 +6132,6 @@ const data = {
         gallery: []
       },
       "KOSZALIN": {
-        "abbr": "ZK",
         coor: [
           54.1909019,
           16.1866808
@@ -6403,7 +6144,6 @@ const data = {
         gallery: []
       },
       "Mielno": {
-        "abbr": "ZKOM",
         coor: [
           54.266236,
           16.0700101
@@ -6416,7 +6156,6 @@ const data = {
         gallery: []
       },
       "Międzyzdroje": {
-        "abbr": "ZKAM",
         coor: [
           53.9404013,
           14.4639194
@@ -6429,7 +6168,6 @@ const data = {
         gallery: []
       },
       "STARGARD": {
-        "abbr": "ZST",
         coor: [
           53.3371836,
           15.0471604
@@ -6442,7 +6180,6 @@ const data = {
         gallery: []
       },
       "Świnoujście": {
-        "abbr": "ZSW",
         coor: [
           53.9190092,
           14.246918
@@ -6456,7 +6193,7 @@ const data = {
       }
     }
   },
-  [ranges.world]: {
+  "EUROPA": {
     "Hiszpania": {
       coor: [
         40.413496,
@@ -6475,7 +6212,7 @@ const data = {
         scale: 2.0,
         gallery: [
           {
-            catg: cat.H,
+            catg: "H",
             name: "Casa Batllo",
             scale: 1.0,
             coor: [
@@ -6487,7 +6224,7 @@ const data = {
             ]
           },
           {
-            catg: cat.H,
+            catg: "H",
             name: "Casa Mila",
             scale: 1.0,
             coor: [
@@ -6499,7 +6236,7 @@ const data = {
             ]
           },
           {
-            catg: cat.H,
+            catg: "H",
             name: "Most Biskupi",
             scale: 1.0,
             coor: [
@@ -6511,7 +6248,7 @@ const data = {
             ]
           },
           {
-            catg: cat.H,
+            catg: "H",
             name: "Muzeum MNAC",
             scale: 1.0,
             coor: [
@@ -6523,7 +6260,7 @@ const data = {
             ]
           },
           {
-            catg: cat.N,
+            catg: "N",
             name: "Escuela Massana",
             scale: 1.0,
             coor: [
@@ -6535,7 +6272,7 @@ const data = {
             ]
           },
           {
-            catg: cat.N,
+            catg: "N",
             name: "La Boqueria",
             scale: 1.0,
             coor: [
@@ -6547,7 +6284,7 @@ const data = {
             ]
           },
           {
-            catg: cat.N,
+            catg: "N",
             name: "Stadion Olimpijski",
             scale: 1.0,
             coor: [
@@ -6559,7 +6296,7 @@ const data = {
             ]
           },
           {
-            catg: cat.O,
+            catg: "O",
             name: "La Rambla 1",
             scale: 1.0,
             coor: [
@@ -6571,7 +6308,7 @@ const data = {
             ]
           },
           {
-            catg: cat.O,
+            catg: "O",
             name: "La Rambla 2",
             scale: 1.0,
             coor: [
@@ -6583,7 +6320,7 @@ const data = {
             ]
           },
           {
-            catg: cat.O,
+            catg: "O",
             name: "Panorama 1",
             scale: 1.0,
             coor: [
@@ -6595,7 +6332,7 @@ const data = {
             ]
           },
           {
-            catg: cat.O,
+            catg: "O",
             name: "Panorama 2",
             scale: 1.0,
             coor: [
@@ -6607,7 +6344,7 @@ const data = {
             ]
           },
           {
-            catg: cat.O,
+            catg: "O",
             name: "Panorama 3",
             scale: 1.0,
             coor: [
@@ -6619,7 +6356,7 @@ const data = {
             ]
           },
           {
-            catg: cat.O,
+            catg: "O",
             name: "Panorama 4",
             scale: 1.0,
             coor: [
@@ -6631,7 +6368,7 @@ const data = {
             ]
           },
           {
-            catg: cat.O,
+            catg: "O",
             name: "Plac Hiszpański",
             scale: 1.0,
             coor: [
@@ -6643,7 +6380,7 @@ const data = {
             ]
           },
           {
-            catg: cat.O,
+            catg: "O",
             name: "Port Vell",
             scale: 1.0,
             coor: [
@@ -6655,7 +6392,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Bazylika La Merce",
             scale: 1.0,
             coor: [
@@ -6667,7 +6404,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Bazylika NMP Morza",
             scale: 1.0,
             coor: [
@@ -6679,7 +6416,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Katedra św. Eulalii 1",
             scale: 1.0,
             coor: [
@@ -6691,7 +6428,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Katedra św. Eulalii 2",
             scale: 1.0,
             coor: [
@@ -6703,7 +6440,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Katedra św. Eulalii 3",
             scale: 1.0,
             coor: [
@@ -6715,7 +6452,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Sagrada Familia 1",
             scale: 1.0,
             coor: [
@@ -6727,7 +6464,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Sagrada Familia 2",
             scale: 1.0,
             coor: [
@@ -6739,7 +6476,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Sagrada Familia 3",
             scale: 1.0,
             coor: [
@@ -6751,7 +6488,7 @@ const data = {
             ]
           },
           {
-            catg: cat.S,
+            catg: "S",
             name: "Sagrada Familia 4",
             scale: 1.0,
             coor: [
@@ -6864,7 +6601,7 @@ const data = {
       }
     }
   },
-  [ranges.mountains]: {
+  "GÓRY": {
     "Beskid Mały": {
       coor: [
         49.7797122,
@@ -7082,7 +6819,7 @@ const data = {
         scale: 1.0,
         gallery: [
           {
-            catg: cat.H,
+            catg: "H",
             name: "Schronisko Cyrla",
             scale: 1.0,
             coor: [
@@ -7505,7 +7242,7 @@ const data = {
         scale: 1.0,
         gallery: [
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Wejście",
             scale: 1.0,
             coor: [
@@ -7772,7 +7509,7 @@ const data = {
         scale: 1.0,
         gallery: [
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Rusinowa Polana 1 S",
             scale: 1.0,
             coor: [
@@ -7784,7 +7521,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Rusinowa Polana 2 SE",
             scale: 1.0,
             coor: [
@@ -7796,7 +7533,7 @@ const data = {
             ]
           },
           {
-            catg: cat.Z,
+            catg: "Z",
             name: "Rusinowa Polana 3 N",
             scale: 1.0,
             coor: [

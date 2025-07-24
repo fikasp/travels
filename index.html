@@ -1,6 +1,6 @@
-<!-- @r ! TRAVELS !
+<!-- @r TRAVELS
 -->
-<!-- @r HEAD 
+<!-- HEAD 
 -->
 <!DOCTYPE html>
 <html>
@@ -32,7 +32,7 @@
 		<!-- @r STYLE 
   -->
 		<style>
-			/* @p general 
+			/* @r General 
     */
 			* {
 				margin: 0;
@@ -59,12 +59,12 @@
 				background: #000;
 				font-family: verdana, sans-serif;
 				font-size: 14px;
-				--accent: #444;
+				--accent: #4af;
 				--viewHeight: 0px;
 				--marginTop: 0px;
 			}
 
-			/* @p header 
+			/* @r Header 
     */
 			.header {
 				z-index: 2000;
@@ -117,12 +117,12 @@
 			}
 			.header_select {
 				flex-grow: 1;
-				text-align: center;
+				text-align: left;
 				font-family: verdana;
 				padding: 3px;
 				width: 160px;
-				color: #000;
-				background: #fff;
+				color: #fff;
+				background: black;
 				border-radius: 2px;
 				transition: 0.2s;
 			}
@@ -131,8 +131,8 @@
 			}
 			.header_option {
 				padding: 5px;
-				background: #fff;
-				color: black;
+				background: black;
+				color: white;
 			}
 			.header_bars {
 				z-index: 3000;
@@ -160,8 +160,36 @@
 				top: 5px;
 				left: 0;
 			}
+			.header_view {
+				position: fixed;
+				bottom: 10px;
+				left: 10px;
+			}
+			.header_view select {
+				text-align: center;
+				background: rgba(0, 0, 0, 0.8);
+				box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+				backdrop-filter: blur(10px);
+				border: none;
+				border-radius: 4px;
+				width: 123px;
+			}
 
-			/* @p gallery 
+			.header_distance {
+				background: rgba(0, 0, 0, 0.8);
+				box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+				backdrop-filter: blur(10px);
+				font-size: 13px;
+				border-radius: 4px;
+				padding: 4px 10px;
+				text-align: center;
+				position: fixed;
+				width: 123px;
+				bottom: 10px;
+				right: 10px;
+			}
+
+			/* @r Gallery 
     */
 			.gallery {
 				z-index: 1000;
@@ -252,7 +280,7 @@
 				width: 50%;
 			}
 
-			/* @p photo 
+			/* @r Photo 
     */
 			.photo {
 				display: flex;
@@ -363,7 +391,7 @@
 				}
 			}
 
-			/* @p map 
+			/* @r Map 
     */
 			.map {
 				width: 100%;
@@ -387,31 +415,7 @@
 				transition: opacity 0.2s ease;
 			}
 
-			.control-distance {
-				background: rgba(0, 0, 0, 0.7);
-				box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-				backdrop-filter: blur(6px);
-				border-radius: 4px;
-				padding: 6px 10px;
-				font-size: 14px;
-			}
-
-			.control-activity select {
-				background: rgba(0, 0, 0, 0.7);
-				box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-				backdrop-filter: blur(6px);
-				color: white;
-				border: none;
-				border-radius: 4px;
-				padding: 7px;
-				font-size: 14px;
-				cursor: pointer;
-			}
-			.control-activity.half select {
-				width: 50%;
-			}
-
-			/* @p markers 
+			/* @r Markers 
     */
 			.marker {
 				box-shadow: 0px 0px 2px 1px #666;
@@ -419,25 +423,25 @@
 				object-fit: cover;
 				transition: all 0.5s;
 			}
-			.marker-profilowe {
+			.marker-p {
 				border: 1px solid black;
 			}
-			.marker-gastronomiczne {
+			.marker-g {
 				border: 1px solid orange;
 			}
-			.marker-historyczne {
+			.marker-h {
 				border: 1px solid red;
 			}
-			.marker-nowoczesne {
+			.marker-n {
 				border: 1px solid darkviolet;
 			}
-			.marker-ogólne {
+			.marker-o {
 				border: 1px solid blue;
 			}
-			.marker-sakralne {
+			.marker-s {
 				border: 1px solid dodgerblue;
 			}
-			.marker-zielone {
+			.marker-z {
 				border: 1px solid green;
 			}
 			.marker-tooltip {
@@ -456,7 +460,7 @@
 				border-bottom-color: #222 !important;
 			}
 
-			/* @p display 
+			/* @r Display 
     */
 			.none {
 				display: none;
@@ -488,26 +492,27 @@
 	</head>
 
 	<body>
-		<!-- @r HTML 
+		<!-- @p HTML 
   -->
+		<!-- @p Header
+  	-->
 
-		<!-- emblem -->
+		<!-- Emblem -->
 		<img class="header_emblem" />
-		<!-- bar -->
+		<!-- Bar -->
 		<div class="header_bars">
 			<i class="fa-solid fa-bars"></i>
 		</div>
+
 		<div class="header hide">
 			<!-- View -->
+			<div class="header_view">
+				<select class="header_select" id="view"></select>
+			</div>
+			<!-- Activity -->
 			<div class="header_pair">
-				<label class="header_label" for="view">Widok:</label>
-				<select class="header_select" id="view">
-					<option class="header_option" value="map">Mapa</option>
-					<option class="header_option" value="map&gallery">
-						Mapa i galeria
-					</option>
-					<option class="header_option" value="gallery">Galeria</option>
-				</select>
+				<label class="header_label" for="activity">Trasy:</label>
+				<select class="header_select" id="activity"></select>
 			</div>
 			<!-- Category -->
 			<div class="header_pair">
@@ -534,18 +539,22 @@
 				<label class="header_label" for="city">Miejsce:</label>
 				<select class="header_select" id="city"></select>
 			</div>
+			<!-- Distance -->
+			<div class="header_distance">Dystans</div>
 		</div>
 
-		<!-- @p GALLERY 
+		<!-- @p Gallery
   -->
 		<div class="gallery none"></div>
 		<div class="gallery_background none"></div>
 
-		<!-- @p PHOTO 
+		<!-- @p Photo 
   -->
 		<div class="photo none">
 			<!-- arrow play -->
-			<div class="photo_arrow photo_play"><i class="fa-solid fa-play"></i></div>
+			<div class="photo_arrow photo_play">
+				<i class="fa-solid fa-play"></i>
+			</div>
 			<!-- arrow pause -->
 			<div class="photo_arrow photo_pause none">
 				<i class="fa-solid fa-pause"></i>
@@ -571,14 +580,66 @@
 			</div>
 		</div>
 
-		<!-- @p MAP 
+		<!-- @p Map 
   -->
 		<div class="map" id="map"></div>
 
 		<script>
-			// @r SCRIPTS
+			// @g SCRIPTS
+
+			// @g ENUMS
+			const enums = {
+				ALL: 'all',
+				NONE: 'none',
+				PROFILE: 'P',
+				MAP: 'map',
+				MAP_GALLERY: 'map&gallery',
+				GALLERY: 'gallery',
+			}
+
+			const labels = {
+				NONE: 'Brak',
+				ALL: 'Wszystkie',
+				MAP: 'Mapa',
+				MAP_GALLERY: 'Mapa i galeria',
+				GALLERY: 'Galeria',
+			}
+
+			const categories = {
+				none: '❌ Brak',
+				all: '🌍 Wszystkie',
+				P: '👤 Profilowe',
+				O: '📋 Ogólne',
+				S: '⛪ Sakralne',
+				H: '🏰 Historyczne',
+				N: '🏙️ Nowoczesne',
+				G: '🍽️ Gastronomiczne',
+				Z: '🌳 Zielone',
+			}
+
+			const activities = {
+				none: '❌ Brak',
+				all: '🌍 Wszystkie',
+				transport_car: '🚗 Samochód',
+				cycling: '🚴 Rower',
+				walking: '🚶 Spacer',
+				hiking: '🥾 Wędrówka',
+				downhill_skiing: '🎿 Narty',
+				transport_public: '🚌 Autokar',
+				transport_train: '🚆 Pociąg',
+			}
+
+			const ranges = {
+				MOUNTAINS: 'GÓRY',
+				POLAND: 'POLSKA',
+				WORLD: 'EUROPA',
+				ROADS: 'DROGI',
+			}
+
+			const startCity = 'KRAKÓW'
+			const mapActive = true
+
 			// @g GLOBAL
-			//
 			let $map // leaflet map
 			let $distanceControl = null // distance control
 			let $activityControl = null // activity control
@@ -590,10 +651,10 @@
 			let $filteredData = [] // table with filtered data
 			let $routeLayers = [] // table with added polylines
 			// filters
-			let $viewMode = 'map' // state of view mode
-			let $selectedActivity = 'all' // state of activity filter
-			let $categoryFilter = cat.none // state of category filter
-			let $dateFilter = cat.all // state of data filter
+			let $viewMode = enums.MAP // state of view mode
+			let $activityFilter = enums.ALL // state of activity filter
+			let $categoryFilter = enums.NONE // state of category filter
+			let $dateFilter = enums.ALL // state of data filter
 			// flags
 			let $isInitialRender = true // flag for initial render
 			let $isHiglightActive = true // flag for marker higlight activ
@@ -614,6 +675,7 @@
 			// header
 			const $headerDiv = document.querySelector('.header')
 			const $headerEmblem = document.querySelector('.header_emblem')
+			const $headerDistance = document.querySelector('.header_distance')
 			const $headerBars = document.querySelector('.header_bars')
 			// gallery
 			const $gallery = document.querySelector('.gallery')
@@ -632,6 +694,7 @@
 			const $selectRegion = document.querySelector('#region')
 			const $selectRange = document.querySelector('#range')
 			const $selectViewMode = document.querySelector('#view')
+			const $selectActivity = document.querySelector('#activity')
 			const $selectCategory = document.querySelector('#category')
 			const $selectDate = document.querySelector('#date')
 			// mobile
@@ -654,6 +717,7 @@
 			$selectRegion.addEventListener('change', setRegion)
 			$selectRange.addEventListener('change', setRange)
 			$selectViewMode.addEventListener('change', setViewMode)
+			$selectActivity.addEventListener('change', setActivities)
 			$selectCategory.addEventListener('change', setCategory)
 			$selectDate.addEventListener('change', setDate)
 			addListenersToSelects([
@@ -661,6 +725,7 @@
 				$selectRegion,
 				$selectRange,
 				$selectViewMode,
+				$selectActivity,
 				$selectCategory,
 				$selectDate,
 			])
@@ -676,7 +741,7 @@
 
 			// @g GENERAL
 			//
-			// @b main
+			// @b MAIN
 			function main() {
 				console.log(data)
 				// console.log(mapRegions(data[$selectRange.value]))
@@ -685,6 +750,8 @@
 				prepareMap()
 				prepareData()
 				prepareDates()
+				prepareViewModes()
+				prepareActivities()
 				prepareCategories()
 				prepareRanges()
 				prepareRoutes()
@@ -857,16 +924,18 @@
 										const capitalizedCity = capitalizeName(city)
 
 										// path for mountains
-										if (range == ranges.mountains) {
+										if (range == ranges.MOUNTAINS) {
 											return `Góry/${region}/${capitalizedCity}/Zdjęcia/${item.name}.jpg`
 
 											// path for world
-										} else if (range == ranges.world) {
+										} else if (range == ranges.WORLD) {
 											return `Świat/${region}/${capitalizedCity}/Zdjęcia/${item.name}.jpg`
 
 											// path for Kraków
 										} else if (city == 'KRAKÓW') {
-											return `Kraków/Zdjęcia/${item.catg}/${item.name}.jpg`
+											return `Kraków/Zdjęcia/${removeIcon(
+												categories[item.catg]
+											)}/${item.name}.jpg`
 
 											// path for other cities in Poland
 										} else {
@@ -896,11 +965,11 @@
 								cityObj.date.forEach((year) => {
 									function prepareProfilePath() {
 										let path = ''
-										if (range == ranges.mountains) {
+										if (range == ranges.MOUNTAINS) {
 											path = `Góry/Zdjęcia/${capitalizeName(city)} ${year}.jpg`
-										} else if (range == ranges.world) {
+										} else if (range == ranges.WORLD) {
 											path = `Świat/Zdjęcia/${capitalizeName(city)}.jpg`
-										} else if (range == ranges.poland) {
+										} else if (range == ranges.POLAND) {
 											path = `Polska/Zdjęcia/${capitalizeName(city)}.jpg`
 										}
 										return path
@@ -914,7 +983,7 @@
 										scale: cityObj.scale,
 										date: [year],
 										name: [year],
-										catg: cat.profil,
+										catg: enums.PROFILE,
 										url: prepareProfilePath(),
 									}
 									$citiesArray.push(newItem)
@@ -932,11 +1001,11 @@
 				$filteredData = $citiesArray
 
 				// filter by range
-				if ($selectRegion.value == cat.all) {
+				if ($selectRegion.value == enums.ALL) {
 					$filteredData = $filteredData.filter(
 						(item) => $selectRange.value === item.range
 					)
-				} else if ($selectCity.value == cat.all) {
+				} else if ($selectCity.value == enums.ALL) {
 					$filteredData = $filteredData.filter(
 						(item) => $selectRegion.value === item.region
 					)
@@ -947,13 +1016,13 @@
 				}
 
 				// filter by category filter
-				if ($categoryFilter != cat.all) {
+				if ($categoryFilter != enums.ALL) {
 					$filteredData = $filteredData.filter((item) => {
 						return item.catg == $categoryFilter
 					})
 				}
 				// filter by date filter
-				if ($dateFilter != cat.all) {
+				if ($dateFilter != enums.ALL) {
 					$filteredData = $filteredData.filter((item) => {
 						return item.date?.some((date) => date == Number($dateFilter))
 					})
@@ -968,7 +1037,7 @@
 
 			// @b sort data
 			function sortData(array) {
-				const categoryOrder = Object.values(cat)
+				const categoryOrder = Object.values(categories)
 				const namePriority = { zewnętrze: 1, wnętrze: 2, organy: 3 }
 
 				array.sort((a, b) => {
@@ -1035,6 +1104,14 @@
 				$isMenuOpen = !$isMenuOpen
 			}
 
+			// @b prepare view modes
+			function prepareViewModes() {
+				console.log('prepareViewModes()')
+				createOption($selectViewMode, enums.MAP, labels.MAP)
+				createOption($selectViewMode, enums.MAP_GALLERY, labels.MAP_GALLERY)
+				createOption($selectViewMode, enums.GALLERY, labels.GALLERY)
+			}
+
 			// @b prepare ranges
 			function prepareRanges() {
 				console.log(`prepareRange()`)
@@ -1043,7 +1120,7 @@
 				$selectRange.innerHTML = ''
 				const selectedRange = $isInitialRender ? findRange(startCity) : null
 				ranges.forEach((range) => {
-					createOption($selectRange, range, selectedRange)
+					createOption($selectRange, range, range, selectedRange)
 				})
 			}
 
@@ -1053,19 +1130,19 @@
 				const regions = Object.keys(data[$selectRange.value])
 
 				$selectRegion.innerHTML = ''
-				createOption($selectRegion, cat.all)
+				createOption($selectRegion, enums.ALL, labels.ALL)
 
 				const selectedRegion = $isInitialRender ? findRegion(startCity) : null
 				regions.forEach((region) => {
-					createOption($selectRegion, region, selectedRegion)
+					createOption($selectRegion, region, region, selectedRegion)
 				})
 			}
 
 			// @b prepare cities
 			function prepareCities() {
-				if ($selectRegion.value == cat.all) {
+				if ($selectRegion.value == enums.ALL) {
 					$selectCity.innerHTML = ''
-					createOption($selectCity, cat.all)
+					createOption($selectCity, enums.ALL, labels.ALL)
 					return
 				}
 
@@ -1073,23 +1150,41 @@
 				console.log(`prepareCities(${$selectRegion.value})`)
 
 				$selectCity.innerHTML = ''
-				createOption($selectCity, cat.all)
+				createOption($selectCity, enums.ALL, labels.ALL)
 
 				const selectedCity = $isInitialRender ? startCity : null
 				Object.keys(newCities).forEach((city) => {
 					if (city !== 'coor' && city !== 'zoom') {
-						createOption($selectCity, city, selectedCity)
+						createOption($selectCity, city, city, selectedCity)
 					}
 				})
 				$isInitialRender = false
 			}
 
+			// @b prepare activities
+			function prepareActivities() {
+				console.log('prepareActivities()')
+
+				Object.entries(activities).forEach(([activity_key, activity_value]) => {
+					createOption(
+						$selectActivity,
+						activity_key,
+						activity_value,
+						$activityFilter
+					)
+				})
+			}
+
 			// @b prepare categories
 			function prepareCategories() {
 				console.log('prepareCategories()')
-
-				Object.values(cat).forEach((category) => {
-					createOption($selectCategory, category, $categoryFilter)
+				Object.entries(categories).forEach(([category_key, category_value]) => {
+					createOption(
+						$selectCategory,
+						category_key,
+						category_value,
+						$categoryFilter
+					)
 				})
 			}
 
@@ -1097,9 +1192,9 @@
 			function prepareDates() {
 				console.log('prepareDates()')
 
-				createOption($selectDate, cat.all)
+				createOption($selectDate, enums.ALL, `📅 ${labels.ALL}`)
 				for (let year = 2025; year >= 2004; year--) {
-					createOption($selectDate, year, $dateFilter)
+					createOption($selectDate, year, `📅 ${year}`, $dateFilter)
 				}
 			}
 
@@ -1108,9 +1203,9 @@
 				console.log(`setEmblem(${$selectCity.value})`)
 
 				if (
-					$selectRange.value == ranges.roads ||
-					$selectRange.value == ranges.mountains ||
-					$selectCity.value == cat.all
+					$selectRange.value == ranges.ROADS ||
+					$selectRange.value == ranges.MOUNTAINS ||
+					$selectCity.value == enums.ALL
 				) {
 					$headerEmblem.classList.add('none')
 				} else {
@@ -1120,9 +1215,9 @@
 					const capitalizedRegion = capitalizeName($selectRegion.value)
 
 					let path = ''
-					if ($selectRange.value == ranges.world) {
+					if ($selectRange.value == ranges.WORLD) {
 						path = `Świat/${capitalizedRegion}/${capitalizedCity}/${capitalizedCity}.gif`
-					} else if ($selectRange.value == ranges.poland) {
+					} else if ($selectRange.value == ranges.POLAND) {
 						path = `Polska/${capitalizedRegion}/${capitalizedCity}/${capitalizedCity}.gif`
 					}
 					$headerEmblem.setAttribute('src', path)
@@ -1133,9 +1228,9 @@
 			// @b set title
 			function setTitle() {
 				let title = ''
-				if ($selectRegion.value == cat.all) {
+				if ($selectRegion.value == enums.ALL) {
 					title = $selectRange.value
-				} else if ($selectCity.value == cat.all) {
+				} else if ($selectCity.value == enums.ALL) {
 					title = $selectRegion.value
 				} else {
 					title = $selectCity.value
@@ -1189,7 +1284,7 @@
 					$galleryBackground.classList.remove(className)
 				}
 
-				if ($viewMode == 'map') {
+				if ($viewMode == enums.MAP) {
 					$isGalleryAndMap = false
 					hidePhoto()
 					classAdd('hide')
@@ -1199,7 +1294,7 @@
 						classRemove('show')
 						classAdd('none')
 					}, 400)
-				} else if ($viewMode == 'map&gallery') {
+				} else if ($viewMode == enums.MAP_GALLERY) {
 					$isGalleryAndMap = true
 					classRemove('none')
 					classAdd('show')
@@ -1207,22 +1302,25 @@
 					setTimeout(() => {
 						$isHiglightActive = true
 					}, 1000)
-				} else if ($viewMode == 'gallery') {
+				} else if ($viewMode == enums.GALLERY) {
 					$isGalleryAndMap = false
 					$isHiglightActive = false
 					classRemove('none')
 					classRemove('half')
 					classAdd('show')
 				}
-				updateActivityControlPosition()
 				setMapView()
 			}
 
+			// @b set activities
+			function setActivities() {
+				$activityFilter = $selectActivity.value
+				console.log(`setActivity()`)
+				prepareRoutes()
+			}
+
 			// @b set category
-			function setCategory(category) {
-				if (category == cat.profil || category == cat.all) {
-					$selectCategory.value = category
-				}
+			function setCategory() {
 				$categoryFilter = $selectCategory.value
 				console.log(`setCategory()`)
 				updateData()
@@ -1494,17 +1592,17 @@
 			function setMapView() {
 				console.log(`setMapView()`)
 
-				if ($selectRegion.value == cat.all) {
-					if ($selectRange.value == ranges.mountains) {
+				if ($selectRegion.value == enums.ALL) {
+					if ($selectRange.value == ranges.MOUNTAINS) {
 						$map.setView(...setCoor([50.1029645, 19.4293213], 8))
-					} else if ($selectRange.value == ranges.poland) {
+					} else if ($selectRange.value == ranges.POLAND) {
 						$map.setView(...setCoor([52.2159333, 19.1344222], 7))
-					} else if ($selectRange.value == ranges.roads) {
+					} else if ($selectRange.value == ranges.ROADS) {
 						$map.setView(...setCoor([52.2159333, 19.1344222], 7))
 					} else {
 						$map.setView(...setCoor([46.7248004, 9.2504883], 6))
 					}
-				} else if ($selectCity.value == cat.all) {
+				} else if ($selectCity.value == enums.ALL) {
 					const region = data[$selectRange.value][$selectRegion.value]
 					$map.setView(...setCoor(region.coor, region.zoom))
 				} else {
@@ -1660,7 +1758,7 @@
 				// Loop through all routes
 				routes.forEach((route) => {
 					// Skip route if it doesn't match the active filters
-					if (!includeThisRoute(route)) return
+					if (!filterRoute(route)) return
 
 					// Create route polyline and interactive hitbox layer
 					const { polyline, hitbox } = createRouteLayer(route)
@@ -1670,34 +1768,21 @@
 					// Update the total distance with the current route's length
 					totalLength += route.length
 				})
-				addDistanceControl(totalLength, $map)
-				addActivityFilterControl(
-					$map,
-					(selectedActivity) => {
-						$selectedActivity = selectedActivity
-						prepareRoutes()
-					},
-					$selectedActivity
-				)
-				updateActivityControlPosition()
+				setDistance(totalLength)
 			}
 
-			// @b include this route
-			function includeThisRoute(route) {
+			// @b filter route
+			function filterRoute(route) {
 				const year = route.name.slice(0, 4)
-
+				const activity = route.activity
 				// Exclude routes not matching selected activity
-				if (
-					$selectedActivity !== 'all' &&
-					route.activity !== $selectedActivity &&
-					route.activity !== `europe_${$selectedActivity}`
-				)
+				if ($activityFilter !== enums.ALL && route.activity !== $activityFilter)
 					return false
 
 				// Skip routes that don't match selected range
 				if (route.range !== $selectRange.value) return false
 
-				if (route.range === 'DROGI') {
+				if (route.range === ranges.ROADS) {
 					// For road routes, extract info from name
 					const roadName = route.name.split(' ')[2]
 					const roadLanes = route.name.split(' ')[4]
@@ -1718,21 +1803,21 @@
 
 					// Filter by region
 					if (
-						$selectRegion.value !== cat.all &&
+						$selectRegion.value !== enums.ALL &&
 						roadCategory !== $selectRegion.value
 					)
 						return false
 
 					// Filter by road name
-					if ($selectCity.value !== cat.all && roadName !== $selectCity.value)
+					if ($selectCity.value !== enums.ALL && roadName !== $selectCity.value)
 						return false
 
 					// Filter by year
-					if ($dateFilter !== cat.all && year > $dateFilter.toString())
+					if ($dateFilter !== enums.ALL && year > $dateFilter.toString())
 						return false
 				} else {
 					// For non-road routes: filter by year
-					if ($dateFilter !== cat.all && year !== $dateFilter.toString())
+					if ($dateFilter !== enums.ALL && year !== $dateFilter.toString())
 						return false
 				}
 
@@ -1866,88 +1951,13 @@
 				}
 			}
 
-			// @b add distance control
-			function addDistanceControl(totalLength, map) {
-				// Remove previous control if it exists
-				if ($distanceControl) {
-					map.removeControl($distanceControl)
-				}
-
-				// Create new control
-				$distanceControl = L.control({ position: 'bottomright' })
-
-				$distanceControl.onAdd = function () {
-					const div = L.DomUtil.create('div', 'control-distance')
-
-					const distanceFormatted = totalLength.toLocaleString('pl-PL', {
-						minimumFractionDigits: 0,
-						maximumFractionDigits: 0,
-					})
-
-					div.innerHTML = `${distanceFormatted} km`
-					return div
-				}
-
-				// Add to map
-				$distanceControl.addTo(map)
-			}
-
-			// @b add activity filter control
-			function addActivityFilterControl(
-				map,
-				onActivityChange,
-				currentValue = 'all'
-			) {
-				// Remove previous control if exists
-				if ($activityControl) {
-					map.removeControl($activityControl)
-				}
-
-				// Create new control
-				const control = L.control({ position: 'bottomleft' })
-
-				control.onAdd = function () {
-					const div = L.DomUtil.create('div', 'control-activity')
-
-					const select = L.DomUtil.create('select', '', div)
-					select.innerHTML = `
-						<option value="all">🌍 Wszystko</option>
-						<option value="transport_car">🚗 Samochód</option>
-						<option value="cycling">🚴‍♀️ Rower</option>
-						<option value="walking">🚶‍♂️ Spacer</option>
-						<option value="downhill_skiing">🎿 Narty</option>
-						<option value="transport_public">🚌 Autokar</option>
-						<option value="transport_train">🚆 Pociąg</option>
-						<option value="none">❌ Brak</option>
-					`
-					select.value = currentValue
-
-					L.DomEvent.disableClickPropagation(div)
-					L.DomEvent.on(select, 'change', (e) => {
-						onActivityChange(e.target.value)
-					})
-
-					// 👇 Add swipe & scroll support to the select
-					addListenersToSelects([select])
-
-					return div
-				}
-
-				control.addTo(map)
-				$activityControl = control
-			}
-
-			// @b update activity position
-			function updateActivityControlPosition() {
-				if (!$activityControl) return
-				const div = $activityControl.getContainer()
-				if ($viewMode === 'map&gallery') {
-					div.style.position = 'relative'
-					div.style.left = '50vw'
-				} else {
-					div.style.transform = ''
-					div.style.left = ''
-				}
+			// @b set distance
+			function setDistance(distance) {
+				const distanceFormatted = distance.toLocaleString('pl-PL', {
+					minimumFractionDigits: 0,
+					maximumFractionDigits: 0,
+				})
+				$headerDistance.textContent = `${distanceFormatted} km`
 			}
 
 			// @g TOOLS
@@ -1959,7 +1969,7 @@
 						if (city in data[range][region]) {
 							return range
 						} else {
-							return ranges.poland
+							return ranges.POLAND
 						}
 					}
 				}
@@ -1976,7 +1986,12 @@
 				}
 			}
 
-			// @b capitalize name of city
+			// @b remove icon
+			function removeIcon(text) {
+				return text?.split(' ').slice(1).join(' ') || text
+			}
+
+			// @b capitalize name
 			function capitalizeName(city) {
 				return city
 					.toLowerCase()
@@ -1984,13 +1999,13 @@
 			}
 
 			// @b create option
-			function createOption(parent, value, condition) {
+			function createOption(parent, value, textContent, selected) {
 				const option = document.createElement('option')
 				option.classList.add('header_option')
 				option.value = value
-				option.textContent = value
-				if (condition) {
-					if (value == condition) {
+				option.textContent = textContent ? textContent : value
+				if (selected) {
+					if (value == selected) {
 						option.setAttribute('selected', 'selected')
 					}
 				}
