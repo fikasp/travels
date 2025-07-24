@@ -421,6 +421,7 @@
 			.leaflet-popup-tip {
 				opacity: 0.8;
 				color: #fff;
+				font-family: verdana;
 				background-color: #222;
 				transition: opacity 0.3s ease;
 			}
@@ -1626,6 +1627,9 @@
 
 			// @b set coordinates
 			function setCoor(coor, zoom) {
+				if ($isMobile) {
+					zoom -= 1
+				}
 				if ($isGalleryAndMap) {
 					const mapZoom = $map.getZoom()
 					const mapPoint = $map.latLngToContainerPoint(coor)
