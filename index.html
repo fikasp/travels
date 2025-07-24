@@ -1121,7 +1121,12 @@
 			function prepareViewModes() {
 				console.log('prepareViewModes()')
 				createOption($selectViewMode, enums.GALLERY, labels.GALLERY, $viewMode)
-				createOption($selectViewMode, enums.MAP_GALLERY, labels.MAP_GALLERY, $viewMode)
+				createOption(
+					$selectViewMode,
+					enums.MAP_GALLERY,
+					labels.MAP_GALLERY,
+					$viewMode
+				)
 				createOption($selectViewMode, enums.MAP, labels.MAP, $viewMode)
 			}
 
@@ -1627,20 +1632,30 @@
 
 			// @b set coordinates
 			function setCoor(coor, zoom) {
+				if (!$map || !$map._loaded) {
+					return [coor, zoom]
+				}
+
 				if ($isMobile) {
 					zoom -= 1
 				}
+
+				const mapZoom = $map.getZoom()
+				const mapPoint = $map.latLngToContainerPoint(coor)
+				const scale = Math.pow(2, zoom - mapZoom)
+				const width = window.innerWidth
+				const shiftX = width / 4 / scale
+				const headerHeight = $headerDiv.offsetHeight || 0
+				const shiftY = headerHeight / 2 / scale
+				const newX = mapPoint.x - shiftX
+				const newY = mapPoint.y - shiftY
+
 				if ($isGalleryAndMap) {
-					const mapZoom = $map.getZoom()
-					const mapPoint = $map.latLngToContainerPoint(coor)
-					const scale = Math.pow(2, zoom - mapZoom)
-					const width = window.innerWidth
-					const shift = window.innerWidth / 4 / scale
-					const newX = mapPoint.x - shift
-					const newCoor = $map.containerPointToLatLng([newX, mapPoint.y])
+					const newCoor = $map.containerPointToLatLng([newX, newY])
 					return [newCoor, zoom]
 				} else {
-					return [coor, zoom]
+					const newCoor = $map.containerPointToLatLng([mapPoint.x, newY])
+					return [newCoor, zoom]
 				}
 			}
 
