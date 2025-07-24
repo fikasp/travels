@@ -859,11 +859,9 @@
 								const options = $select.options
 								let newIndex = $select.selectedIndex
 
-								if (diffX < 0) {
-									// swipe left
+								if (diffX > 0) {
 									if (newIndex < options.length - 1) newIndex++
 								} else {
-									// swipe right
 									if (newIndex > 0) newIndex--
 								}
 
@@ -1131,14 +1129,14 @@
 			// @b prepare view modes
 			function prepareViewModes() {
 				console.log('prepareViewModes()')
-				createOption($selectViewMode, enums.GALLERY, labels.GALLERY, $viewMode)
+				createOption($selectViewMode, enums.MAP, labels.MAP, $viewMode)
 				createOption(
 					$selectViewMode,
 					enums.MAP_GALLERY,
 					labels.MAP_GALLERY,
 					$viewMode
 				)
-				createOption($selectViewMode, enums.MAP, labels.MAP, $viewMode)
+				createOption($selectViewMode, enums.GALLERY, labels.GALLERY, $viewMode)
 			}
 
 			// @b prepare ranges
