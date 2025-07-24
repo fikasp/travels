@@ -2537,8 +2537,8 @@ const data = {
             name: "Lasek Mogilski",
             scale: 1.0,
             coor: [
-              50.055396,
-              20.0580633
+              50.0539357,
+              20.0598872
             ],
             date: [
               2023
@@ -2782,8 +2782,8 @@ const data = {
             name: "Park Reduta",
             scale: 1.0,
             coor: [
-              50.0963439,
-              19.9853271
+              50.096048,
+              19.9876553
             ],
             date: [
               2024
