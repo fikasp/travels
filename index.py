@@ -30,8 +30,8 @@ for _, row in df.iterrows():
         continue
     
     # Determine the target range
-    range = range_raw.strip()
-    if not range:
+    range_ = range_raw.strip()
+    if not range_:
         continue
 
     # Prepare abbr
@@ -50,16 +50,18 @@ for _, row in df.iterrows():
     date_list = [int(d) for d in date.split(",") if d.strip().isdigit()] if pd.notna(date) else []
 
     # Add the region to the range
-    if region not in output[range]:
-        output[range][region] = {"coor": coor, "zoom": zoom}
+    if region not in output[range_]:
+        output[range_][region] = {"coor": coor, "zoom": zoom}
 
     # Skip adding city object if city is empty
     if not pd.notna(city):
         continue
     
     # Add the city
-    if city not in output[range][region]:
-        city_obj = {"abbr": abbr} if range == "ranges.poland" else {}
+    if city not in output[range_][region]:
+        city_obj = {}
+        if range_ == "POLSKA" and abbr:
+            city_obj["abbr"] = abbr
         city_obj.update({
             "coor": coor,
             "date": date_list,
@@ -67,7 +69,7 @@ for _, row in df.iterrows():
             "scale": scale,
             "gallery": []
         })
-        output[range][region][city] = city_obj
+        output[range_][region][city] = city_obj
 
     # Add gallery data
     if pd.notna(description):
@@ -80,7 +82,7 @@ for _, row in df.iterrows():
         }
         if top == "Tak":
             gallery_item["top"] = True
-        output[range][region][city]["gallery"].append(gallery_item)
+        output[range_][region][city]["gallery"].append(gallery_item)
 
     # If the region changes, print a log message
     if last_region and (region != last_region or range_raw.strip() != last_range):
@@ -95,14 +97,9 @@ if last_region:
 
 # Convert to JavaScript
 js_output = "const data = " + json.dumps(output, indent=2, ensure_ascii=False)
-js_output = js_output.replace('"catg"', 'catg')
-js_output = js_output.replace('"coor"', 'coor')
-js_output = js_output.replace('"date"', 'date')
-js_output = js_output.replace('"name"', 'name')
-js_output = js_output.replace('"gallery"', 'gallery')
-js_output = js_output.replace('"scale"', 'scale')
-js_output = js_output.replace('"zoom"', 'zoom')
 
+for key in ["abbr", "catg", "coor", "date", "name", "gallery", "scale", "zoom"]:
+    js_output = re.sub(rf'"{key}"(?=\s*:)', key, js_output)
 
 # Output file path
 outputPath = "index.js"
