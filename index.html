@@ -629,6 +629,7 @@
 			const enums = {
 				ALL: 'all',
 				NONE: 'none',
+				PLAN: 'plan',
 				PROFILE: 'P',
 				MAP: 'map',
 				MAP_GALLERY: 'map&gallery',
@@ -639,6 +640,7 @@
 			const labels = {
 				NONE: 'Brak',
 				ALL: 'Wszystkie',
+				PLAN: 'Planowane',
 				MAP: '🗺️ Mapa',
 				MAP_GALLERY: '🗺️🖼️ Mapa i galeria',
 				GALLERY: '🖼️ Galeria',
@@ -676,6 +678,7 @@
 
 			const startCity = 'KRAKÓW'
 			const mapActive = true
+			const YEAR = 2025
 
 			// @b Globals
 			let $map // leaflet map
@@ -785,6 +788,7 @@
 			// @g Main
 			function main() {
 				console.log(data)
+				console.log(routes)
 				// console.log(mapRegions(data[$selectRange.value]))
 				console.log('main()')
 				changeMargin()
@@ -1252,7 +1256,8 @@
 				console.log('prepareDates()')
 
 				createOption($selectDate, enums.ALL, `📅 ${labels.ALL}`)
-				for (let year = 2025; year >= 2004; year--) {
+				createOption($selectDate, enums.PLAN, `📅 ${labels.PLAN}`)
+				for (let year = YEAR; year >= 2004; year--) {
 					createOption($selectDate, year, `📅 ${year}`, $dateFilter)
 				}
 			}
@@ -1851,8 +1856,19 @@
 				// Total distance of visible routes
 				let totalLength = 0
 
+				// Sort routes
+				const sortedRoutes = [...routes].sort((a, b) => {
+					const isAPlanned = a.year > YEAR
+					const isBPlanned = b.year > YEAR
+
+					if (isAPlanned && !isBPlanned) return -1
+					if (!isAPlanned && isBPlanned) return 1
+
+					return a.year - b.year
+				})
+
 				// Loop through all routes
-				routes.forEach((route) => {
+				sortedRoutes.forEach((route) => {
 					// Skip route if it doesn't match the active filters
 					if (shouldRouteSkip(route)) return
 
@@ -1869,8 +1885,7 @@
 
 			// @b should route skip
 			function shouldRouteSkip(route) {
-				const year = route.name.slice(0, 4)
-				const activity = route.activity
+
 				// Exclude routes not matching selected activity
 				if (
 					$activityFilter !== enums.ALL &&
@@ -1921,12 +1936,22 @@
 					}
 
 					// Filter by year
-					if ($dateFilter !== enums.ALL && year > $dateFilter.toString()) {
+					if ($dateFilter === enums.PLAN) {
+						if (route.year <= YEAR) return true
+					} else if (
+						$dateFilter !== enums.ALL &&
+						route.year > parseInt($dateFilter)
+					) {
 						return true
 					}
 				} else {
 					// For non-road routes: filter by year
-					if ($dateFilter !== enums.ALL && year !== $dateFilter.toString()) {
+					if ($dateFilter === enums.PLAN) {
+						if (route.year <= YEAR) return true
+					} else if (
+						$dateFilter !== enums.ALL &&
+						route.year !== parseInt($dateFilter)
+					) {
 						return true
 					}
 				}
@@ -1939,7 +1964,7 @@
 				const maxYear = 2025
 
 				// Clamp year
-				const clampedYear = Math.max(minYear, Math.min(maxYear, parseInt(year)))
+				const clampedYear = Math.max(minYear, Math.min(maxYear, year))
 
 				// Normalize to 0–1
 				const ratio = (clampedYear - minYear) / (maxYear - minYear)
@@ -1956,6 +1981,7 @@
 				// Default styles
 				const defaultColor = 'black'
 				const activeColor = 'dodgerblue'
+				const planColor = 'steelblue'
 
 				const defaultWeight = 2
 				const activeWeight = 6
@@ -1979,11 +2005,10 @@
 
 				// Roads: style and weight based on years and lanes
 				if (route.range === 'DROGI') {
-					const year = route.name.slice(0, 4)
 					const lanes = route.name.split(' ')[4]
 
 					routeName = route.name
-					routeColor = getColorForRoute(year)
+					routeColor = getColorForRoute(route.year)
 					routeWeight = lanes == 3 ? 5 : lanes == 2 ? 4 : lanes == 1 ? 3 : 2
 				} else {
 					// Other routes: color by activity
@@ -1992,6 +2017,10 @@
 					} else if (secondaryActivities.includes(route.activity)) {
 						routeColor = '#666'
 					}
+				}
+
+				if (route.year > YEAR) {
+					routeColor = planColor
 				}
 
 				// Main visible polyline

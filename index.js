@@ -787,7 +787,7 @@ const data = {
           },
           {
             catg: "S",
-            name: "Bazylika MB Wniebowziętej (Cystersów) [Mogiła]/Ołtarz",
+            name: "Bazylika MB Wniebowziętej (Cystersów) [Mogiła]/Organy",
             scale: 1.0,
             coor: [
               50.0647909,
@@ -1328,19 +1328,6 @@ const data = {
           },
           {
             catg: "S",
-            name: "Kościół MB Królowej Polski [Wola Justowska]/Zewnętrze",
-            scale: 1.0,
-            coor: [
-              50.063794,
-              19.8621279
-            ],
-            date: [
-              2021
-            ],
-            "top": true
-          },
-          {
-            catg: "S",
             name: "Kościół MB Nieustającej Pomocy [Mydlniki]/Zewnętrze",
             scale: 1.0,
             coor: [
@@ -1355,6 +1342,18 @@ const data = {
           {
             catg: "S",
             name: "Kościół MB Nieustającej Pomocy [Mydlniki]/Wnętrze",
+            scale: 1.0,
+            coor: [
+              50.0835992,
+              19.8451817
+            ],
+            date: [
+              2021
+            ]
+          },
+          {
+            catg: "S",
+            name: "Kościół MB Nieustającej Pomocy [Mydlniki]/Organy",
             scale: 1.0,
             coor: [
               50.0835992,

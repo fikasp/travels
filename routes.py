@@ -7,46 +7,45 @@ import gpxpy
 
 
 # @g CONFIG
-TOLERANCE = 0.0001
-APPEND_MODE = False
-ROADS_MODE = True
-YEAR = 0 # 0 if all
+ROADS = False
+APPEND = True
+YEAR = 2026
+MONTH = 0
 
-# @b Setup paths
-script_dir = Path(__file__).parent.resolve()
-
-if ROADS_MODE:
-    base_folder = script_dir / "Drogi" / "Zestawienie"
-elif YEAR == 0:
-    base_folder = script_dir / "Trasy"
-else:
-    base_folder = script_dir / "Trasy" / str(YEAR)
-
-output_file = script_dir / "routes.js"
-
-# @b Activities
+# @b activities
 activities = {
-    'transport_car': '🚗',
-    'cycling': '🚴',
-    'walking': '🚶',
     'hiking': '🥾',
-    'downhill_skiing': '🎿',
+    'walking': '🚶',
+    'cycling': '🚴',
+    'transport_car': '🚗',
     'transport_public': '🚌',
     'transport_train': '🚆',
+    'downhill_skiing': '🎿',
 }
 
 # @g FUNCTIONS
 
-# @b Get name
+# @b get name
 def get_name(gpx):
+    """
+    Extract the first available track name from the GPX file.
+    Returns 'No name' if none found.
+    """
     for trk in gpx.tracks:
         if trk.name:
             return trk.name.strip()
     return "Brak nazwy"
 
 
-# @b Get range
+# @b get range
 def get_range(activity, roads_mode=False):
+    """
+    Determine the route range category based on activity and mode:
+    - If roads_mode is True, return 'ROADS'
+    - If activity is 'hiking', return 'MOUNTAINS'
+    - If activity starts with 'europe_', return 'EUROPE'
+    - Otherwise, return 'POLAND'
+    """
     if roads_mode:
         return "DROGI"
     if activity:
@@ -58,21 +57,52 @@ def get_range(activity, roads_mode=False):
     return "POLSKA"
 
 
-# @b Get coordinates
-def get_segments(gpx):
+# @b get segments
+def get_segments(gpx, tolerance=0.0001, merge_threshold_meters=100):
+    """
+    Extract and simplify segments from GPX tracks.
+    Merge consecutive segments if their endpoints are closer than merge_threshold_meters.
+    Returns a list of simplified segments (list of [lon, lat] points).
+    """
+
+    # Check if two points are close enough to merge (threshold in meters)
+    def are_points_close(pt1, pt2):
+        lon1, lat1 = pt1
+        lon2, lat2 = pt2
+        dist = calculate_distance(lon1, lat1, lon2, lat2) * 1000
+        return dist <= merge_threshold_meters
+
+    # Extract and simplify all segments from the GPX tracks
     all_segments = []
     for trk in gpx.tracks:
         for seg in trk.segments:
             segment_coords = [[pt.longitude, pt.latitude] for pt in seg.points]
             if segment_coords:
-                simplified = simplify_coords(segment_coords, TOLERANCE)
+                simplified = simplify_coords(segment_coords, tolerance)
                 all_segments.append(simplified)
-    return all_segments if all_segments else None
+
+    if not all_segments:
+        return None
+
+    # Merge segments if the end of one is close to the start of the next
+    merged_segments = [all_segments[0]]
+    for seg in all_segments[1:]:
+        last_segment = merged_segments[-1]
+        if are_points_close(last_segment[-1], seg[0]):
+            # Concatenate segments if endpoints are close
+            merged_segments[-1] = last_segment + seg
+        else:
+            merged_segments.append(seg)
+
+    return merged_segments
 
 
-# @b Get activity
+# @b get activity
 def get_activity(gpx):
-
+    """
+    Extract 'activity' metadata from GPX extensions using the Locus Map namespace.
+    Returns the activity string or None if not found.
+    """
     LOCUS_NS = "{http://www.locusmap.eu}"
 
     for trk in gpx.tracks:
@@ -86,15 +116,24 @@ def get_activity(gpx):
                     return elem.text.strip() if elem.text else None
     return None
 
-# @b Get activity icon
+
+# @b get activity icon
 def get_activity_icon(activity):
+    """
+    Return the emoji icon representing the activity.
+    Default to '❓' if unknown.
+    """
     if not activity:
         return "❓"
     return activities.get(activity.lower(), "❓")
 
 
-# @b Calculate distance between points
+# @b calculate distance between points
 def calculate_distance(lon1, lat1, lon2, lat2):
+    """
+    Calculate the great-circle distance between two geographic points using the Haversine formula.
+    Returns distance in kilometers.
+    """
     R = 6371.0
     phi1 = math.radians(lat1)
     phi2 = math.radians(lat2)
@@ -104,8 +143,12 @@ def calculate_distance(lon1, lat1, lon2, lat2):
     return 2 * R * math.atan2(math.sqrt(a), math.sqrt(1 - a))
 
 
-# @b Calculate total length of the route
+# @b calculate total length of the route
 def calculate_total_length(coords):
+    """
+    Calculate total length of a route given a list of [lon, lat] points.
+    Returns length in kilometers.
+    """
     if not coords or len(coords) < 2:
         return 0.0
 
@@ -120,15 +163,20 @@ def calculate_total_length(coords):
     return total
 
 
-# @b Extract data from GPX file
+# @b extract data from GPX file
 def extract_data(gpx_path):
+    """
+    Parse a GPX file and extract route name, activity, range category, and simplified segments.
+    Returns a list of tuples: (name, range, activity, coords).
+    If multiple segments exist, names are numbered.
+    """
     try:
         with gpx_path.open('r', encoding='utf-8') as f:
             gpx = gpxpy.parse(f)
             name = get_name(gpx)
             segments = get_segments(gpx)
             activity = get_activity(gpx)
-            range_ = get_range(activity, ROADS_MODE)
+            range_ = get_range(activity, ROADS)
 
             if activity and activity.startswith("europe_"):
                 activity = activity[len("europe_"):]
@@ -146,14 +194,19 @@ def extract_data(gpx_path):
         return []
 
 
-# @b Format data into JS object
-def format_route_entry(name, icon, range_, activity, length, coords):
+# @b format data into JS object
+def format_route_entry(name, icon, range_, activity, year, length, coords):
+    """
+    Format route data into a JavaScript object string for export.
+    Coordinates are reordered to [lat, lon] for JS.
+    """
     lines = [
         "  {",
         f"    name: '{name}',",
         f"    range: '{range_}',",
         f"    activity: '{activity}',",
         f"    icon: '{icon}',",
+        f"    year: {year},",
         f"    length: {length:.2f},",
         "    coords: ["
     ]
@@ -167,69 +220,113 @@ def format_route_entry(name, icon, range_, activity, length, coords):
     return "\n".join(lines)
 
 
-# @b Set file hidden
+# @b set file hidden
 def set_file_hidden(filepath, hide=True):
+    """
+    Set or unset the Windows file hidden attribute using 'attrib' command.
+    """
     try:
         subprocess.run(['attrib', '+H' if hide else '-H', str(filepath)], check=True, shell=True)
     except Exception as e:
         print(f"⚠️ Couldn't {'hide' if hide else 'unhide'} file: {e}")
 
 
-# @g MAIN PROCESSING
-
-# Unhide output file before writing
-set_file_hidden(output_file, hide=False)  
-
-new_entries = []
-
-# @b Extract and format data
-for gpx_file in base_folder.rglob('*.gpx'):
-    extracted = extract_data(gpx_file)
-    for name, range_, activity, coords in extracted:
-        icon = get_activity_icon(activity)
-        length = calculate_total_length(coords)
-    
-        if range_ == "POLSKA":
-            print(f"✅ 🇵🇱 {icon} {name}")
-        elif range_ == "EUROPA":
-            print(f"✅ 🇪🇺 {icon} {name}")
-        elif range_ == "GÓRY":
-            print(f"✅ 🇬🇾 {icon} {name}")
-        elif range_ == "DROGI":
-            print(f"✅ 🇩🇬 {name} ")
-        else:
-            print(f"🟥❌ {icon} {name} -> {range_}")
-
-        new_entries.append(format_route_entry(name, icon, range_, activity, length, coords))
+# @b get base folder
+def get_base_folder(script_dir: Path, roads: bool, year: int, month: int) -> Path:
+    """
+    Determine the base folder path to search GPX files based on the config.
+    """
+    if roads:
+        return script_dir / "Drogi" / "Zestawienie"
+    if year == 0:
+        return script_dir / "Trasy"
+    if month == 0:
+        return script_dir / "Trasy" / str(year)
+    if 1 <= month <= 12:
+        month_str = f"{year}-{month:02d}"
+        return script_dir / "Trasy" / str(year) / month_str
+    raise ValueError(f"Invalid month: {month}")
 
 
-# @b Write data to JS file
-if not new_entries:
-    print("⚠️ No routes found.")
-else:
-    if (APPEND_MODE or ROADS_MODE) and output_file.exists():
-        # Append mode
-        with output_file.open('r+', encoding='utf-8') as f:
-            content = f.read().rstrip()
-            if content.endswith("]\n"):
-                content = content[:-2]
-            elif content.endswith("]"):
-                content = content[:-1]
-            if not content.strip().endswith("["):
-                content += ",\n"
-            content += "\n" + "\n".join(new_entries) + "\n]"
-            f.seek(0)
-            f.write(content)
-            f.truncate()
+# @g MAIN
+
+def main():
+    """
+    Main processing function for extracting GPX route data and generating
+    a JavaScript routes file.
+
+    Steps performed:
+    - Determine input and output directories based on configuration
+    - Recursively scan for GPX files and extract route details (name, activity, segments)
+    - Calculate route lengths and assign icons based on activity type
+    - Print status messages with corresponding flags and icons
+    - Write or append formatted route entries to a 'routes.js' file
+    - Manage file attributes to hide/unhide output file on Windows
+
+    Supports modes for roads, appending, and filtering by year/month.
+    """
+    # Set up input and output paths
+    script_dir = Path(__file__).parent.resolve()
+    base_folder = get_base_folder(script_dir, ROADS, YEAR, MONTH)
+    output_file = script_dir / "routes.js"
+
+    # Unhide output file before writing
+    set_file_hidden(output_file, hide=False)  
+
+    new_entries = []
+
+    # @b extract and format data
+    for gpx_file in base_folder.rglob('*.gpx'):
+        extracted = extract_data(gpx_file)
+        for name, range_, activity, coords in extracted:
+            year_str = name[:4]
+            year = int(year_str) if year_str.isdigit() else 0
+            length = calculate_total_length(coords)
+            icon = get_activity_icon(activity)
+        
+            if range_ == "POLSKA":
+                print(f"✅ 🇵🇱 {icon} {name}")
+            elif range_ == "EUROPA":
+                print(f"✅ 🇪🇺 {icon} {name}")
+            elif range_ == "GÓRY":
+                print(f"✅ 🇬🇾 {icon} {name}")
+            elif range_ == "DROGI":
+                print(f"✅ 🇩🇬 {name} ")
+            else:
+                print(f"🟥❌ {icon} {name} -> {range_}")
+
+            new_entries.append(format_route_entry(name, icon, range_, activity, year, length, coords))
+
+
+    # @b write data to JS file
+    if not new_entries:
+        print("⚠️ No routes found.")
     else:
-        # Overwrite mode
-        with output_file.open('w', encoding='utf-8') as f:
-            f.write("const routes = [\n")
-            f.write("\n".join(new_entries))
-            f.write("\n]\n")
+        if APPEND and output_file.exists():
+            # Append mode
+            with output_file.open('r+', encoding='utf-8') as f:
+                content = f.read().rstrip()
 
-# Re-hide the output file
-set_file_hidden(output_file)  
+                if content.endswith("]"):
+                    content = content[:-1].rstrip()
+                if not content.endswith(","):
+                    content += ","
+                content += "\n" + "\n".join(new_entries) + "\n]"
+                f.seek(0)
+                f.write(content)
+                f.truncate()
+        else:
+            # Overwrite mode
+            with output_file.open('w', encoding='utf-8') as f:
+                f.write("const routes = [\n")
+                f.write("\n".join(new_entries))
+                f.write("\n]\n")
 
-# Summary
-print(f"🏆 {'Appended' if (APPEND_MODE or ROADS_MODE) else 'Wrote'} {len(new_entries)} routes!")
+    # re-hide the output file
+    set_file_hidden(output_file)  
+
+    # summary
+    print(f"🏆 {'Appended' if (APPEND) else 'Wrote'} {len(new_entries)} routes!")
+
+if __name__ == "__main__":
+    main()
