@@ -644,6 +644,7 @@
 				MAP: '🗺️ Mapa',
 				MAP_GALLERY: '🗺️🖼️ Mapa i galeria',
 				GALLERY: '🖼️ Galeria',
+				TOTAL: 'PEŁNY',
 			}
 
 			const categories = {
@@ -664,9 +665,11 @@
 				transport_car: '🚗 Samochodowe',
 				cycling: '🚴 Rowerowe',
 				walking: '🚶 Spacerowe',
+				hiking: '🥾 Trekkingowe',
 				downhill_skiing: '🎿 Narciarskie',
 				transport_public: '🚌 Autokarowe',
 				transport_train: '🚆 Kolejowe',
+				transport_boat: '🛳️ Promowe',
 			}
 
 			const ranges = {
@@ -674,6 +677,47 @@
 				POLAND: 'POLSKA',
 				WORLD: 'EUROPA',
 				ROADS: 'DROGI',
+			}
+
+			const allowedCategoriesByRange = {
+				[ranges.ROADS]: ['none'],
+				[ranges.MOUNTAINS]: ['none', 'all', 'P', 'H', 'N', 'Z'],
+				[ranges.POLAND]: ['none', 'all', 'P', 'O', 'S', 'H', 'N', 'G', 'Z'],
+				[ranges.WORLD]: ['none', 'all', 'P', 'O', 'S', 'H', 'N', 'G', 'Z'],
+				[enums.NONE]: ['none', 'all', 'P', 'O', 'S', 'H', 'N', 'G', 'Z'],
+			}
+
+			const allowedActivitiesByRange = {
+				[ranges.ROADS]: ['all'],
+				[ranges.MOUNTAINS]: ['none', 'all', 'hiking', 'downhill_skiing'],
+				[ranges.WORLD]: [
+					'none',
+					'all',
+					'transport_public',
+					'walking',
+					'transport_boat',
+				],
+				[ranges.POLAND]: [
+					'none',
+					'all',
+					'transport_car',
+					'cycling',
+					'walking',
+					'transport_public',
+					'transport_train',
+				],
+				[enums.NONE]: [
+					'none',
+					'all',
+					'transport_car',
+					'cycling',
+					'walking',
+					'hiking',
+					'downhill_skiing',
+					'transport_public',
+					'transport_train',
+					'transport_boat',
+				],
 			}
 
 			const startCity = 'KRAKÓW'
@@ -796,9 +840,9 @@
 				prepareData()
 				prepareDates()
 				prepareViewModes()
+				prepareRanges()
 				prepareActivities()
 				prepareCategories()
-				prepareRanges()
 				prepareRoutes()
 				setRange()
 			}
@@ -1046,18 +1090,20 @@
 				$filteredData = $citiesArray
 
 				// filter by range
-				if ($selectRegion.value == enums.ALL) {
-					$filteredData = $filteredData.filter(
-						(item) => $selectRange.value === item.range
-					)
-				} else if ($selectCity.value == enums.ALL) {
-					$filteredData = $filteredData.filter(
-						(item) => $selectRegion.value === item.region
-					)
-				} else {
-					$filteredData = $citiesArray.filter(
-						(item) => $selectCity.value === item.city
-					)
+				if ($selectRange.value !== enums.NONE) {
+					if ($selectRegion.value == enums.ALL) {
+						$filteredData = $filteredData.filter(
+							(item) => $selectRange.value === item.range
+						)
+					} else if ($selectCity.value == enums.ALL) {
+						$filteredData = $filteredData.filter(
+							(item) => $selectRegion.value === item.region
+						)
+					} else {
+						$filteredData = $citiesArray.filter(
+							(item) => $selectCity.value === item.city
+						)
+					}
 				}
 
 				// filter by category filter
@@ -1181,6 +1227,8 @@
 
 				$selectRange.innerHTML = ''
 				const selectedRange = $isInitialRender ? findRange(startCity) : null
+
+				createOption($selectRange, enums.NONE, labels.NONE)
 				ranges.forEach((range) => {
 					createOption($selectRange, range, range, selectedRange)
 				})
@@ -1190,12 +1238,19 @@
 			// @b prepare regions
 			function prepareRegions() {
 				console.log(`prepareRegions(${$selectRange.value})`)
-				const regions = Object.keys(data[$selectRange.value])
+
+				if ($selectRange.value == enums.NONE) {
+					$selectRegion.innerHTML = ''
+					$selectCity.innerHTML = ''
+					return
+				}
 
 				$selectRegion.innerHTML = ''
 				createOption($selectRegion, enums.ALL, labels.ALL)
 
 				const selectedRegion = $isInitialRender ? findRegion(startCity) : null
+				const regions = Object.keys(data[$selectRange.value])
+
 				regions.forEach((region) => {
 					createOption($selectRegion, region, region, selectedRegion)
 				})
@@ -1203,7 +1258,10 @@
 
 			// @b prepare cities
 			function prepareCities() {
-				if ($selectRegion.value == enums.ALL) {
+				if (
+					$selectRegion.value == enums.ALL ||
+					$selectRegion.value == enums.EMPTY
+				) {
 					$selectCity.innerHTML = ''
 					return
 				}
@@ -1227,27 +1285,42 @@
 			// @b prepare activities
 			function prepareActivities() {
 				console.log('prepareActivities()')
+				$selectActivity.innerHTML = ''
 
-				Object.entries(activities).forEach(([activity_key, activity_value]) => {
-					createOption(
-						$selectActivity,
-						activity_key,
-						activity_value,
-						$activityFilter
-					)
+				const selectedRange = $selectRange.value
+				const allowed = allowedActivitiesByRange[selectedRange] || []
+
+				allowed.forEach((activity_key) => {
+					const activity_value = activities[activity_key]
+					if (activity_value) {
+						createOption(
+							$selectActivity,
+							activity_key,
+							activity_value,
+							$activityFilter
+						)
+					}
 				})
 			}
 
 			// @b prepare categories
 			function prepareCategories() {
 				console.log('prepareCategories()')
-				Object.entries(categories).forEach(([category_key, category_value]) => {
-					createOption(
-						$selectCategory,
-						category_key,
-						category_value,
-						$categoryFilter
-					)
+				$selectCategory.innerHTML = ''
+
+				const selectedRange = $selectRange.value
+				const allowed = allowedCategoriesByRange[selectedRange] || []
+
+				allowed.forEach((category_key) => {
+					const category_value = categories[category_key]
+					if (category_value) {
+						createOption(
+							$selectCategory,
+							category_key,
+							category_value,
+							$categoryFilter
+						)
+					}
 				})
 			}
 
@@ -1279,6 +1352,9 @@
 				} else if (range == ranges.MOUNTAINS) {
 					$labelRegion.textContent = 'Pasmo:'
 					$labelCity.textContent = 'Szczyt:'
+				} else if (range == enums.NONE) {
+					$labelRegion.textContent = ''
+					$labelCity.textContent = ''
 				}
 			}
 
@@ -1313,7 +1389,9 @@
 			// @b set title
 			function setTitle() {
 				let title = ''
-				if ($selectRegion.value == enums.ALL) {
+				if ($selectRange.value == enums.NONE) {
+					title = 'PODRÓŻE'
+				} else if ($selectRegion.value == enums.ALL) {
 					title = $selectRange.value
 				} else if ($selectCity.value == enums.ALL) {
 					title = $selectRegion.value
@@ -1345,6 +1423,8 @@
 			// @b set range
 			function setRange() {
 				console.log(`setRange(${$selectRange.value})`)
+				prepareActivities()
+				prepareCategories()
 				prepareRegions()
 				prepareCities()
 				setLabels()
@@ -1678,6 +1758,11 @@
 			function setMapView() {
 				console.log(`setMapView()`)
 
+				if ($selectRange.value == enums.NONE) {
+					$map.setView(...setCoor([46.8, 9.3], 5))
+					return
+				}
+
 				if ($selectRegion.value == enums.ALL) {
 					if ($selectRange.value == ranges.MOUNTAINS) {
 						$map.setView(...setCoor([50.05, 19.25], 8))
@@ -1885,7 +1970,6 @@
 
 			// @b should route skip
 			function shouldRouteSkip(route) {
-
 				// Exclude routes not matching selected activity
 				if (
 					$activityFilter !== enums.ALL &&
@@ -1895,7 +1979,10 @@
 				}
 
 				// Skip routes that don't match selected range
-				if (route.range !== $selectRange.value) {
+				if (
+					$selectRange.value !== enums.NONE &&
+					$selectRange.value !== route.range
+				) {
 					return true
 				}
 
@@ -2019,7 +2106,7 @@
 					}
 				}
 
-				if (route.year > YEAR) {
+				if (route.year > YEAR || route.year == 0) {
 					routeColor = planColor
 				}
 

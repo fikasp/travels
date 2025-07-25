@@ -7,9 +7,7 @@ import gpxpy
 
 
 # @g CONFIG
-ROADS = False
-APPEND = True
-YEAR = 2026
+YEAR = 0
 MONTH = 0
 
 # @b activities
@@ -20,7 +18,9 @@ activities = {
     'transport_car': '🚗',
     'transport_public': '🚌',
     'transport_train': '🚆',
+    'transport_boat': '🛳️',
     'downhill_skiing': '🎿',
+    'roads': '🛣️'
 }
 
 # @g FUNCTIONS
@@ -38,19 +38,19 @@ def get_name(gpx):
 
 
 # @b get range
-def get_range(activity, roads_mode=False):
+def get_range(activity):
     """
-    Determine the route range category based on activity and mode:
-    - If roads_mode is True, return 'ROADS'
-    - If activity is 'hiking', return 'MOUNTAINS'
-    - If activity starts with 'europe_', return 'EUROPE'
-    - Otherwise, return 'POLAND'
+    Determines the geographical range category based on the activity string:
+    - Returns 'GÓRY' if the activity is 'hiking'
+    - Returns 'DROGI' if the activity is exactly 'roads'
+    - Returns 'EUROPA' if the activity starts with 'europe_'
+    - Returns 'POLSKA' in all other cases or if activity is None
     """
-    if roads_mode:
-        return "DROGI"
     if activity:
         activity = activity.strip().lower()
-        if activity == "hiking":
+        if activity == "roads":
+            return "DROGI"
+        elif activity == "hiking" or activity == "downhill_skiing":
             return "GÓRY"
         elif activity.startswith("europe_"):
             return "EUROPA"
@@ -176,7 +176,7 @@ def extract_data(gpx_path):
             name = get_name(gpx)
             segments = get_segments(gpx)
             activity = get_activity(gpx)
-            range_ = get_range(activity, ROADS)
+            range_ = get_range(activity)
 
             if activity and activity.startswith("europe_"):
                 activity = activity[len("europe_"):]
@@ -232,14 +232,12 @@ def set_file_hidden(filepath, hide=True):
 
 
 # @b get base folder
-def get_base_folder(script_dir: Path, roads: bool, year: int, month: int) -> Path:
+def get_base_folder(script_dir: Path, year: int, month: int) -> Path:
     """
     Determine the base folder path to search GPX files based on the config.
     """
-    if roads:
-        return script_dir / "Drogi" / "Zestawienie"
     if year == 0:
-        return script_dir / "Trasy"
+        return script_dir 
     if month == 0:
         return script_dir / "Trasy" / str(year)
     if 1 <= month <= 12:
@@ -252,22 +250,18 @@ def get_base_folder(script_dir: Path, roads: bool, year: int, month: int) -> Pat
 
 def main():
     """
-    Main processing function for extracting GPX route data and generating
-    a JavaScript routes file.
-
-    Steps performed:
+    Main processing function for extracting GPX 
+    route data and generating a JavaScript routes file.
     - Determine input and output directories based on configuration
     - Recursively scan for GPX files and extract route details (name, activity, segments)
     - Calculate route lengths and assign icons based on activity type
     - Print status messages with corresponding flags and icons
     - Write or append formatted route entries to a 'routes.js' file
     - Manage file attributes to hide/unhide output file on Windows
-
-    Supports modes for roads, appending, and filtering by year/month.
     """
     # Set up input and output paths
     script_dir = Path(__file__).parent.resolve()
-    base_folder = get_base_folder(script_dir, ROADS, YEAR, MONTH)
+    base_folder = get_base_folder(script_dir, YEAR, MONTH)
     output_file = script_dir / "routes.js"
 
     # Unhide output file before writing
@@ -291,7 +285,7 @@ def main():
             elif range_ == "GÓRY":
                 print(f"✅ 🇬🇾 {icon} {name}")
             elif range_ == "DROGI":
-                print(f"✅ 🇩🇬 {name} ")
+                print(f"✅ 🇩🇬 {icon}  {name} ")
             else:
                 print(f"🟥❌ {icon} {name} -> {range_}")
 
@@ -302,7 +296,13 @@ def main():
     if not new_entries:
         print("⚠️ No routes found.")
     else:
-        if APPEND and output_file.exists():
+        if YEAR == 0:
+            # Overwrite mode
+            with output_file.open('w', encoding='utf-8') as f:
+                f.write("const routes = [\n")
+                f.write("\n".join(new_entries))
+                f.write("\n]\n")
+        elif output_file.exists():
             # Append mode
             with output_file.open('r+', encoding='utf-8') as f:
                 content = f.read().rstrip()
@@ -315,18 +315,12 @@ def main():
                 f.seek(0)
                 f.write(content)
                 f.truncate()
-        else:
-            # Overwrite mode
-            with output_file.open('w', encoding='utf-8') as f:
-                f.write("const routes = [\n")
-                f.write("\n".join(new_entries))
-                f.write("\n]\n")
 
     # re-hide the output file
     set_file_hidden(output_file)  
 
     # summary
-    print(f"🏆 {'Appended' if (APPEND) else 'Wrote'} {len(new_entries)} routes!")
+    print(f"🏆 {'Wrote' if (YEAR == 0) else 'Appended'} {len(new_entries)} routes!")
 
 if __name__ == "__main__":
     main()
