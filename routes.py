@@ -1,4 +1,5 @@
 from pathlib import Path
+from datetime import datetime
 from simplification.cutil import simplify_coords
 import xml.etree.ElementTree as ET
 import math
@@ -35,6 +36,36 @@ def get_name(gpx):
         if trk.name:
             return trk.name.strip()
     return "Brak nazwy"
+
+
+# @b get year
+def get_year(name: str):
+    """
+    Extract year from input and return:
+    - year if in the past or current month of current year,
+    - 0 if in the future or date not found.
+    """
+    try:
+        year_str = name[:4]
+        year = int(year_str)
+        today = datetime.today()
+        current_year = today.year
+        current_month = today.month
+
+        if year < current_year:
+            return year
+        elif year > current_year:
+            return 0
+        else:
+            if len(name) >= 7:
+                month_str = name[5:7]
+                if month_str.isdigit():
+                    month = int(month_str)
+                    if 1 <= month <= 12:
+                        return year if month <= current_month else 0
+            return year
+    except Exception:
+        return 0
 
 
 # @b get range
@@ -278,19 +309,18 @@ def main():
 
         extracted = extract_data(gpx_file)
         for name, range_, activity, coords in extracted:
-            year_str = name[:4]
-            year = int(year_str) if year_str.isdigit() else 0
             length = calculate_total_length(coords)
             icon = get_activity_icon(activity)
+            year = get_year(name)
         
             if range_ == "POLSKA":
-                print(f"✅ 🇵🇱 {icon} {name}")
+                print(f"✅ 🇵🇱 {icon} {name} => {year}")
             elif range_ == "ŚWIAT":
-                print(f"✅ 🇪🇺 {icon} {name}")
+                print(f"✅ 🇪🇺 {icon} {name} => {year}")
             elif range_ == "GÓRY":
-                print(f"✅ 🇬🇾 {icon} {name}")
+                print(f"✅ 🇬🇾 {icon} {name} => {year}")
             elif range_ == "DROGI":
-                print(f"✅ 🇩🇬 {icon}  {name} ")
+                print(f"✅ 🇩🇬 {icon}  {name} => {year} ")
             else:
                 print(f"🟥❌ {icon} {name} -> {range_}")
 
