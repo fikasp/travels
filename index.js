@@ -1,220 +1,408 @@
 const data = {
-  "DROGI": {
-    "Ekspresowe": {
+  "EUROPA": {
+    "Hiszpania": {
       coor: [
-        52.05,
-        19.25
+        40.413496,
+        -3.7133789
       ],
       zoom: 7,
-      "A1": {
+      "Barcelona": {
         coor: [
-          52.05,
-          19.25
+          41.3707783,
+          2.1699607
         ],
-        date: [],
-        zoom: 7,
+        date: [
+          2019
+        ],
+        zoom: 13,
+        scale: 2.0,
+        gallery: [
+          {
+            catg: "H",
+            name: "Casa Batllo",
+            scale: 1.0,
+            coor: [
+              41.3916745,
+              2.164949
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: "H",
+            name: "Casa Mila",
+            scale: 1.0,
+            coor: [
+              41.3951927,
+              2.161784
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: "H",
+            name: "Most Biskupi",
+            scale: 1.0,
+            coor: [
+              41.3832765,
+              2.1764436
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: "H",
+            name: "Muzeum MNAC",
+            scale: 1.0,
+            coor: [
+              41.3712695,
+              2.1513033
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: "N",
+            name: "Escuela Massana",
+            scale: 1.0,
+            coor: [
+              41.3811035,
+              2.1709612
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: "N",
+            name: "La Boqueria",
+            scale: 1.0,
+            coor: [
+              41.3820252,
+              2.1722916
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: "N",
+            name: "Stadion Olimpijski",
+            scale: 1.0,
+            coor: [
+              41.3657862,
+              2.1556699
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: "O",
+            name: "La Rambla 1",
+            scale: 1.0,
+            coor: [
+              41.3844442,
+              2.1707815
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: "O",
+            name: "La Rambla 2",
+            scale: 1.0,
+            coor: [
+              41.3770662,
+              2.1765482
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: "O",
+            name: "Panorama 1",
+            scale: 1.0,
+            coor: [
+              41.370879,
+              2.170465
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: "O",
+            name: "Panorama 2",
+            scale: 1.0,
+            coor: [
+              41.3708729,
+              2.1703362
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: "O",
+            name: "Panorama 3",
+            scale: 1.0,
+            coor: [
+              41.3708548,
+              2.1702102
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: "O",
+            name: "Panorama 4",
+            scale: 1.0,
+            coor: [
+              41.3708367,
+              2.1700788
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: "O",
+            name: "Plac Hiszpański",
+            scale: 1.0,
+            coor: [
+              41.374031,
+              2.1497905
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: "O",
+            name: "Port Vell",
+            scale: 1.0,
+            coor: [
+              41.375448,
+              2.1802014
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: "S",
+            name: "Bazylika La Merce",
+            scale: 1.0,
+            coor: [
+              41.3796303,
+              2.1796837
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: "S",
+            name: "Bazylika NMP Morza",
+            scale: 1.0,
+            coor: [
+              41.3837841,
+              2.1820065
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: "S",
+            name: "Katedra św. Eulalii 1",
+            scale: 1.0,
+            coor: [
+              41.3842671,
+              2.1761566
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: "S",
+            name: "Katedra św. Eulalii 2",
+            scale: 1.0,
+            coor: [
+              41.3838385,
+              2.1770149
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: "S",
+            name: "Katedra św. Eulalii 3",
+            scale: 1.0,
+            coor: [
+              41.3836754,
+              2.1767923
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: "S",
+            name: "Sagrada Familia 1",
+            scale: 1.0,
+            coor: [
+              41.4040464,
+              2.1747029
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: "S",
+            name: "Sagrada Familia 2",
+            scale: 1.0,
+            coor: [
+              41.402952,
+              2.1741557
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: "S",
+            name: "Sagrada Familia 3",
+            scale: 1.0,
+            coor: [
+              41.403463,
+              2.1750569
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: "S",
+            name: "Sagrada Familia 4",
+            scale: 1.0,
+            coor: [
+              41.4035957,
+              2.1743488
+            ],
+            date: [
+              2019
+            ]
+          }
+        ]
+      },
+      "Cuenca": {
+        coor: [
+          40.0782931,
+          -2.1274102
+        ],
+        date: [
+          2019
+        ],
+        zoom: 15,
         scale: 1.0,
         gallery: []
       },
-      "A2": {
+      "Madryt": {
         coor: [
-          52.05,
-          19.25
+          40.4153095,
+          -3.7137866
         ],
-        date: [],
-        zoom: 7,
+        date: [
+          2019
+        ],
+        zoom: 13,
+        scale: 2.5,
+        gallery: []
+      },
+      "Requena": {
+        coor: [
+          39.4853337,
+          -1.1007035
+        ],
+        date: [
+          2019
+        ],
+        zoom: 15,
         scale: 1.0,
         gallery: []
       },
-      "A4": {
+      "Saragossa": {
         coor: [
-          52.05,
-          19.25
+          41.6570062,
+          -0.8804995
         ],
-        date: [],
-        zoom: 7,
+        date: [
+          2019
+        ],
+        zoom: 13,
         scale: 1.0,
         gallery: []
       },
-      "S1": {
+      "Walencja": {
         coor: [
-          52.05,
-          19.25
+          39.4589143,
+          -0.3568089
         ],
-        date: [],
-        zoom: 7,
-        scale: 1.0,
-        gallery: []
-      },
-      "S2": {
-        coor: [
-          52.05,
-          19.25
+        date: [
+          2019
         ],
-        date: [],
-        zoom: 7,
-        scale: 1.0,
-        gallery: []
-      },
-      "S3": {
-        coor: [
-          52.05,
-          19.25
-        ],
-        date: [],
-        zoom: 7,
+        zoom: 13,
         scale: 1.0,
         gallery: []
       }
     },
-    "Krajowe": {
+    "Austria": {
       coor: [
-        52.05,
-        19.25
+        47.6912769,
+        13.2000732
       ],
-      zoom: 7,
-      "DK1": {
+      zoom: 8,
+      "Wiedeń": {
         coor: [
-          52.05,
-          19.25
+          48.1991634,
+          16.3716245
         ],
-        date: [],
-        zoom: 7,
-        scale: 1.0,
-        gallery: []
-      },
-      "DK2": {
-        coor: [
-          52.05,
-          19.25
+        date: [
+          2019
         ],
-        date: [],
-        zoom: 7,
-        scale: 1.0,
-        gallery: []
-      },
-      "DK3": {
-        coor: [
-          52.05,
-          19.25
-        ],
-        date: [],
-        zoom: 7,
-        scale: 1.0,
-        gallery: []
-      },
-      "DK7": {
-        coor: [
-          52.05,
-          19.25
-        ],
-        date: [],
-        zoom: 7,
-        scale: 1.0,
+        zoom: 13,
+        scale: 2.5,
         gallery: []
       }
     },
-    "Wojewódzkie": {
+    "Węgry": {
       coor: [
-        52.05,
-        19.25
+        47.159,
+        19.305
       ],
-      zoom: 7,
-      "DW901": {
+      zoom: 8,
+      "Budapeszt": {
         coor: [
-          52.05,
-          19.25
+          47.5024133,
+          19.0351599
         ],
-        date: [],
-        zoom: 7,
-        scale: 1.0,
-        gallery: []
-      },
-      "DW902": {
-        coor: [
-          52.05,
-          19.25
+        date: [
+          2013
         ],
-        date: [],
-        zoom: 7,
-        scale: 1.0,
-        gallery: []
-      }
-    },
-    "Krakowskie": {
-      coor: [
-        50.05,
-        19.94
-      ],
-      zoom: 12,
-      "1 obwodnica": {
-        coor: [
-          50.05,
-          19.94
-        ],
-        date: [],
-        zoom: 12,
-        scale: 1.0,
-        gallery: []
-      },
-      "2 obwodnica": {
-        coor: [
-          50.05,
-          19.94
-        ],
-        date: [],
-        zoom: 12,
-        scale: 1.0,
-        gallery: []
-      },
-      "3 obwodnica": {
-        coor: [
-          50.05,
-          19.94
-        ],
-        date: [],
-        zoom: 12,
-        scale: 1.0,
-        gallery: []
-      },
-      "4 obwodnica": {
-        coor: [
-          50.05,
-          19.94
-        ],
-        date: [],
-        zoom: 12,
-        scale: 1.0,
-        gallery: []
-      },
-      "Trasa łagiewnicka": {
-        coor: [
-          50.05,
-          19.94
-        ],
-        date: [],
-        zoom: 12,
-        scale: 1.0,
-        gallery: []
-      },
-      "Trasa nowotarska": {
-        coor: [
-          50.05,
-          19.94
-        ],
-        date: [],
-        zoom: 12,
-        scale: 1.0,
-        gallery: []
-      },
-      "Trasa wolbromska": {
-        coor: [
-          50.05,
-          19.94
-        ],
-        date: [],
-        zoom: 12,
-        scale: 1.0,
+        zoom: 13,
+        scale: 2.5,
         gallery: []
       }
     }
@@ -6343,410 +6531,222 @@ const data = {
       }
     }
   },
-  "EUROPA": {
-    "Hiszpania": {
+  "DROGI": {
+    "Ekspresowe": {
       coor: [
-        40.413496,
-        -3.7133789
+        52.05,
+        19.25
       ],
       zoom: 7,
-      "Barcelona": {
+      "A1": {
         coor: [
-          41.3707783,
-          2.1699607
+          52.05,
+          19.25
         ],
-        date: [
-          2019
-        ],
-        zoom: 13,
-        scale: 2.0,
-        gallery: [
-          {
-            catg: "H",
-            name: "Casa Batllo",
-            scale: 1.0,
-            coor: [
-              41.3916745,
-              2.164949
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: "H",
-            name: "Casa Mila",
-            scale: 1.0,
-            coor: [
-              41.3951927,
-              2.161784
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: "H",
-            name: "Most Biskupi",
-            scale: 1.0,
-            coor: [
-              41.3832765,
-              2.1764436
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: "H",
-            name: "Muzeum MNAC",
-            scale: 1.0,
-            coor: [
-              41.3712695,
-              2.1513033
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: "N",
-            name: "Escuela Massana",
-            scale: 1.0,
-            coor: [
-              41.3811035,
-              2.1709612
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: "N",
-            name: "La Boqueria",
-            scale: 1.0,
-            coor: [
-              41.3820252,
-              2.1722916
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: "N",
-            name: "Stadion Olimpijski",
-            scale: 1.0,
-            coor: [
-              41.3657862,
-              2.1556699
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: "O",
-            name: "La Rambla 1",
-            scale: 1.0,
-            coor: [
-              41.3844442,
-              2.1707815
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: "O",
-            name: "La Rambla 2",
-            scale: 1.0,
-            coor: [
-              41.3770662,
-              2.1765482
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: "O",
-            name: "Panorama 1",
-            scale: 1.0,
-            coor: [
-              41.370879,
-              2.170465
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: "O",
-            name: "Panorama 2",
-            scale: 1.0,
-            coor: [
-              41.3708729,
-              2.1703362
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: "O",
-            name: "Panorama 3",
-            scale: 1.0,
-            coor: [
-              41.3708548,
-              2.1702102
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: "O",
-            name: "Panorama 4",
-            scale: 1.0,
-            coor: [
-              41.3708367,
-              2.1700788
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: "O",
-            name: "Plac Hiszpański",
-            scale: 1.0,
-            coor: [
-              41.374031,
-              2.1497905
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: "O",
-            name: "Port Vell",
-            scale: 1.0,
-            coor: [
-              41.375448,
-              2.1802014
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: "S",
-            name: "Bazylika La Merce",
-            scale: 1.0,
-            coor: [
-              41.3796303,
-              2.1796837
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: "S",
-            name: "Bazylika NMP Morza",
-            scale: 1.0,
-            coor: [
-              41.3837841,
-              2.1820065
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: "S",
-            name: "Katedra św. Eulalii 1",
-            scale: 1.0,
-            coor: [
-              41.3842671,
-              2.1761566
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: "S",
-            name: "Katedra św. Eulalii 2",
-            scale: 1.0,
-            coor: [
-              41.3838385,
-              2.1770149
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: "S",
-            name: "Katedra św. Eulalii 3",
-            scale: 1.0,
-            coor: [
-              41.3836754,
-              2.1767923
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: "S",
-            name: "Sagrada Familia 1",
-            scale: 1.0,
-            coor: [
-              41.4040464,
-              2.1747029
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: "S",
-            name: "Sagrada Familia 2",
-            scale: 1.0,
-            coor: [
-              41.402952,
-              2.1741557
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: "S",
-            name: "Sagrada Familia 3",
-            scale: 1.0,
-            coor: [
-              41.403463,
-              2.1750569
-            ],
-            date: [
-              2019
-            ]
-          },
-          {
-            catg: "S",
-            name: "Sagrada Familia 4",
-            scale: 1.0,
-            coor: [
-              41.4035957,
-              2.1743488
-            ],
-            date: [
-              2019
-            ]
-          }
-        ]
-      },
-      "Cuenca": {
-        coor: [
-          40.0782931,
-          -2.1274102
-        ],
-        date: [
-          2019
-        ],
-        zoom: 15,
+        date: [],
+        zoom: 7,
         scale: 1.0,
         gallery: []
       },
-      "Madryt": {
+      "A2": {
         coor: [
-          40.4153095,
-          -3.7137866
+          52.05,
+          19.25
         ],
-        date: [
-          2019
-        ],
-        zoom: 13,
-        scale: 2.5,
-        gallery: []
-      },
-      "Requena": {
-        coor: [
-          39.4853337,
-          -1.1007035
-        ],
-        date: [
-          2019
-        ],
-        zoom: 15,
+        date: [],
+        zoom: 7,
         scale: 1.0,
         gallery: []
       },
-      "Saragossa": {
+      "A4": {
         coor: [
-          41.6570062,
-          -0.8804995
+          52.05,
+          19.25
         ],
-        date: [
-          2019
-        ],
-        zoom: 13,
+        date: [],
+        zoom: 7,
         scale: 1.0,
         gallery: []
       },
-      "Walencja": {
+      "S1": {
         coor: [
-          39.4589143,
-          -0.3568089
+          52.05,
+          19.25
         ],
-        date: [
-          2019
+        date: [],
+        zoom: 7,
+        scale: 1.0,
+        gallery: []
+      },
+      "S2": {
+        coor: [
+          52.05,
+          19.25
         ],
-        zoom: 13,
+        date: [],
+        zoom: 7,
+        scale: 1.0,
+        gallery: []
+      },
+      "S3": {
+        coor: [
+          52.05,
+          19.25
+        ],
+        date: [],
+        zoom: 7,
         scale: 1.0,
         gallery: []
       }
     },
-    "Austria": {
+    "Krajowe": {
       coor: [
-        47.6912769,
-        13.2000732
+        52.05,
+        19.25
       ],
-      zoom: 8,
-      "Wiedeń": {
+      zoom: 7,
+      "DK1": {
         coor: [
-          48.1991634,
-          16.3716245
+          52.05,
+          19.25
         ],
-        date: [
-          2019
+        date: [],
+        zoom: 7,
+        scale: 1.0,
+        gallery: []
+      },
+      "DK2": {
+        coor: [
+          52.05,
+          19.25
         ],
-        zoom: 13,
-        scale: 2.5,
+        date: [],
+        zoom: 7,
+        scale: 1.0,
+        gallery: []
+      },
+      "DK3": {
+        coor: [
+          52.05,
+          19.25
+        ],
+        date: [],
+        zoom: 7,
+        scale: 1.0,
+        gallery: []
+      },
+      "DK7": {
+        coor: [
+          52.05,
+          19.25
+        ],
+        date: [],
+        zoom: 7,
+        scale: 1.0,
         gallery: []
       }
     },
-    "Węgry": {
+    "Wojewódzkie": {
       coor: [
-        47.159,
-        19.305
+        52.05,
+        19.25
       ],
-      zoom: 8,
-      "Budapeszt": {
+      zoom: 7,
+      "DW901": {
         coor: [
-          47.5024133,
-          19.0351599
+          52.05,
+          19.25
         ],
-        date: [
-          2013
+        date: [],
+        zoom: 7,
+        scale: 1.0,
+        gallery: []
+      },
+      "DW902": {
+        coor: [
+          52.05,
+          19.25
         ],
-        zoom: 13,
-        scale: 2.5,
+        date: [],
+        zoom: 7,
+        scale: 1.0,
+        gallery: []
+      }
+    },
+    "Krakowskie": {
+      coor: [
+        50.05,
+        19.94
+      ],
+      zoom: 12,
+      "1 obwodnica": {
+        coor: [
+          50.05,
+          19.94
+        ],
+        date: [],
+        zoom: 12,
+        scale: 1.0,
+        gallery: []
+      },
+      "2 obwodnica": {
+        coor: [
+          50.05,
+          19.94
+        ],
+        date: [],
+        zoom: 12,
+        scale: 1.0,
+        gallery: []
+      },
+      "3 obwodnica": {
+        coor: [
+          50.05,
+          19.94
+        ],
+        date: [],
+        zoom: 12,
+        scale: 1.0,
+        gallery: []
+      },
+      "4 obwodnica": {
+        coor: [
+          50.05,
+          19.94
+        ],
+        date: [],
+        zoom: 12,
+        scale: 1.0,
+        gallery: []
+      },
+      "Trasa łagiewnicka": {
+        coor: [
+          50.05,
+          19.94
+        ],
+        date: [],
+        zoom: 12,
+        scale: 1.0,
+        gallery: []
+      },
+      "Trasa nowotarska": {
+        coor: [
+          50.05,
+          19.94
+        ],
+        date: [],
+        zoom: 12,
+        scale: 1.0,
+        gallery: []
+      },
+      "Trasa wolbromska": {
+        coor: [
+          50.05,
+          19.94
+        ],
+        date: [],
+        zoom: 12,
+        scale: 1.0,
         gallery: []
       }
     }
@@ -6969,7 +6969,7 @@ const data = {
         scale: 1.0,
         gallery: [
           {
-            catg: "H",
+            catg: "O",
             name: "Schronisko Cyrla",
             scale: 1.0,
             coor: [
@@ -7392,7 +7392,7 @@ const data = {
         scale: 1.0,
         gallery: [
           {
-            catg: "Z",
+            catg: "O",
             name: "Wejście",
             scale: 1.0,
             coor: [
@@ -7659,7 +7659,7 @@ const data = {
         scale: 1.0,
         gallery: [
           {
-            catg: "Z",
+            catg: "O",
             name: "Rusinowa Polana 1 S",
             scale: 1.0,
             coor: [
@@ -7671,7 +7671,7 @@ const data = {
             ]
           },
           {
-            catg: "Z",
+            catg: "O",
             name: "Rusinowa Polana 2 SE",
             scale: 1.0,
             coor: [
@@ -7683,7 +7683,7 @@ const data = {
             ]
           },
           {
-            catg: "Z",
+            catg: "O",
             name: "Rusinowa Polana 3 N",
             scale: 1.0,
             coor: [

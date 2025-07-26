@@ -625,26 +625,40 @@
 		<script>
 			// @g > SCRIPTS
 
-			// @b Enums
-			const enums = {
-				ALL: 'all',
-				NONE: 'none',
-				PLAN: 'plan',
-				PROFILE: 'P',
-				MAP: 'map',
-				MAP_GALLERY: 'map&gallery',
-				GALLERY: 'gallery',
-				EMPTY: '',
-			}
-
-			const labels = {
-				NONE: 'Brak',
-				ALL: 'Wszystkie',
-				PLAN: 'Planowane',
-				MAP: '🗺️ Mapa',
-				MAP_GALLERY: '🗺️🖼️ Mapa i galeria',
-				GALLERY: '🖼️ Galeria',
-				TOTAL: 'PEŁNY',
+			// @b Consts
+			const modes = {
+				ALL: {
+					key: 'all',
+					label: 'Wszystkie',
+				},
+				EMPTY: {
+					key: '',
+					label: '',
+				},
+				GALLERY: {
+					key: 'gallery',
+					label: '🖼️ Galeria',
+				},
+				MAP: {
+					key: 'map',
+					label: '🗺️ Mapa',
+				},
+				MAP_GALLERY: {
+					key: 'map&gallery',
+					label: '🗺️🖼️ Mapa i galeria',
+				},
+				NONE: {
+					key: 'none',
+					label: 'Brak',
+				},
+				PLAN: {
+					key: 'plan',
+					label: 'Planowane',
+				},
+				PROFILE: {
+					key: 'P',
+					label: 'Profile',
+				},
 			}
 
 			const categories = {
@@ -681,14 +695,14 @@
 
 			const allowedCategoriesByRange = {
 				[ranges.ROADS]: ['none'],
-				[ranges.MOUNTAINS]: ['none', 'all', 'P', 'H', 'N', 'Z'],
+				[ranges.MOUNTAINS]: ['none', 'all', 'P', 'O'],
 				[ranges.POLAND]: ['none', 'all', 'P', 'O', 'S', 'H', 'N', 'G', 'Z'],
 				[ranges.WORLD]: ['none', 'all', 'P', 'O', 'S', 'H', 'N', 'G', 'Z'],
-				[enums.NONE]: ['none', 'all', 'P', 'O', 'S', 'H', 'N', 'G', 'Z'],
+				[modes.NONE.key]: ['none', 'all', 'P', 'O', 'S', 'H', 'N', 'G', 'Z'],
 			}
 
 			const allowedActivitiesByRange = {
-				[ranges.ROADS]: ['none','all'],
+				[ranges.ROADS]: ['none', 'all'],
 				[ranges.MOUNTAINS]: ['none', 'all', 'hiking', 'downhill_skiing'],
 				[ranges.WORLD]: [
 					'none',
@@ -706,7 +720,7 @@
 					'transport_public',
 					'transport_train',
 				],
-				[enums.NONE]: [
+				[modes.NONE.key]: [
 					'none',
 					'all',
 					'transport_car',
@@ -736,10 +750,10 @@
 			let $filteredData = [] // table with filtered data
 			let $routeLayers = [] // table with added polylines
 			// filters
-			let $viewMode = enums.MAP // state of view mode
-			let $activityFilter = enums.ALL // state of activity filter
-			let $categoryFilter = enums.NONE // state of category filter
-			let $dateFilter = enums.ALL // state of data filter
+			let $viewMode = modes.MAP.key // state of view mode
+			let $activityFilter = modes.ALL.key // state of activity filter
+			let $categoryFilter = modes.NONE.key // state of category filter
+			let $dateFilter = modes.ALL.key // state of data filter
 			// flags
 			let $isInitialRender = true // flag for initial render
 			let $isHiglightActive = true // flag for marker higlight activ
@@ -1072,7 +1086,7 @@
 										scale: cityObj.scale,
 										date: [year],
 										name: [year],
-										catg: enums.PROFILE,
+										catg: modes.PROFILE.key,
 										url: prepareProfilePath(),
 									}
 									$citiesArray.push(newItem)
@@ -1090,12 +1104,12 @@
 				$filteredData = $citiesArray
 
 				// filter by range
-				if ($selectRange.value !== enums.NONE) {
-					if ($selectRegion.value == enums.ALL) {
+				if ($selectRange.value !== modes.NONE.key) {
+					if ($selectRegion.value == modes.ALL.key) {
 						$filteredData = $filteredData.filter(
 							(item) => $selectRange.value === item.range
 						)
-					} else if ($selectCity.value == enums.ALL) {
+					} else if ($selectCity.value == modes.ALL.key) {
 						$filteredData = $filteredData.filter(
 							(item) => $selectRegion.value === item.region
 						)
@@ -1107,13 +1121,13 @@
 				}
 
 				// filter by category filter
-				if ($categoryFilter != enums.ALL) {
+				if ($categoryFilter != modes.ALL.key) {
 					$filteredData = $filteredData.filter((item) => {
 						return item.catg == $categoryFilter
 					})
 				}
 				// filter by date filter
-				if ($dateFilter != enums.ALL) {
+				if ($dateFilter != modes.ALL.key) {
 					$filteredData = $filteredData.filter((item) => {
 						return item.date?.some((date) => date == Number($dateFilter))
 					})
@@ -1130,8 +1144,20 @@
 			function sortData(array) {
 				const categoryOrder = Object.values(categories)
 				const namePriority = { zewnętrze: 1, wnętrze: 2, organy: 3 }
+				const rangePriority = {
+					EUROPA: 1,
+					POLSKA: 2,
+					GÓRY: 3,
+				}
 
 				array.sort((a, b) => {
+					// sort by range
+					const rangeA = rangePriority[findRange(a.city)] || 4
+					const rangeB = rangePriority[findRange(b.city)] || 4
+					if (rangeA < rangeB) return -1
+					if (rangeA > rangeB) return 1
+
+					// sort by region
 					if (findRegion(a.city) < findRegion(b.city)) return -1
 					if (findRegion(a.city) > findRegion(b.city)) return 1
 
@@ -1210,14 +1236,27 @@
 			// @b prepare view modes
 			function prepareViewModes() {
 				console.log('prepareViewModes()')
-				createOption($selectViewMode, enums.MAP, labels.MAP, $viewMode)
+				// prettier-ignore
 				createOption(
 					$selectViewMode,
-					enums.MAP_GALLERY,
-					labels.MAP_GALLERY,
+					modes.MAP.key,
+					modes.MAP.label,
 					$viewMode
 				)
-				createOption($selectViewMode, enums.GALLERY, labels.GALLERY, $viewMode)
+				// prettier-ignore
+				createOption(
+					$selectViewMode,
+					modes.MAP_GALLERY.key,
+					modes.MAP_GALLERY.label,
+					$viewMode
+				)
+				// prettier-ignore
+				createOption(
+					$selectViewMode,
+					modes.GALLERY.key,
+					modes.GALLERY.label,
+					$viewMode
+				)
 			}
 
 			// @b prepare ranges
@@ -1228,7 +1267,7 @@
 				$selectRange.innerHTML = ''
 				const selectedRange = $isInitialRender ? findRange(startCity) : null
 
-				createOption($selectRange, enums.NONE, labels.NONE)
+				createOption($selectRange, modes.NONE.key, modes.NONE.label)
 				ranges.forEach((range) => {
 					createOption($selectRange, range, range, selectedRange)
 				})
@@ -1239,14 +1278,14 @@
 			function prepareRegions() {
 				console.log(`prepareRegions(${$selectRange.value})`)
 
-				if ($selectRange.value == enums.NONE) {
+				if ($selectRange.value == modes.NONE.key) {
 					$selectRegion.innerHTML = ''
 					$selectCity.innerHTML = ''
 					return
 				}
 
 				$selectRegion.innerHTML = ''
-				createOption($selectRegion, enums.ALL, labels.ALL)
+				createOption($selectRegion, modes.ALL.key, modes.ALL.label)
 
 				const selectedRegion = $isInitialRender ? findRegion(startCity) : null
 				const regions = Object.keys(data[$selectRange.value])
@@ -1259,19 +1298,19 @@
 			// @b prepare cities
 			function prepareCities() {
 				if (
-					$selectRegion.value == enums.ALL ||
-					$selectRegion.value == enums.EMPTY
+					$selectRegion.value == modes.ALL.key ||
+					$selectRegion.value == modes.EMPTY.key
 				) {
 					$selectCity.innerHTML = ''
 					return
 				}
 
-				createOption($selectCity, enums.ALL, labels.ALL)
+				createOption($selectCity, modes.ALL.key, modes.ALL.label)
 				const newCities = data[$selectRange.value][$selectRegion.value]
 				console.log(`prepareCities(${$selectRegion.value})`)
 
 				$selectCity.innerHTML = ''
-				createOption($selectCity, enums.ALL, labels.ALL)
+				createOption($selectCity, modes.ALL.key, modes.ALL.label)
 
 				const selectedCity = $isInitialRender ? startCity : null
 				Object.keys(newCities).forEach((city) => {
@@ -1328,8 +1367,18 @@
 			function prepareDates() {
 				console.log('prepareDates()')
 
-				createOption($selectDate, enums.ALL, `📅 ${labels.ALL}`)
-				createOption($selectDate, enums.PLAN, `📅 ${labels.PLAN}`)
+				createOption(
+					$selectDate,
+					modes.ALL.key,
+					`📅 ${modes.ALL.label}`,
+					$dateFilter
+				)
+				createOption(
+					$selectDate,
+					modes.PLAN.key,
+					`📅 ${modes.PLAN.label}`,
+					$dateFilter
+				)
 				for (let year = YEAR; year >= 2004; year--) {
 					createOption($selectDate, year, `📅 ${year}`, $dateFilter)
 				}
@@ -1352,7 +1401,7 @@
 				} else if (range == ranges.MOUNTAINS) {
 					$labelRegion.textContent = 'Pasmo:'
 					$labelCity.textContent = 'Szczyt:'
-				} else if (range == enums.NONE) {
+				} else if (range == modes.NONE.key) {
 					$labelRegion.textContent = ''
 					$labelCity.textContent = ''
 				}
@@ -1365,7 +1414,7 @@
 				if (
 					$selectRange.value == ranges.ROADS ||
 					$selectRange.value == ranges.MOUNTAINS ||
-					$selectCity.value == enums.ALL ||
+					$selectCity.value == modes.ALL.key ||
 					$selectCity.value == ''
 				) {
 					$headerEmblem.classList.add('none')
@@ -1389,11 +1438,11 @@
 			// @b set title
 			function setTitle() {
 				let title = ''
-				if ($selectRange.value == enums.NONE) {
+				if ($selectRange.value == modes.NONE.key) {
 					title = 'PODRÓŻE'
-				} else if ($selectRegion.value == enums.ALL) {
+				} else if ($selectRegion.value == modes.ALL.key) {
 					title = $selectRange.value
-				} else if ($selectCity.value == enums.ALL) {
+				} else if ($selectCity.value == modes.ALL.key) {
 					title = $selectRegion.value
 				} else {
 					title = $selectCity.value
@@ -1450,7 +1499,7 @@
 					$galleryBackground.classList.remove(className)
 				}
 
-				if ($viewMode == enums.MAP) {
+				if ($viewMode == modes.MAP.key) {
 					$isGalleryAndMap = false
 					hidePhoto()
 					classAdd('hide')
@@ -1460,7 +1509,7 @@
 						classRemove('show')
 						classAdd('none')
 					}, 400)
-				} else if ($viewMode == enums.MAP_GALLERY) {
+				} else if ($viewMode == modes.MAP_GALLERY.key) {
 					$isGalleryAndMap = true
 					classRemove('none')
 					classAdd('show')
@@ -1468,7 +1517,7 @@
 					setTimeout(() => {
 						$isHiglightActive = true
 					}, 1000)
-				} else if ($viewMode == enums.GALLERY) {
+				} else if ($viewMode == modes.GALLERY.key) {
 					$isGalleryAndMap = false
 					$isHiglightActive = false
 					classRemove('none')
@@ -1758,12 +1807,12 @@
 			function setMapView() {
 				console.log(`setMapView()`)
 
-				if ($selectRange.value == enums.NONE) {
+				if ($selectRange.value == modes.NONE.key) {
 					$map.setView(...setCoor([46.8, 9.3], 5))
 					return
 				}
 
-				if ($selectRegion.value == enums.ALL) {
+				if ($selectRegion.value == modes.ALL.key) {
 					if ($selectRange.value == ranges.MOUNTAINS) {
 						$map.setView(...setCoor([50.05, 19.25], 8))
 					} else if ($selectRange.value == ranges.POLAND) {
@@ -1775,7 +1824,7 @@
 					} else {
 						$map.setView(...setCoor([0, 0], 6))
 					}
-				} else if ($selectCity.value == enums.ALL) {
+				} else if ($selectCity.value == modes.ALL.key) {
 					const region = data[$selectRange.value][$selectRegion.value]
 					$map.setView(...setCoor(region.coor, region.zoom))
 				} else {
@@ -1972,7 +2021,7 @@
 			function shouldRouteSkip(route) {
 				// Exclude routes not matching selected activity
 				if (
-					$activityFilter !== enums.ALL &&
+					$activityFilter !== modes.ALL.key &&
 					$activityFilter !== route.activity
 				) {
 					return true
@@ -1980,7 +2029,7 @@
 
 				// Skip routes that don't match selected range
 				if (
-					$selectRange.value !== enums.NONE &&
+					$selectRange.value !== modes.NONE.key &&
 					$selectRange.value !== route.range
 				) {
 					return true
@@ -2007,7 +2056,7 @@
 
 					// Filter by region
 					if (
-						$selectRegion.value !== enums.ALL &&
+						$selectRegion.value !== modes.ALL.key &&
 						$selectRegion.value !== roadCategory
 					) {
 						return true
@@ -2015,28 +2064,28 @@
 
 					// Filter by road name
 					if (
-						$selectCity.value !== enums.ALL &&
-						$selectCity.value !== enums.EMPTY &&
+						$selectCity.value !== modes.ALL.key &&
+						$selectCity.value !== modes.EMPTY.key &&
 						$selectCity.value !== roadName
 					) {
 						return true
 					}
 
 					// Filter by year
-					if ($dateFilter === enums.PLAN) {
+					if ($dateFilter === modes.PLAN.key) {
 						if (route.year <= YEAR) return true
 					} else if (
-						$dateFilter !== enums.ALL &&
+						$dateFilter !== modes.ALL.key &&
 						route.year > parseInt($dateFilter)
 					) {
 						return true
 					}
 				} else {
 					// For non-road routes: filter by year
-					if ($dateFilter === enums.PLAN) {
-						if (route.year <= YEAR) return true
+					if ($dateFilter === modes.PLAN.key) {
+						if (route.year <= YEAR && route.year !== 0) return true
 					} else if (
-						$dateFilter !== enums.ALL &&
+						$dateFilter !== modes.ALL.key &&
 						route.year !== parseInt($dateFilter)
 					) {
 						return true
@@ -2080,11 +2129,7 @@
 					'downhill_skiing',
 					'europe_cycling',
 				]
-				const secondaryActivities = [
-					'hiking',
-					'walking',
-					'europe_walking',
-				]
+				const secondaryActivities = ['hiking', 'walking', 'europe_walking']
 
 				let routeColor = defaultColor
 				let routeWeight = defaultWeight
@@ -2194,11 +2239,10 @@
 					for (const region in data[range]) {
 						if (city in data[range][region]) {
 							return range
-						} else {
-							return ranges.POLAND
 						}
 					}
 				}
+				return ranges.POLAND
 			}
 
 			// @b find region

@@ -271,6 +271,11 @@ def main():
 
     # @b extract and format data
     for gpx_file in base_folder.rglob('*.gpx'):
+
+        excluded_folders = {"Stoki"}
+        if any(folder in gpx_file.parts for folder in excluded_folders):
+            continue
+
         extracted = extract_data(gpx_file)
         for name, range_, activity, coords in extracted:
             year_str = name[:4]

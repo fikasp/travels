@@ -12,9 +12,9 @@ df = pd.read_excel(file_path, sheet_name=sheet_name, dtype=str)
 
 # Initialize data structure
 output = {
-    "DROGI": {},
-    "POLSKA": {}, 
     "EUROPA": {}, 
+    "POLSKA": {}, 
+    "DROGI": {},
     "GÓRY": {}, 
     }
 
