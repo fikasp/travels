@@ -43,7 +43,7 @@ def get_range(activity):
     Determines the geographical range category based on the activity string:
     - Returns 'GÓRY' if the activity is 'hiking'
     - Returns 'DROGI' if the activity is exactly 'roads'
-    - Returns 'EUROPA' if the activity starts with 'europe_'
+    - Returns 'ŚWIAT' if the activity starts with 'world_'
     - Returns 'POLSKA' in all other cases or if activity is None
     """
     if activity:
@@ -52,8 +52,8 @@ def get_range(activity):
             return "DROGI"
         elif activity == "hiking" or activity == "downhill_skiing":
             return "GÓRY"
-        elif activity.startswith("europe_"):
-            return "EUROPA"
+        elif activity.startswith("world_"):
+            return "ŚWIAT"
     return "POLSKA"
 
 
@@ -178,8 +178,8 @@ def extract_data(gpx_path):
             activity = get_activity(gpx)
             range_ = get_range(activity)
 
-            if activity and activity.startswith("europe_"):
-                activity = activity[len("europe_"):]
+            if activity and activity.startswith("world_"):
+                activity = activity[len("world_"):]
 
             if not segments:
                 return []
@@ -285,7 +285,7 @@ def main():
         
             if range_ == "POLSKA":
                 print(f"✅ 🇵🇱 {icon} {name}")
-            elif range_ == "EUROPA":
+            elif range_ == "ŚWIAT":
                 print(f"✅ 🇪🇺 {icon} {name}")
             elif range_ == "GÓRY":
                 print(f"✅ 🇬🇾 {icon} {name}")

@@ -468,7 +468,7 @@
 				border: 1px solid darkviolet;
 			}
 			.marker-o {
-				border: 1px solid blue;
+				border: 1px solid mediumblue;
 			}
 			.marker-s {
 				border: 1px solid dodgerblue;
@@ -660,10 +660,6 @@
 					key: 'plan',
 					value: 'Planowane',
 				},
-				PROFILE: {
-					key: 'P',
-					value: 'Profile',
-				},
 			}
 
 			// @b Categories
@@ -780,7 +776,7 @@
 					],
 				},
 				WORLD: {
-					key: 'EUROPA',
+					key: 'ŚWIAT',
 					value: 'EUROPA',
 					categories: [
 						categories.NONE.key,
@@ -958,16 +954,13 @@
 				console.log(data)
 				console.log(routes)
 				// console.log(mapRegions(data[$selectRange.value]))
-				console.log('main()')
+				console.log('main():')
 				changeMargin()
 				prepareMap()
 				prepareData()
 				prepareDates()
 				prepareViewModes()
 				prepareRanges()
-				prepareActivities()
-				prepareCategories()
-				prepareRoutes()
 				setRange()
 			}
 
@@ -1196,7 +1189,7 @@
 										scale: cityObj.scale,
 										date: [year],
 										name: [year],
-										catg: modes.PROFILE.key,
+										catg: categories.PROFILE.key,
 										url: prepareProfilePath(),
 									}
 									$citiesArray.push(newItem)
@@ -1323,11 +1316,10 @@
 
 			// @b update data
 			function updateData() {
-				console.log('updateData()')
+				console.log('updateData():')
 				filterData()
 				prepareGallery()
 				prepareMarkers()
-				prepareRoutes()
 				console.log($filteredData)
 			}
 
@@ -1385,15 +1377,11 @@
 			function prepareRanges() {
 				console.log(`prepareRanges()`)
 				const dataRanges = Object.keys(data)
-
-				clearContent($selectRange)
 				const selectedRange = $isInitialRender ? findRange(startCity) : null
 
-				createOption($selectRange, ranges.NONE.key, ranges.NONE.value)
-				dataRanges.forEach((range) => {
-					createOption($selectRange, range, range, selectedRange)
+				Object.values(mapKeyToObject(ranges)).forEach((range) => {
+					createOption($selectRange, range.key, range.value, selectedRange)
 				})
-				setLabels()
 			}
 
 			// @b prepare regions
@@ -1579,7 +1567,7 @@
 			}
 			// @b set city
 			function setCity() {
-				console.log(`setCity(${$selectCity.value})`)
+				console.log(`:setCity(${$selectCity.value})`)
 				setEmblem()
 				setTitle()
 				setMapView()
@@ -1588,7 +1576,7 @@
 
 			// @b set region
 			function setRegion() {
-				console.log(`setRegion(${$selectRegion.value})`)
+				console.log(`:setRegion(${$selectRegion.value})`)
 				prepareCities()
 				setEmblem()
 				setTitle()
@@ -1598,7 +1586,8 @@
 
 			// @b set range
 			function setRange() {
-				console.log(`setRange(${$selectRange.value})`)
+				console.log(`:setRange(${$selectRange.value}):`)
+				prepareRoutes()
 				prepareActivities()
 				prepareCategories()
 				prepareRegions()
@@ -1613,7 +1602,7 @@
 			// @b set view mode
 			function setViewMode() {
 				$viewMode = $selectViewMode.value
-				console.log(`setViewMode(${$viewMode})`)
+				console.log(`:setViewMode(${$viewMode})`)
 
 				// add class to gallery and background
 				function classAdd(className) {
@@ -1657,21 +1646,22 @@
 			// @b set activities
 			function setActivities() {
 				$activityFilter = $selectActivity.value
-				console.log(`setActivity()`)
+				console.log(`:setActivity()`)
 				prepareRoutes()
 			}
 
 			// @b set category
 			function setCategory() {
 				$categoryFilter = $selectCategory.value
-				console.log(`setCategory()`)
+				console.log(`:setCategory()`)
 				updateData()
 			}
 
 			// @b set dates
 			function setDate() {
 				$dateFilter = $selectDate.value
-				console.log(`setDate(${$dateFilter})`)
+				console.log(`:setDate(${$dateFilter})`)
+				prepareRoutes()
 				updateData()
 			}
 
@@ -1941,11 +1931,11 @@
 
 				if ($selectRegion.value == modes.ALL.key) {
 					if ($selectRange.value == ranges.MOUNTAINS.key) {
-						$map.setView(...setCoor([50.05, 19.25], 8))
+						$map.setView(...setCoor([49.5, 20.0], 9))
 					} else if ($selectRange.value == ranges.POLAND.key) {
-						$map.setView(...setCoor([52.05, 19.25], 7))
+						$map.setView(...setCoor([51.9, 19.2], 7))
 					} else if ($selectRange.value == ranges.ROADS.key) {
-						$map.setView(...setCoor([52.05, 19.25], 7))
+						$map.setView(...setCoor([51.9, 19.2], 7))
 					} else if ($selectRange.value == ranges.WORLD.key) {
 						$map.setView(...setCoor([46.8, 9.3], 6))
 					} else {
@@ -2438,10 +2428,10 @@
 			}
 
 			// @b map key to object
-			function mapKeyToObject(obj, nestedKey = 'key') {
+			function mapKeyToObject(obj, keyName = 'key') {
 				return Object.values(obj).reduce((acc, item) => {
-					if (item && nestedKey in item) {
-						acc[item[nestedKey]] = item
+					if (item && keyName in item) {
+						acc[item[keyName]] = item
 					}
 					return acc
 				}, {})
