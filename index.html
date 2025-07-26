@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Podróże</title>
+		<title>PODRÓŻE</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<!-- favicon -->
@@ -626,118 +626,228 @@
 			// @g > SCRIPTS
 
 			// @b Consts
+			const YEAR = 2025
+			const startCity = 'KRAKÓW'
+			const mapActive = true
+
+			// @b Modes
 			const modes = {
 				ALL: {
 					key: 'all',
-					label: 'Wszystkie',
+					value: 'Wszystkie',
 				},
 				EMPTY: {
 					key: '',
-					label: '',
+					value: '',
 				},
 				GALLERY: {
 					key: 'gallery',
-					label: '🖼️ Galeria',
+					value: '🖼️ Galeria',
 				},
 				MAP: {
 					key: 'map',
-					label: '🗺️ Mapa',
+					value: '🗺️ Mapa',
 				},
 				MAP_GALLERY: {
 					key: 'map&gallery',
-					label: '🗺️🖼️ Mapa i galeria',
+					value: '🗺️🖼️ Mapa i galeria',
 				},
 				NONE: {
 					key: 'none',
-					label: 'Brak',
+					value: 'Brak',
 				},
 				PLAN: {
 					key: 'plan',
-					label: 'Planowane',
+					value: 'Planowane',
 				},
 				PROFILE: {
 					key: 'P',
-					label: 'Profile',
+					value: 'Profile',
 				},
 			}
 
+			// @b Categories
 			const categories = {
-				none: '❌ Brak',
-				all: '📷 Wszystkie',
-				P: '👤 Profilowe',
-				O: '📋 Ogólne',
-				S: '⛪ Sakralne',
-				H: '🏰 Historyczne',
-				N: '🏙️ Nowoczesne',
-				G: '🍽️ Gastronomiczne',
-				Z: '🌳 Zielone',
+				NONE: {
+					key: 'none',
+					value: '❌ Brak',
+				},
+				ALL: {
+					key: 'all',
+					value: '📷 Wszystkie',
+				},
+				PROFILE: {
+					key: 'P',
+					value: '👤 Profilowe',
+				},
+				GENERAL: {
+					key: 'O',
+					value: '📋 Ogólne',
+				},
+				SACRAL: {
+					key: 'S',
+					value: '⛪ Sakralne',
+				},
+				HISTORIC: {
+					key: 'H',
+					value: '🏰 Historyczne',
+				},
+				MODERN: {
+					key: 'N',
+					value: '🏙️ Nowoczesne',
+				},
+				GASTRO: {
+					key: 'G',
+					value: '🍽️ Gastronomiczne',
+				},
+				GREEN: {
+					key: 'Z',
+					value: '🌳 Zielone',
+				},
 			}
 
+			// @b Activities
 			const activities = {
-				none: '❌ Brak',
-				all: '🚩 Wszystkie',
-				transport_car: '🚗 Samochodowe',
-				cycling: '🚴 Rowerowe',
-				walking: '🚶 Spacerowe',
-				hiking: '🥾 Trekkingowe',
-				downhill_skiing: '🎿 Narciarskie',
-				transport_public: '🚌 Autokarowe',
-				transport_train: '🚆 Kolejowe',
-				transport_boat: '🛳️ Promowe',
+				NONE: {
+					key: 'none',
+					value: '❌ Brak',
+				},
+				ALL: {
+					key: 'all',
+					value: '🚩 Wszystkie',
+				},
+				TRANSPORT_CAR: {
+					key: 'transport_car',
+					value: '🚗 Samochodowe',
+				},
+				CYCLING: {
+					key: 'cycling',
+					value: '🚴 Rowerowe',
+				},
+				WALKING: {
+					key: 'walking',
+					value: '🚶 Spacerowe',
+				},
+				HIKING: {
+					key: 'hiking',
+					value: '🥾 Trekkingowe',
+				},
+				DOWNHILL_SKIING: {
+					key: 'downhill_skiing',
+					value: '🎿 Narciarskie',
+				},
+				TRANSPORT_PUBLIC: {
+					key: 'transport_public',
+					value: '🚌 Autokarowe',
+				},
+				TRANSPORT_TRAIN: {
+					key: 'transport_train',
+					value: '🚆 Kolejowe',
+				},
+				TRANSPORT_BOAT: {
+					key: 'transport_boat',
+					value: '🛳️ Promowe',
+				},
 			}
 
+			// @b Ranges
 			const ranges = {
-				MOUNTAINS: 'GÓRY',
-				POLAND: 'POLSKA',
-				WORLD: 'EUROPA',
-				ROADS: 'DROGI',
+				NONE: {
+					key: 'BRAK',
+					value: 'BRAK',
+					categories: [
+						categories.NONE.key,
+						categories.ALL.key,
+						categories.PROFILE.key,
+						categories.GENERAL.key,
+						categories.SACRAL.key,
+						categories.HISTORIC.key,
+						categories.MODERN.key,
+						categories.GASTRO.key,
+						categories.GREEN.key,
+					],
+					activities: [
+						activities.NONE.key,
+						activities.ALL.key,
+						activities.TRANSPORT_CAR.key,
+						activities.CYCLING.key,
+						activities.WALKING.key,
+						activities.HIKING.key,
+						activities.DOWNHILL_SKIING.key,
+						activities.TRANSPORT_PUBLIC.key,
+						activities.TRANSPORT_TRAIN.key,
+						activities.TRANSPORT_BOAT.key,
+					],
+				},
+				WORLD: {
+					key: 'EUROPA',
+					value: 'EUROPA',
+					categories: [
+						categories.NONE.key,
+						categories.ALL.key,
+						categories.PROFILE.key,
+						categories.GENERAL.key,
+						categories.SACRAL.key,
+						categories.HISTORIC.key,
+						categories.MODERN.key,
+						categories.GASTRO.key,
+						categories.GREEN.key,
+					],
+					activities: [
+						activities.NONE.key,
+						activities.ALL.key,
+						activities.TRANSPORT_PUBLIC.key,
+						activities.WALKING.key,
+						activities.TRANSPORT_BOAT.key,
+					],
+				},
+				POLAND: {
+					key: 'POLSKA',
+					value: 'POLSKA',
+					categories: [
+						categories.NONE.key,
+						categories.ALL.key,
+						categories.PROFILE.key,
+						categories.GENERAL.key,
+						categories.SACRAL.key,
+						categories.HISTORIC.key,
+						categories.MODERN.key,
+						categories.GASTRO.key,
+						categories.GREEN.key,
+					],
+					activities: [
+						activities.NONE.key,
+						activities.ALL.key,
+						activities.TRANSPORT_CAR.key,
+						activities.CYCLING.key,
+						activities.WALKING.key,
+						activities.TRANSPORT_PUBLIC.key,
+						activities.TRANSPORT_TRAIN.key,
+					],
+				},
+				ROADS: {
+					key: 'DROGI',
+					value: 'DROGI',
+					categories: [categories.NONE.key],
+					activities: [activities.NONE.key, activities.ALL.key],
+				},
+				MOUNTAINS: {
+					key: 'GÓRY',
+					value: 'GÓRY',
+					categories: [
+						categories.NONE.key,
+						categories.ALL.key,
+						categories.PROFILE.key,
+						categories.GENERAL.key,
+					],
+					activities: [
+						activities.NONE.key,
+						activities.ALL.key,
+						activities.HIKING.key,
+						activities.DOWNHILL_SKIING.key,
+					],
+				},
 			}
-
-			const allowedCategoriesByRange = {
-				[ranges.ROADS]: ['none'],
-				[ranges.MOUNTAINS]: ['none', 'all', 'P', 'O'],
-				[ranges.POLAND]: ['none', 'all', 'P', 'O', 'S', 'H', 'N', 'G', 'Z'],
-				[ranges.WORLD]: ['none', 'all', 'P', 'O', 'S', 'H', 'N', 'G', 'Z'],
-				[modes.NONE.key]: ['none', 'all', 'P', 'O', 'S', 'H', 'N', 'G', 'Z'],
-			}
-
-			const allowedActivitiesByRange = {
-				[ranges.ROADS]: ['none', 'all'],
-				[ranges.MOUNTAINS]: ['none', 'all', 'hiking', 'downhill_skiing'],
-				[ranges.WORLD]: [
-					'none',
-					'all',
-					'transport_public',
-					'walking',
-					'transport_boat',
-				],
-				[ranges.POLAND]: [
-					'none',
-					'all',
-					'transport_car',
-					'cycling',
-					'walking',
-					'transport_public',
-					'transport_train',
-				],
-				[modes.NONE.key]: [
-					'none',
-					'all',
-					'transport_car',
-					'cycling',
-					'walking',
-					'hiking',
-					'downhill_skiing',
-					'transport_public',
-					'transport_train',
-					'transport_boat',
-				],
-			}
-
-			const startCity = 'KRAKÓW'
-			const mapActive = true
-			const YEAR = 2025
-
 			// @b Globals
 			let $map // leaflet map
 			let $distanceControl = null // distance control
@@ -1027,17 +1137,17 @@
 										const capitalizedCity = capitalizeName(city)
 
 										// path for mountains
-										if (range == ranges.MOUNTAINS) {
+										if (range == ranges.MOUNTAINS.key) {
 											return `Góry/${region}/${capitalizedCity}/Zdjęcia/${item.name}.jpg`
 
 											// path for world
-										} else if (range == ranges.WORLD) {
+										} else if (range == ranges.WORLD.key) {
 											return `Świat/${region}/${capitalizedCity}/Zdjęcia/${item.name}.jpg`
 
 											// path for Kraków
 										} else if (city == 'KRAKÓW') {
 											return `Kraków/Zdjęcia/${removeIcon(
-												categories[item.catg]
+												mapKeyToValue(categories)[item.catg]
 											)}/${item.name}.jpg`
 
 											// path for other cities in Poland
@@ -1068,11 +1178,11 @@
 								cityObj.date.forEach((year) => {
 									function prepareProfilePath() {
 										let path = ''
-										if (range == ranges.MOUNTAINS) {
+										if (range == ranges.MOUNTAINS.key) {
 											path = `Góry/Zdjęcia/${capitalizeName(city)} ${year}.jpg`
-										} else if (range == ranges.WORLD) {
+										} else if (range == ranges.WORLD.key) {
 											path = `Świat/Zdjęcia/${capitalizeName(city)}.jpg`
-										} else if (range == ranges.POLAND) {
+										} else if (range == ranges.POLAND.key) {
 											path = `Polska/Zdjęcia/${capitalizeName(city)}.jpg`
 										}
 										return path
@@ -1104,7 +1214,7 @@
 				$filteredData = $citiesArray
 
 				// filter by range
-				if ($selectRange.value !== modes.NONE.key) {
+				if ($selectRange.value !== ranges.NONE.key) {
 					if ($selectRegion.value == modes.ALL.key) {
 						$filteredData = $filteredData.filter(
 							(item) => $selectRange.value === item.range
@@ -1142,18 +1252,30 @@
 
 			// @b sort data
 			function sortData(array) {
-				const categoryOrder = Object.values(categories)
-				const namePriority = { zewnętrze: 1, wnętrze: 2, organy: 3 }
 				const rangePriority = {
-					EUROPA: 1,
-					POLSKA: 2,
-					GÓRY: 3,
+					[ranges.WORLD.key]: 1,
+					[ranges.POLAND.key]: 2,
+					[ranges.MOUNTAINS.key]: 3,
+				}
+				const categoryPriority = {
+					[categories.PROFILE.key]: 1,
+					[categories.GENERAL.key]: 2,
+					[categories.SACRAL.key]: 3,
+					[categories.HISTORIC.key]: 4,
+					[categories.MODERN.key]: 5,
+					[categories.GASTRO.key]: 6,
+					[categories.GREEN.key]: 7,
+				}
+				const sacralNamePriority = {
+					zewnętrze: 1,
+					wnętrze: 2,
+					organy: 3,
 				}
 
 				array.sort((a, b) => {
 					// sort by range
-					const rangeA = rangePriority[findRange(a.city)] || 4
-					const rangeB = rangePriority[findRange(b.city)] || 4
+					const rangeA = rangePriority[findRange(a.city)] || 9
+					const rangeB = rangePriority[findRange(b.city)] || 9
 					if (rangeA < rangeB) return -1
 					if (rangeA > rangeB) return 1
 
@@ -1166,8 +1288,8 @@
 					if (a.city > b.city) return 1
 
 					// sort by category
-					const categoryA = categoryOrder.indexOf(a.catg)
-					const categoryB = categoryOrder.indexOf(b.catg)
+					const categoryA = categoryPriority[a.catg] || 9
+					const categoryB = categoryPriority[b.catg] || 9
 					if (categoryA < categoryB) return -1
 					if (categoryA > categoryB) return 1
 
@@ -1190,8 +1312,8 @@
 						.substring(nameB.lastIndexOf('/') + 1)
 						.toLowerCase()
 
-					const priorityA = namePriority[suffixA] || 4
-					const priorityB = namePriority[suffixB] || 4
+					const priorityA = sacralNamePriority[suffixA] || 4
+					const priorityB = sacralNamePriority[suffixB] || 4
 
 					return priorityA - priorityB
 				})
@@ -1240,21 +1362,21 @@
 				createOption(
 					$selectViewMode,
 					modes.MAP.key,
-					modes.MAP.label,
+					modes.MAP.value,
 					$viewMode
 				)
 				// prettier-ignore
 				createOption(
 					$selectViewMode,
 					modes.MAP_GALLERY.key,
-					modes.MAP_GALLERY.label,
+					modes.MAP_GALLERY.value,
 					$viewMode
 				)
 				// prettier-ignore
 				createOption(
 					$selectViewMode,
 					modes.GALLERY.key,
-					modes.GALLERY.label,
+					modes.GALLERY.value,
 					$viewMode
 				)
 			}
@@ -1262,13 +1384,13 @@
 			// @b prepare ranges
 			function prepareRanges() {
 				console.log(`prepareRanges()`)
-				const ranges = Object.keys(data)
+				const dataRanges = Object.keys(data)
 
-				$selectRange.innerHTML = ''
+				clearContent($selectRange)
 				const selectedRange = $isInitialRender ? findRange(startCity) : null
 
-				createOption($selectRange, modes.NONE.key, modes.NONE.label)
-				ranges.forEach((range) => {
+				createOption($selectRange, ranges.NONE.key, ranges.NONE.value)
+				dataRanges.forEach((range) => {
 					createOption($selectRange, range, range, selectedRange)
 				})
 				setLabels()
@@ -1278,14 +1400,14 @@
 			function prepareRegions() {
 				console.log(`prepareRegions(${$selectRange.value})`)
 
-				if ($selectRange.value == modes.NONE.key) {
-					$selectRegion.innerHTML = ''
-					$selectCity.innerHTML = ''
+				if ($selectRange.value == ranges.NONE.key) {
+					clearContent($selectRegion)
+					clearContent($selectCity)
 					return
 				}
 
-				$selectRegion.innerHTML = ''
-				createOption($selectRegion, modes.ALL.key, modes.ALL.label)
+				clearContent($selectRegion)
+				createOption($selectRegion, modes.ALL.key, modes.ALL.value)
 
 				const selectedRegion = $isInitialRender ? findRegion(startCity) : null
 				const regions = Object.keys(data[$selectRange.value])
@@ -1301,16 +1423,16 @@
 					$selectRegion.value == modes.ALL.key ||
 					$selectRegion.value == modes.EMPTY.key
 				) {
-					$selectCity.innerHTML = ''
+					clearContent($selectCity)
 					return
 				}
 
-				createOption($selectCity, modes.ALL.key, modes.ALL.label)
+				createOption($selectCity, modes.ALL.key, modes.ALL.value)
 				const newCities = data[$selectRange.value][$selectRegion.value]
 				console.log(`prepareCities(${$selectRegion.value})`)
 
-				$selectCity.innerHTML = ''
-				createOption($selectCity, modes.ALL.key, modes.ALL.label)
+				clearContent($selectCity)
+				createOption($selectCity, modes.ALL.key, modes.ALL.value)
 
 				const selectedCity = $isInitialRender ? startCity : null
 				Object.keys(newCities).forEach((city) => {
@@ -1324,18 +1446,21 @@
 			// @b prepare activities
 			function prepareActivities() {
 				console.log('prepareActivities()')
-				$selectActivity.innerHTML = ''
+				clearContent($selectActivity)
 
 				const selectedRange = $selectRange.value
-				const allowed = allowedActivitiesByRange[selectedRange] || []
 
-				allowed.forEach((activity_key) => {
-					const activity_value = activities[activity_key]
-					if (activity_value) {
+				const allowedActivities =
+					Object.values(ranges).find((r) => r.key === selectedRange)
+						?.activities ?? []
+
+				allowedActivities.forEach((allowedActivity) => {
+					const activity = mapKeyToObject(activities)[allowedActivity]
+					if (activity) {
 						createOption(
 							$selectActivity,
-							activity_key,
-							activity_value,
+							activity.key,
+							activity.value,
 							$activityFilter
 						)
 					}
@@ -1345,18 +1470,20 @@
 			// @b prepare categories
 			function prepareCategories() {
 				console.log('prepareCategories()')
-				$selectCategory.innerHTML = ''
+				clearContent($selectCategory)
 
 				const selectedRange = $selectRange.value
-				const allowed = allowedCategoriesByRange[selectedRange] || []
+				const allowedCategories =
+					Object.values(ranges).find((r) => r.key === selectedRange)
+						?.categories ?? []
 
-				allowed.forEach((category_key) => {
-					const category_value = categories[category_key]
-					if (category_value) {
+				allowedCategories.forEach((allowedCategory) => {
+					const category = mapKeyToObject(categories)[allowedCategory]
+					if (category) {
 						createOption(
 							$selectCategory,
-							category_key,
-							category_value,
+							category.key,
+							category.value,
 							$categoryFilter
 						)
 					}
@@ -1370,13 +1497,13 @@
 				createOption(
 					$selectDate,
 					modes.ALL.key,
-					`📅 ${modes.ALL.label}`,
+					`📅 ${modes.ALL.value}`,
 					$dateFilter
 				)
 				createOption(
 					$selectDate,
 					modes.PLAN.key,
-					`📅 ${modes.PLAN.label}`,
+					`📅 ${modes.PLAN.value}`,
 					$dateFilter
 				)
 				for (let year = YEAR; year >= 2004; year--) {
@@ -1389,19 +1516,19 @@
 				console.log(`setLabels()`)
 				const range = $selectRange.value
 
-				if (range == ranges.ROADS) {
+				if (range == ranges.ROADS.key) {
 					$labelRegion.textContent = 'Rodzaj:'
 					$labelCity.textContent = 'Droga:'
-				} else if (range == ranges.POLAND) {
+				} else if (range == ranges.POLAND.key) {
 					$labelRegion.textContent = 'Region:'
 					$labelCity.textContent = 'Miasto:'
-				} else if (range == ranges.WORLD) {
+				} else if (range == ranges.WORLD.key) {
 					$labelRegion.textContent = 'Państwo:'
 					$labelCity.textContent = 'Miasto:'
-				} else if (range == ranges.MOUNTAINS) {
+				} else if (range == ranges.MOUNTAINS.key) {
 					$labelRegion.textContent = 'Pasmo:'
 					$labelCity.textContent = 'Szczyt:'
-				} else if (range == modes.NONE.key) {
+				} else if (range == ranges.NONE.key) {
 					$labelRegion.textContent = ''
 					$labelCity.textContent = ''
 				}
@@ -1412,8 +1539,8 @@
 				console.log(`setEmblem(${$selectCity.value})`)
 
 				if (
-					$selectRange.value == ranges.ROADS ||
-					$selectRange.value == ranges.MOUNTAINS ||
+					$selectRange.value == ranges.ROADS.key ||
+					$selectRange.value == ranges.MOUNTAINS.key ||
 					$selectCity.value == modes.ALL.key ||
 					$selectCity.value == ''
 				) {
@@ -1425,9 +1552,9 @@
 					const capitalizedRegion = capitalizeName($selectRegion.value)
 
 					let path = ''
-					if ($selectRange.value == ranges.WORLD) {
+					if ($selectRange.value == ranges.WORLD.key) {
 						path = `Świat/${capitalizedRegion}/${capitalizedCity}/${capitalizedCity}.gif`
-					} else if ($selectRange.value == ranges.POLAND) {
+					} else if ($selectRange.value == ranges.POLAND.key) {
 						path = `Polska/${capitalizedRegion}/${capitalizedCity}/${capitalizedCity}.gif`
 					}
 					$headerEmblem.setAttribute('src', path)
@@ -1438,7 +1565,7 @@
 			// @b set title
 			function setTitle() {
 				let title = ''
-				if ($selectRange.value == modes.NONE.key) {
+				if ($selectRange.value == ranges.NONE.key) {
 					title = 'PODRÓŻE'
 				} else if ($selectRegion.value == modes.ALL.key) {
 					title = $selectRange.value
@@ -1554,7 +1681,7 @@
 			function prepareGallery() {
 				console.log('prepareGallery()')
 				//clear gallery
-				$gallery.innerHTML = ''
+				clearContent($gallery)
 				// create imgs for filtered table
 				$filteredData.forEach((item) => {
 					let description = `${item.city}: ${item.name}`
@@ -1807,19 +1934,19 @@
 			function setMapView() {
 				console.log(`setMapView()`)
 
-				if ($selectRange.value == modes.NONE.key) {
+				if ($selectRange.value == ranges.NONE.key) {
 					$map.setView(...setCoor([46.8, 9.3], 5))
 					return
 				}
 
 				if ($selectRegion.value == modes.ALL.key) {
-					if ($selectRange.value == ranges.MOUNTAINS) {
+					if ($selectRange.value == ranges.MOUNTAINS.key) {
 						$map.setView(...setCoor([50.05, 19.25], 8))
-					} else if ($selectRange.value == ranges.POLAND) {
+					} else if ($selectRange.value == ranges.POLAND.key) {
 						$map.setView(...setCoor([52.05, 19.25], 7))
-					} else if ($selectRange.value == ranges.ROADS) {
+					} else if ($selectRange.value == ranges.ROADS.key) {
 						$map.setView(...setCoor([52.05, 19.25], 7))
-					} else if ($selectRange.value == ranges.WORLD) {
+					} else if ($selectRange.value == ranges.WORLD.key) {
 						$map.setView(...setCoor([46.8, 9.3], 6))
 					} else {
 						$map.setView(...setCoor([0, 0], 6))
@@ -2029,13 +2156,13 @@
 
 				// Skip routes that don't match selected range
 				if (
-					$selectRange.value !== modes.NONE.key &&
+					$selectRange.value !== ranges.NONE.key &&
 					$selectRange.value !== route.range
 				) {
 					return true
 				}
 
-				if (route.range === ranges.ROADS) {
+				if (route.range === ranges.ROADS.key) {
 					// For road routes, extract info from name
 					const roadName = route.name.split(' ')[2]
 					const roadLanes = route.name.split(' ')[4]
@@ -2124,12 +2251,14 @@
 
 				// Activity categories
 				const primaryActivities = [
-					'cycling',
-					'europe_transport_boat',
-					'downhill_skiing',
-					'europe_cycling',
+					activities.CYCLING.key,
+					activities.DOWNHILL_SKIING.key,
+					activities.TRANSPORT_BOAT.key,
 				]
-				const secondaryActivities = ['hiking', 'walking', 'europe_walking']
+				const secondaryActivities = [
+					activities.HIKING.key,
+					activities.WALKING.key,
+				]
 
 				let routeColor = defaultColor
 				let routeWeight = defaultWeight
@@ -2242,7 +2371,7 @@
 						}
 					}
 				}
-				return ranges.POLAND
+				return ranges.POLAND.key
 			}
 
 			// @b find region
@@ -2282,6 +2411,13 @@
 				parent.appendChild(option)
 			}
 
+			// @b clear content
+			function clearContent(element) {
+				if (element) {
+					element.innerHTML = ''
+				}
+			}
+
 			// @b map regions
 			function mapRegions(data) {
 				const newData = {}
@@ -2299,6 +2435,26 @@
 				}
 
 				return newData
+			}
+
+			// @b map key to object
+			function mapKeyToObject(obj, nestedKey = 'key') {
+				return Object.values(obj).reduce((acc, item) => {
+					if (item && nestedKey in item) {
+						acc[item[nestedKey]] = item
+					}
+					return acc
+				}, {})
+			}
+
+			// @b map key to value
+			function mapKeyToValue(obj, keyName = 'key', valueName = 'value') {
+				return Object.values(obj).reduce((acc, item) => {
+					if (item && keyName in item && valueName in item) {
+						acc[item[keyName]] = item[valueName]
+					}
+					return acc
+				}, {})
 			}
 
 			// @b debug
