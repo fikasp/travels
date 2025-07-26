@@ -39,7 +39,7 @@ def get_name(gpx):
 
 
 # @b get year
-def get_year(name: str):
+def get_year(name):
     """
     Extract year from input and return:
     - year if in the past or current month of current year,
@@ -81,8 +81,6 @@ def get_range(activity):
         activity = activity.strip().lower()
         if activity == "roads":
             return "DROGI"
-        elif activity == "hiking" or activity == "downhill_skiing":
-            return "GÓRY"
         elif activity.startswith("world_"):
             return "ŚWIAT"
     return "POLSKA"
@@ -317,8 +315,6 @@ def main():
                 print(f"✅ 🇵🇱 {icon} {name} => {year}")
             elif range_ == "ŚWIAT":
                 print(f"✅ 🇪🇺 {icon} {name} => {year}")
-            elif range_ == "GÓRY":
-                print(f"✅ 🇬🇾 {icon} {name} => {year}")
             elif range_ == "DROGI":
                 print(f"✅ 🇩🇬 {icon}  {name} => {year} ")
             else:

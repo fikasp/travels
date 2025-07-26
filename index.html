@@ -797,6 +797,12 @@
 						activities.TRANSPORT_BOAT.key,
 					],
 				},
+				ROADS: {
+					key: 'DROGI',
+					value: 'DROGI',
+					categories: [categories.NONE.key],
+					activities: [activities.NONE.key, activities.ALL.key],
+				},
 				POLAND: {
 					key: 'POLSKA',
 					value: 'POLSKA',
@@ -817,15 +823,10 @@
 						activities.TRANSPORT_CAR.key,
 						activities.CYCLING.key,
 						activities.WALKING.key,
+						activities.HIKING.key,
 						activities.TRANSPORT_PUBLIC.key,
 						activities.TRANSPORT_TRAIN.key,
 					],
-				},
-				ROADS: {
-					key: 'DROGI',
-					value: 'DROGI',
-					categories: [categories.NONE.key],
-					activities: [activities.NONE.key, activities.ALL.key],
 				},
 				MOUNTAINS: {
 					key: 'GÓRY',
@@ -839,8 +840,13 @@
 					activities: [
 						activities.NONE.key,
 						activities.ALL.key,
+						activities.TRANSPORT_CAR.key,
+						activities.CYCLING.key,
+						activities.WALKING.key,
 						activities.HIKING.key,
 						activities.DOWNHILL_SKIING.key,
+						activities.TRANSPORT_PUBLIC.key,
+						activities.TRANSPORT_TRAIN.key,
 					],
 				},
 			}
@@ -2136,7 +2142,7 @@
 
 			// @b should route skip
 			function shouldRouteSkip(route) {
-				// Exclude routes not matching selected activity
+				// Filter by activity
 				if (
 					$activityFilter !== modes.ALL.key &&
 					$activityFilter !== route.activity
@@ -2144,16 +2150,20 @@
 					return true
 				}
 
-				// Skip routes that don't match selected range
+				// Filter by range
 				if (
 					$selectRange.value !== ranges.NONE.key &&
-					$selectRange.value !== route.range
+					!(
+						$selectRange.value === route.range ||
+						($selectRange.value === ranges.MOUNTAINS.key &&
+							route.range === ranges.POLAND.key)
+					)
 				) {
 					return true
 				}
 
+				// Filter for roads
 				if (route.range === ranges.ROADS.key) {
-					// For road routes, extract info from name
 					const roadName = route.name.split(' ')[2]
 					const roadLanes = route.name.split(' ')[4]
 
@@ -2171,7 +2181,7 @@
 					)
 					const roadCategory = roadCategoryMap[roadKey]
 
-					// Filter by region
+					// Filter by region (road category)
 					if (
 						$selectRegion.value !== modes.ALL.key &&
 						$selectRegion.value !== roadCategory
