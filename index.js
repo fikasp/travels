@@ -6758,7 +6758,7 @@ const data = {
         19.3057251
       ],
       zoom: 12,
-      "Czupel": {
+      "CZUPEL": {
         coor: [
           49.7678918,
           19.1609716
@@ -6789,6 +6789,18 @@ const data = {
         19.7503281
       ],
       zoom: 12,
+      "LUBOMIR": {
+        coor: [
+          49.7668523,
+          20.0596189
+        ],
+        date: [
+          2016
+        ],
+        zoom: 15,
+        scale: 2.0,
+        gallery: []
+      },
       "Barnasiówka": {
         coor: [
           49.8371244,
@@ -6850,18 +6862,6 @@ const data = {
         ],
         zoom: 15,
         scale: 1.0,
-        gallery: []
-      },
-      "Lubomir": {
-        coor: [
-          49.7668523,
-          20.0596189
-        ],
-        date: [
-          2016
-        ],
-        zoom: 15,
-        scale: 2.0,
         gallery: []
       },
       "Łysina": {
@@ -6938,7 +6938,7 @@ const data = {
         21.1024618
       ],
       zoom: 12,
-      "Lackowa": {
+      "LACKOWA": {
         coor: [
           49.4264395,
           21.1024618
@@ -6957,6 +6957,18 @@ const data = {
         20.6913757
       ],
       zoom: 12,
+      "RADZIEJOWA": {
+        coor: [
+          49.4491556,
+          20.6042576
+        ],
+        date: [
+          2021
+        ],
+        zoom: 15,
+        scale: 2.0,
+        gallery: []
+      },
       "Hala Łabowska": {
         coor: [
           49.4723456,
@@ -7017,18 +7029,6 @@ const data = {
         zoom: 15,
         scale: 1.0,
         gallery: []
-      },
-      "Radziejowa": {
-        coor: [
-          49.4491556,
-          20.6042576
-        ],
-        date: [
-          2021
-        ],
-        zoom: 15,
-        scale: 2.0,
-        gallery: []
       }
     },
     "Beskid Śląski": {
@@ -7037,6 +7037,18 @@ const data = {
         18.9239502
       ],
       zoom: 12,
+      "SKRZYCZNE": {
+        coor: [
+          49.6845403,
+          19.0302944
+        ],
+        date: [
+          2021
+        ],
+        zoom: 15,
+        scale: 2.0,
+        gallery: []
+      },
       "Barania Góra": {
         coor: [
           49.6114468,
@@ -7060,18 +7072,6 @@ const data = {
         zoom: 15,
         scale: 1.0,
         gallery: []
-      },
-      "Skrzyczne": {
-        coor: [
-          49.6845403,
-          19.0302944
-        ],
-        date: [
-          2021
-        ],
-        zoom: 15,
-        scale: 2.0,
-        gallery: []
       }
     },
     "Beskid Wyspowy": {
@@ -7080,6 +7080,18 @@ const data = {
         20.1914978
       ],
       zoom: 12,
+      "MOGIELICA": {
+        coor: [
+          49.6552452,
+          20.2767169
+        ],
+        date: [
+          2017
+        ],
+        zoom: 15,
+        scale: 2.0,
+        gallery: []
+      },
       "Ciecień": {
         coor: [
           49.7735737,
@@ -7140,18 +7152,6 @@ const data = {
         scale: 1.0,
         gallery: []
       },
-      "Mogielica": {
-        coor: [
-          49.6552452,
-          20.2767169
-        ],
-        date: [
-          2017
-        ],
-        zoom: 15,
-        scale: 2.0,
-        gallery: []
-      },
       "Szczebel": {
         coor: [
           49.6884274,
@@ -7183,7 +7183,7 @@ const data = {
         19.2868423
       ],
       zoom: 12,
-      "Babia Góra": {
+      "BABIA GÓRA": {
         coor: [
           49.5730083,
           19.529314
@@ -7278,6 +7278,19 @@ const data = {
         20.1926994
       ],
       zoom: 13,
+      "TURBACZ": {
+        coor: [
+          49.5428247,
+          20.1113749
+        ],
+        date: [
+          2009,
+          2014
+        ],
+        zoom: 15,
+        scale: 2.0,
+        gallery: []
+      },
       "Gorc": {
         coor: [
           49.5649719,
@@ -7313,19 +7326,6 @@ const data = {
         zoom: 15,
         scale: 1.0,
         gallery: []
-      },
-      "Turbacz": {
-        coor: [
-          49.5428247,
-          20.1113749
-        ],
-        date: [
-          2009,
-          2014
-        ],
-        zoom: 15,
-        scale: 2.0,
-        gallery: []
       }
     },
     "Pieniny": {
@@ -7334,6 +7334,18 @@ const data = {
         20.4675293
       ],
       zoom: 13,
+      "WYSOKA": {
+        coor: [
+          49.3802285,
+          20.555495
+        ],
+        date: [
+          2014
+        ],
+        zoom: 15,
+        scale: 2.0,
+        gallery: []
+      },
       "Sokolica": {
         coor: [
           49.4176042,
@@ -7360,18 +7372,6 @@ const data = {
         zoom: 15,
         scale: 1.0,
         gallery: []
-      },
-      "Wysoka": {
-        coor: [
-          49.3802285,
-          20.555495
-        ],
-        date: [
-          2014
-        ],
-        zoom: 15,
-        scale: 2.0,
-        gallery: []
       }
     },
     "Sudety": {
@@ -7380,7 +7380,7 @@ const data = {
         16.0297394
       ],
       zoom: 11,
-      "Szczeliniec Wielki": {
+      "SZCZELINIEC WIELKI": {
         coor: [
           50.4848045,
           16.3410258
@@ -7389,6 +7389,18 @@ const data = {
           2023
         ],
         zoom: 16,
+        scale: 1.0,
+        gallery: []
+      },
+      "Szczeliniec Wielki": {
+        coor: [
+          50.4809883,
+          16.3398081
+        ],
+        date: [
+          2023
+        ],
+        zoom: null,
         scale: 1.0,
         gallery: [
           {
@@ -7412,7 +7424,7 @@ const data = {
         20.8966398
       ],
       zoom: 13,
-      "Łysica": {
+      "ŁYSICA": {
         coor: [
           50.8915834,
           20.8966398
@@ -7431,6 +7443,18 @@ const data = {
         19.8749542
       ],
       zoom: 13,
+      "STAROROBOCIAŃSKI WIERCH": {
+        coor: [
+          49.199345,
+          19.8198938
+        ],
+        date: [
+          2017
+        ],
+        zoom: 15,
+        scale: 2.0,
+        gallery: []
+      },
       "Ciemniak": {
         coor: [
           49.2309805,
@@ -7616,18 +7640,6 @@ const data = {
         scale: 1.0,
         gallery: []
       },
-      "Starorobociański Wierch": {
-        coor: [
-          49.199345,
-          19.8198938
-        ],
-        date: [
-          2017
-        ],
-        zoom: 15,
-        scale: 2.0,
-        gallery: []
-      },
       "Wołowiec": {
         coor: [
           49.2075327,
@@ -7647,6 +7659,18 @@ const data = {
         20.0493622
       ],
       zoom: 13,
+      "RYSY": {
+        coor: [
+          49.1792488,
+          20.0884581
+        ],
+        date: [
+          2013
+        ],
+        zoom: 15,
+        scale: 2.0,
+        gallery: []
+      },
       "Gęsia Szyja": {
         coor: [
           49.2590247,
@@ -7779,18 +7803,6 @@ const data = {
         ],
         zoom: 15,
         scale: 1.0,
-        gallery: []
-      },
-      "Rysy": {
-        coor: [
-          49.1792488,
-          20.0884581
-        ],
-        date: [
-          2013
-        ],
-        zoom: 15,
-        scale: 2.0,
         gallery: []
       },
       "Szpiglasowy Wierch": {

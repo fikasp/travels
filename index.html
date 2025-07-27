@@ -855,18 +855,21 @@
 			let $distanceControl = null // distance control
 			let $activityControl = null // activity control
 			let $marginTop = 0 // margin top
+
 			// tables
 			let $photos = [] // table of photos
 			let $markers = [] // table of markers
 			let $citiesArray = [] // table with prepared data
 			let $filteredData = [] // table with filtered data
-			let $routeLayers = [] // table with added polylines
+			let $selectedRoutes = [] // table with selected routes
+			let $routeLayers = [] // table with added routes
 			// filters
 			let $viewMode = modes.MAP.key // state of view mode
 			let $activityFilter = modes.ALL.key // state of activity filter
 			let $categoryFilter = modes.NONE.key // state of category filter
 			let $dateFilter = modes.ALL.key // state of data filter
 			// flags
+			let $hoverTimeout = null // routes timeout
 			let $isInitialRender = true // flag for initial render
 			let $isHiglightActive = true // flag for marker higlight activ
 			let $isGalleryAndMap = false // flag for gallery and map open
@@ -1578,6 +1581,7 @@
 				setTitle()
 				setMapView()
 				updateData()
+				logSelects()
 			}
 
 			// @b set region
@@ -1588,12 +1592,12 @@
 				setTitle()
 				setMapView()
 				updateData()
+				logSelects()
 			}
 
 			// @b set range
 			function setRange() {
 				console.log(`:setRange(${$selectRange.value}):`)
-				prepareRoutes()
 				prepareActivities()
 				prepareCategories()
 				prepareRegions()
@@ -1602,7 +1606,9 @@
 				setEmblem()
 				setTitle()
 				setMapView()
+				updateRoutes()
 				updateData()
+				logSelects()
 			}
 
 			// @b set view mode
@@ -1653,7 +1659,8 @@
 			function setActivities() {
 				$activityFilter = $selectActivity.value
 				console.log(`:setActivity()`)
-				prepareRoutes()
+				updateRoutes()
+				logSelects()
 			}
 
 			// @b set category
@@ -1661,14 +1668,16 @@
 				$categoryFilter = $selectCategory.value
 				console.log(`:setCategory()`)
 				updateData()
+				logSelects()
 			}
 
 			// @b set dates
 			function setDate() {
 				$dateFilter = $selectDate.value
 				console.log(`:setDate(${$dateFilter})`)
-				prepareRoutes()
+				updateRoutes()
 				updateData()
+				logSelects()
 			}
 
 			// @g Gallery
@@ -2015,7 +2024,7 @@
 					className: `marker marker-${catg.toLowerCase()}`,
 				})
 
-				let tooltipContent = `${city}:\n${name}`
+				let tooltipContent = `<strong>${city}</strong>\n${name}`
 
 				const tooltipOptions = {
 					className: 'marker-tooltip',
@@ -2102,16 +2111,14 @@
 
 			// @g Routes
 
-			// @b prepare routes
-			function prepareRoutes() {
+			// @b update routes
+			function updateRoutes() {
 				console.log('prepareRoutes()')
 
-				// Clear previous layers
+				// Clear previous route data
 				$routeLayers.forEach((layer) => $map.removeLayer(layer))
 				$routeLayers = []
-
-				// Total distance of visible routes
-				let totalLength = 0
+				$selectedRoutes = []
 
 				// Sort routes
 				const sortedRoutes = [...routes].sort((a, b) => {
@@ -2134,10 +2141,8 @@
 
 					// Add both layers to the map layer collection
 					$routeLayers.push(polyline, hitbox)
-					// Update the total distance with the current route's length
-					totalLength += route.length
 				})
-				setDistance(totalLength)
+				countDistance()
 			}
 
 			// @b should route skip
@@ -2260,10 +2265,20 @@
 					activities.WALKING.key,
 				]
 
+				let toggled = false
 				let routeColor = defaultColor
 				let routeWeight = defaultWeight
-				let routeName = `${route.icon} ${route.name}`
-				let toggled = false
+
+				const [date, name] = route.name.split(' - ')
+				const distance = formatDistance(route.length, 1)
+
+				let routeName = `
+					<div style="text-align: center; line-height: 1.6;">
+						<div>${date}</div>
+						<div><strong>${name}</strong></div>
+						<div>${route.icon} ${distance}</div>
+					</div>
+				`
 
 				// Roads: style and weight based on years and lanes
 				if (route.range === 'DROGI') {
@@ -2311,13 +2326,19 @@
 				// Highlight on hover
 				const highlight = () => {
 					if (!toggled) {
-						polyline.setStyle({ weight: activeWeight })
-						polyline.bringToFront()
+						hoverTimeout = setTimeout(() => {
+							polyline.setStyle({ weight: activeWeight })
+							polyline.bringToFront()
+						}, 300)
 					}
 				}
 
 				// Reset style on mouse out
 				const resetHighlight = () => {
+					if (hoverTimeout) {
+						clearTimeout(hoverTimeout)
+						hoverTimeout = null
+					}
 					if (!toggled) {
 						polyline.setStyle({ weight: routeWeight })
 					}
@@ -2328,11 +2349,21 @@
 					toggled = !toggled
 					updateStyle()
 
+					const routeIndex = routes.indexOf(route)
+
 					if (toggled) {
-						polyline.openPopup()
+						polyline.openPopup(L.latLng(route.coords[0]))
+						if (!$selectedRoutes.includes(routeIndex)) {
+							$selectedRoutes.push(routeIndex)
+						}
 					} else {
 						polyline.closePopup()
+						const idx = $selectedRoutes.indexOf(routeIndex)
+						if (idx !== -1) {
+							$selectedRoutes.splice(idx, 1)
+						}
 					}
+					countDistance()
 				}
 
 				// Bind events
@@ -2351,13 +2382,27 @@
 				}
 			}
 
-			// @b set distance
-			function setDistance(distance) {
-				const distanceFormatted = distance.toLocaleString('pl-PL', {
-					minimumFractionDigits: 0,
-					maximumFractionDigits: 0,
-				})
-				$footerDistance.textContent = `${distanceFormatted} km`
+			// @b count distance
+			function countDistance() {
+				const visibleRoutes = [...routes].filter(
+					(route) => !shouldRouteSkip(route)
+				)
+				const totalLength = visibleRoutes.reduce((sum, r) => sum + r.length, 0)
+
+				const selectedLength = $selectedRoutes.reduce((sum, index) => {
+					const route = routes[index]
+					if (!shouldRouteSkip(route)) {
+						return sum + route.length
+					}
+					return sum
+				}, 0)
+
+				$footerDistance.textContent =
+					$selectedRoutes.length > 0
+						? `${formatDistance(selectedLength, 1)} / ${formatDistance(
+								totalLength
+						  )}`
+						: formatDistance(totalLength)
 			}
 
 			// @g Tools
@@ -2418,6 +2463,15 @@
 				}
 			}
 
+			// @b format distance
+			function formatDistance(distance, digits = 0) {
+				const distanceFormatted = distance.toLocaleString('pl-PL', {
+					minimumFractionDigits: 0,
+					maximumFractionDigits: digits,
+				})
+				return `${distanceFormatted} km`
+			}
+
 			// @b map regions
 			function mapRegions(data) {
 				const newData = {}
@@ -2455,6 +2509,18 @@
 					}
 					return acc
 				}, {})
+			}
+
+			// @b log selects
+			function logSelects() {
+				console.log({
+					date: $dateFilter,
+					activities: $activityFilter,
+					categories: $categoryFilter,
+					range: $selectRange.value,
+					region: $selectRegion.value,
+					city: $selectCity.value,
+				})
 			}
 
 			// @b debug
