@@ -214,6 +214,7 @@
 				padding: 7px 20px;
 				background: transparent;
 				color: black;
+				cursor: pointer;
 				text-align: center;
 				font-size: 13px;
 			}
@@ -932,6 +933,7 @@
 			$headerDiv.addEventListener('touchend', touchend)
 			$headerBars.addEventListener('click', showHideMenu)
 			$headerEmblem.addEventListener('click', showHideMenu)
+			$footerDistance.addEventListener('click', clearSelectedRoutes)
 			$selectCity.addEventListener('change', setCity)
 			$selectRegion.addEventListener('change', setRegion)
 			$selectRange.addEventListener('change', setRange)
@@ -2113,7 +2115,7 @@
 
 			// @b update routes
 			function updateRoutes() {
-				console.log('prepareRoutes()')
+				console.log('updateRoutes()')
 
 				// Clear previous route data
 				$routeLayers.forEach((layer) => $map.removeLayer(layer))
@@ -2329,7 +2331,7 @@
 						hoverTimeout = setTimeout(() => {
 							polyline.setStyle({ weight: activeWeight })
 							polyline.bringToFront()
-						}, 300)
+						}, 100)
 					}
 				}
 
@@ -2382,6 +2384,12 @@
 				}
 			}
 
+			// @b clear selected routes
+			function clearSelectedRoutes() {
+				$selectedRouteIndexes = []
+				updateRoutes()
+			}
+
 			// @b count distance
 			function countDistance() {
 				const visibleRoutes = [...routes].filter(
@@ -2399,7 +2407,7 @@
 
 				$footerDistance.textContent =
 					$selectedRoutes.length > 0
-						? `${formatDistance(selectedLength, 1)} / ${formatDistance(
+						? `🔄 ${formatDistance(selectedLength, 1)} / ${formatDistance(
 								totalLength
 						  )}`
 						: formatDistance(totalLength)
