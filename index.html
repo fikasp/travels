@@ -866,8 +866,8 @@
 			let $routeLayers = [] // table with added routes
 			// filters
 			let $viewMode = modes.MAP.key // state of view mode
-			let $activityFilter = modes.ALL.key // state of activity filter
-			let $categoryFilter = modes.NONE.key // state of category filter
+			let $activityFilter = activities.ALL.key // state of activity filter
+			let $categoryFilter = categories.NONE.key // state of category filter
 			let $dateFilter = modes.ALL.key // state of data filter
 			// flags
 			let $hoverTimeout = null // routes timeout
@@ -1236,7 +1236,7 @@
 				}
 
 				// filter by category filter
-				if ($categoryFilter != modes.ALL.key) {
+				if ($categoryFilter != categories.ALL.key) {
 					$filteredData = $filteredData.filter((item) => {
 						return item.catg == $categoryFilter
 					})
@@ -1449,6 +1449,12 @@
 				clearContent($selectActivity)
 
 				const selectedRange = $selectRange.value
+
+				if (selectedRange == ranges.MOUNTAINS.key) {
+					$activityFilter = activities.HIKING.key
+				} else {
+					$activityFilter = activities.ALL.key
+				}
 
 				const allowedActivities =
 					Object.values(ranges).find((r) => r.key === selectedRange)
@@ -2158,7 +2164,7 @@
 			function shouldRouteSkip(route) {
 				// Filter by activity
 				if (
-					$activityFilter !== modes.ALL.key &&
+					$activityFilter !== activities.ALL.key &&
 					$activityFilter !== route.activity
 				) {
 					return true
@@ -2254,10 +2260,14 @@
 			}
 
 			// @b format route
-			function formatRouteInfo(
-				route,
-				{ defaultWeight, defaultColor, planColor }
-			) {
+			function formatRouteInfo(route) {
+				// Settings
+				const defaultWeight = 2
+				const defaultColor = 'black'
+				const primaryColor = '#444'
+				const secondaryColor = '#666'
+				const planColor = 'steelblue'
+
 				const primaryActivities = [
 					activities.CYCLING.key,
 					activities.DOWNHILL_SKIING.key,
@@ -2311,9 +2321,9 @@
 					)
 
 					if (primaryActivities.includes(route.activity)) {
-						routeColor = '#444'
+						routeColor = primaryColor
 					} else if (secondaryActivities.includes(route.activity)) {
-						routeColor = '#666'
+						routeColor = secondaryColor
 					}
 					if (route.year > YEAR || route.year === 0) {
 						routeColor = planColor
@@ -2326,19 +2336,11 @@
 			function createRouteLayer(route) {
 				let toggled = false
 
-				// Default styles
-				const defaultColor = 'black'
+				// Settings
 				const activeColor = 'dodgerblue'
-				const planColor = 'steelblue'
-
-				const defaultWeight = 2
 				const activeWeight = 6
 
-				const { routeName, routeColor, routeWeight } = formatRouteInfo(route, {
-					defaultWeight,
-					defaultColor,
-					planColor,
-				})
+				const { routeName, routeColor, routeWeight } = formatRouteInfo(route)
 
 				// Main visible polyline
 				const polyline = L.polyline(route.coords, {
@@ -2354,61 +2356,63 @@
 					opacity: 0,
 				}).addTo($map)
 
-				// Style updates
-				const updateStyle = () => {
-					polyline.setStyle({
-						color: toggled ? activeColor : routeColor,
-						weight: toggled ? activeWeight : routeWeight,
-					})
-					if (toggled) polyline.bringToFront()
-				}
-
 				// Highlight on hover
-				const highlight = () => {
+				const highlightRoute = () => {
 					if (!toggled) {
 						hoverTimeout = setTimeout(() => {
-							polyline.setStyle({ weight: activeWeight })
+							polyline.setStyle({
+								weight: activeWeight,
+							})
 							polyline.bringToFront()
-						}, 100)
+						}, 500)
 					}
 				}
 
 				// Reset style on mouse out
-				const resetHighlight = () => {
+				const resetHighlightRoute = () => {
 					if (hoverTimeout) {
 						clearTimeout(hoverTimeout)
 						hoverTimeout = null
 					}
 					if (!toggled) {
-						polyline.setStyle({ weight: routeWeight })
+						polyline.setStyle({
+							weight: routeWeight,
+						})
 					}
 				}
 
 				// Toggle popup and active style
 				const toggleRoute = () => {
 					toggled = !toggled
-					updateStyle()
-
 					const routeIndex = routes.indexOf(route)
 
 					if (toggled) {
+						polyline.bringToFront()
+						polyline.setStyle({
+							color: activeColor,
+							weight: activeWeight,
+						})
 						polyline.openPopup(L.latLng(route.coords[0]))
 						if (!$selectedRoutes.includes(routeIndex)) {
 							$selectedRoutes.push(routeIndex)
 						}
 					} else {
 						polyline.closePopup()
-						const idx = $selectedRoutes.indexOf(routeIndex)
-						if (idx !== -1) {
-							$selectedRoutes.splice(idx, 1)
+						polyline.setStyle({
+							color: routeColor,
+							weight: routeWeight,
+						})
+						const index = $selectedRoutes.indexOf(routeIndex)
+						if (index !== -1) {
+							$selectedRoutes.splice(index, 1)
 						}
 					}
 					countDistance()
 				}
 
 				// Bind events
-				hitbox.on('mouseover', highlight)
-				hitbox.on('mouseout', resetHighlight)
+				hitbox.on('mouseover', highlightRoute)
+				hitbox.on('mouseout', resetHighlightRoute)
 				hitbox.on('touchstart', toggleRoute)
 				hitbox.on('click', toggleRoute)
 
