@@ -1139,14 +1139,16 @@
 									//prepare path
 									function preparePath() {
 										const capitalizedCity = capitalizeName(city)
+										const capitalizedRegion = capitalizeName(region)
+										console.error(capitalizedRegion)
 
 										// path for mountains
 										if (range == ranges.MOUNTAINS.key) {
-											return `Góry/${region}/${capitalizedCity}/Zdjęcia/${item.name}.jpg`
+											return `Góry/${capitalizedRegion}/${capitalizedCity}/Zdjęcia/${item.name}.jpg`
 
 											// path for world
 										} else if (range == ranges.WORLD.key) {
-											return `Świat/${region}/${capitalizedCity}/Zdjęcia/${item.name}.jpg`
+											return `Świat/${capitalizedRegion}/${capitalizedCity}/Zdjęcia/${item.name}.jpg`
 
 											// path for Kraków
 										} else if (city == 'KRAKÓW') {
@@ -1156,7 +1158,7 @@
 
 											// path for other cities in Poland
 										} else {
-											return `Polska/${region}/${capitalizedCity}/Zdjęcia/${item.name}.jpg`
+											return `Polska/${capitalizedRegion}/${capitalizedCity}/Zdjęcia/${item.name}.jpg`
 										}
 									}
 
@@ -2272,7 +2274,7 @@
 				let routeWeight = defaultWeight
 
 				const [date, name] = route.name.split(' - ')
-				const distance = formatDistance(route.length, 1)
+				const distance = formatDistance(route.length)
 
 				let routeName = `
 					<div style="text-align: center; line-height: 1.6;">
@@ -2407,7 +2409,7 @@
 
 				$footerDistance.textContent =
 					$selectedRoutes.length > 0
-						? `🔄 ${formatDistance(selectedLength, 1)} / ${formatDistance(
+						? `🔄 ${formatDistance(selectedLength)} / ${formatDistance(
 								totalLength
 						  )}`
 						: formatDistance(totalLength)
@@ -2472,9 +2474,10 @@
 			}
 
 			// @b format distance
-			function formatDistance(distance, digits = 0) {
+			function formatDistance(distance) {
+				const digits = distance < 100 ? 1 : 0
 				const distanceFormatted = distance.toLocaleString('pl-PL', {
-					minimumFractionDigits: 0,
+					minimumFractionDigits: digits,
 					maximumFractionDigits: digits,
 				})
 				return `${distanceFormatted} km`
