@@ -116,7 +116,7 @@
 				flex-grow: 1;
 				text-align: left;
 				font-family: verdana;
-				padding: 4px;
+				padding: 5px;
 				width: 160px;
 				color: #fff;
 				background: black;
@@ -167,6 +167,7 @@
 				bottom: 0px;
 				left: 0px;
 				width: 100vw;
+				min-height: 32px;
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
@@ -179,9 +180,13 @@
 				transform: translateY(+120%);
 			}
 			.footer_view select {
+				position: absolute;
+				bottom: 0;
+				left: 0;
 				color: black;
-				font-size: 13px;
-				padding: 6px 20px;
+				font-size: 14px;
+				padding: 5px 20px;
+				height: 100%;
 				border: none;
 				outline: none;
 				text-align: left;
@@ -200,7 +205,7 @@
 				top: 50%;
 				left: 50%;
 				transform: translate(-50%, -50%);
-				font-size: 13px;
+				font-size: 14px;
 				text-align: center;
 				pointer-events: none;
 				color: black;
@@ -211,12 +216,19 @@
 				}
 			}
 			.footer_distance {
-				padding: 7px 20px;
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				height: 100%;
+				display: flex;
+				justify-content: right;
+				align-items: center;
+				padding: 5px 20px;
 				background: transparent;
 				color: black;
 				cursor: pointer;
 				text-align: center;
-				font-size: 13px;
+				font-size: 14px;
 			}
 
 			/* @r Gallery 
@@ -850,7 +862,6 @@
 					activities: [
 						activities.NONE.key,
 						activities.ALL.key,
-						activities.TRANSPORT_CAR.key,
 						activities.CYCLING.key,
 						activities.HIKING.key,
 						activities.DOWNHILL_SKIING.key,
