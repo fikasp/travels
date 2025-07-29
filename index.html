@@ -627,7 +627,8 @@
 			// @g > SCRIPTS
 
 			// @b Consts
-			const YEAR = 2025
+			const FUTURE_YEAR = 2027
+			const CURRENT_YEAR = 2025
 			const startCity = 'KRAKÓW'
 			const mapActive = true
 
@@ -657,9 +658,17 @@
 					key: 'none',
 					value: 'Brak',
 				},
-				PLAN: {
+				PLAN_CURRENT: {
+					key: '0',
+					value: `Plan ${CURRENT_YEAR}`,
+				},
+				PLAN_ALL: {
 					key: 'plan',
 					value: 'Planowane',
+				},
+				DONE: {
+					key: 'done',
+					value: 'Zrealizowane',
 				},
 			}
 
@@ -843,11 +852,8 @@
 						activities.ALL.key,
 						activities.TRANSPORT_CAR.key,
 						activities.CYCLING.key,
-						activities.WALKING.key,
 						activities.HIKING.key,
 						activities.DOWNHILL_SKIING.key,
-						activities.TRANSPORT_PUBLIC.key,
-						activities.TRANSPORT_TRAIN.key,
 					],
 				},
 			}
@@ -960,7 +966,7 @@
 			$photoPrevious.addEventListener('click', showPreviousPhoto)
 			$photoNext.addEventListener('click', showNextPhoto)
 
-			// @g Main
+			// @g MAIN
 			function main() {
 				console.log(data)
 				// console.log(routes)
@@ -1121,7 +1127,7 @@
 				$root.style.setProperty('--marginTop', `${headerHeight}px`)
 			}
 
-			// @g Data
+			// @g DATA
 			//
 			// @b prepare data
 			function prepareData() {
@@ -1335,7 +1341,7 @@
 				console.log($filteredData)
 			}
 
-			// @g Header
+			// @g HEADER
 
 			// @b show hide menu
 			function showHideMenu() {
@@ -1508,11 +1514,26 @@
 				)
 				createOption(
 					$selectDate,
-					modes.PLAN.key,
-					`📅 ${modes.PLAN.value}`,
+					modes.DONE.key,
+					`📅 ${modes.DONE.value}`,
 					$dateFilter
 				)
-				for (let year = YEAR; year >= 2004; year--) {
+				createOption(
+					$selectDate,
+					modes.PLAN_ALL.key,
+					`📅 ${modes.PLAN_ALL.value}`,
+					$dateFilter
+				)
+				for (let year = FUTURE_YEAR; year > CURRENT_YEAR; year--) {
+					createOption($selectDate, year, `📅 Plan ${year}`, $dateFilter)
+				}
+				createOption(
+					$selectDate,
+					modes.PLAN_CURRENT.key,
+					`📅 ${modes.PLAN_CURRENT.value}`,
+					$dateFilter
+				)
+				for (let year = CURRENT_YEAR; year >= 2004; year--) {
 					createOption($selectDate, year, `📅 ${year}`, $dateFilter)
 				}
 			}
@@ -1590,7 +1611,7 @@
 				setTitle()
 				setMapView()
 				if ($selectRange.value == ranges.ROADS.key) {
-					updateRoutes()
+					prepareRoutes()
 				}
 				updateData()
 				logSelects()
@@ -1604,7 +1625,7 @@
 				setTitle()
 				setMapView()
 				if ($selectRange.value == ranges.ROADS.key) {
-					updateRoutes()
+					prepareRoutes()
 				}
 				updateData()
 				logSelects()
@@ -1621,7 +1642,7 @@
 				setEmblem()
 				setTitle()
 				setMapView()
-				updateRoutes()
+				prepareRoutes()
 				updateData()
 				logSelects()
 			}
@@ -1674,7 +1695,7 @@
 			function setActivities() {
 				$activityFilter = $selectActivity.value
 				console.log(`:setActivity()`)
-				updateRoutes()
+				prepareRoutes()
 				logSelects()
 			}
 
@@ -1690,12 +1711,12 @@
 			function setDate() {
 				$dateFilter = $selectDate.value
 				console.log(`:setDate(${$dateFilter})`)
-				updateRoutes()
+				prepareRoutes()
 				updateData()
 				logSelects()
 			}
 
-			// @g Gallery
+			// @g GALLERY
 
 			// @b prepare gallery
 			function prepareGallery() {
@@ -1917,7 +1938,7 @@
 				}, 400)
 			}
 
-			// @g Map
+			// @g MAP
 
 			// @b prepare map
 			function prepareMap() {
@@ -1955,7 +1976,7 @@
 				console.log(`setMapView()`)
 
 				if ($selectRange.value == ranges.NONE.key) {
-					$map.setView(...setCoor([46.8, 9.3], 5))
+					$map.setView(...setCoor([49.6, 12.0], 5))
 					return
 				}
 
@@ -1967,7 +1988,7 @@
 					} else if ($selectRange.value == ranges.ROADS.key) {
 						$map.setView(...setCoor([51.9, 19.2], 7))
 					} else if ($selectRange.value == ranges.WORLD.key) {
-						$map.setView(...setCoor([46.8, 9.3], 6))
+						$map.setView(...setCoor([49.6, 12.0], 5))
 					} else {
 						$map.setView(...setCoor([0, 0], 6))
 					}
@@ -2010,7 +2031,7 @@
 				}
 			}
 
-			// @g Markers
+			// @g MARKERS
 
 			// @b prepare markers
 			function prepareMarkers() {
@@ -2124,11 +2145,11 @@
 				return [size * 0.5, size * 0.5]
 			}
 
-			// @g Routes
+			// @g ROUTES
 
-			// @b update routes
-			function updateRoutes() {
-				console.log('updateRoutes()')
+			// @b prepare routes
+			function prepareRoutes() {
+				console.log('prepareRoutes()')
 
 				// Clear previous route data
 				$routeLayers.forEach((layer) => $map.removeLayer(layer))
@@ -2136,20 +2157,12 @@
 				$selectedRoutes = []
 
 				// Sort routes
-				const sortedRoutes = [...routes].sort((a, b) => {
-					const isAPlanned = a.year > YEAR
-					const isBPlanned = b.year > YEAR
-
-					if (isAPlanned && !isBPlanned) return -1
-					if (!isAPlanned && isBPlanned) return 1
-
-					return a.year - b.year
-				})
+				const sortedRoutes = sortRoutes(routes)
 
 				// Loop through all routes
 				sortedRoutes.forEach((route) => {
 					// Skip route if it doesn't match the active filters
-					if (shouldRouteSkip(route)) return
+					if (filterRoute(route)) return
 
 					// Create route polyline and interactive hitbox layer
 					const { polyline, hitbox } = createRouteLayer(route)
@@ -2159,9 +2172,21 @@
 				})
 				countDistance()
 			}
+			// @b sort routes
+			function sortRoutes(routes) {
+				return [...routes].sort((a, b) => {
+					const isAPlanned = a.year > CURRENT_YEAR
+					const isBPlanned = b.year > CURRENT_YEAR
 
-			// @b should route skip
-			function shouldRouteSkip(route) {
+					if (isAPlanned && !isBPlanned) return -1
+					if (!isAPlanned && isBPlanned) return 1
+
+					return a.year - b.year
+				})
+			}
+
+			// @b filter route
+			function filterRoute(route) {
 				// Filter by activity
 				if (
 					$activityFilter !== activities.ALL.key &&
@@ -2218,45 +2243,46 @@
 						return true
 					}
 
-					// Filter by year
-					if ($dateFilter === modes.PLAN.key) {
-						if (route.year <= YEAR) return true
-					} else if (
-						$dateFilter !== modes.ALL.key &&
-						route.year > parseInt($dateFilter)
-					) {
-						return true
+					// Filter by road year
+					if ($dateFilter === modes.ALL.key) {
+						// ALL mode: allow all routes regardless of year
+					} else if ($dateFilter === modes.DONE.key) {
+						// DONE mode: show only realized routes
+						if (route.year > CURRENT_YEAR || route.year === 0) {
+							return true // skip planned routes
+						}
+					} else if ($dateFilter === modes.PLAN_CURRENT.key) {
+						// PLAN_CURRENT mode: show only routes up to CURRENT_YEAR
+						if (route.year > CURRENT_YEAR) {
+							return true // skip route from the future
+						}
+					} else {
+						// Specific year mode: allow only routes up to and including the selected year
+						if (route.year > parseInt($dateFilter)) {
+							return true // skip route from the future
+						}
 					}
 				} else {
-					// For non-road routes: filter by year
-					if ($dateFilter === modes.PLAN.key) {
-						if (route.year <= YEAR && route.year !== 0) return true
+					// Filter by yar for non-road routes
+
+					if ($dateFilter === modes.DONE.key) {
+						// DONE mode: show only realized routes
+						if (route.year > CURRENT_YEAR || route.year === 0) return true
+					} else if ($dateFilter === modes.PLAN_ALL.key) {
+						// PLAN_ALL mode: show only planned routes
+						if (route.year <= CURRENT_YEAR && route.year !== 0) return true
+					} else if ($dateFilter === modes.PLAN_CURRENT.key) {
+						// PLAN_CURRENT mode: show only planned routes up to CURRENT_YEAR
+						if (route.year !== 0) return true
 					} else if (
 						$dateFilter !== modes.ALL.key &&
 						route.year !== parseInt($dateFilter)
 					) {
+						// Specific year selected: skip if year doesn't match the selected year
 						return true
 					}
 				}
 				return false
-			}
-
-			// @b get color for route
-			function getColorForRoute(year) {
-				const minYear = 2004
-				const maxYear = 2025
-
-				// Clamp year
-				const clampedYear = Math.max(minYear, Math.min(maxYear, year))
-
-				// Normalize to 0–1
-				const ratio = (clampedYear - minYear) / (maxYear - minYear)
-
-				// Map to 0–255 (intensity of blue)
-				const blue = Math.round(ratio * 255)
-				const hex = blue.toString(16).padStart(2, '0')
-
-				return `#0000${hex}`
 			}
 
 			// @b format route
@@ -2325,7 +2351,7 @@
 					} else if (secondaryActivities.includes(route.activity)) {
 						routeColor = secondaryColor
 					}
-					if (route.year > YEAR || route.year === 0) {
+					if (route.year > CURRENT_YEAR || route.year === 0) {
 						routeColor = planColor
 					}
 				}
@@ -2426,22 +2452,38 @@
 				}
 			}
 
+			// @b get color for route
+			function getColorForRoute(year) {
+				const minYear = 2004
+				const maxYear = 2025
+
+				// Clamp year
+				const clampedYear = Math.max(minYear, Math.min(maxYear, year))
+
+				// Normalize to 0–1
+				const ratio = (clampedYear - minYear) / (maxYear - minYear)
+
+				// Map to 0–255 (intensity of blue)
+				const blue = Math.round(ratio * 255)
+				const hex = blue.toString(16).padStart(2, '0')
+
+				return `#0000${hex}`
+			}
+
 			// @b clear selected routes
 			function clearSelectedRoutes() {
 				$selectedRouteIndexes = []
-				updateRoutes()
+				prepareRoutes()
 			}
 
 			// @b count distance
 			function countDistance() {
-				const visibleRoutes = [...routes].filter(
-					(route) => !shouldRouteSkip(route)
-				)
+				const visibleRoutes = [...routes].filter((route) => !filterRoute(route))
 				const totalLength = visibleRoutes.reduce((sum, r) => sum + r.length, 0)
 
 				const selectedLength = $selectedRoutes.reduce((sum, index) => {
 					const route = routes[index]
-					if (!shouldRouteSkip(route)) {
+					if (!filterRoute(route)) {
 						return sum + route.length
 					}
 					return sum
@@ -2455,7 +2497,7 @@
 						: formatDistance(totalLength)
 			}
 
-			// @g Tools
+			// @g TOOLS
 
 			// @b find range
 			function findRange(city) {

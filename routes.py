@@ -42,8 +42,9 @@ def get_name(gpx):
 def get_year(name):
     """
     Extract year from input and return:
-    - year if in the past or current month of current year,
-    - 0 if in the future or date not found.
+    - the year if it is in the past or in the future,
+    - the year if it is the current year and the month is not in the future,
+    - 0 if the month is in the future within the current year or date not found
     """
     try:
         year_str = name[:4]
@@ -55,7 +56,7 @@ def get_year(name):
         if year < current_year:
             return year
         elif year > current_year:
-            return 0
+            return year
         else:
             if len(name) >= 7:
                 month_str = name[5:7]
