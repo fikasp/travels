@@ -8,8 +8,8 @@ import gpxpy
 
 
 # @g CONFIG
-YEAR = 0
-MONTH = 0
+YEAR = 2021
+MONTH = 7
 
 # @b activities
 activities = {
@@ -41,7 +41,7 @@ def get_name(gpx):
 # @b get year
 def get_year(name):
     """
-    Extract year from input and return:
+    Extract year from the first 4 characters of the name and return:
     - the year if it is in the past or in the future,
     - the year if it is the current year and the month is not in the future,
     - 0 if the month is in the future within the current year or date not found
@@ -72,7 +72,7 @@ def get_year(name):
 # @b get range
 def get_range(activity):
     """
-    Determines the geographical range category based on the activity string:
+    Determines the range based on the activity string:
     - Returns 'GÓRY' if the activity is 'hiking'
     - Returns 'DROGI' if the activity is exactly 'roads'
     - Returns 'ŚWIAT' if the activity starts with 'world_'
@@ -208,6 +208,7 @@ def extract_data(gpx_path):
             activity = get_activity(gpx)
             range_ = get_range(activity)
 
+            # Remove "world_" prefix from the activity name if it exists
             if activity and activity.startswith("world_"):
                 activity = activity[len("world_"):]
 
@@ -313,11 +314,11 @@ def main():
             year = get_year(name)
         
             if range_ == "POLSKA":
-                print(f"✅ 🇵🇱 {icon} {name} => {year}")
+                print(f"✅ 🇵🇱 {icon} {name}")
             elif range_ == "ŚWIAT":
-                print(f"✅ 🇪🇺 {icon} {name} => {year}")
+                print(f"✅ 🇪🇺 {icon} {name}")
             elif range_ == "DROGI":
-                print(f"✅ 🇩🇬 {icon}  {name} => {year} ")
+                print(f"✅ 🇩🇬 {icon}  {name}")
             else:
                 print(f"🟥❌ {icon} {name} -> {range_}")
 
