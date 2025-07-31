@@ -8,8 +8,8 @@ import gpxpy
 
 
 # @g CONFIG
-YEAR = 2021
-MONTH = 7
+YEAR = 0
+MONTH = 0
 
 # @b activities
 activities = {
