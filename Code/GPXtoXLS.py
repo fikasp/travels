@@ -1,50 +1,58 @@
 import os
-import glob
 import xml.etree.ElementTree as ET
-from openpyxl import Workbook
+from Tools import select_file, save_gps_to_xlsx
 
-def convertXmlObject(element):  
+
+def convertXmlObject(element):
     """
-    Convert XML element to a tuple (name, coordinates).
+    Convert an XML <wpt> element to a tuple (name, coordinates).
     """
     lat = "{:.7f}".format(float(element.attrib["lat"]))
     lon = "{:.7f}".format(float(element.attrib["lon"]))
     name = element.find("name").text if element.find("name") is not None else "Unnamed"
     return name, f"{lat}, {lon}"
 
+
+def process_file(file_path: str):
+    """
+    Process a GPX file and save its waypoints to an Excel file.
+    """
+    # Read file
+    with open(file_path, "r", encoding="utf-8") as file:
+        stringData = file.read()
+
+    # Clean up GPX
+    stringData = stringData.replace('<?xml version="1.0" encoding="UTF-8"?>', '')
+    stringData = stringData.replace(
+        '<gpx version="1.1" creator="GPS Visualizer Sandbox https://www.gpsvisualizer.com/draw/" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">',
+        '<gpx>'
+    )
+
+    # Parse XML
+    xmlElements = ET.fromstring(stringData)
+    data = [convertXmlObject(el) for el in xmlElements.findall("wpt")]
+
+    # Save
+    dir_path = os.path.dirname(file_path)
+    output_path = os.path.join(dir_path, "GPS.xlsx")
+    save_gps_to_xlsx(data, output_path)
+
+
 def main():
-    """ Main function of the GPX to Excel Converter script. """
-    print("🌍 GPXtoExcel Converter:")
-    
-    path = os.path.dirname(os.path.abspath(__file__))
-    gpxFiles = glob.glob(path + '/*.gpx')
-    
-    if not gpxFiles:
-        print("🟡 Files not found!")
+
+    # Print header
+    print("🌍 GPX to XLS Converter:")
+
+    # Select file
+    selected_file_path = select_file("gpx")
+    if not selected_file_path:
         return
     
-    filePath = gpxFiles[0]
-    fileName = os.path.splitext(os.path.basename(filePath))[0]
-    
-    with open(filePath, "r", encoding="utf-8") as file:
-        stringData = file.read()
-    
-    stringData = stringData.replace('<?xml version="1.0" encoding="UTF-8"?>', '')
-    stringData = stringData.replace('<gpx version="1.1" creator="GPS Visualizer Sandbox https://www.gpsvisualizer.com/draw/" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">', '<gpx>')
-    
-    xmlElements = ET.fromstring(stringData)
-    
-    wb = Workbook()
-    ws = wb.active
-    ws.title = "GPX Data"
-    ws.append(["Nazwa", "Współrzędne (Lat, Lon)"])
-    
-    for element in xmlElements.findall("wpt"):
-        ws.append(convertXmlObject(element))
-    
-    outputFilePath = os.path.join(path, f"{fileName}.xlsx")
-    wb.save(outputFilePath)
-    
-    print("🏆 Conversion done!")
+    # Process file
+    process_file(selected_file_path)
 
-main()
+    # Process footer
+    print(f"🏆 Success! Data saved to GPS.xlsx")
+
+if __name__ == "__main__":
+    main()
