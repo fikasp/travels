@@ -1,60 +1,57 @@
-import os
-import glob
 import xml.etree.ElementTree as ET
+from Tools import select_file, set_polish_locale
 import locale
 
-def main():
-    # print header
-    print("🌍 GPXsort:")
 
-    # set locale
-    locale.setlocale(locale.LC_COLLATE, "pl_PL.UTF-8")
-
-    # path to application directory
-    path = os.path.dirname(os.path.abspath(__file__))
-
-    # find gpx files
-    gpxFiles = glob.glob(path + '/*.gpx')
-
-    # check if gpx files exist
-    if len(gpxFiles) > 0:
-        filePath = gpxFiles[0]
-    else:
-        print("🟡 Files not found!")
-        return
-
-    # get the absolute path to the GPX file
-    gpx_file_path = os.path.join(path, gpxFiles[0])
-
-    # load the XML file
-    tree = ET.parse(gpx_file_path)
+def process_file(file_path: str):
+    """
+    Sorts <wpt> elements in the GPX file alphabetically by <name>.
+    """
+    # Load the XML
+    tree = ET.parse(file_path)
     root = tree.getroot()
 
-    # remove namespace from all elements
+    # Remove XML namespaces, if present
     for elem in root.iter():
         if '}' in elem.tag:
             elem.tag = elem.tag.split('}', 1)[1]
 
-    # find all waypoints
+    # Extract all <wpt> elements
     waypoints = root.findall('.//wpt')
 
-    # sort waypoints by name
-    waypoints.sort(key=lambda wpt: locale.strxfrm(wpt.find('name').text))
+    # Sort waypoints by <name>, locale-aware
+    waypoints.sort(key=lambda wpt: locale.strxfrm(wpt.find('name').text or ""))
 
-    # create a copy of sorted waypoints
-    sorted_waypoints = waypoints.copy()
+    # Remove existing waypoints
+    for wpt in waypoints:
+        root.remove(wpt)
 
-    # remove existing waypoints from the root
-    for waypoint in waypoints:
-        root.remove(waypoint)
+    # Re-add sorted waypoints
+    for wpt in waypoints:
+        root.append(wpt)
 
-    # add sorted waypoints back to the root
-    for waypoint in sorted_waypoints:
-        root.append(waypoint)
+    # Save back to the original file
+    tree.write(file_path, encoding='utf-8', xml_declaration=True)
 
-    # save the modified XML to a new file
-    tree.write(os.path.join(path, gpxFiles[0]), encoding='utf-8', xml_declaration=True)
 
+def main():
+
+    # Print header
+    print("🌍 GPXsort:")
+
+    # Set Polish locale
+    set_polish_locale()
+
+    # Select file
+    selected_file_path = select_file("gpx")
+    if not selected_file_path:
+        return
+    
+    # Process file
+    process_file(selected_file_path)
+
+    # Print footer
     print("🏆 Sorting done!")
 
-main()
+if __name__ == "__main__":
+    main()
