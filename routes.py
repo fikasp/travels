@@ -1,17 +1,17 @@
 from pathlib import Path
 from datetime import datetime
+from Code.Tools import set_file_hidden
 from simplification.cutil import simplify_coords
 import xml.etree.ElementTree as ET
-import math
-import subprocess
 import gpxpy
+import math
 
 
 # @g CONFIG
 YEAR = 0
 MONTH = 0
 
-# @b activities
+# @b Activities
 activities = {
     'hiking': '🥾',
     'walking': '🚶',
@@ -26,7 +26,7 @@ activities = {
 
 # @g FUNCTIONS
 
-# @b get name
+# @b Get name
 def get_name(gpx):
     """
     Extract the first available track name from the GPX file.
@@ -38,7 +38,7 @@ def get_name(gpx):
     return "Brak nazwy"
 
 
-# @b get year
+# @b Get year
 def get_year(name):
     """
     Extract year from the first 4 characters of the name and return:
@@ -69,7 +69,7 @@ def get_year(name):
         return 0
 
 
-# @b get range
+# @b Get range
 def get_range(activity):
     """
     Determines the range based on the activity string:
@@ -87,7 +87,7 @@ def get_range(activity):
     return "POLSKA"
 
 
-# @b get segments
+# @b Get segments
 def get_segments(gpx, tolerance=0.0001, merge_threshold_meters=100):
     """
     Extract and simplify segments from GPX tracks.
@@ -127,7 +127,7 @@ def get_segments(gpx, tolerance=0.0001, merge_threshold_meters=100):
     return merged_segments
 
 
-# @b get activity
+# @b Get activity
 def get_activity(gpx):
     """
     Extract 'activity' metadata from GPX extensions using the Locus Map namespace.
@@ -147,7 +147,7 @@ def get_activity(gpx):
     return None
 
 
-# @b get activity icon
+# @b Get activity icon
 def get_activity_icon(activity):
     """
     Return the emoji icon representing the activity.
@@ -158,7 +158,7 @@ def get_activity_icon(activity):
     return activities.get(activity.lower(), "❓")
 
 
-# @b calculate distance between points
+# @b Calculate distance between points
 def calculate_distance(lon1, lat1, lon2, lat2):
     """
     Calculate the great-circle distance between two geographic points using the Haversine formula.
@@ -173,7 +173,7 @@ def calculate_distance(lon1, lat1, lon2, lat2):
     return 2 * R * math.atan2(math.sqrt(a), math.sqrt(1 - a))
 
 
-# @b calculate total length of the route
+# @b Calculate total length of the route
 def calculate_total_length(coords):
     """
     Calculate total length of a route given a list of [lon, lat] points.
@@ -193,7 +193,7 @@ def calculate_total_length(coords):
     return total
 
 
-# @b extract data from GPX file
+# @b Extract data from GPX file
 def extract_data(gpx_path):
     """
     Parse a GPX file and extract route name, activity, range category, and simplified segments.
@@ -225,7 +225,7 @@ def extract_data(gpx_path):
         return []
 
 
-# @b format data into JS object
+# @b Format data into JS object
 def format_route_entry(name, icon, range_, activity, year, length, coords):
     """
     Format route data into a JavaScript object string for export.
@@ -251,18 +251,7 @@ def format_route_entry(name, icon, range_, activity, year, length, coords):
     return "\n".join(lines)
 
 
-# @b set file hidden
-def set_file_hidden(filepath, hide=True):
-    """
-    Set or unset the Windows file hidden attribute using 'attrib' command.
-    """
-    try:
-        subprocess.run(['attrib', '+H' if hide else '-H', str(filepath)], check=True, shell=True)
-    except Exception as e:
-        print(f"⚠️ Couldn't {'hide' if hide else 'unhide'} file: {e}")
-
-
-# @b get base folder
+# @b Get base folder
 def get_base_folder(script_dir: Path, year: int, month: int) -> Path:
     """
     Determine the base folder path to search GPX files based on the config.
@@ -300,7 +289,7 @@ def main():
 
     new_entries = []
 
-    # @b extract and format data
+    # @b Extract and format data
     for gpx_file in base_folder.rglob('*.gpx'):
 
         excluded_folders = {"Stoki"}
@@ -325,7 +314,7 @@ def main():
             new_entries.append(format_route_entry(name, icon, range_, activity, year, length, coords))
 
 
-    # @b write data to JS file
+    # @b Write data to JS file
     if not new_entries:
         print("⚠️ No routes found.")
     else:

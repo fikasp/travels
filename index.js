@@ -2805,7 +2805,10 @@ const data = {
             catg: "Z",
             name: "Park Czyżyny",
             scale: 1.0,
-            coor: null,
+            coor: [
+              50.0795133,
+              20.0012017
+            ],
             date: [
               2025
             ]
@@ -3019,6 +3022,18 @@ const data = {
             ],
             date: [
               2023
+            ]
+          },
+          {
+            catg: "Z",
+            name: "Park Skalskiego",
+            scale: 1.0,
+            coor: [
+              50.0848315,
+              20.0054544
+            ],
+            date: [
+              2025
             ]
           },
           {

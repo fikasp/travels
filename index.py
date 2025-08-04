@@ -1,15 +1,17 @@
 import re
 import pandas as pd
-import subprocess
 import json
+from Code.Tools import set_file_hidden
 
 
 def main():
     print("🌍 Excel to JS converter:")
 
-    # Load Excel file
     sheet_name = 'Zestawienie'
     file_path = 'b:\\Prywatne\\Wycieczki\\Travels.xlsx'
+    output_file = "index.js"
+
+    # Load Excel file
     df = pd.read_excel(file_path, sheet_name=sheet_name, dtype=str)
 
     # Initialize data structure
@@ -36,11 +38,13 @@ def main():
         if not range_:
             continue
 
-        # Prepare abbr
-        abbr = abbr.strip() if pd.notna(abbr) else None
-
         # Convert coordinates
         coor = [float(x) for x in coors.split(",")] if pd.notna(coors) else None
+        if not coor:
+            continue
+
+        # Prepare abbr
+        abbr = abbr.strip() if pd.notna(abbr) else None
 
         # Convert zoom level
         zoom = int(zoom) if pd.notna(zoom) and str(zoom).isdigit() else None
@@ -103,18 +107,15 @@ def main():
     for key in ["abbr", "catg", "coor", "date", "name", "gallery", "scale", "zoom"]:
         js_output = re.sub(rf'"{key}"(?=\s*:)', key, js_output)
 
-    # Output file path
-    outputPath = "index.js"
-
-    # Remove hidden attribute before writing
-    subprocess.run(['attrib', '-H', outputPath], shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    # Unhide output file before writing
+    set_file_hidden(output_file, hide=False) 
 
     # Write output file
-    with open(outputPath, "w", encoding="utf-8") as f:
+    with open(output_file, "w", encoding="utf-8") as f:
         f.write(js_output)
 
     # Set file as hidden
-    subprocess.run(['attrib', '+H', outputPath], shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    set_file_hidden(output_file) 
 
     print("🏆 Conversion done!")
 

@@ -1,20 +1,24 @@
 import locale
+import subprocess
 import tkinter as tk
 from tkinter import filedialog
 from openpyxl import Workbook
 
 
-def select_folder(title="Select folder") -> str | None:
+def save_gps_to_xlsx(data: list[tuple], filepath: str):
     """
-    Open a dialog to select a folder.
+    Save a list of tuples to an XLSX file.
+    :param data: List of rows (each row is a tuple of values)
+    :param filepath: Output path for the XLSX file
     """
-    root = tk.Tk()
-    root.withdraw()
-    folder_path = filedialog.askdirectory(title=title)
-    if not folder_path:
-        print("⚠️  No folder selected!")
-        return None
-    return folder_path
+    headers = ["Name", "Coordinates"] 
+
+    wb = Workbook()
+    ws = wb.active
+    ws.append(headers)
+    for row in data:
+        ws.append(row)
+    wb.save(filepath)
 
 
 def select_file(ext: str = "*") -> str | None:
@@ -40,6 +44,30 @@ def select_file(ext: str = "*") -> str | None:
     return file_path
 
 
+def select_folder() -> str | None:
+    """
+    Open a dialog to select a folder.
+    """
+    root = tk.Tk()
+    root.withdraw()
+    title = "Select folder"
+    folder_path = filedialog.askdirectory(title=title)
+    if not folder_path:
+        print("⚠️  No folder selected!")
+        return None
+    return folder_path
+
+
+def set_file_hidden(file_path, hide=True):
+    """
+    Set or unset the Windows file hidden attribute using 'attrib' command.
+    """
+    try:
+        subprocess.run(['attrib', '+H' if hide else '-H', str(file_path)], check=True, shell=True)
+    except Exception as e:
+        print(f"⚠️ Couldn't {'hide' if hide else 'unhide'} file: {e}")
+
+
 def set_polish_locale():
     """
     Set the Polish locale for string collation.
@@ -48,19 +76,3 @@ def set_polish_locale():
         locale.setlocale(locale.LC_COLLATE, 'pl_PL.UTF-8')
     except locale.Error:
         print("⚠️  Polish locale not available on this system.")
-
-
-def save_gps_to_xlsx(data: list[tuple], filepath: str):
-    """
-    Save a list of tuples to an XLSX file.
-    :param data: List of rows (each row is a tuple of values)
-    :param filepath: Output path for the XLSX file
-    """
-    headers = ["Name", "Coordinates"] 
-
-    wb = Workbook()
-    ws = wb.active
-    ws.append(headers)
-    for row in data:
-        ws.append(row)
-    wb.save(filepath)

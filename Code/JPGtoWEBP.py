@@ -77,6 +77,8 @@ def process_folder(folder_path):
     """
     Get JPG files, prepare webp folder, convert images, clean orphans.
     """
+    print(f"🔄 Processing folder: {folder_path}")
+    
     # Get JPG files in input folder
     jpg_files = get_jpg_files(folder_path)
 
