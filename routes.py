@@ -355,5 +355,6 @@ def main():
     # summary
     print(f"🏆 {'Wrote' if (YEAR == 0) else 'Appended'} {len(new_entries)} routes!")
 
+
 if __name__ == "__main__":
     main()

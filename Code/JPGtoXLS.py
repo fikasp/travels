@@ -4,7 +4,7 @@ import locale
 from Tools import select_folder, save_gps_to_xlsx, set_polish_locale
 
 
-def convert_to_degrees(value):
+def convert_gps_to_decimal(value):
     """
     Converts EXIF GPS coordinates into float degrees.
     """
@@ -24,9 +24,9 @@ def get_gps_coordinates(file_path):
 
         try:
             lat_ref = tags["GPS GPSLatitudeRef"].values
-            lat = convert_to_degrees(tags["GPS GPSLatitude"])
+            lat = convert_gps_to_decimal(tags["GPS GPSLatitude"])
             lon_ref = tags["GPS GPSLongitudeRef"].values
-            lon = convert_to_degrees(tags["GPS GPSLongitude"])
+            lon = convert_gps_to_decimal(tags["GPS GPSLongitude"])
 
             if lat is None or lon is None:
                 return "no GPS data"

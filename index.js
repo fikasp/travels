@@ -627,6 +627,18 @@ const data = {
           },
           {
             catg: "H",
+            name: "Fort Mydlniki",
+            scale: 1.0,
+            coor: [
+              50.084687,
+              19.8620313
+            ],
+            date: [
+              2025
+            ]
+          },
+          {
+            catg: "H",
             name: "Kino Kijów",
             scale: 1.0,
             coor: [
@@ -2791,6 +2803,15 @@ const data = {
           },
           {
             catg: "Z",
+            name: "Park Czyżyny",
+            scale: 1.0,
+            coor: null,
+            date: [
+              2025
+            ]
+          },
+          {
+            catg: "Z",
             name: "Park Dąbie",
             scale: 1.0,
             coor: [
@@ -2974,6 +2995,18 @@ const data = {
             ],
             date: [
               2024
+            ]
+          },
+          {
+            catg: "Z",
+            name: "Park rzeczny Tetmajera",
+            scale: 1.0,
+            coor: [
+              50.0923863,
+              19.8642683
+            ],
+            date: [
+              2025
             ]
           },
           {
