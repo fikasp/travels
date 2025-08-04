@@ -1,6 +1,7 @@
 from pathlib import Path
 from datetime import datetime
 from Code.Tools import set_file_hidden
+from Code.Tools import set_file_unhidden
 from simplification.cutil import simplify_coords
 import xml.etree.ElementTree as ET
 import gpxpy
@@ -285,7 +286,7 @@ def main():
     output_file = script_dir / "routes.js"
 
     # Unhide output file before writing
-    set_file_hidden(output_file, hide=False)  
+    set_file_unhidden(output_file)  
 
     new_entries = []
 

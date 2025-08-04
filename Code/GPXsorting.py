@@ -1,5 +1,6 @@
 import xml.etree.ElementTree as ET
-from Tools import select_file, set_polish_locale
+from Tools import set_polish_locale
+from Tools import select_file
 import locale
 
 
@@ -7,6 +8,8 @@ def process_file(file_path: str):
     """
     Sorts <wpt> elements in the GPX file alphabetically by <name>.
     """
+    print(f"🔄 Processing file: {file_path}")
+    
     # Load the XML
     tree = ET.parse(file_path)
     root = tree.getroot()

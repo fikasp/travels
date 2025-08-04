@@ -1,11 +1,12 @@
 import os
 import xml.etree.ElementTree as ET
-from Tools import select_file, save_gps_to_xlsx
+from Tools import save_gps_to_xlsx
+from Tools import select_file
 
 
-def convertXmlObject(element):
+def parse_gpx_waypoint(element):
     """
-    Convert an XML <wpt> element to a tuple (name, coordinates).
+    Parse an XML <wpt> element to a tuple (name, coordinates).
     """
     lat = "{:.7f}".format(float(element.attrib["lat"]))
     lon = "{:.7f}".format(float(element.attrib["lon"]))
@@ -17,6 +18,7 @@ def process_file(file_path: str):
     """
     Process a GPX file and save its waypoints to an Excel file.
     """
+    print(f"🔄 Processing file: {file_path}")
     # Read file
     with open(file_path, "r", encoding="utf-8") as file:
         stringData = file.read()
@@ -30,7 +32,7 @@ def process_file(file_path: str):
 
     # Parse XML
     xmlElements = ET.fromstring(stringData)
-    data = [convertXmlObject(el) for el in xmlElements.findall("wpt")]
+    data = [parse_gpx_waypoint(el) for el in xmlElements.findall("wpt")]
 
     # Save
     dir_path = os.path.dirname(file_path)

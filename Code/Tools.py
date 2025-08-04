@@ -58,14 +58,24 @@ def select_folder() -> str | None:
     return folder_path
 
 
-def set_file_hidden(file_path, hide=True):
+def set_file_hidden(file_path):
     """
-    Set or unset the Windows file hidden attribute using 'attrib' command.
+    Set the Windows file hidden attribute using 'attrib +H'.
     """
     try:
-        subprocess.run(['attrib', '+H' if hide else '-H', str(file_path)], check=True, shell=True)
+        subprocess.run(['attrib', '+H', str(file_path)], check=True, shell=True)
     except Exception as e:
-        print(f"⚠️ Couldn't {'hide' if hide else 'unhide'} file: {e}")
+        print(f"⚠️ Couldn't hide file: {e}")
+
+
+def set_file_unhidden(file_path):
+    """
+    Remove the Windows file hidden attribute using 'attrib -H'.
+    """
+    try:
+        subprocess.run(['attrib', '-H', str(file_path)], check=True, shell=True)
+    except Exception as e:
+        print(f"⚠️ Couldn't unhide file: {e}")
 
 
 def set_polish_locale():
@@ -76,3 +86,14 @@ def set_polish_locale():
         locale.setlocale(locale.LC_COLLATE, 'pl_PL.UTF-8')
     except locale.Error:
         print("⚠️  Polish locale not available on this system.")
+
+
+def write_data_to_file(file_path, content, encoding="utf-8"):
+    """
+    Write text content to a file using the specified encoding.
+    """
+    try:
+        with open(file_path, "w", encoding=encoding) as f:
+            f.write(content)
+    except Exception as e:
+        print(f"⚠️  Couldn't write to file {file_path}: {e}")

@@ -51,6 +51,8 @@ def add_gps_to_image(image_path, lat, lon, output_path):
 
 def process_folder(folder_path):
     # Find all .jpg files in the selected folder
+    print(f"🔄 Processing folder: {folder_path}")
+    
     jpg_files = [f for f in os.listdir(folder_path) if f.lower().endswith('.jpg')]
 
     if not jpg_files:

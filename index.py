@@ -1,18 +1,25 @@
 import re
-import pandas as pd
 import json
+import pandas as pd
 from Code.Tools import set_file_hidden
+from Code.Tools import set_file_unhidden
+from Code.Tools import write_data_to_file
+
+sheet_name = 'Zestawienie'
+input_path = 'Travels.xlsx'
+output_path = "index.js"
 
 
-def main():
-    print("🌍 Excel to JS converter:")
-
-    sheet_name = 'Zestawienie'
-    file_path = 'b:\\Prywatne\\Wycieczki\\Travels.xlsx'
-    output_file = "index.js"
-
+def process_data():
+    """
+    Processes Excel data and returns it as a formatted JavaScript string.
+    """
     # Load Excel file
-    df = pd.read_excel(file_path, sheet_name=sheet_name, dtype=str)
+    try:
+        df = pd.read_excel(input_path, sheet_name=sheet_name, dtype=str)
+    except Exception as e:
+        print(f"❌ Error reading Excel file: {e}")
+        return
 
     # Initialize data structure
     output = {
@@ -106,19 +113,29 @@ def main():
 
     for key in ["abbr", "catg", "coor", "date", "name", "gallery", "scale", "zoom"]:
         js_output = re.sub(rf'"{key}"(?=\s*:)', key, js_output)
+    
+    return js_output
 
-    # Unhide output file before writing
-    set_file_hidden(output_file, hide=False) 
+
+def main():
+
+    # Print header
+    print("🌍 Excel to JS converter:")
+
+    # Process data
+    data = process_data()
+
+    # Unhide output file
+    set_file_unhidden(output_path) 
 
     # Write output file
-    with open(output_file, "w", encoding="utf-8") as f:
-        f.write(js_output)
+    write_data_to_file(output_path, data)
 
     # Set file as hidden
-    set_file_hidden(output_file) 
+    set_file_hidden(output_path) 
 
+    # Print footer
     print("🏆 Conversion done!")
-
 
 if __name__ == "__main__":
 	main()

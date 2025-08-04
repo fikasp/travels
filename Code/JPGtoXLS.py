@@ -1,7 +1,9 @@
 import os
 import exifread
 import locale
-from Tools import select_folder, save_gps_to_xlsx, set_polish_locale
+from Tools import select_folder
+from Tools import save_gps_to_xlsx
+from Tools import set_polish_locale
 
 
 def convert_gps_to_decimal(value):
@@ -68,7 +70,7 @@ def process_folder(folder_path):
 def main():
 
     # Print header
-    print("📷 JPG to XLS Converter:")
+    print("🌍 JPG to XLS Converter:")
 
     # Set Polish locale
     set_polish_locale()
