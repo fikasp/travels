@@ -9,7 +9,7 @@ import math
 
 
 # @g CONFIG
-YEAR = 2023
+YEAR = 0
 MONTH = 0
 
 # @b Activities
