@@ -9,8 +9,8 @@ import math
 
 
 # @g CONFIG
-YEAR = 2021
-MONTH = 8
+YEAR = 0
+MONTH = 0
 
 # @b Activities
 activities = {
