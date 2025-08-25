@@ -48,7 +48,7 @@ def convert_images(input_folder_path, webp_folder_path, jpg_files):
         if not os.path.exists(output_path):
             try:
                 image = Image.open(input_path)
-                new_image = image.resize((120, 90))
+                new_image = image.resize((120, 90), Image.LANCZOS)
                 new_image.save(output_path, "WEBP", quality=60)
                 print(f'🟢 Converted: {filename} -> {webp_filename}')
             except Exception as e:
