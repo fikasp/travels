@@ -7,12 +7,12 @@ import xml.etree.ElementTree as ET
 import gpxpy
 import math
 
-
+#------------------------
 # @g CONFIG
+#------------------------
 YEAR = 0
 MONTH = 0
 
-# @b Activities
 activities = {
     'hiking': '🥾',
     'walking': '🚶',
@@ -25,9 +25,12 @@ activities = {
     'roads': '🛣️'
 }
 
+#------------------------
 # @g FUNCTIONS
+#------------------------
 
 # @b Get name
+#------------------------
 def get_name(gpx):
     """
     Extract the first available track name from the GPX file.
@@ -40,6 +43,7 @@ def get_name(gpx):
 
 
 # @b Get year
+#------------------------
 def get_year(name):
     """
     Extract year from the first 4 characters of the name and return:
@@ -71,6 +75,7 @@ def get_year(name):
 
 
 # @b Get range
+#------------------------
 def get_range(activity):
     """
     Determines the range based on the activity string:
@@ -89,6 +94,7 @@ def get_range(activity):
 
 
 # @b Get segments
+#------------------------
 def get_segments(gpx, tolerance=0.0001, merge_threshold_meters=100):
     """
     Extract and simplify segments from GPX tracks.
@@ -129,6 +135,7 @@ def get_segments(gpx, tolerance=0.0001, merge_threshold_meters=100):
 
 
 # @b Get activity
+#------------------------
 def get_activity(gpx):
     """
     Extract 'activity' metadata from GPX extensions using the Locus Map namespace.
@@ -149,6 +156,7 @@ def get_activity(gpx):
 
 
 # @b Get activity icon
+#------------------------
 def get_activity_icon(activity):
     """
     Return the emoji icon representing the activity.
@@ -160,6 +168,7 @@ def get_activity_icon(activity):
 
 
 # @b Calculate distance between points
+#------------------------
 def calculate_distance(lon1, lat1, lon2, lat2):
     """
     Calculate the great-circle distance between two geographic points using the Haversine formula.
@@ -175,6 +184,7 @@ def calculate_distance(lon1, lat1, lon2, lat2):
 
 
 # @b Calculate total length of the route
+#------------------------
 def calculate_total_length(coords):
     """
     Calculate total length of a route given a list of [lon, lat] points.
@@ -195,6 +205,7 @@ def calculate_total_length(coords):
 
 
 # @b Extract data from GPX file
+#------------------------
 def extract_data(gpx_path):
     """
     Parse a GPX file and extract route name, activity, range category, and simplified segments.
@@ -227,6 +238,7 @@ def extract_data(gpx_path):
 
 
 # @b Format data into JS object
+#------------------------
 def format_route_entry(name, icon, range_, activity, year, length, coords):
     """
     Format route data into a JavaScript object string for export.
@@ -253,6 +265,7 @@ def format_route_entry(name, icon, range_, activity, year, length, coords):
 
 
 # @b Get base folder
+#------------------------
 def get_base_folder(script_dir: Path, year: int, month: int) -> Path:
     """
     Determine the base folder path to search GPX files based on the config.
@@ -266,9 +279,9 @@ def get_base_folder(script_dir: Path, year: int, month: int) -> Path:
         return script_dir / "Trasy" / str(year) / month_str
     raise ValueError(f"Invalid month: {month}")
 
-
+#------------------------
 # @g MAIN
-
+#------------------------
 def main():
     """
     Main processing function for extracting GPX 
@@ -291,6 +304,7 @@ def main():
     new_entries = []
 
     # @b Extract and format data
+    #------------------------
     for gpx_file in base_folder.rglob('*.gpx'):
 
         excluded_folders = {"Stoki"}
@@ -316,6 +330,7 @@ def main():
 
 
     # @b Write data to JS file
+    #------------------------
     if not new_entries:
         print("⚠️ No routes found.")
     else:

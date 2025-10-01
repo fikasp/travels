@@ -5,10 +5,16 @@ from Code.Tools import set_file_hidden
 from Code.Tools import set_file_unhidden
 from Code.Tools import write_data_to_file
 
+#------------------------
+# @g CONFIG
+#------------------------
 sheet_name = 'Zestawienie'
 input_path = 'Travels.xlsx'
 output_path = "index.js"
 
+#------------------------
+# @g FUNCTIONS
+#------------------------
 def process_data():
     """
     Processes Excel data and returns it as a formatted JavaScript string.
@@ -115,7 +121,9 @@ def process_data():
     
     return js_output
 
-
+#------------------------
+# @g MAIN
+#------------------------
 def main():
 
     # Print header
