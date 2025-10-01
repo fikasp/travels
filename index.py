@@ -9,7 +9,6 @@ sheet_name = 'Zestawienie'
 input_path = 'Travels.xlsx'
 output_path = "index.js"
 
-
 def process_data():
     """
     Processes Excel data and returns it as a formatted JavaScript string.

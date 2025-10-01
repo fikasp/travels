@@ -1,40 +1,39 @@
-<!----------------------
-========================
-  @p TRAVELS
-========================
------------------------>
+<!-- @p TRAVELS
+------------------------->
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>PODRÓŻE</title>
+		<!--====================-->
+		<!--#region @r HEAD -->
+		<!--====================-->
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<!-- favicon -->
+		<!-- Favicon -->
 		<link
 			rel="icon"
 			href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA/4QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEREREREREREREREREREREREAAAAAAAAREQAAAAAAABERAAAAAAAAEREAAAAAAAAREQAAAAAAABERAAAAAAAAEREAAAAAAAAREQAAAAAAABERAAAAAAAAEREAAAAAAAAREQAAAAAAABERAAAAAAAAEREREREREREREREREREREREAAAAAAAAAAD/8AAA//AAAP/wAAD/8AAA//AAAP/wAAD/8AAA//AAAP/wAAD/8AAA//AAAP/wAAAAAAAAAAAAA"
 			type="image/png"
 		/>
-		<!-- font awesome -->
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-		/>
-		<!-- leaflet -->
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css"
-		/>
+		<!-- Font awesome -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+		<!-- Leaflet -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css" />
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
+		<!-- Scripts -->
 		<script src="routes.js"></script>
 		<script src="index.js"></script>
+		<!-- Title -->
+		<title>PODRÓŻE</title>
 
-		<!-- @r > STYLE 
-  	-->
+		<!--#endregion -->
+		<!--====================-->
+		<!--#region @r STYLES -->
+		<!--====================-->
 		<style>
-			/* @r General 
-				*/
+			/*------------------------*/
+			/* @g GENERAL
+			/*------------------------*/
 			* {
 				margin: 0;
 				padding: 0;
@@ -64,9 +63,9 @@
 				--viewHeight: 0px;
 				--marginTop: 0px;
 			}
-
-			/* @r Header 
-				*/
+			/*------------------------*/
+			/* @g HEADER
+			/*------------------------*/
 			.header {
 				z-index: 2000;
 				background-color: black;
@@ -162,9 +161,9 @@
 				top: 5px;
 				right: 0px;
 			}
-
-			/* @r Footer 
-				*/
+			/*------------------------*/
+			/* @g FOOTER
+			/*------------------------*/
 			.footer {
 				z-index: 3000;
 				position: fixed;
@@ -234,9 +233,9 @@
 				text-align: center;
 				font-size: 14px;
 			}
-
-			/* @r Gallery 
-				*/
+			/*------------------------*/
+			/* @g GALLERY
+			/*------------------------*/
 			.gallery {
 				z-index: 1000;
 				position: fixed;
@@ -326,9 +325,9 @@
 			.gallery.half {
 				width: 50%;
 			}
-
-			/* @r Photo 
-				*/
+			/*------------------------*/
+			/* @g PHOTO
+			/*------------------------*/
 			.photo {
 				display: flex;
 				justify-content: center;
@@ -437,9 +436,9 @@
 					position: fixed;
 				}
 			}
-
-			/* @r Map 
-				*/
+			/*------------------------*/
+			/* @g MAP
+			/*------------------------*/
 			.map {
 				width: 100%;
 				height: 100%;
@@ -463,9 +462,9 @@
 				transition: opacity 0.3s ease;
 				border-radius: 6px;
 			}
-
-			/* @r Markers 
-				*/
+			/*------------------------*/
+			/* @g MARKERS
+			/*------------------------*/
 			.marker {
 				box-shadow: 0px 0px 2px 1px #666;
 				border: 2px solid gray;
@@ -509,9 +508,9 @@
 			.leaflet-tooltip-bottom:before {
 				border-bottom-color: #222 !important;
 			}
-
-			/* @r Display 
-				*/
+			/*------------------------*/
+			/* @g DISPLAY
+			/*------------------------*/
 			.none {
 				display: none;
 			}
@@ -539,13 +538,15 @@
 				}
 			}
 		</style>
+		<!--#endregion -->
 	</head>
-
 	<body>
-		<!-- @p > HTML 
-  	-->
-		<!-- @p Header
-  	-->
+		<!--====================-->
+		<!--#region @r BODY -->
+		<!--====================-->
+		<!------------------------
+		 @g HEADER
+		------------------------->
 		<!-- Bar -->
 		<div class="header_bars">
 			<i class="fa-solid fa-bars"></i>
@@ -586,8 +587,9 @@
 			</div>
 		</div>
 
-		<!-- @p Footer
-  	-->
+		<!------------------------
+		 @g FOOTER
+		------------------------->
 		<div class="footer hide">
 			<!-- View -->
 			<div class="footer_view">
@@ -599,13 +601,15 @@
 			<div class="footer_distance"></div>
 		</div>
 
-		<!-- @p Gallery
-  	-->
+		<!------------------------
+		 @g GALLERY
+		------------------------->
 		<div class="gallery none"></div>
 		<div class="gallery_background none"></div>
 
-		<!-- @p Photo 
- 		-->
+		<!------------------------
+		 @g PHOTO
+		------------------------->
 		<div class="photo none">
 			<!-- arrow play -->
 			<div class="photo_arrow photo_play">
@@ -636,20 +640,29 @@
 			</div>
 		</div>
 
-		<!-- @p Map 
-  	-->
+		<!------------------------
+		 @g MAP
+		------------------------->
 		<div class="map" id="map"></div>
 
+		<!--#endregion -->
+		<!--====================-->
+		<!--#region @r SCRIPTS -->
+		<!--====================-->
 		<script>
-			// @g > SCRIPTS
+			//------------------------
+			// @g GENERAL
+			//------------------------
 
 			// @b Consts
+			//------------------------
 			const FUTURE_YEAR = 2027
 			const CURRENT_YEAR = 2025
 			const startCity = 'KRAKÓW'
 			const mapActive = true
 
 			// @b Modes
+			//------------------------
 			const modes = {
 				ALL: {
 					key: 'all',
@@ -690,6 +703,7 @@
 			}
 
 			// @b Categories
+			//------------------------
 			const categories = {
 				NONE: {
 					key: 'none',
@@ -730,6 +744,7 @@
 			}
 
 			// @b Activities
+			//------------------------
 			const activities = {
 				NONE: {
 					key: 'none',
@@ -774,6 +789,7 @@
 			}
 
 			// @b Ranges
+			//------------------------
 			const ranges = {
 				NONE: {
 					key: 'BRAK',
@@ -858,12 +874,7 @@
 				MOUNTAINS: {
 					key: 'GÓRY',
 					value: 'GÓRY',
-					categories: [
-						categories.NONE.key,
-						categories.ALL.key,
-						categories.PROFILE.key,
-						categories.GENERAL.key,
-					],
+					categories: [categories.NONE.key, categories.ALL.key, categories.PROFILE.key, categories.GENERAL.key],
 					activities: [
 						activities.NONE.key,
 						activities.ALL.key,
@@ -874,24 +885,25 @@
 				},
 			}
 			// @b Globals
+			//------------------------
 			let $map // leaflet map
 			let $distanceControl = null // distance control
 			let $activityControl = null // activity control
 			let $marginTop = 0 // margin top
 
-			// tables
+			// Tables
 			let $photos = [] // table of photos
 			let $markers = [] // table of markers
 			let $citiesArray = [] // table with prepared data
 			let $filteredData = [] // table with filtered data
 			let $selectedRoutes = [] // table with selected routes
 			let $routeLayers = [] // table with added routes
-			// filters
+			// Filters
 			let $viewMode = modes.MAP.key // state of view mode
 			let $activityFilter = activities.ALL.key // state of activity filter
 			let $categoryFilter = categories.NONE.key // state of category filter
 			let $dateFilter = modes.ALL.key // state of data filter
-			// flags
+			// Flags
 			let $hoverTimeout = null // routes timeout
 			let $isInitialRender = true // flag for initial render
 			let $isHiglightActive = true // flag for marker higlight activ
@@ -900,27 +912,27 @@
 			let $isPhotoLoading = false // flag for photo loading
 			let $isPhotoOpen = false // flag for photo open
 			let $isMenuOpen = false // flag for menu open
-			// photo
+			// Photo
 			let $touchStartX // touch start position
 			let $touchEndX // touch end position
 			let $interval // interval for presentation
 			let $index = 0 // index of photo
 
 			// @b Selectors
-			//
+			//------------------------
 			const $root = document.querySelector('html')
-			// header
+			// Header
 			const $headerDiv = document.querySelector('.header')
 			const $headerEmblem = document.querySelector('.header_emblem')
 			const $headerBars = document.querySelector('.header_bars')
-			// footer
+			// Footer
 			const $footerDiv = document.querySelector('.footer')
 			const $footerDistance = document.querySelector('.footer_distance')
 			const $footerView = document.querySelector('.footer_view')
-			// gallery
+			// Gallery
 			const $gallery = document.querySelector('.gallery')
 			const $galleryBackground = document.querySelector('.gallery_background')
-			// photo
+			// Photo
 			const $photo = document.querySelector('.photo')
 			const $photoGroup = document.querySelector('.photo_group')
 			const $photoName = document.querySelector('.photo_name')
@@ -929,7 +941,7 @@
 			const $photoNext = document.querySelector('.photo_next')
 			const $photoPause = document.querySelector('.photo_pause')
 			const $photoPlay = document.querySelector('.photo_play')
-			// selects
+			// Selects
 			const $labelCity = document.querySelector('#labelCity')
 			const $labelRegion = document.querySelector('#labelRegion')
 			const $selectCity = document.querySelector('#city')
@@ -939,17 +951,17 @@
 			const $selectActivity = document.querySelector('#activity')
 			const $selectCategory = document.querySelector('#category')
 			const $selectDate = document.querySelector('#date')
-			// mobile
+			// Mobile
 			const $isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
 
 			// @b Listeners
-			//
-			// window
+			//------------------------
+			// Window
 			window.addEventListener('load', main)
 			window.addEventListener('keyup', checkKeys)
 			window.addEventListener('resize', changeMargin)
 			window.addEventListener('wheel', checkWheel)
-			// header
+			// Header
 			$headerDiv.addEventListener('touchstart', touchstart)
 			$headerDiv.addEventListener('touchmove', touchmove)
 			$headerDiv.addEventListener('touchend', touchend)
@@ -972,7 +984,7 @@
 				$selectCategory,
 				$selectDate,
 			])
-			// photo
+			// Photo
 			$photo.addEventListener('click', hidePhoto)
 			$photo.addEventListener('touchstart', touchstart)
 			$photo.addEventListener('touchmove', touchmove)
@@ -982,7 +994,9 @@
 			$photoPrevious.addEventListener('click', showPreviousPhoto)
 			$photoNext.addEventListener('click', showNextPhoto)
 
+			//------------------------
 			// @g MAIN
+			//------------------------
 			function main() {
 				console.log(data)
 				// console.log(routes)
@@ -997,7 +1011,8 @@
 				setRange()
 			}
 
-			// @b check keys
+			// @b Check keys
+			//------------------------
 			function checkKeys(e) {
 				console.log(`checkKeys(${e.key})`)
 
@@ -1018,7 +1033,8 @@
 				}
 			}
 
-			// @b check wheel
+			// @b Check wheel
+			//------------------------
 			function checkWheel(e) {
 				if ($isPhotoOpen) {
 					if (e.deltaY > 0) {
@@ -1029,7 +1045,8 @@
 				}
 			}
 
-			// @b check touch
+			// @b Check touch
+			//------------------------
 			function touchstart(e) {
 				$touchStartX = e.touches[0].pageX
 				$touchStartY = e.touches[0].pageY
@@ -1055,14 +1072,15 @@
 				}
 			}
 
-			// @b add selects listeners
+			// @b Add selects listeners
+			//------------------------
 			function addListenersToSelects(selectElements) {
 				selectElements.forEach(($select) => {
 					let startX = 0
 					let startY = 0
 					const threshold = 30
 
-					// swipe
+					// Swipe
 					$select.addEventListener(
 						'touchstart',
 						(e) => {
@@ -1082,10 +1100,7 @@
 							const diffX = touch.pageX - startX
 							const diffY = touch.pageY - startY
 
-							if (
-								Math.abs(diffX) > Math.abs(diffY) &&
-								Math.abs(diffX) > threshold
-							) {
+							if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > threshold) {
 								const options = $select.options
 								let newIndex = $select.selectedIndex
 
@@ -1104,7 +1119,7 @@
 						{ passive: true }
 					)
 
-					// scroll
+					// Scroll
 					$select.addEventListener(
 						'wheel',
 						(e) => {
@@ -1114,10 +1129,10 @@
 							let newIndex = $select.selectedIndex
 
 							if (e.deltaY > 0) {
-								// down
+								// Down
 								if (newIndex < options.length - 1) newIndex++
 							} else {
-								// up
+								// Up
 								if (newIndex > 0) newIndex--
 							}
 
@@ -1131,7 +1146,8 @@
 				})
 			}
 
-			// @b change margin
+			// @b Change margin
+			//------------------------
 			function changeMargin() {
 				console.log(`changeMargin()`)
 				const windowHeight = window.innerHeight
@@ -1143,9 +1159,12 @@
 				$root.style.setProperty('--marginTop', `${headerHeight}px`)
 			}
 
+			//------------------------
 			// @g DATA
-			//
-			// @b prepare data
+			//------------------------
+
+			// @b Prepare data
+			//------------------------
 			function prepareData() {
 				console.log('prepareData()')
 				$citiesArray = []
@@ -1155,29 +1174,27 @@
 						for (const city in data[range][region]) {
 							const cityObj = data[range][region][city]
 
-							// gallery photos
+							// Gallery photos
 							if (cityObj.gallery) {
 								cityObj.gallery.forEach((item) => {
-									//prepare path
+									//Prepare path
 									function preparePath() {
 										const capitalizedCity = capitalizeName(city)
 										const capitalizedRegion = capitalizeName(region)
 
-										// path for mountains
+										// Path for mountains
 										if (range == ranges.MOUNTAINS.key) {
 											return `Góry/${capitalizedRegion}/${capitalizedCity}/Zdjęcia/${item.name}.jpg`
 
-											// path for world
+											// Path for world
 										} else if (range == ranges.WORLD.key) {
 											return `Świat/${capitalizedRegion}/${capitalizedCity}/Zdjęcia/${item.name}.jpg`
 
-											// path for Kraków
+											// Path for Kraków
 										} else if (city == 'KRAKÓW') {
-											return `Kraków/Zdjęcia/${removeIcon(
-												mapKeyToValue(categories)[item.catg]
-											)}/${item.name}.jpg`
+											return `Kraków/Zdjęcia/${removeIcon(mapKeyToValue(categories)[item.catg])}/${item.name}.jpg`
 
-											// path for other cities in Poland
+											// Path for other cities in Poland
 										} else {
 											return `Polska/${capitalizedRegion}/${capitalizedCity}/Zdjęcia/${item.name}.jpg`
 										}
@@ -1200,7 +1217,7 @@
 									$citiesArray.push(newItem)
 								})
 							}
-							// profile photo
+							// Profile photo
 							if (cityObj.coor && cityObj.date) {
 								cityObj.date.forEach((year) => {
 									function prepareProfilePath() {
@@ -1234,50 +1251,46 @@
 				}
 			}
 
-			// @b filter data
+			// @b Filter data
+			//------------------------
 			function filterData() {
 				console.log('filterData()')
-				// get data from original array
+				// Get data from original array
 				$filteredData = $citiesArray
 
-				// filter by range
+				// Filter by range
 				if ($selectRange.value !== ranges.NONE.key) {
 					if ($selectRegion.value == modes.ALL.key) {
-						$filteredData = $filteredData.filter(
-							(item) => $selectRange.value === item.range
-						)
+						$filteredData = $filteredData.filter((item) => $selectRange.value === item.range)
 					} else if ($selectCity.value == modes.ALL.key) {
-						$filteredData = $filteredData.filter(
-							(item) => $selectRegion.value === item.region
-						)
+						$filteredData = $filteredData.filter((item) => $selectRegion.value === item.region)
 					} else {
-						$filteredData = $citiesArray.filter(
-							(item) => $selectCity.value === item.city
-						)
+						$filteredData = $citiesArray.filter((item) => $selectCity.value === item.city)
 					}
 				}
 
-				// filter by category filter
+				// Filter by category filter
 				if ($categoryFilter != categories.ALL.key) {
 					$filteredData = $filteredData.filter((item) => {
 						return item.catg == $categoryFilter
 					})
 				}
-				// filter by date filter
+				// Filter by date filter
 				if ($dateFilter != modes.ALL.key) {
 					$filteredData = $filteredData.filter((item) => {
 						return item.date?.some((date) => date == Number($dateFilter))
 					})
 				}
 
-				// sort data
+				// Sort data
 				$filteredData = sortData($filteredData)
 
-				// add id to filtered items
+				// Add id to filtered items
 				$filteredData.forEach((item, index) => (item.id = index))
 			}
 
-			// @b sort data
+			// @b Sort data
+			//------------------------
 			function sortData(array) {
 				const rangePriority = {
 					[ranges.WORLD.key]: 1,
@@ -1300,44 +1313,40 @@
 				}
 
 				array.sort((a, b) => {
-					// sort by range
+					// Sort by range
 					const rangeA = rangePriority[findRange(a.city)] || 9
 					const rangeB = rangePriority[findRange(b.city)] || 9
 					if (rangeA < rangeB) return -1
 					if (rangeA > rangeB) return 1
 
-					// sort by region
+					// Sort by region
 					if (findRegion(a.city) < findRegion(b.city)) return -1
 					if (findRegion(a.city) > findRegion(b.city)) return 1
 
-					// sort by city
+					// Sort by city
 					if (a.city < b.city) return -1
 					if (a.city > b.city) return 1
 
-					// sort by category
+					// Sort by category
 					const categoryA = categoryPriority[a.catg] || 9
 					const categoryB = categoryPriority[b.catg] || 9
 					if (categoryA < categoryB) return -1
 					if (categoryA > categoryB) return 1
 
-					// ensure a.name and b.name are valid strings
+					// Ensure a.name and b.name are valid strings
 					const nameA = typeof a.name === 'string' ? a.name : ''
 					const nameB = typeof b.name === 'string' ? b.name : ''
 
-					// sort by basilica name (everything before the last "/")
+					// Sort by basilica name (everything before the last "/")
 					const baseNameA = nameA.substring(0, nameA.lastIndexOf('/')) || nameA
 					const baseNameB = nameB.substring(0, nameB.lastIndexOf('/')) || nameB
 
 					if (baseNameA < baseNameB) return -1
 					if (baseNameA > baseNameB) return 1
 
-					// sort by name priority inside the same basilica
-					const suffixA = nameA
-						.substring(nameA.lastIndexOf('/') + 1)
-						.toLowerCase()
-					const suffixB = nameB
-						.substring(nameB.lastIndexOf('/') + 1)
-						.toLowerCase()
+					// Sort by name priority inside the same basilica
+					const suffixA = nameA.substring(nameA.lastIndexOf('/') + 1).toLowerCase()
+					const suffixB = nameB.substring(nameB.lastIndexOf('/') + 1).toLowerCase()
 
 					const priorityA = sacralNamePriority[suffixA] || 4
 					const priorityB = sacralNamePriority[suffixB] || 4
@@ -1348,7 +1357,8 @@
 				return array
 			}
 
-			// @b update data
+			// @b Update data
+			//------------------------
 			function updateData() {
 				console.log('updateData():')
 				filterData()
@@ -1357,9 +1367,12 @@
 				console.log($filteredData)
 			}
 
+			//------------------------
 			// @g HEADER
+			//------------------------
 
-			// @b show hide menu
+			// @b Show hide menu
+			//------------------------
 			function showHideMenu() {
 				console.log('showHideMenu()')
 				if ($isMobile) {
@@ -1381,7 +1394,8 @@
 				$isMenuOpen = !$isMenuOpen
 			}
 
-			// @b prepare view modes
+			// @b Prepare view modes
+			//------------------------
 			function prepareViewModes() {
 				console.log('prepareViewModes()')
 				// prettier-ignore
@@ -1407,7 +1421,8 @@
 				)
 			}
 
-			// @b prepare ranges
+			// @b Prepare ranges
+			//------------------------
 			function prepareRanges() {
 				console.log(`prepareRanges()`)
 				const dataRanges = Object.keys(data)
@@ -1418,7 +1433,8 @@
 				})
 			}
 
-			// @b prepare regions
+			// @b Prepare regions
+			//------------------------
 			function prepareRegions() {
 				console.log(`prepareRegions(${$selectRange.value})`)
 
@@ -1439,12 +1455,10 @@
 				})
 			}
 
-			// @b prepare cities
+			// @b Prepare cities
+			//------------------------
 			function prepareCities() {
-				if (
-					$selectRegion.value == modes.ALL.key ||
-					$selectRegion.value == modes.EMPTY.key
-				) {
+				if ($selectRegion.value == modes.ALL.key || $selectRegion.value == modes.EMPTY.key) {
 					clearContent($selectCity)
 					return
 				}
@@ -1465,7 +1479,8 @@
 				$isInitialRender = false
 			}
 
-			// @b prepare activities
+			// @b Prepare activities
+			//------------------------
 			function prepareActivities() {
 				console.log('prepareActivities()')
 				clearContent($selectActivity)
@@ -1478,83 +1493,52 @@
 					$activityFilter = activities.ALL.key
 				}
 
-				const allowedActivities =
-					Object.values(ranges).find((r) => r.key === selectedRange)
-						?.activities ?? []
+				const allowedActivities = Object.values(ranges).find((r) => r.key === selectedRange)?.activities ?? []
 
 				allowedActivities.forEach((allowedActivity) => {
 					const activity = mapKeyToObject(activities)[allowedActivity]
 					if (activity) {
-						createOption(
-							$selectActivity,
-							activity.key,
-							activity.value,
-							$activityFilter
-						)
+						createOption($selectActivity, activity.key, activity.value, $activityFilter)
 					}
 				})
 			}
 
-			// @b prepare categories
+			// @b Prepare categories
+			//------------------------
 			function prepareCategories() {
 				console.log('prepareCategories()')
 				clearContent($selectCategory)
 
 				const selectedRange = $selectRange.value
-				const allowedCategories =
-					Object.values(ranges).find((r) => r.key === selectedRange)
-						?.categories ?? []
+				const allowedCategories = Object.values(ranges).find((r) => r.key === selectedRange)?.categories ?? []
 
 				allowedCategories.forEach((allowedCategory) => {
 					const category = mapKeyToObject(categories)[allowedCategory]
 					if (category) {
-						createOption(
-							$selectCategory,
-							category.key,
-							category.value,
-							$categoryFilter
-						)
+						createOption($selectCategory, category.key, category.value, $categoryFilter)
 					}
 				})
 			}
 
-			// @b prepare dates
+			// @b Prepare dates
+			//------------------------
 			function prepareDates() {
 				console.log('prepareDates()')
 
-				createOption(
-					$selectDate,
-					modes.ALL.key,
-					`📅 ${modes.ALL.value}`,
-					$dateFilter
-				)
-				createOption(
-					$selectDate,
-					modes.DONE.key,
-					`📅 ${modes.DONE.value}`,
-					$dateFilter
-				)
-				createOption(
-					$selectDate,
-					modes.PLAN_ALL.key,
-					`📅 ${modes.PLAN_ALL.value}`,
-					$dateFilter
-				)
+				createOption($selectDate, modes.ALL.key, `📅 ${modes.ALL.value}`, $dateFilter)
+				createOption($selectDate, modes.DONE.key, `📅 ${modes.DONE.value}`, $dateFilter)
+				createOption($selectDate, modes.PLAN_ALL.key, `📅 ${modes.PLAN_ALL.value}`, $dateFilter)
 				for (let year = FUTURE_YEAR; year > CURRENT_YEAR; year--) {
 					createOption($selectDate, year, `📅 Plan ${year}`, $dateFilter)
 				}
-				createOption(
-					$selectDate,
-					modes.PLAN_CURRENT.key,
-					`📅 ${modes.PLAN_CURRENT.value}`,
-					$dateFilter
-				)
+				createOption($selectDate, modes.PLAN_CURRENT.key, `📅 ${modes.PLAN_CURRENT.value}`, $dateFilter)
 				for (let year = CURRENT_YEAR; year >= 2004; year--) {
 					createOption($selectDate, year, `📅 ${year}`, $dateFilter)
 				}
 			}
 
-			// @b set labels
+			// @b Set labels
+			//------------------------
 			function setLabels() {
 				console.log(`setLabels()`)
 				const range = $selectRange.value
@@ -1577,7 +1561,8 @@
 				}
 			}
 
-			// @b set emblem
+			// @b Set emblem
+			//------------------------
 			function setEmblem() {
 				console.log(`setEmblem(${$selectCity.value})`)
 
@@ -1605,7 +1590,8 @@
 				}
 			}
 
-			// @b set title
+			// @b Set title
+			//------------------------
 			function setTitle() {
 				let title = ''
 				if ($selectRange.value == ranges.NONE.key) {
@@ -1620,7 +1606,8 @@
 				document.title = title
 				console.log(`setTitle(${title})`)
 			}
-			// @b set city
+			// @b Set city
+			//------------------------
 			function setCity() {
 				console.log(`:setCity(${$selectCity.value})`)
 				setEmblem()
@@ -1633,7 +1620,8 @@
 				logSelects()
 			}
 
-			// @b set region
+			// @b Set region
+			//------------------------
 			function setRegion() {
 				console.log(`:setRegion(${$selectRegion.value})`)
 				prepareCities()
@@ -1647,7 +1635,8 @@
 				logSelects()
 			}
 
-			// @b set range
+			// @b Set range
+			//------------------------
 			function setRange() {
 				console.log(`:setRange(${$selectRange.value}):`)
 				prepareActivities()
@@ -1663,17 +1652,18 @@
 				logSelects()
 			}
 
-			// @b set view mode
+			// @b Set view mode
+			//------------------------
 			function setViewMode() {
 				$viewMode = $selectViewMode.value
 				console.log(`:setViewMode(${$viewMode})`)
 
-				// add class to gallery and background
+				// Add class to gallery and background
 				function classAdd(className) {
 					$gallery.classList.add(className)
 					$galleryBackground.classList.add(className)
 				}
-				// remove class from gallery and background
+				// Remove class from gallery and background
 				function classRemove(className) {
 					$gallery.classList.remove(className)
 					$galleryBackground.classList.remove(className)
@@ -1707,7 +1697,8 @@
 				setMapView()
 			}
 
-			// @b set activities
+			// @b Set activities
+			//------------------------
 			function setActivities() {
 				$activityFilter = $selectActivity.value
 				console.log(`:setActivity()`)
@@ -1715,7 +1706,8 @@
 				logSelects()
 			}
 
-			// @b set category
+			// @b Set category
+			//------------------------
 			function setCategory() {
 				$categoryFilter = $selectCategory.value
 				console.log(`:setCategory()`)
@@ -1723,7 +1715,8 @@
 				logSelects()
 			}
 
-			// @b set dates
+			// @b Set dates
+			//------------------------
 			function setDate() {
 				$dateFilter = $selectDate.value
 				console.log(`:setDate(${$dateFilter})`)
@@ -1732,23 +1725,26 @@
 				logSelects()
 			}
 
+			//------------------------
 			// @g GALLERY
+			//------------------------
 
-			// @b prepare gallery
+			// @b Prepare gallery
+			//------------------------
 			function prepareGallery() {
 				console.log('prepareGallery()')
-				//clear gallery
+				// Clear gallery
 				clearContent($gallery)
-				// create imgs for filtered table
+				// Create imgs for filtered table
 				$filteredData.forEach((item) => {
 					let description = `${item.city}: ${item.name}`
 
-					// gallery box
+					// Gallery box
 					const box = document.createElement('div')
 					box.className = 'gallery_box'
 					box.isClicked = false
 
-					// gallery text
+					// Gallery text
 					const text = document.createElement('div')
 					text.className = 'gallery_text'
 					text.textContent = description
@@ -1757,7 +1753,7 @@
 					text.addEventListener('mouseover', highlightMarker)
 					text.addEventListener('mouseout', resetMarker)
 
-					// gallery img
+					// Gallery img
 					const img = document.createElement('img')
 					img.setAttribute('src', item.url)
 					img.setAttribute('alt', description)
@@ -1773,7 +1769,8 @@
 				})
 			}
 
-			// @b show photo
+			// @b Show photo
+			//------------------------
 			function showPhoto(imgID) {
 				console.log(`showPhoto(${imgID})`)
 
@@ -1822,7 +1819,8 @@
 				$isPhotoOpen = true
 			}
 
-			// @b show clicked box
+			// @b Show clicked box
+			//------------------------
 			const showClickedPhoto = (clickedPhoto) => (e) => {
 				console.log(`showClickedPhoto(${clickedPhoto.isClicked})`)
 
@@ -1844,7 +1842,8 @@
 				}
 			}
 
-			// @b show clicked marker
+			// @b Show clicked marker
+			//------------------------
 			const showClickedMarker = (clickedMarker) => (e) => {
 				console.log(`showClickedMarker(${clickedMarker.isClicked})`)
 
@@ -1866,7 +1865,8 @@
 				}
 			}
 
-			// @b show selected photo
+			// @b Show selected photo
+			//------------------------
 			function showSelectedPhoto(e) {
 				let imgID = e.target.id
 				console.log(`showSelectedPhoto(${imgID})`)
@@ -1880,7 +1880,8 @@
 				}, 100)
 			}
 
-			// @b show previous photo
+			// @b Show previous photo
+			//------------------------
 			function showPreviousPhoto(e) {
 				console.log('showPreviousPhoto()')
 
@@ -1892,7 +1893,8 @@
 				}
 			}
 
-			// @b show next photo
+			// @b Show next photo
+			//------------------------
 			function showNextPhoto(e) {
 				console.log('showNextPhoto()')
 
@@ -1904,7 +1906,8 @@
 				}
 			}
 
-			// @b toggle presentation
+			// @b Toggle presentation
+			//------------------------
 			function togglePresentation(e) {
 				console.log(`togglePresentation()`)
 
@@ -1936,7 +1939,8 @@
 				e?.stopPropagation()
 			}
 
-			// @b hide photo
+			// @b Hide photo
+			//------------------------
 			function hidePhoto() {
 				console.log('hidePhoto()')
 				clearInterval($interval)
@@ -1954,40 +1958,43 @@
 				}, 400)
 			}
 
+			//------------------------
 			// @g MAP
+			//------------------------
 
-			// @b prepare map
+			// @b Prepare map
+			//------------------------
 			function prepareMap() {
 				console.log('prepareMap()')
-				// leaflet map view
+				// Leaflet map view
 				$map = L.map('map')
-				// add leaflet openstreetmap
+
+				// Add leaflet openstreetmap
 				L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-					attribution:
-						'Map data from <a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
+					attribution: 'Map data from <a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
 					maxZoom: 18,
 				}).addTo($map)
 
-				// remove zoom controls
+				// Remove zoom controls
 				const zoomControl = L.control.zoom()
 				zoomControl.addTo($map)
 				$map.removeControl(zoomControl)
 
-				// keyboard disabled
+				// Keyboard disabled
 				$map.keyboard.disable()
 
-				// getting coordinates from map
+				// Getting coordinates from map
 				if (mapActive) {
 					$map.on('click', (e) => {
 						const lat = e.latlng.lat.toFixed(7)
 						const lng = e.latlng.lng.toFixed(7)
 						console.log(`${lat}, ${lng}`)
-						// alert(`${lat},${lng}`)
 					})
 				}
 			}
 
-			// @b set map view
+			// @b Set map view
+			//------------------------
 			function setMapView() {
 				console.log(`setMapView()`)
 
@@ -2012,13 +2019,13 @@
 					const region = data[$selectRange.value][$selectRegion.value]
 					$map.setView(...setCoor(region.coor, region.zoom))
 				} else {
-					const city =
-						data[$selectRange.value][$selectRegion.value][$selectCity.value]
+					const city = data[$selectRange.value][$selectRegion.value][$selectCity.value]
 					$map.setView(...setCoor(city.coor, city.zoom))
 				}
 			}
 
-			// @b set coordinates
+			// @b Set coordinates
+			//------------------------
 			function setCoor(coor, zoom) {
 				if (!$map || !$map._loaded) {
 					return [coor, zoom]
@@ -2047,27 +2054,31 @@
 				}
 			}
 
+			//------------------------
 			// @g MARKERS
+			//------------------------
 
-			// @b prepare markers
+			// @b Prepare markers
+			//------------------------
 			function prepareMarkers() {
 				console.log('prepareMarkers()')
 
-				// remove all markers from map
+				// Remove all markers from map
 				$markers.forEach((marker) => $map.removeLayer(marker))
-				// remove all markers from table
+				// Remove all markers from table
 				$markers = []
-				// create new markers
+				// Create new markers
 				$filteredData.forEach((item) => {
 					createMarker(item)
 				})
-				// add zoom listener
+				// Add zoom listener
 				addZoomToMakers()
 			}
 
-			// @b create marker
+			// @b Create marker
+			//------------------------
 			function createMarker({ coor, city, catg, name, url, id, top, scale }) {
-				// icon
+				// Icon
 				const zoom = $map.getZoom()
 				const icon = L.icon({
 					iconUrl: url.replace(/(\/)([^/]+)\.([^/.]+)$/, '$1webp/$2.webp'),
@@ -2085,7 +2096,7 @@
 					opacity: 0.8,
 				}
 
-				// marker
+				// Marker
 				const marker = L.marker(coor, { icon: icon }).addTo($map)
 				marker.id = id
 				marker.catg = catg
@@ -2103,7 +2114,8 @@
 				$markers.push(marker)
 			}
 
-			// @b add zoom to markers
+			// @b Add zoom to markers
+			//------------------------
 			function addZoomToMakers() {
 				$map.on('zoomend', () => {
 					$markers.forEach((marker) => {
@@ -2112,7 +2124,8 @@
 				})
 			}
 
-			// @b highlight marker
+			// @b Highlight marker
+			//------------------------
 			function highlightMarker(e) {
 				if ($isHiglightActive) {
 					const id = e.target.id
@@ -2122,7 +2135,8 @@
 				}
 			}
 
-			// @b reset marker
+			// @b Reset marker
+			//------------------------
 			function resetMarker(e) {
 				const id = e.target.id
 				const marker = $markers[id]
@@ -2134,7 +2148,8 @@
 				updateMarkerSize(marker)
 			}
 
-			// @b update marker size
+			// @b Update marker size
+			//------------------------
 			function updateMarkerSize(marker, value) {
 				const zoom = $map.getZoom()
 				const icon = marker.options.icon
@@ -2149,21 +2164,26 @@
 				marker.setIcon(icon)
 			}
 
-			// @b set zoom of marker
+			// @b Set zoom of marker
+			//------------------------
 			function setZoom(zoom, scale = 1) {
 				const size = Math.pow(zoom, 2) * 0.15 * scale
 				return [size, size]
 			}
 
-			// @b set anchor of marker
+			// @b Set anchor of marker
+			//------------------------
 			function setAnchor(zoom, scale = 1) {
 				const size = Math.pow(zoom, 2) * 0.15 * scale
 				return [size * 0.5, size * 0.5]
 			}
 
+			//------------------------
 			// @g ROUTES
+			//------------------------
 
-			// @b prepare routes
+			// @b Prepare routes
+			//------------------------
 			function prepareRoutes() {
 				console.log('prepareRoutes()')
 
@@ -2188,7 +2208,8 @@
 				})
 				countDistance()
 			}
-			// @b sort routes
+			// @b Sort routes
+			//------------------------
 			function sortRoutes(routes) {
 				return [...routes].sort((a, b) => {
 					const isAPlanned = a.year > CURRENT_YEAR
@@ -2201,13 +2222,11 @@
 				})
 			}
 
-			// @b filter route
+			// @b Filter route
+			//------------------------
 			function filterRoute(route) {
 				// Filter by activity
-				if (
-					$activityFilter !== activities.ALL.key &&
-					$activityFilter !== route.activity
-				) {
+				if ($activityFilter !== activities.ALL.key && $activityFilter !== route.activity) {
 					return true
 				}
 
@@ -2216,8 +2235,7 @@
 					$selectRange.value !== ranges.NONE.key &&
 					!(
 						$selectRange.value === route.range ||
-						($selectRange.value === ranges.MOUNTAINS.key &&
-							route.range === ranges.POLAND.key)
+						($selectRange.value === ranges.MOUNTAINS.key && route.range === ranges.POLAND.key)
 					)
 				) {
 					return true
@@ -2237,16 +2255,11 @@
 					}
 
 					// Determine road category
-					const roadKey = Object.keys(roadCategoryMap).find((key) =>
-						roadName.startsWith(key)
-					)
+					const roadKey = Object.keys(roadCategoryMap).find((key) => roadName.startsWith(key))
 					const roadCategory = roadCategoryMap[roadKey]
 
 					// Filter by region (road category)
-					if (
-						$selectRegion.value !== modes.ALL.key &&
-						$selectRegion.value !== roadCategory
-					) {
+					if ($selectRegion.value !== modes.ALL.key && $selectRegion.value !== roadCategory) {
 						return true
 					}
 
@@ -2290,10 +2303,7 @@
 					} else if ($dateFilter === modes.PLAN_CURRENT.key) {
 						// PLAN_CURRENT mode: show only planned routes up to CURRENT_YEAR
 						if (route.year !== 0) return true
-					} else if (
-						$dateFilter !== modes.ALL.key &&
-						route.year !== parseInt($dateFilter)
-					) {
+					} else if ($dateFilter !== modes.ALL.key && route.year !== parseInt($dateFilter)) {
 						// Specific year selected: skip if year doesn't match the selected year
 						return true
 					}
@@ -2301,7 +2311,8 @@
 				return false
 			}
 
-			// @b format route
+			// @b Format route
+			//------------------------
 			function formatRouteInfo(route) {
 				// Settings
 				const defaultWeight = 2
@@ -2315,22 +2326,19 @@
 					activities.DOWNHILL_SKIING.key,
 					activities.TRANSPORT_BOAT.key,
 				]
-				const secondaryActivities = [
-					activities.HIKING.key,
-					activities.WALKING.key,
-				]
+				const secondaryActivities = [activities.HIKING.key, activities.WALKING.key]
 
 				let routeColor = defaultColor
 				let routeWeight = defaultWeight
 				let routeName = ''
 
-				// format name
+				// Format name
 				const formatName = (name) => {
 					if (typeof name !== 'string') return ''
 					return name.replace(/([a-z])([A-Z])/g, '$1 $2').replaceAll('-', ' - ')
 				}
 
-				// renderName
+				// RenderName
 				const renderName = (firstLine, secondLine, thirdLine) => `
 					<div style="text-align: center; line-height: 1.6;">
 						${firstLine ? `<div>${firstLine}</div>` : ''}
@@ -2343,13 +2351,9 @@
 				if (route.range === ranges.ROADS.key) {
 					const [date, name, lanes] = route.name.split(' - ')
 
-					routeName = renderName(
-						`<strong>${name}</strong> - ${date}`,
-						`${route.icon} ${formatDistance(route.length)}`
-					)
+					routeName = renderName(`<strong>${name}</strong> - ${date}`, `${route.icon} ${formatDistance(route.length)}`)
 
-					routeWeight =
-						lanes?.[0] == 3 ? 5 : lanes?.[0] == 2 ? 4 : lanes?.[0] == 1 ? 3 : 2
+					routeWeight = lanes?.[0] == 3 ? 5 : lanes?.[0] == 2 ? 4 : lanes?.[0] == 1 ? 3 : 2
 
 					routeColor = getColorForRoute(route.year)
 				} else {
@@ -2374,7 +2378,8 @@
 				return { routeName, routeColor, routeWeight }
 			}
 
-			// @b create route layer
+			// @b Create route layer
+			//------------------------
 			function createRouteLayer(route) {
 				let toggled = false
 
@@ -2468,7 +2473,8 @@
 				}
 			}
 
-			// @b get color for route
+			// @b Get color for route
+			//------------------------
 			function getColorForRoute(year) {
 				const minYear = 2004
 				const maxYear = 2025
@@ -2486,13 +2492,15 @@
 				return `#0000${hex}`
 			}
 
-			// @b clear selected routes
+			// @b Clear selected routes
+			//------------------------
 			function clearSelectedRoutes() {
 				$selectedRouteIndexes = []
 				prepareRoutes()
 			}
 
-			// @b count distance
+			// @b Count distance
+			//------------------------
 			function countDistance() {
 				const visibleRoutes = [...routes].filter((route) => !filterRoute(route))
 				const totalLength = visibleRoutes.reduce((sum, r) => sum + r.length, 0)
@@ -2507,15 +2515,16 @@
 
 				$footerDistance.textContent =
 					$selectedRoutes.length > 0
-						? `🔄 ${formatDistance(selectedLength)} / ${formatDistance(
-								totalLength
-						  )}`
+						? `🔄 ${formatDistance(selectedLength)} / ${formatDistance(totalLength)}`
 						: formatDistance(totalLength)
 			}
 
+			//------------------------
 			// @g TOOLS
+			//------------------------
 
-			// @b find range
+			// @b Find range
+			//------------------------
 			function findRange(city) {
 				for (const range in data) {
 					for (const region in data[range]) {
@@ -2527,7 +2536,8 @@
 				return ranges.POLAND.key
 			}
 
-			// @b find region
+			// @b Find region
+			//------------------------
 			function findRegion(city) {
 				for (const range in data) {
 					for (const region in data[range]) {
@@ -2538,19 +2548,20 @@
 				}
 			}
 
-			// @b remove icon
+			// @b Remove icon
+			//------------------------
 			function removeIcon(text) {
 				return text?.split(' ').slice(1).join(' ') || text
 			}
 
-			// @b capitalize name
+			// @b Capitalize name
+			//------------------------
 			function capitalizeName(city) {
-				return city
-					.toLowerCase()
-					.replace(/(?:^|\s|-)([a-ż])/g, (match) => match.toUpperCase())
+				return city.toLowerCase().replace(/(?:^|\s|-)([a-ż])/g, (match) => match.toUpperCase())
 			}
 
-			// @b create option
+			// @b Create option
+			//------------------------
 			function createOption(parent, value, textContent, selected) {
 				const option = document.createElement('option')
 				option.classList.add('header_option')
@@ -2564,14 +2575,16 @@
 				parent.appendChild(option)
 			}
 
-			// @b clear content
+			// @b Clear content
+			//------------------------
 			function clearContent(element) {
 				if (element) {
 					element.innerHTML = ''
 				}
 			}
 
-			// @b format distance
+			// @b Format distance
+			//------------------------
 			function formatDistance(distance) {
 				const digits = distance < 100 ? 1 : 0
 				const distanceFormatted = distance.toLocaleString('pl-PL', {
@@ -2581,7 +2594,8 @@
 				return `${distanceFormatted} km`
 			}
 
-			// @b map regions
+			// @b Map regions
+			//------------------------
 			function mapRegions(data) {
 				const newData = {}
 
@@ -2600,7 +2614,8 @@
 				return newData
 			}
 
-			// @b map key to object
+			// @b Map key to object
+			//------------------------
 			function mapKeyToObject(obj, keyName = 'key') {
 				return Object.values(obj).reduce((acc, item) => {
 					if (item && keyName in item) {
@@ -2610,7 +2625,8 @@
 				}, {})
 			}
 
-			// @b map key to value
+			// @b Map key to value
+			//------------------------
 			function mapKeyToValue(obj, keyName = 'key', valueName = 'value') {
 				return Object.values(obj).reduce((acc, item) => {
 					if (item && keyName in item && valueName in item) {
@@ -2620,7 +2636,8 @@
 				}, {})
 			}
 
-			// @b log selects
+			// @b Log selects
+			//------------------------
 			function logSelects() {
 				console.log({
 					date: $dateFilter,
@@ -2632,5 +2649,6 @@
 				})
 			}
 		</script>
+		<!--#endregion -->
 	</body>
 </html>
