@@ -580,10 +580,10 @@
 				<label class="header_label" for="region" id="labelRegion"></label>
 				<select class="header_select" id="region"></select>
 			</div>
-			<!-- City -->
+			<!-- Place -->
 			<div class="header_pair">
-				<label class="header_label" for="city" id="labelCity"></label>
-				<select class="header_select" id="city"></select>
+				<label class="header_label" for="place" id="labelPlace"></label>
+				<select class="header_select" id="place"></select>
 			</div>
 		</div>
 
@@ -658,7 +658,7 @@
 			//------------------------
 			const FUTURE_YEAR = 2027
 			const CURRENT_YEAR = 2025
-			const startCity = 'KRAKÓW'
+			const startPlace = 'KRAKÓW'
 			const mapActive = true
 
 			// @b Modes
@@ -894,7 +894,7 @@
 			// Tables
 			let $photos = [] // table of photos
 			let $markers = [] // table of markers
-			let $citiesArray = [] // table with prepared data
+			let $placesArray = [] // table with prepared data
 			let $filteredData = [] // table with filtered data
 			let $selectedRoutes = [] // table with selected routes
 			let $routeLayers = [] // table with added routes
@@ -942,9 +942,9 @@
 			const $photoPause = document.querySelector('.photo_pause')
 			const $photoPlay = document.querySelector('.photo_play')
 			// Selects
-			const $labelCity = document.querySelector('#labelCity')
+			const $labelPlace = document.querySelector('#labelPlace')
 			const $labelRegion = document.querySelector('#labelRegion')
-			const $selectCity = document.querySelector('#city')
+			const $selectPlace = document.querySelector('#place')
 			const $selectRegion = document.querySelector('#region')
 			const $selectRange = document.querySelector('#range')
 			const $selectViewMode = document.querySelector('#view')
@@ -968,7 +968,7 @@
 			$headerBars.addEventListener('click', showHideMenu)
 			$headerEmblem.addEventListener('click', showHideMenu)
 			$footerDistance.addEventListener('click', clearSelectedRoutes)
-			$selectCity.addEventListener('change', setCity)
+			$selectPlace.addEventListener('change', setPlace)
 			$selectRegion.addEventListener('change', setRegion)
 			$selectRange.addEventListener('change', setRange)
 			$selectViewMode.addEventListener('change', setViewMode)
@@ -976,7 +976,7 @@
 			$selectCategory.addEventListener('change', setCategory)
 			$selectDate.addEventListener('change', setDate)
 			addListenersToSelects([
-				$selectCity,
+				$selectPlace,
 				$selectRegion,
 				$selectRange,
 				$selectViewMode,
@@ -999,7 +999,8 @@
 			//------------------------
 			function main() {
 				Log.init()
-				Log.yellow()
+				Log.start()
+				Log.enter()
 				Log.default(data)
 				changeMargin()
 				prepareMap()
@@ -1008,13 +1009,14 @@
 				prepareViewModes()
 				prepareRanges()
 				setRange()
+				Log.exit()
+				Log.end()
 			}
 
 			// @b Check keys
 			//------------------------
 			function checkKeys(e) {
-				Log.blue(e.key)
-
+				Log.enter.orange(e.key)
 				if (e.key === 'ArrowLeft') {
 					showPreviousPhoto(e)
 				}
@@ -1030,6 +1032,7 @@
 				if (e.key === 'F9') {
 					togglePresentation(e)
 				}
+				Log.exit()
 			}
 
 			// @b Check wheel
@@ -1059,8 +1062,8 @@
 			function touchend(e) {
 				const deltaX = $touchEndX - $touchStartX
 				const deltaY = $touchEndY - $touchStartY
-				console.log('touchX:', deltaX)
-				console.log('touchY:', deltaY)
+				Log.gray('touchX:', deltaX)
+				Log.gray('touchY:', deltaY)
 				if (deltaY < -50 && $isMenuOpen) {
 					showHideMenu()
 				}
@@ -1148,7 +1151,7 @@
 			// @b Change margin
 			//------------------------
 			function changeMargin() {
-				Log.white()
+				Log.enter()
 				const windowHeight = window.innerHeight
 				const headerHeight = $headerDiv.offsetHeight
 				const viewHeight = windowHeight - headerHeight
@@ -1156,6 +1159,7 @@
 
 				$root.style.setProperty('--viewHeight', `${viewHeight}px`)
 				$root.style.setProperty('--marginTop', `${headerHeight}px`)
+				Log.exit()
 			}
 
 			//------------------------
@@ -1165,42 +1169,42 @@
 			// @b Prepare data
 			//------------------------
 			function prepareData() {
-				console.log('prepareData()')
-				$citiesArray = []
+				Log.enter()
+				$placesArray = []
 
 				for (const range in data) {
 					for (const region in data[range]) {
-						for (const city in data[range][region]) {
-							const cityObj = data[range][region][city]
+						for (const place in data[range][region]) {
+							const placeObj = data[range][region][place]
 
 							// Gallery photos
-							if (cityObj.gallery) {
-								cityObj.gallery.forEach((item) => {
+							if (placeObj.gallery) {
+								placeObj.gallery.forEach((item) => {
 									//Prepare path
 									function preparePath() {
-										const capitalizedCity = capitalizeName(city)
+										const capitalizedPlace = capitalizeName(place)
 										const capitalizedRegion = capitalizeName(region)
 
 										// Path for mountains
 										if (range == ranges.MOUNTAINS.key) {
-											return `Góry/${capitalizedRegion}/${capitalizedCity}/Zdjęcia/${item.name}.jpg`
+											return `Góry/${capitalizedRegion}/${capitalizedPlace}/Zdjęcia/${item.name}.jpg`
 
 											// Path for world
 										} else if (range == ranges.WORLD.key) {
-											return `Świat/${capitalizedRegion}/${capitalizedCity}/Zdjęcia/${item.name}.jpg`
+											return `Świat/${capitalizedRegion}/${capitalizedPlace}/Zdjęcia/${item.name}.jpg`
 
 											// Path for Kraków
-										} else if (city == 'KRAKÓW') {
+										} else if (place == 'KRAKÓW') {
 											return `Kraków/Zdjęcia/${removeIcon(mapKeyToValue(categories)[item.catg])}/${item.name}.jpg`
 
 											// Path for other cities in Poland
 										} else {
-											return `Polska/${capitalizedRegion}/${capitalizedCity}/Zdjęcia/${item.name}.jpg`
+											return `Polska/${capitalizedRegion}/${capitalizedPlace}/Zdjęcia/${item.name}.jpg`
 										}
 									}
 
 									const newItem = {
-										city: city,
+										place: place,
 										region: region,
 										range: range,
 										coor: item.coor,
@@ -1213,58 +1217,59 @@
 									if (item.top) {
 										newItem.top = item.top
 									}
-									$citiesArray.push(newItem)
+									$placesArray.push(newItem)
 								})
 							}
 							// Profile photo
-							if (cityObj.coor && cityObj.date) {
-								cityObj.date.forEach((year) => {
+							if (placeObj.coor && placeObj.date) {
+								placeObj.date.forEach((year) => {
 									function prepareProfilePath() {
 										let path = ''
 										if (range == ranges.MOUNTAINS.key) {
-											path = `Góry/Zdjęcia/${capitalizeName(city)} ${year}.jpg`
+											path = `Góry/Zdjęcia/${capitalizeName(place)} ${year}.jpg`
 										} else if (range == ranges.WORLD.key) {
-											path = `Świat/Zdjęcia/${capitalizeName(city)}.jpg`
+											path = `Świat/Zdjęcia/${capitalizeName(place)}.jpg`
 										} else if (range == ranges.POLAND.key) {
-											path = `Polska/Zdjęcia/${capitalizeName(city)}.jpg`
+											path = `Polska/Zdjęcia/${capitalizeName(place)}.jpg`
 										}
 										return path
 									}
 
 									const newItem = {
-										city: city,
+										place: place,
 										region: region,
 										range: range,
-										coor: cityObj.coor,
-										scale: cityObj.scale,
+										coor: placeObj.coor,
+										scale: placeObj.scale,
 										date: [year],
 										name: [year],
 										catg: categories.PROFILE.key,
 										url: prepareProfilePath(),
 									}
-									$citiesArray.push(newItem)
+									$placesArray.push(newItem)
 								})
 							}
 						}
 					}
 				}
+				Log.exit()
 			}
 
 			// @b Filter data
 			//------------------------
 			function filterData() {
-				console.log('filterData()')
+				Log.enter()
 				// Get data from original array
-				$filteredData = $citiesArray
+				$filteredData = $placesArray
 
 				// Filter by range
 				if ($selectRange.value !== ranges.NONE.key) {
 					if ($selectRegion.value == modes.ALL.key) {
 						$filteredData = $filteredData.filter((item) => $selectRange.value === item.range)
-					} else if ($selectCity.value == modes.ALL.key) {
+					} else if ($selectPlace.value == modes.ALL.key) {
 						$filteredData = $filteredData.filter((item) => $selectRegion.value === item.region)
 					} else {
-						$filteredData = $citiesArray.filter((item) => $selectCity.value === item.city)
+						$filteredData = $placesArray.filter((item) => $selectPlace.value === item.place)
 					}
 				}
 
@@ -1286,6 +1291,7 @@
 
 				// Add id to filtered items
 				$filteredData.forEach((item, index) => (item.id = index))
+				Log.exit()
 			}
 
 			// @b Sort data
@@ -1313,18 +1319,18 @@
 
 				array.sort((a, b) => {
 					// Sort by range
-					const rangeA = rangePriority[findRange(a.city)] || 9
-					const rangeB = rangePriority[findRange(b.city)] || 9
+					const rangeA = rangePriority[findRange(a.place)] || 9
+					const rangeB = rangePriority[findRange(b.place)] || 9
 					if (rangeA < rangeB) return -1
 					if (rangeA > rangeB) return 1
 
 					// Sort by region
-					if (findRegion(a.city) < findRegion(b.city)) return -1
-					if (findRegion(a.city) > findRegion(b.city)) return 1
+					if (findRegion(a.place) < findRegion(b.place)) return -1
+					if (findRegion(a.place) > findRegion(b.place)) return 1
 
-					// Sort by city
-					if (a.city < b.city) return -1
-					if (a.city > b.city) return 1
+					// Sort by place
+					if (a.place < b.place) return -1
+					if (a.place > b.place) return 1
 
 					// Sort by category
 					const categoryA = categoryPriority[a.catg] || 9
@@ -1359,11 +1365,11 @@
 			// @b Update data
 			//------------------------
 			function updateData() {
-				console.log('updateData():')
+				Log.enter()
 				filterData()
 				prepareGallery()
 				prepareMarkers()
-				console.log($filteredData)
+				Log.exit()
 			}
 
 			//------------------------
@@ -1373,7 +1379,7 @@
 			// @b Show hide menu
 			//------------------------
 			function showHideMenu() {
-				console.log('showHideMenu()')
+				Log.start()
 				if ($isMobile) {
 					const el = document.documentElement
 					if (el.requestFullscreen) {
@@ -1391,12 +1397,13 @@
 				$photoImage.classList.toggle('top')
 				$gallery.classList.toggle('top')
 				$isMenuOpen = !$isMenuOpen
+				Log.end()
 			}
 
 			// @b Prepare view modes
 			//------------------------
 			function prepareViewModes() {
-				console.log('prepareViewModes()')
+				Log.enter()
 				// prettier-ignore
 				createOption(
 					$selectViewMode,
@@ -1418,70 +1425,75 @@
 					modes.GALLERY.value,
 					$viewMode
 				)
+				Log.exit()
 			}
 
 			// @b Prepare ranges
 			//------------------------
 			function prepareRanges() {
-				console.log(`prepareRanges()`)
+				Log.enter()
 				const dataRanges = Object.keys(data)
-				const selectedRange = $isInitialRender ? findRange(startCity) : null
+				const selectedRange = $isInitialRender ? findRange(startPlace) : null
 
 				Object.values(mapKeyToObject(ranges)).forEach((range) => {
 					createOption($selectRange, range.key, range.value, selectedRange)
 				})
+				Log.exit()
 			}
 
 			// @b Prepare regions
 			//------------------------
 			function prepareRegions() {
-				console.log(`prepareRegions(${$selectRange.value})`)
+				Log.enter($selectRange.value)
 
 				if ($selectRange.value == ranges.NONE.key) {
 					clearContent($selectRegion)
-					clearContent($selectCity)
+					clearContent($selectPlace)
+					Log.exit()
 					return
 				}
 
 				clearContent($selectRegion)
 				createOption($selectRegion, modes.ALL.key, modes.ALL.value)
 
-				const selectedRegion = $isInitialRender ? findRegion(startCity) : null
+				const selectedRegion = $isInitialRender ? findRegion(startPlace) : null
 				const regions = Object.keys(data[$selectRange.value])
 
 				regions.forEach((region) => {
 					createOption($selectRegion, region, region, selectedRegion)
 				})
+				Log.exit()
 			}
 
-			// @b Prepare cities
+			// @b Prepare places
 			//------------------------
-			function prepareCities() {
+			function preparePlaces() {
+				Log.enter($selectRegion.value)
 				if ($selectRegion.value == modes.ALL.key || $selectRegion.value == modes.EMPTY.key) {
-					clearContent($selectCity)
+					clearContent($selectPlace)
 					return
 				}
 
-				createOption($selectCity, modes.ALL.key, modes.ALL.value)
-				const newCities = data[$selectRange.value][$selectRegion.value]
-				console.log(`prepareCities(${$selectRegion.value})`)
+				createOption($selectPlace, modes.ALL.key, modes.ALL.value)
+				const newPlaces = data[$selectRange.value][$selectRegion.value]
 
-				clearContent($selectCity)
-				createOption($selectCity, modes.ALL.key, modes.ALL.value)
+				clearContent($selectPlace)
+				createOption($selectPlace, modes.ALL.key, modes.ALL.value)
 
-				const selectedCity = $isInitialRender ? startCity : null
-				Object.keys(newCities).forEach((city) => {
-					if (city !== 'coor' && city !== 'zoom') {
-						createOption($selectCity, city, city, selectedCity)
+				const selectedPlace = $isInitialRender ? startPlace : null
+				Object.keys(newPlaces).forEach((place) => {
+					if (place !== 'coor' && place !== 'zoom') {
+						createOption($selectPlace, place, place, selectedPlace)
 					}
 				})
 				$isInitialRender = false
+				Log.exit()
 			}
 
 			// @b Prepare activities
 			//------------------------
 			function prepareActivities() {
-				console.log('prepareActivities()')
+				Log.enter()
 				clearContent($selectActivity)
 
 				const selectedRange = $selectRange.value
@@ -1500,12 +1512,13 @@
 						createOption($selectActivity, activity.key, activity.value, $activityFilter)
 					}
 				})
+				Log.exit()
 			}
 
 			// @b Prepare categories
 			//------------------------
 			function prepareCategories() {
-				console.log('prepareCategories()')
+				Log.enter()
 				clearContent($selectCategory)
 
 				const selectedRange = $selectRange.value
@@ -1517,13 +1530,13 @@
 						createOption($selectCategory, category.key, category.value, $categoryFilter)
 					}
 				})
+				Log.exit()
 			}
 
 			// @b Prepare dates
 			//------------------------
 			function prepareDates() {
-				console.log('prepareDates()')
-
+				Log.enter()
 				createOption($selectDate, modes.ALL.key, `📅 ${modes.ALL.value}`, $dateFilter)
 				createOption($selectDate, modes.DONE.key, `📅 ${modes.DONE.value}`, $dateFilter)
 				createOption($selectDate, modes.PLAN_ALL.key, `📅 ${modes.PLAN_ALL.value}`, $dateFilter)
@@ -1534,59 +1547,61 @@
 				for (let year = CURRENT_YEAR; year >= 2004; year--) {
 					createOption($selectDate, year, `📅 ${year}`, $dateFilter)
 				}
+				Log.exit()
 			}
 
 			// @b Set labels
 			//------------------------
 			function setLabels() {
-				console.log(`setLabels()`)
+				Log.enter()
 				const range = $selectRange.value
 
 				if (range == ranges.ROADS.key) {
 					$labelRegion.textContent = 'Rodzaj:'
-					$labelCity.textContent = 'Droga:'
+					$labelPlace.textContent = 'Droga:'
 				} else if (range == ranges.POLAND.key) {
 					$labelRegion.textContent = 'Region:'
-					$labelCity.textContent = 'Miasto:'
+					$labelPlace.textContent = 'Miasto:'
 				} else if (range == ranges.WORLD.key) {
 					$labelRegion.textContent = 'Państwo:'
-					$labelCity.textContent = 'Miasto:'
+					$labelPlace.textContent = 'Miasto:'
 				} else if (range == ranges.MOUNTAINS.key) {
 					$labelRegion.textContent = 'Pasmo:'
-					$labelCity.textContent = 'Szczyt:'
+					$labelPlace.textContent = 'Szczyt:'
 				} else if (range == ranges.NONE.key) {
 					$labelRegion.textContent = ''
-					$labelCity.textContent = ''
+					$labelPlace.textContent = ''
 				}
+				Log.exit()
 			}
 
 			// @b Set emblem
 			//------------------------
 			function setEmblem() {
-				console.log(`setEmblem(${$selectCity.value})`)
-
+				Log.enter($selectPlace.value)
 				if (
 					$selectRange.value == ranges.ROADS.key ||
 					$selectRange.value == ranges.MOUNTAINS.key ||
-					$selectCity.value == modes.ALL.key ||
-					$selectCity.value == ''
+					$selectPlace.value == modes.ALL.key ||
+					$selectPlace.value == ''
 				) {
 					$headerEmblem.classList.add('none')
 				} else {
 					$headerEmblem.classList.remove('none')
 
-					const capitalizedCity = capitalizeName($selectCity.value)
+					const capitalizedPlace = capitalizeName($selectPlace.value)
 					const capitalizedRegion = capitalizeName($selectRegion.value)
 
 					let path = ''
 					if ($selectRange.value == ranges.WORLD.key) {
-						path = `Świat/${capitalizedRegion}/${capitalizedCity}/${capitalizedCity}.gif`
+						path = `Świat/${capitalizedRegion}/${capitalizedPlace}/${capitalizedPlace}.gif`
 					} else if ($selectRange.value == ranges.POLAND.key) {
-						path = `Polska/${capitalizedRegion}/${capitalizedCity}/${capitalizedCity}.gif`
+						path = `Polska/${capitalizedRegion}/${capitalizedPlace}/${capitalizedPlace}.gif`
 					}
 					$headerEmblem.setAttribute('src', path)
 					$headerEmblem.setAttribute('alt', 'Herb')
 				}
+				Log.exit()
 			}
 
 			// @b Set title
@@ -1597,18 +1612,20 @@
 					title = 'PODRÓŻE'
 				} else if ($selectRegion.value == modes.ALL.key) {
 					title = $selectRange.value
-				} else if ($selectCity.value == modes.ALL.key) {
+				} else if ($selectPlace.value == modes.ALL.key) {
 					title = $selectRegion.value
 				} else {
-					title = $selectCity.value
+					title = $selectPlace.value
 				}
 				document.title = title
-				console.log(`setTitle(${title})`)
+				Log.enter(title)
+				Log.exit()
 			}
-			// @b Set city
+			// @b Set place
 			//------------------------
-			function setCity() {
-				console.log(`:setCity(${$selectCity.value})`)
+			function setPlace() {
+				Log.start()
+				Log.enter($selectPlace.value)
 				setEmblem()
 				setTitle()
 				setMapView()
@@ -1617,13 +1634,16 @@
 				}
 				updateData()
 				logSelects()
+				Log.exit()
+				Log.end()
 			}
 
 			// @b Set region
 			//------------------------
 			function setRegion() {
-				console.log(`:setRegion(${$selectRegion.value})`)
-				prepareCities()
+				Log.start()
+				Log.enter($selectRegion.value)
+				preparePlaces()
 				setEmblem()
 				setTitle()
 				setMapView()
@@ -1632,16 +1652,19 @@
 				}
 				updateData()
 				logSelects()
+				Log.exit()
+				Log.end()
 			}
 
 			// @b Set range
 			//------------------------
 			function setRange() {
-				console.log(`:setRange(${$selectRange.value}):`)
+				Log.start()
+				Log.enter($selectRange.value)
 				prepareActivities()
 				prepareCategories()
 				prepareRegions()
-				prepareCities()
+				preparePlaces()
 				setLabels()
 				setEmblem()
 				setTitle()
@@ -1649,14 +1672,17 @@
 				prepareRoutes()
 				updateData()
 				logSelects()
+				Log.exit()
+				Log.end()
 			}
 
 			// @b Set view mode
 			//------------------------
 			function setViewMode() {
-				$viewMode = $selectViewMode.value
-				console.log(`:setViewMode(${$viewMode})`)
+				Log.start()
+				Log.enter($selectViewMode.value)
 
+				$viewMode = $selectViewMode.value
 				// Add class to gallery and background
 				function classAdd(className) {
 					$gallery.classList.add(className)
@@ -1694,34 +1720,45 @@
 					classAdd('show')
 				}
 				setMapView()
+				Log.exit()
+				Log.end()
 			}
 
 			// @b Set activities
 			//------------------------
 			function setActivities() {
+				Log.start()
+				Log.enter($selectActivity.value)
 				$activityFilter = $selectActivity.value
-				console.log(`:setActivity()`)
 				prepareRoutes()
 				logSelects()
+				Log.exit()
+				Log.end()
 			}
 
 			// @b Set category
 			//------------------------
 			function setCategory() {
+				Log.start()
+				Log.enter($selectCategory.value)
 				$categoryFilter = $selectCategory.value
-				console.log(`:setCategory()`)
 				updateData()
 				logSelects()
+				Log.exit()
+				Log.end()
 			}
 
 			// @b Set dates
 			//------------------------
 			function setDate() {
+				Log.start()
+				Log.enter($selectDate.value)
 				$dateFilter = $selectDate.value
-				console.log(`:setDate(${$dateFilter})`)
 				prepareRoutes()
 				updateData()
 				logSelects()
+				Log.exit()
+				Log.end()
 			}
 
 			//------------------------
@@ -1731,12 +1768,12 @@
 			// @b Prepare gallery
 			//------------------------
 			function prepareGallery() {
-				console.log('prepareGallery()')
+				Log.enter()
 				// Clear gallery
 				clearContent($gallery)
 				// Create imgs for filtered table
 				$filteredData.forEach((item) => {
-					let description = `${item.city}: ${item.name}`
+					let description = `${item.place}: ${item.name}`
 
 					// Gallery box
 					const box = document.createElement('div')
@@ -1766,12 +1803,13 @@
 					$gallery.appendChild(box)
 					$photos.push(box)
 				})
+				Log.exit()
 			}
 
 			// @b Show photo
 			//------------------------
 			function showPhoto(imgID) {
-				console.log(`showPhoto(${imgID})`)
+				Log.enter(imgID)
 
 				if ($isPhotoLoading) return
 				$isPhotoLoading = true
@@ -1801,27 +1839,29 @@
 					$photoName.textContent = 'Ładowanie zdjęcia...'
 				}, 500)
 
-				console.log(`showPhoto(${imgID}) - start`)
+				Log.gray(`Photo ${imgID} loading...`)
 				$photoImage.onload = () => {
 					clearTimeout(loadingTimeout)
 					$photoName.textContent = image.alt
-					console.log(`showPhoto(${imgID}) - loaded`)
+					Log.gray(`Photo ${imgID} loaded.`)
 					$isPhotoLoading = false
 				}
 
 				$photoImage.onerror = () => {
 					clearTimeout(loadingTimeout)
 					$photoName.textContent = 'Zdjęcie jest niedostępne.'
-					console.log(`showPhoto(${imgID}) - error`)
+					Log.error(`Photo ${imgID} loading error`)
 					$isPhotoLoading = false
 				}
 				$isPhotoOpen = true
+				Log.exit()
 			}
 
 			// @b Show clicked box
 			//------------------------
 			const showClickedPhoto = (clickedPhoto) => (e) => {
-				console.log(`showClickedPhoto(${clickedPhoto.isClicked})`)
+				Log.start('showClickedPhoto')
+				Log.enter('showClickedPhoto()')
 
 				$photos.forEach((photo) => {
 					if (photo !== clickedPhoto) {
@@ -1839,12 +1879,15 @@
 				} else {
 					showSelectedPhoto(e)
 				}
+				Log.exit()
+				Log.end()
 			}
 
 			// @b Show clicked marker
 			//------------------------
 			const showClickedMarker = (clickedMarker) => (e) => {
-				console.log(`showClickedMarker(${clickedMarker.isClicked})`)
+				Log.start('showClickedMarker')
+				Log.enter('showClickedMarker()')
 
 				$markers.forEach((marker) => {
 					if (marker !== clickedMarker) {
@@ -1862,13 +1905,15 @@
 				} else {
 					showSelectedPhoto(e)
 				}
+				Log.exit()
+				Log.end()
 			}
 
 			// @b Show selected photo
 			//------------------------
 			function showSelectedPhoto(e) {
 				let imgID = e.target.id
-				console.log(`showSelectedPhoto(${imgID})`)
+				Log.enter(imgID)
 
 				showPhoto(imgID)
 				$index = imgID
@@ -1877,38 +1922,52 @@
 					$photo.classList.remove('none')
 					$photo.classList.add('show')
 				}, 100)
+				Log.exit()
 			}
 
 			// @b Show previous photo
 			//------------------------
 			function showPreviousPhoto(e) {
-				console.log('showPreviousPhoto()')
-
+				Log.start()
+				Log.enter()
 				e.stopPropagation()
-				if ($isPhotoLoading) return
+				if ($isPhotoLoading) {
+					Log.exit()
+					Log.end()
+					return
+				}
 				if ($index > 0) {
 					$index = parseInt($index) - 1
 					showPhoto($index)
 				}
+				Log.exit()
+				Log.end()
 			}
 
 			// @b Show next photo
 			//------------------------
 			function showNextPhoto(e) {
-				console.log('showNextPhoto()')
-
+				Log.start()
+				Log.enter()
 				e.stopPropagation()
-				if ($isPhotoLoading) return
+				if ($isPhotoLoading) {
+					Log.exit()
+					Log.end()
+					return
+				}
 				if ($index < $filteredData.length - 1) {
 					$index = parseInt($index) + 1
 					showPhoto($index)
 				}
+				Log.exit()
+				Log.end()
 			}
 
 			// @b Toggle presentation
 			//------------------------
 			function togglePresentation(e) {
-				console.log(`togglePresentation()`)
+				Log.start()
+				Log.enter()
 
 				if ($interval) {
 					clearInterval($interval)
@@ -1936,12 +1995,14 @@
 				}
 
 				e?.stopPropagation()
+				Log.exit()
+				Log.end()
 			}
 
 			// @b Hide photo
 			//------------------------
 			function hidePhoto() {
-				console.log('hidePhoto()')
+				Log.start()
 				clearInterval($interval)
 				$interval = null
 
@@ -1955,6 +2016,7 @@
 					$photoPlay.classList.remove('none')
 					$photoPause.classList.add('none')
 				}, 400)
+				Log.end()
 			}
 
 			//------------------------
@@ -1964,7 +2026,8 @@
 			// @b Prepare map
 			//------------------------
 			function prepareMap() {
-				console.log('prepareMap()')
+				Log.enter()
+
 				// Leaflet map view
 				$map = L.map('map')
 
@@ -1987,15 +2050,16 @@
 					$map.on('click', (e) => {
 						const lat = e.latlng.lat.toFixed(7)
 						const lng = e.latlng.lng.toFixed(7)
-						console.log(`${lat}, ${lng}`)
+						Log.orange(`${lat}, ${lng}`)
 					})
 				}
+				Log.exit()
 			}
 
 			// @b Set map view
 			//------------------------
 			function setMapView() {
-				console.log(`setMapView()`)
+				Log.enter()
 
 				if ($selectRange.value == ranges.NONE.key) {
 					$map.setView(...setCoor([49.6, 12.0], 5))
@@ -2014,13 +2078,14 @@
 					} else {
 						$map.setView(...setCoor([0, 0], 6))
 					}
-				} else if ($selectCity.value == modes.ALL.key) {
+				} else if ($selectPlace.value == modes.ALL.key) {
 					const region = data[$selectRange.value][$selectRegion.value]
 					$map.setView(...setCoor(region.coor, region.zoom))
 				} else {
-					const city = data[$selectRange.value][$selectRegion.value][$selectCity.value]
-					$map.setView(...setCoor(city.coor, city.zoom))
+					const place = data[$selectRange.value][$selectRegion.value][$selectPlace.value]
+					$map.setView(...setCoor(place.coor, place.zoom))
 				}
+				Log.exit()
 			}
 
 			// @b Set coordinates
@@ -2060,8 +2125,7 @@
 			// @b Prepare markers
 			//------------------------
 			function prepareMarkers() {
-				console.log('prepareMarkers()')
-
+				Log.enter()
 				// Remove all markers from map
 				$markers.forEach((marker) => $map.removeLayer(marker))
 				// Remove all markers from table
@@ -2072,11 +2136,12 @@
 				})
 				// Add zoom listener
 				addZoomToMakers()
+				Log.exit()
 			}
 
 			// @b Create marker
 			//------------------------
-			function createMarker({ coor, city, catg, name, url, id, top, scale }) {
+			function createMarker({ coor, place, catg, name, url, id, top, scale }) {
 				// Icon
 				const zoom = $map.getZoom()
 				const icon = L.icon({
@@ -2086,7 +2151,7 @@
 					className: `marker marker-${catg.toLowerCase()}`,
 				})
 
-				let tooltipContent = `<strong>${city}</strong>\n${name}`
+				let tooltipContent = `<strong>${place}</strong>\n${name}`
 
 				const tooltipOptions = {
 					className: 'marker-tooltip',
@@ -2184,7 +2249,7 @@
 			// @b Prepare routes
 			//------------------------
 			function prepareRoutes() {
-				console.log('prepareRoutes()')
+				Log.enter()
 
 				// Clear previous route data
 				$routeLayers.forEach((layer) => $map.removeLayer(layer))
@@ -2206,6 +2271,7 @@
 					$routeLayers.push(polyline, hitbox)
 				})
 				countDistance()
+				Log.exit()
 			}
 			// @b Sort routes
 			//------------------------
@@ -2264,9 +2330,9 @@
 
 					// Filter by road name
 					if (
-						$selectCity.value !== modes.ALL.key &&
-						$selectCity.value !== modes.EMPTY.key &&
-						$selectCity.value !== roadName
+						$selectPlace.value !== modes.ALL.key &&
+						$selectPlace.value !== modes.EMPTY.key &&
+						$selectPlace.value !== roadName
 					) {
 						return true
 					}
@@ -2501,6 +2567,8 @@
 			// @b Count distance
 			//------------------------
 			function countDistance() {
+				Log.enter()
+
 				const visibleRoutes = [...routes].filter((route) => !filterRoute(route))
 				const totalLength = visibleRoutes.reduce((sum, r) => sum + r.length, 0)
 
@@ -2516,6 +2584,7 @@
 					$selectedRoutes.length > 0
 						? `🔄 ${formatDistance(selectedLength)} / ${formatDistance(totalLength)}`
 						: formatDistance(totalLength)
+				Log.exit()
 			}
 
 			//------------------------
@@ -2524,10 +2593,10 @@
 
 			// @b Find range
 			//------------------------
-			function findRange(city) {
+			function findRange(place) {
 				for (const range in data) {
 					for (const region in data[range]) {
-						if (city in data[range][region]) {
+						if (place in data[range][region]) {
 							return range
 						}
 					}
@@ -2537,10 +2606,10 @@
 
 			// @b Find region
 			//------------------------
-			function findRegion(city) {
+			function findRegion(place) {
 				for (const range in data) {
 					for (const region in data[range]) {
-						if (city in data[range][region]) {
+						if (place in data[range][region]) {
 							return region
 						}
 					}
@@ -2555,8 +2624,8 @@
 
 			// @b Capitalize name
 			//------------------------
-			function capitalizeName(city) {
-				return city.toLowerCase().replace(/(?:^|\s|-)([a-ż])/g, (match) => match.toUpperCase())
+			function capitalizeName(place) {
+				return place.toLowerCase().replace(/(?:^|\s|-)([a-ż])/g, (match) => match.toUpperCase())
 			}
 
 			// @b Create option
@@ -2600,14 +2669,14 @@
 
 				for (const [regionName, regionData] of Object.entries(data)) {
 					const { coor, zoom, ...data } = regionData
-					const newCities = {}
+					const newPlaces = {}
 
-					for (const [cityName, cityData] of Object.entries(data)) {
-						const { abbr, ...rest } = cityData
-						newCities[abbr] = rest
+					for (const [placeName, placeData] of Object.entries(data)) {
+						const { abbr, ...rest } = placeData
+						newPlaces[abbr] = rest
 					}
 
-					newData[regionName] = { coor, zoom, ...newCities }
+					newData[regionName] = { coor, zoom, ...newPlaces }
 				}
 
 				return newData
@@ -2638,45 +2707,32 @@
 			// @b Log selects
 			//------------------------
 			function logSelects() {
-				console.log({
+				Log.enter()
+				Log.default({
 					date: $dateFilter,
 					activities: $activityFilter,
 					categories: $categoryFilter,
 					range: $selectRange.value,
 					region: $selectRegion.value,
-					city: $selectCity.value,
+					place: $selectPlace.value,
 				})
+				Log.exit()
 			}
 
 			// @g Logger
 			//------------------------
-			/**
-			 * @typedef {Object} Log
-			 * @property {function(string):void} divider
-			 * @property {function(string):void} start
-			 * @property {function():void} end
-			 * @property {function():void} init
-			 * @property {function(...any):void} warn
-			 * @property {function(...any):void} error
-			 * @property {function(...any):void} default
-			 * @property {function(...any):void} blue
-			 * @property {function(...any):void} gray
-			 * @property {function(...any):void} orange
-			 * @property {function(...any):void} red
-			 * @property {function(...any):void} white
-			 * @property {function(...any):void} yellow
-			 */
-			/** @type {Log} */
 			const Log = {
-				// Config
-				_config: {
+				// @b Config
+				//------------------------
+				config: {
 					active: true,
-					caller: { active: true, style: 'font-size: 1.05em; font-weight: bold;', showClass: false },
-					location: { active: true, style: 'font-size: 0.85em; font-style: italic; color: dimgray;' },
-					divider: { active: true, style: 'font-size: 1.05em; font-weight: bold;', char: '-', length: 12 },
-					group: { active: true, style: 'font-size: 1.1em; font-weight: bold;', collapsed: false },
+					maxDepth: Infinity,
+					location: { active: false, style: 'font-size: 0.9em; font-style: italic; color: dimgray;' },
+					divider: { active: false, style: 'font-size: 1.1em; font-weight: bold;', char: '-', length: 12 },
+					group: { active: true, style: 'font-size: 1.2em; font-weight: bold;', collapsed: false },
+					depth: { active: true, char: ' ' },
 				},
-				_styles: {
+				styles: {
 					blue: { active: true, style: 'color: steelblue;' },
 					gray: { active: true, style: 'color: gray;' },
 					orange: { active: true, style: 'color: orange;' },
@@ -2684,22 +2740,39 @@
 					white: { active: true, style: 'color: white;' },
 					yellow: { active: true, style: 'color: yellow;' },
 				},
-				
-				// Helpers
+
+				// @b Private
+				//------------------------
+
+				// Depth
+				_depth: 0,
+
+				// Should log
+				_shouldLog() {
+					return this.config.active && this._depth <= this.config.maxDepth
+				},
+
+				// Get indent
+				_getIndent() {
+					return this.config.depth.active ? this.config.depth.char.repeat(this._depth) : ''
+				},
+
+				// Get caller info
 				_getCallerInfo: (idx) => {
 					const line = new Error().stack?.split('\n')[idx]?.trim() || ''
 					const match = line.match(/at\s+(.+?)\s+\((.+)\)/) || line.match(/^(.+?)@(.+)/)
-					if (!match) return { caller: '', className: '', location: '' }
+					if (!match) return { caller: '', location: '' }
 
 					const fullName = match[1]
 					const parts = fullName.split('.')
 					const caller = parts.pop()
-					const className = parts.length > 0 ? parts.join('.') : ''
 					const fullPath = match[2] || match[1]
 					const loc = fullPath.match(/([^\/\\]+):(\d+):\d+/)
 					const location = loc ? `${loc[1]}:${loc[2]}` : ''
-					return { caller, className, location }
+					return { caller, location }
 				},
+
+				// Format args
 				_formatArgs: (args) =>
 					args
 						.map((a) =>
@@ -2707,92 +2780,145 @@
 						)
 						.join(', '),
 
-				// Styled
-				styled(mode, ...args) {
-					if (!this._config.active || !this._styles[mode]?.active) return
-					const { caller, className, location } = this._getCallerInfo(4)
-					const content = this._formatArgs(args)
-					const style = this._styles[mode].style
+				// Enter with style
+				_enterWithStyle(color, ...data) {
+					if (!this.config.active || !this.styles[color]?.active) return
 
-					let message = ''
-					let styles = []
+					const indent = this._getIndent()
+					const { caller, location } = this._getCallerInfo(4)
 
-					if (this._config.caller.active) {
-						const fullCaller = className && this._config.caller.showClass ? `${className}.${caller}` : caller
-						message += `%c${fullCaller}%c(${content})`
-						styles.push(`${style}${this._config.caller.style}`, style)
-					} else {
-						message += `%c(${content})`
-						styles.push(style)
+					if (this._depth <= this.config.maxDepth) {
+						const formatted = data.length > 0 ? this._formatArgs(data) : ''
+						const message = `${indent}→ ${caller}(${formatted})`
+						console.log(`%c${message}`, this.styles[color].style)
+
+						if (this.config.location.active) {
+							console.log(`${indent}%c→ ${location}`, this.config.location.style)
+						}
 					}
-					if (this._config.location.active) {
-						message += `\n%c${location}`
-						styles.push(this._config.location.style)
+					this._depth++
+				},
+
+				// Start with style
+				_startWithStyle(color, text = null) {
+					if (!this._shouldLog() || !this.config.group.active || !this.styles[color]?.active) return
+
+					const indent = this._getIndent()
+					const displayText = text !== null ? text : this._getCallerInfo(5).caller
+					const method = this.config.group.collapsed ? console.groupCollapsed : console.group
+
+					const combinedStyle = `${this.config.group.style} ${this.styles[color].style}`
+					method(`${indent}%c${displayText}`, combinedStyle)
+				},
+
+				// Styled
+				_styled(mode, ...args) {
+					if (!this._shouldLog() || !this.styles[mode]?.active) return
+					const { location } = this._getCallerInfo(4)
+					const content = this._formatArgs(args)
+					const style = this.styles[mode].style
+					const indent = this._getIndent()
+
+					let message = `${indent}%c${content}`
+					let styles = [style]
+
+					if (this.config.location.active) {
+						message += `\n${indent}%c→ ${location}`
+						styles.push(this.config.location.style)
 					}
 					console.log(message, ...styles)
 				},
 
+				// @b Public
+				//------------------------
+
+				// Enter
+				enter(...data) {
+					if (!this.config.active) return
+
+					const indent = this._getIndent()
+					const { caller, location } = this._getCallerInfo(3)
+
+					if (this._depth <= this.config.maxDepth) {
+						const formatted = data.length > 0 ? this._formatArgs(data) : ''
+						console.log(`${indent}→ ${caller}(${formatted})`)
+
+						if (this.config.location.active) {
+							console.log(`${indent}%c→ ${location}`, this.config.location.style)
+						}
+					}
+					this._depth++
+				},
+
+				// Exit
+				exit() {
+					if (!this.config.active) return
+					this._depth = Math.max(0, this._depth - 1)
+				},
+
+				// Start
+				start(text = null) {
+					if (!this._shouldLog() || !this.config.group.active) return
+
+					const indent = this._getIndent()
+					const displayText = text !== null ? text : this._getCallerInfo(3).caller
+					const method = this.config.group.collapsed ? console.groupCollapsed : console.group
+
+					method(`${indent}%c${displayText}`, `${this.config.group.style} color: yellow;`)
+				},
+
+				// End
+				end() {
+					if (!this.config.active || !this.config.group.active) return
+					console.groupEnd()
+				},
+
 				// Default
 				default(...args) {
-					if (!this._config.active) return
-					console.log(...args)
-					if (this._config.location.active) {
+					if (!this._shouldLog()) return
+					const indent = this._getIndent()
+					console.log(indent, ...args)
+					if (this.config.location.active) {
 						const { location } = this._getCallerInfo(3)
-						console.log(`%c${location}`, this._config.location.style)
+						console.log(`${indent}%c↑ ${location}`, this.config.location.style)
 					}
 				},
 
 				// Error
 				error(...args) {
-					if (!this._config.active) return
-					console.error(...args)
-					if (this._config.location.active) {
-						const { location } = this._getCallerInfo(3)
-						console.log(`%c${location}`, this._config.location.style)
-					}
+					if (!this._shouldLog()) return
+					const indent = this._getIndent()
+					console.error(indent, ...args)
 				},
 
 				// Warn
 				warn(...args) {
-					if (!this._config.active) return
-					console.warn(...args)
-					if (this._config.location.active) {
-						const { location } = this._getCallerInfo(3)
-						console.log(`%c${location}`, this._config.location.style)
-					}
+					if (!this._shouldLog()) return
+					const indent = this._getIndent()
+					console.warn(indent, ...args)
 				},
 
 				// Divider
 				divider(text = '') {
-					if (!this._config.active || !this._config.divider.active) return
+					if (!this._shouldLog() || !this.config.divider.active) return
 
-					const char = this._config.divider.char
-					const style = this._config.divider.style
+					const char = this.config.divider.char
+					const style = this.config.divider.style
+					const indent = this._getIndent()
 
 					if (text) {
-						console.log(`%c${text}\n${char.repeat(text.length)}`, style)
+						console.log(`${indent}%c${text}\n${indent}${char.repeat(text.length)}`, style)
 					} else {
-						console.log(`%c${char.repeat(this._config.divider.length)}`, style)
+						console.log(`${indent}%c${char.repeat(this.config.divider.length)}`, style)
 					}
-				},
-
-				// Start
-				start(text = 'Logs') {
-					if (!this._config.active || !this._config.group.active) return
-					const method = this._config.group.collapsed ? console.groupCollapsed : console.group
-					method(`%c${text}`, this._config.group.style)
-				},
-
-				// End
-				end() {
-					if (!this._config.active || !this._config.group.active) return
-					console.groupEnd()
 				},
 
 				// Init
 				init() {
-					Object.keys(this._styles).forEach((mode) => {
-						this[mode] = (...args) => this.styled(mode, ...args)
+					Object.keys(this.styles).forEach((color) => {
+						this[color] = (...args) => this._styled(color, ...args)
+						this.start[color] = (text = null) => this._startWithStyle(color, text)
+						this.enter[color] = (...data) => this._enterWithStyle(color, ...data)
 					})
 				},
 			}
