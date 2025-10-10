@@ -2308,8 +2308,7 @@
 
 				// Filter for roads
 				if (route.range === ranges.ROADS.key) {
-					const roadName = route.name.split(' ')[2]
-					const roadLanes = route.name.split(' ')[4]
+					const name = route.name.split(' - ')[0]
 
 					const roadCategoryMap = {
 						A: 'Ekspresowe',
@@ -2320,7 +2319,7 @@
 					}
 
 					// Determine road category
-					const roadKey = Object.keys(roadCategoryMap).find((key) => roadName.startsWith(key))
+					const roadKey = Object.keys(roadCategoryMap).find((key) => name.startsWith(key))
 					const roadCategory = roadCategoryMap[roadKey]
 
 					// Filter by region (road category)
@@ -2332,7 +2331,7 @@
 					if (
 						$selectPlace.value !== modes.ALL.key &&
 						$selectPlace.value !== modes.EMPTY.key &&
-						$selectPlace.value !== roadName
+						$selectPlace.value !== name
 					) {
 						return true
 					}
@@ -2414,7 +2413,7 @@
 
 				// Roads
 				if (route.range === ranges.ROADS.key) {
-					const [date, name, lanes] = route.name.split(' - ')
+					const [name, date, lanes] = route.name.split(' - ')
 
 					routeName = renderName(`<strong>${name}</strong> - ${date}`, `${route.icon} ${formatDistance(route.length)}`)
 

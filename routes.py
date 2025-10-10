@@ -20,9 +20,9 @@ activities = {
     'transport_car': '🚗',
     'transport_public': '🚌',
     'transport_train': '🚆',
+    'transport_truck': '🛣️',
     'transport_boat': '🛳️',
     'downhill_skiing': '🎿',
-    'roads': '🛣️'
 }
 
 #------------------------
@@ -44,7 +44,7 @@ def get_name(gpx):
 
 # @b Get year
 #------------------------
-def get_year(name):
+def get_year(name, range):
     """
     Extract year from the first 4 characters of the name and return:
     - the year if it is in the past or in the future,
@@ -52,24 +52,29 @@ def get_year(name):
     - 0 if the month is in the future within the current year or date not found
     """
     try:
-        year_str = name[:4]
-        year = int(year_str)
-        today = datetime.today()
-        current_year = today.year
-        current_month = today.month
+        if range == "DROGI":
+            parts = name.split(" - ")            
+            year = int(parts[1][:4])
+            return year
+        else: 
+            year_str = name[:4]
+            year = int(year_str)
+            today = datetime.today()
+            current_year = today.year
+            current_month = today.month
 
-        if year < current_year:
-            return year
-        elif year > current_year:
-            return year
-        else:
-            if len(name) >= 7:
-                month_str = name[5:7]
-                if month_str.isdigit():
-                    month = int(month_str)
-                    if 1 <= month <= 12:
-                        return year if month <= current_month else 0
-            return year
+            if year < current_year:
+                return year
+            elif year > current_year:
+                return year
+            else:
+                if len(name) >= 7:
+                    month_str = name[5:7]
+                    if month_str.isdigit():
+                        month = int(month_str)
+                        if 1 <= month <= 12:
+                            return year if month <= current_month else 0
+                return year
     except Exception:
         return 0
 
@@ -86,7 +91,7 @@ def get_range(activity):
     """
     if activity:
         activity = activity.strip().lower()
-        if activity == "roads":
+        if activity == "transport_truck":
             return "DROGI"
         elif activity.startswith("world_"):
             return "ŚWIAT"
@@ -315,7 +320,7 @@ def main():
         for name, range_, activity, coords in extracted:
             length = calculate_total_length(coords)
             icon = get_activity_icon(activity)
-            year = get_year(name)
+            year = get_year(name, range_)
         
             if range_ == "POLSKA":
                 print(f"✅ 🇵🇱 {icon} {name}")
