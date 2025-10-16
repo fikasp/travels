@@ -6645,6 +6645,16 @@ const data = {
         zoom: 7,
         scale: 1.0,
         gallery: []
+      },
+      "S7": {
+        coor: [
+          51.9,
+          19.2
+        ],
+        date: [],
+        zoom: 7,
+        scale: 1.0,
+        gallery: []
       }
     },
     "Krajowe": {
