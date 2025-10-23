@@ -2417,7 +2417,9 @@
 
 					routeName = renderName(`<strong>${name}</strong> - ${date}`, `${route.icon} ${formatDistance(route.length)}`)
 
-					routeWeight = lanes?.[0] == 3 ? 5 : lanes?.[0] == 2 ? 4 : lanes?.[0] == 1 ? 3 : 2
+					routeLane = lanes?.[0]
+
+					routeWeight = routeLane == 3 ? 5 : routeLane == 2 ? 4 : routeLane == 1 ? 2 : 1
 
 					routeColor = getColorForRoute(route.year)
 				} else {
