@@ -1547,6 +1547,7 @@
 				for (let year = CURRENT_YEAR; year >= 2004; year--) {
 					createOption($selectDate, year, `📅 ${year}`, $dateFilter)
 				}
+				createOption($selectDate, 2000, `📅 2000`, $dateFilter)
 				Log.exit()
 			}
 
@@ -2384,6 +2385,7 @@
 				const primaryColor = '#444'
 				const secondaryColor = '#666'
 				const planColor = 'steelblue'
+				const buildColor = 'crimson'
 
 				const primaryActivities = [
 					activities.CYCLING.key,
@@ -2421,7 +2423,11 @@
 
 					routeWeight = routeLane == 3 ? 5 : routeLane == 2 ? 4 : routeLane == 1 ? 2 : 1
 
-					routeColor = getColorForRoute(route.year)
+					if (route.year > CURRENT_YEAR) {
+						routeColor = buildColor
+					} else {
+						routeColor = getColorForRoute(route.year)
+					}
 				} else {
 					// Other routes
 					const [date, name] = route.name.split(' - ')
@@ -2542,7 +2548,7 @@
 			// @b Get color for route
 			//------------------------
 			function getColorForRoute(year) {
-				const minYear = 2004
+				const minYear = 2000
 				const maxYear = 2025
 
 				// Clamp year
@@ -2551,11 +2557,14 @@
 				// Normalize to 0–1
 				const ratio = (clampedYear - minYear) / (maxYear - minYear)
 
-				// Map to 0–255 (intensity of blue)
-				const blue = Math.round(ratio * 255)
-				const hex = blue.toString(16).padStart(2, '0')
+				// Map to 0–255
+				const r = 0
+				const g = Math.round(0 + ratio * 128)
+				const b = Math.round(0 + ratio * 255)
 
-				return `#0000${hex}`
+				// Convert to HEX
+				const toHex = (x) => x.toString(16).padStart(2, '0')
+				return `#${toHex(r)}${toHex(g)}${toHex(b)}`
 			}
 
 			// @b Clear selected routes
