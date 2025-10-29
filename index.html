@@ -2421,7 +2421,15 @@
 
 					routeLane = lanes?.[0]
 
-					routeWeight = routeLane == 3 ? 5 : routeLane == 2 ? 4 : routeLane == 1 ? 2 : 1
+					if (routeLane == 3) {
+						routeWeight = 8
+					} else if (routeLane == 2) {
+						routeWeight = 6
+					} else if (routeLane == 1) {
+						routeWeight = 4
+					} else {
+						routeWeight = 2
+					}
 
 					if (route.year > CURRENT_YEAR) {
 						routeColor = buildColor
