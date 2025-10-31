@@ -6626,16 +6626,6 @@ const data = {
         scale: 1.0,
         gallery: []
       },
-      "S2": {
-        coor: [
-          51.9,
-          19.2
-        ],
-        date: [],
-        zoom: 7,
-        scale: 1.0,
-        gallery: []
-      },
       "S3": {
         coor: [
           51.9,
