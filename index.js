@@ -6667,13 +6667,13 @@ const data = {
         gallery: []
       }
     },
-    "Krajowe": {
+    "Pozostałe": {
       coor: [
         51.9,
         19.2
       ],
       zoom: 7,
-      "DK1": {
+      "D1": {
         coor: [
           51.9,
           19.2
@@ -6683,7 +6683,7 @@ const data = {
         scale: 1.0,
         gallery: []
       },
-      "DK2": {
+      "D2": {
         coor: [
           51.9,
           19.2
@@ -6693,7 +6693,7 @@ const data = {
         scale: 1.0,
         gallery: []
       },
-      "DK3": {
+      "D3": {
         coor: [
           51.9,
           19.2
@@ -6703,117 +6703,13 @@ const data = {
         scale: 1.0,
         gallery: []
       },
-      "DK7": {
+      "D7": {
         coor: [
           51.9,
           19.2
         ],
         date: [],
         zoom: 7,
-        scale: 1.0,
-        gallery: []
-      }
-    },
-    "Wojewódzkie": {
-      coor: [
-        51.9,
-        19.2
-      ],
-      zoom: 7,
-      "DW901": {
-        coor: [
-          51.9,
-          19.2
-        ],
-        date: [],
-        zoom: 7,
-        scale: 1.0,
-        gallery: []
-      },
-      "DW902": {
-        coor: [
-          51.9,
-          19.2
-        ],
-        date: [],
-        zoom: 7,
-        scale: 1.0,
-        gallery: []
-      }
-    },
-    "Krakowskie": {
-      coor: [
-        50.05,
-        19.94
-      ],
-      zoom: 12,
-      "1 obwodnica": {
-        coor: [
-          50.05,
-          19.94
-        ],
-        date: [],
-        zoom: 12,
-        scale: 1.0,
-        gallery: []
-      },
-      "2 obwodnica": {
-        coor: [
-          50.05,
-          19.94
-        ],
-        date: [],
-        zoom: 12,
-        scale: 1.0,
-        gallery: []
-      },
-      "3 obwodnica": {
-        coor: [
-          50.05,
-          19.94
-        ],
-        date: [],
-        zoom: 12,
-        scale: 1.0,
-        gallery: []
-      },
-      "4 obwodnica": {
-        coor: [
-          50.05,
-          19.94
-        ],
-        date: [],
-        zoom: 12,
-        scale: 1.0,
-        gallery: []
-      },
-      "Trasa łagiewnicka": {
-        coor: [
-          50.05,
-          19.94
-        ],
-        date: [],
-        zoom: 12,
-        scale: 1.0,
-        gallery: []
-      },
-      "Trasa nowotarska": {
-        coor: [
-          50.05,
-          19.94
-        ],
-        date: [],
-        zoom: 12,
-        scale: 1.0,
-        gallery: []
-      },
-      "Trasa wolbromska": {
-        coor: [
-          50.05,
-          19.94
-        ],
-        date: [],
-        zoom: 12,
         scale: 1.0,
         gallery: []
       }
