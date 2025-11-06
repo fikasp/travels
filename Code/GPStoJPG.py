@@ -3,6 +3,9 @@ import piexif
 from Tools import select_folder
 from PIL import Image
 
+#------------------------
+# @g FUNCTIONS
+#------------------------
 
 def convert_decimal_to_gps(value, ref):
     """
@@ -80,6 +83,10 @@ def process_folder(folder_path):
         output_path = os.path.join(folder_path, file.replace(".jpg", "_gps.jpg"))
         add_gps_to_image(input_path, latitude, longitude, output_path)
 
+
+#------------------------
+# @g MAIN
+#------------------------
 
 def main():
 

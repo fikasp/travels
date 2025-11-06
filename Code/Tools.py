@@ -5,14 +5,12 @@ from tkinter import filedialog
 from openpyxl import Workbook
 
 
-def save_gps_to_xlsx(data: list[tuple], filepath: str):
+def save_gps_to_xlsx(data: list[tuple], filepath: str, headers: list[str] = ["Name", "Coordinates"]):
     """
     Save a list of tuples to an XLSX file.
     :param data: List of rows (each row is a tuple of values)
     :param filepath: Output path for the XLSX file
     """
-    headers = ["Name", "Coordinates"] 
-
     wb = Workbook()
     ws = wb.active
     ws.append(headers)

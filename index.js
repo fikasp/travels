@@ -1565,6 +1565,46 @@ const data = {
           },
           {
             catg: "S",
+            name: "Kościół Niepokalanego Poczęcia NMP (Karmelitów Bosych) [Warszawskie]/Zewnętrze",
+            scale: 1.0,
+            coor: [
+              50.0685545,
+              19.9523467
+            ],
+            date: [
+              2025,
+              2019
+            ],
+            "top": true
+          },
+          {
+            catg: "S",
+            name: "Kościół Niepokalanego Poczęcia NMP (Karmelitów Bosych) [Warszawskie]/Wnętrze",
+            scale: 1.0,
+            coor: [
+              50.0685545,
+              19.9523467
+            ],
+            date: [
+              2025,
+              2019
+            ]
+          },
+          {
+            catg: "S",
+            name: "Kościół Niepokalanego Poczęcia NMP (Karmelitów Bosych) [Warszawskie]/Organy",
+            scale: 1.0,
+            coor: [
+              50.0685545,
+              19.9523467
+            ],
+            date: [
+              2025,
+              2019
+            ]
+          },
+          {
+            catg: "S",
             name: "Kościół NMP Matki Kościoła [Prądnik Biały]/Zewnętrze",
             scale: 1.0,
             coor: [
