@@ -7,6 +7,8 @@ from PIL import Image
 # @g FUNCTIONS
 #------------------------
 
+# @b Convert decimal to GPS
+#------------------------
 def convert_decimal_to_gps(value, ref):
     """
     Convert decimal degrees to EXIF GPS format.
@@ -18,6 +20,8 @@ def convert_decimal_to_gps(value, ref):
     return ((deg, 1), (min_, 1), (sec, 100)), ref
 
 
+# @b Add GPS to image
+#------------------------
 def add_gps_to_image(image_path, lat, lon, output_path):
     """
     Adds GPS metadata to a JPEG image and saves it to a new file.
@@ -52,6 +56,8 @@ def add_gps_to_image(image_path, lat, lon, output_path):
     print(f"✅ GPS added to: {output_path}")
 
 
+# @b Process folder
+#------------------------
 def process_folder(folder_path):
     # Find all .jpg files in the selected folder
     print(f"🔄 Processing folder: {folder_path}")

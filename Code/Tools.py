@@ -5,6 +5,8 @@ from tkinter import filedialog
 from openpyxl import Workbook
 
 
+# @b Save GPS to XLSX
+#------------------------
 def save_gps_to_xlsx(data: list[tuple], filepath: str, headers: list[str] = ["Name", "Coordinates"]):
     """
     Save a list of tuples to an XLSX file.
@@ -19,6 +21,8 @@ def save_gps_to_xlsx(data: list[tuple], filepath: str, headers: list[str] = ["Na
     wb.save(filepath)
 
 
+# @b Select file
+#------------------------
 def select_file(ext: str = "*") -> str | None:
     """
     Open a file dialog to select a file by extension.
@@ -42,6 +46,8 @@ def select_file(ext: str = "*") -> str | None:
     return file_path
 
 
+# @b Select folder
+#------------------------
 def select_folder() -> str | None:
     """
     Open a dialog to select a folder.
@@ -56,6 +62,8 @@ def select_folder() -> str | None:
     return folder_path
 
 
+# @b Set file hidden
+#------------------------
 def set_file_hidden(file_path):
     """
     Set the Windows file hidden attribute using 'attrib +H'.
@@ -66,6 +74,8 @@ def set_file_hidden(file_path):
         print(f"⚠️ Couldn't hide file: {e}")
 
 
+# @b Set file unhidden
+#------------------------
 def set_file_unhidden(file_path):
     """
     Remove the Windows file hidden attribute using 'attrib -H'.
@@ -76,6 +86,8 @@ def set_file_unhidden(file_path):
         print(f"⚠️ Couldn't unhide file: {e}")
 
 
+# @b Set Polish locale
+#------------------------
 def set_polish_locale():
     """
     Set the Polish locale for string collation.
@@ -86,6 +98,8 @@ def set_polish_locale():
         print("⚠️  Polish locale not available on this system.")
 
 
+# @b Write data to file
+#------------------------
 def write_data_to_file(file_path, content, encoding="utf-8"):
     """
     Write text content to a file using the specified encoding.

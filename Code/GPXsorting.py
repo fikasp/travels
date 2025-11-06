@@ -3,7 +3,12 @@ from Tools import set_polish_locale
 from Tools import select_file
 import locale
 
+#------------------------
+# @g FUNCTIONS
+#------------------------
 
+# @b Process file
+#------------------------
 def process_file(file_path: str):
     """
     Sorts <wpt> elements in the GPX file alphabetically by <name>.
@@ -36,7 +41,9 @@ def process_file(file_path: str):
     # Save back to the original file
     tree.write(file_path, encoding='utf-8', xml_declaration=True)
 
-
+#------------------------
+# @g MAIN
+#------------------------
 def main():
 
     # Print header

@@ -5,7 +5,12 @@ from Tools import select_folder
 from Tools import save_gps_to_xlsx
 from Tools import set_polish_locale
 
+#------------------------
+# @g FUNCTIONS
+#------------------------
 
+# @b Convert GPS to decimal
+#------------------------
 def convert_gps_to_decimal(value):
     """
     Converts EXIF GPS coordinates into float degrees.
@@ -17,6 +22,8 @@ def convert_gps_to_decimal(value):
         return None
 
 
+# @b Get GPS coordinates
+#------------------------
 def get_gps_coordinates(file_path):
     """
     Extracts GPS coordinates from a JPEG using exifread.
@@ -45,6 +52,8 @@ def get_gps_coordinates(file_path):
             return f"error: {str(e)}"
 
 
+# @b Process folder
+#------------------------
 def process_folder(folder_path):
     """
     Processes all JPG images in the folder and returns list of tuples: (filename, coordinates),
@@ -67,6 +76,9 @@ def process_folder(folder_path):
     save_gps_to_xlsx(data, output_path)
 
 
+#------------------------
+# @g MAIN
+#------------------------
 def main():
 
     # Print header

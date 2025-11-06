@@ -40,11 +40,10 @@ def parse_gpx_waypoint(element):
     raw_name = name_element.text if name_element is not None else "Unnamed"
 
     # 2. Clean the name: remove '!' and leading/trailing whitespace
-    # Note: 'cleaned_name' still contains the category prefix, e.g., "H: Sukiennice"
     cleaned_name = raw_name.replace('!', '').strip()
     
-    # 3. Determine Category and Description (Logic remains for Excel output)
-    category = "O"  # Default category 'O' (Observation/Other)
+    # 3. Determine Category and description
+    category = "O"  # Default category 'O' (Other)
     description = cleaned_name
     
     # Check for the category pattern: <LETTER>:<TEXT>
@@ -55,13 +54,11 @@ def parse_gpx_waypoint(element):
         description = cleaned_name[2:].lstrip()
 
     # 4. Format Coordinates
-    # Attributes (like lat/lon) are generally not affected by namespaces
     lat = "{:.7f}".format(float(element.attrib["lat"]))
     lon = "{:.7f}".format(float(element.attrib["lon"]))
     coordinates = f"{lat}, {lon}"
     
-    # 5. Print and Return
-    # Zmieniony komunikat zgodnie z Twoim życzeniem:
+    # 5. Print and return
     print(f"✔️  {coordinates} -> {cleaned_name}")
     
     # Required output columns: 1: coordinates, 2: empty, 3: category, 4: description
@@ -90,7 +87,6 @@ def process_file(file_path: str):
     xmlElements = root.findall(WPT_TAG_NS)
 
     # 2. If no waypoints were found, try to find them without the namespace
-    # (Fallback for simplified/non-standard GPX files)
     if not xmlElements:
         xmlElements = root.findall(WPT_TAG_NO_NS)
         
