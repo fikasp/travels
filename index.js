@@ -3289,7 +3289,44 @@ const data = {
         ],
         zoom: 15,
         scale: 1.0,
-        gallery: []
+        gallery: [
+          {
+            catg: "H",
+            name: "Pałac Bobrowskich",
+            scale: 1.0,
+            coor: [
+              49.85413,
+              19.3423051
+            ],
+            date: [
+              2021
+            ]
+          },
+          {
+            catg: "O",
+            name: "Rynek śródmiejski",
+            scale: 1.0,
+            coor: [
+              49.8526739,
+              19.3415889
+            ],
+            date: [
+              2021
+            ]
+          },
+          {
+            catg: "S",
+            name: "Kościół św. Macieja",
+            scale: 1.0,
+            coor: [
+              49.8535767,
+              19.3428791
+            ],
+            date: [
+              2021
+            ]
+          }
+        ]
       },
       "Biecz": {
         abbr: "KGRB",
