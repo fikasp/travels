@@ -6790,6 +6790,16 @@ const data = {
         scale: 1.0,
         gallery: []
       },
+      "D6": {
+        coor: [
+          51.9,
+          19.2
+        ],
+        date: [],
+        zoom: 7,
+        scale: 1.0,
+        gallery: []
+      },
       "D7": {
         coor: [
           51.9,
