@@ -329,7 +329,80 @@ const data = {
         ],
         zoom: 15,
         scale: 1.0,
-        gallery: []
+        gallery: [
+          {
+            catg: "H",
+            name: "Centrum Sztuki",
+            scale: 1.0,
+            coor: [
+              40.0812001,
+              -2.1278849
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: "O",
+            name: "Most św. Pawła",
+            scale: 1.0,
+            coor: [
+              40.0783382,
+              -2.1278152
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: "O",
+            name: "Plac Główny",
+            scale: 1.0,
+            coor: [
+              40.0784696,
+              -2.1297812
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: "S",
+            name: "Katedra MB Łaskawej",
+            scale: 1.0,
+            coor: [
+              40.0785681,
+              -2.1297021
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: "Z",
+            name: "Park św. Juliana 1",
+            scale: 1.0,
+            coor: [
+              40.0727351,
+              -2.1355614
+            ],
+            date: [
+              2019
+            ]
+          },
+          {
+            catg: "Z",
+            name: "Park św. Juliana 2",
+            scale: 1.0,
+            coor: [
+              40.0732134,
+              -2.1348077
+            ],
+            date: [
+              2019
+            ]
+          }
+        ]
       },
       "Requena": {
         coor: [
