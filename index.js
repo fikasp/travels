@@ -338,9 +338,17 @@ const data = {
               40.0812001,
               -2.1278849
             ],
-            date: [
-              2019
-            ]
+            date: []
+          },
+          {
+            catg: "H",
+            name: "Wiszące domy",
+            scale: 1.0,
+            coor: [
+              40.0770083,
+              -2.1299234
+            ],
+            date: []
           },
           {
             catg: "O",
@@ -350,9 +358,47 @@ const data = {
               40.0783382,
               -2.1278152
             ],
-            date: [
-              2019
-            ]
+            date: []
+          },
+          {
+            catg: "O",
+            name: "Panorama 1 W",
+            scale: 1.0,
+            coor: [
+              40.0815193,
+              -2.1242023
+            ],
+            date: []
+          },
+          {
+            catg: "O",
+            name: "Panorama 2 S",
+            scale: 1.0,
+            coor: [
+              40.0816752,
+              -2.1260691
+            ],
+            date: []
+          },
+          {
+            catg: "O",
+            name: "Panorama 3 E",
+            scale: 1.0,
+            coor: [
+              40.0813223,
+              -2.1265465
+            ],
+            date: []
+          },
+          {
+            catg: "O",
+            name: "Panorama 4 N",
+            scale: 1.0,
+            coor: [
+              40.0782972,
+              -2.1274102
+            ],
+            date: []
           },
           {
             catg: "O",
@@ -362,9 +408,7 @@ const data = {
               40.0784696,
               -2.1297812
             ],
-            date: [
-              2019
-            ]
+            date: []
           },
           {
             catg: "S",
@@ -374,9 +418,17 @@ const data = {
               40.0785681,
               -2.1297021
             ],
-            date: [
-              2019
-            ]
+            date: []
+          },
+          {
+            catg: "S",
+            name: "Sanktuarium MB",
+            scale: 1.0,
+            coor: [
+              40.0808543,
+              -2.1298563
+            ],
+            date: []
           },
           {
             catg: "Z",
@@ -386,9 +438,7 @@ const data = {
               40.0727351,
               -2.1355614
             ],
-            date: [
-              2019
-            ]
+            date: []
           },
           {
             catg: "Z",
@@ -398,9 +448,7 @@ const data = {
               40.0732134,
               -2.1348077
             ],
-            date: [
-              2019
-            ]
+            date: []
           }
         ]
       },
