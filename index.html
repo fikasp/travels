@@ -1537,17 +1537,29 @@
 			//------------------------
 			function prepareDates() {
 				Log.enter()
-				createOption($selectDate, modes.ALL.key, `📅 ${modes.ALL.value}`, $dateFilter)
-				createOption($selectDate, modes.DONE.key, `📅 ${modes.DONE.value}`, $dateFilter)
-				createOption($selectDate, modes.PLAN_ALL.key, `📅 ${modes.PLAN_ALL.value}`, $dateFilter)
-				for (let year = FUTURE_YEAR; year > CURRENT_YEAR; year--) {
-					createOption($selectDate, year, `📅 Plan ${year}`, $dateFilter)
+				clearContent($selectDate)
+
+				if ($selectRange.value === ranges.ROADS.key) {
+					createOption($selectDate, modes.ALL.key, `📅 ${modes.ALL.value}`, $dateFilter)
+					const roadYears = [2027, 2026, 2025, 2024, 2020, 2016, 2012, 2008, 2004, 2000]
+					roadYears.forEach((year) => {
+						createOption($selectDate, year, `📅 ${year}`, $dateFilter)
+					})
+				} else {
+					// Common options for all ranges
+					createOption($selectDate, modes.ALL.key, `📅 ${modes.ALL.value}`, $dateFilter)
+					createOption($selectDate, modes.DONE.key, `📅 ${modes.DONE.value}`, $dateFilter)
+					createOption($selectDate, modes.PLAN_ALL.key, `📅 ${modes.PLAN_ALL.value}`, $dateFilter)
+					for (let year = FUTURE_YEAR; year > CURRENT_YEAR; year--) {
+						createOption($selectDate, year, `📅 Plan ${year}`, $dateFilter)
+					}
+					createOption($selectDate, modes.PLAN_CURRENT.key, `📅 ${modes.PLAN_CURRENT.value}`, $dateFilter)
+					for (let year = CURRENT_YEAR; year >= 2004; year--) {
+						createOption($selectDate, year, `📅 ${year}`, $dateFilter)
+					}
+					createOption($selectDate, 2000, `📅 2000`, $dateFilter)
 				}
-				createOption($selectDate, modes.PLAN_CURRENT.key, `📅 ${modes.PLAN_CURRENT.value}`, $dateFilter)
-				for (let year = CURRENT_YEAR; year >= 2004; year--) {
-					createOption($selectDate, year, `📅 ${year}`, $dateFilter)
-				}
-				createOption($selectDate, 2000, `📅 2000`, $dateFilter)
+
 				Log.exit()
 			}
 
@@ -1670,6 +1682,7 @@
 				setEmblem()
 				setTitle()
 				setMapView()
+				prepareDates()
 				prepareRoutes()
 				updateData()
 				logSelects()
