@@ -94,7 +94,7 @@ def get_range(activity):
         if activity == "transport_truck":
             return "DROGI"
         elif activity.startswith("world_"):
-            return "ŚWIAT"
+            return "EUROPA"
     return "POLSKA"
 
 
@@ -324,7 +324,7 @@ def main():
         
             if range_ == "POLSKA":
                 print(f"✅ 🇵🇱 {icon} {name}")
-            elif range_ == "ŚWIAT":
+            elif range_ == "EUROPA":
                 print(f"✅ 🇪🇺 {icon} {name}")
             elif range_ == "DROGI":
                 print(f"✅ 🇩🇬 {icon}  {name}")

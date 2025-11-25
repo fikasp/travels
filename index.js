@@ -1,5 +1,161 @@
 const data = {
-  "ŚWIAT": {
+  "DROGI": {
+    "Ekspresowe": {
+      coor: [
+        51.9,
+        19.2
+      ],
+      zoom: 7,
+      "A1": {
+        coor: [
+          51.9,
+          19.2
+        ],
+        date: [],
+        zoom: 7,
+        scale: 1.0,
+        gallery: []
+      },
+      "A2": {
+        coor: [
+          51.9,
+          19.2
+        ],
+        date: [],
+        zoom: 7,
+        scale: 1.0,
+        gallery: []
+      },
+      "A4": {
+        coor: [
+          51.9,
+          19.2
+        ],
+        date: [],
+        zoom: 7,
+        scale: 1.0,
+        gallery: []
+      },
+      "S1": {
+        coor: [
+          51.9,
+          19.2
+        ],
+        date: [],
+        zoom: 7,
+        scale: 1.0,
+        gallery: []
+      },
+      "S3": {
+        coor: [
+          51.9,
+          19.2
+        ],
+        date: [],
+        zoom: 7,
+        scale: 1.0,
+        gallery: []
+      },
+      "S5": {
+        coor: [
+          51.9,
+          19.2
+        ],
+        date: [],
+        zoom: 7,
+        scale: 1.0,
+        gallery: []
+      },
+      "S6": {
+        coor: [
+          51.9,
+          19.2
+        ],
+        date: [],
+        zoom: 7,
+        scale: 1.0,
+        gallery: []
+      },
+      "S7": {
+        coor: [
+          51.9,
+          19.2
+        ],
+        date: [],
+        zoom: 7,
+        scale: 1.0,
+        gallery: []
+      },
+      "S8": {
+        coor: [
+          51.9,
+          19.2
+        ],
+        date: [],
+        zoom: 7,
+        scale: 1.0,
+        gallery: []
+      }
+    },
+    "Pozostałe": {
+      coor: [
+        51.9,
+        19.2
+      ],
+      zoom: 7,
+      "D1": {
+        coor: [
+          51.9,
+          19.2
+        ],
+        date: [],
+        zoom: 7,
+        scale: 1.0,
+        gallery: []
+      },
+      "D2": {
+        coor: [
+          51.9,
+          19.2
+        ],
+        date: [],
+        zoom: 7,
+        scale: 1.0,
+        gallery: []
+      },
+      "D5": {
+        coor: [
+          51.9,
+          19.2
+        ],
+        date: [],
+        zoom: 7,
+        scale: 1.0,
+        gallery: []
+      },
+      "D6": {
+        coor: [
+          51.9,
+          19.2
+        ],
+        date: [],
+        zoom: 7,
+        scale: 1.0,
+        gallery: []
+      },
+      "D7": {
+        coor: [
+          51.9,
+          19.2
+        ],
+        date: [],
+        zoom: 7,
+        scale: 1.0,
+        gallery: []
+      }
+    }
+  },
+  "EUROPA": {
     "Hiszpania": {
       coor: [
         40.413496,
@@ -6772,162 +6928,6 @@ const data = {
           2016
         ],
         zoom: 14,
-        scale: 1.0,
-        gallery: []
-      }
-    }
-  },
-  "DROGI": {
-    "Ekspresowe": {
-      coor: [
-        51.9,
-        19.2
-      ],
-      zoom: 7,
-      "A1": {
-        coor: [
-          51.9,
-          19.2
-        ],
-        date: [],
-        zoom: 7,
-        scale: 1.0,
-        gallery: []
-      },
-      "A2": {
-        coor: [
-          51.9,
-          19.2
-        ],
-        date: [],
-        zoom: 7,
-        scale: 1.0,
-        gallery: []
-      },
-      "A4": {
-        coor: [
-          51.9,
-          19.2
-        ],
-        date: [],
-        zoom: 7,
-        scale: 1.0,
-        gallery: []
-      },
-      "S1": {
-        coor: [
-          51.9,
-          19.2
-        ],
-        date: [],
-        zoom: 7,
-        scale: 1.0,
-        gallery: []
-      },
-      "S3": {
-        coor: [
-          51.9,
-          19.2
-        ],
-        date: [],
-        zoom: 7,
-        scale: 1.0,
-        gallery: []
-      },
-      "S5": {
-        coor: [
-          51.9,
-          19.2
-        ],
-        date: [],
-        zoom: 7,
-        scale: 1.0,
-        gallery: []
-      },
-      "S6": {
-        coor: [
-          51.9,
-          19.2
-        ],
-        date: [],
-        zoom: 7,
-        scale: 1.0,
-        gallery: []
-      },
-      "S7": {
-        coor: [
-          51.9,
-          19.2
-        ],
-        date: [],
-        zoom: 7,
-        scale: 1.0,
-        gallery: []
-      },
-      "S8": {
-        coor: [
-          51.9,
-          19.2
-        ],
-        date: [],
-        zoom: 7,
-        scale: 1.0,
-        gallery: []
-      }
-    },
-    "Pozostałe": {
-      coor: [
-        51.9,
-        19.2
-      ],
-      zoom: 7,
-      "D1": {
-        coor: [
-          51.9,
-          19.2
-        ],
-        date: [],
-        zoom: 7,
-        scale: 1.0,
-        gallery: []
-      },
-      "D2": {
-        coor: [
-          51.9,
-          19.2
-        ],
-        date: [],
-        zoom: 7,
-        scale: 1.0,
-        gallery: []
-      },
-      "D5": {
-        coor: [
-          51.9,
-          19.2
-        ],
-        date: [],
-        zoom: 7,
-        scale: 1.0,
-        gallery: []
-      },
-      "D6": {
-        coor: [
-          51.9,
-          19.2
-        ],
-        date: [],
-        zoom: 7,
-        scale: 1.0,
-        gallery: []
-      },
-      "D7": {
-        coor: [
-          51.9,
-          19.2
-        ],
-        date: [],
-        zoom: 7,
         scale: 1.0,
         gallery: []
       }

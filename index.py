@@ -28,9 +28,9 @@ def process_data():
 
     # Initialize data structure
     output = {
-        "ŚWIAT": {}, 
-        "POLSKA": {}, 
         "DROGI": {},
+        "EUROPA": {}, 
+        "POLSKA": {}, 
         "GÓRY": {}, 
         }
 
