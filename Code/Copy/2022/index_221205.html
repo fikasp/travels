@@ -1,0 +1,941 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="#" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/f621819642.js"></script>
+
+    <title>Miasta Polski</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            outline: 0;
+            font: inherit;
+            font-size: 100%;
+            line-height: 1;
+            vertical-align: baseline;
+            text-decoration: none;
+            list-style: none;
+            box-sizing: border-box;
+            border-spacing: 0;
+        }
+            html {
+                color: #fff;
+                background: #000;
+                font-family: verdana, sans-serif;
+                font-size: 14px;
+                --accent: #0080c0;
+                --viewHeight: 0px;
+                --marginTop: 0px;
+            }
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+        .form {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            gap: 10px;
+            padding: 30px 30px 10px;
+            box-shadow: 0 0 30px #000;
+            background: #000;
+            z-index: 1;
+        }
+            .form_group {
+                display: flex;
+                flex-wrap: wrap;
+                flex-grow: 1;
+                min-width: 20%;
+                border-radius: 10px;
+                gap: 10px;
+            }
+                .form_tab {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    flex-grow: 1;
+                    min-width: 290px;
+                    background: #fff;
+                    box-shadow: 0 0 20px var(--accent);
+                    border-radius: 10px;
+                }
+                    .form_label {
+                        width: 120px;
+                        padding: 0 10px;
+                        background: #fff;
+                        color: #000;
+                    }
+                    .form_select {
+                        flex-grow: 1;
+                        text-align: center;
+                        padding: 10px 10px;
+                        width: 170px;
+                        color: #000;
+                        background: #fff;
+                        border-radius: 10px;
+                        transition: .2s;
+                    }
+                        .form_select:focus {
+                            color: var(--accent);
+                        }
+                        .form_option {
+                            padding: 10px;
+                            background: #fff;
+                            color: #000;
+                        }
+
+                .form_button {
+                    flex-grow: 1;
+                    text-align: center;
+                    padding: 10px;
+                    border-radius: 10px;
+                    background: #fff;
+                    box-shadow: 0 0 20px var(--accent);
+                    transition: .2s;
+                }
+                    .form_button:hover {
+                        background: var(--accent);
+                        box-shadow: 0 0 40px var(--accent);
+                    }
+
+        .map {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin: 30px;
+            top: 0px;
+            left: 0px;
+            margin-top: var(--marginTop);
+            width: 100%;
+            min-width: 400px;
+            min-height: 50px;
+            border-radius: 10px;
+            box-shadow: 0 0 60px var(--accent);
+            transition: 1s;
+        }
+            .map_mask {
+                display: flex;
+                position: absolute;
+                left: 0px;
+                bottom: 0px;
+                width: 100%;
+                height: 3%;
+                background: var(--accent);
+                border-radius: 0 0 8px 8px;
+                filter: brightness(0.5);
+                transition: 1s;
+            }
+            .map_circle {
+                position: absolute;
+                top: calc(50% - 50px);
+                left: calc(50% - 50px);
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                border: 15px solid #222;
+                border-top: 15px solid var(--accent);
+                animation: spin 2s linear infinite;
+                z-index: -2;
+            }
+            .map_load {
+                display: block;
+                position: absolute;
+                text-align: center;
+                top: 15px;
+                left: 0;
+                width: 100%;
+                background: #000;
+                color: var(--accent);
+                z-index: -2;
+            }
+            .map_image {
+                width: 100%;
+                border-radius: 10px;
+                transition: 1s;
+            }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px,1fr));
+            margin: 30px;
+            margin-top: var(--marginTop);
+            gap: 10px;
+        }
+        .gallery_image {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 0 20px var(--accent);
+            transition: 0.5s
+        }
+        .gallery_image:hover {
+            filter: brightness(0.5);
+            cursor: pointer;
+        }
+
+        .photo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+        .photo_group {
+            position: relative;
+        }
+        .photo_arrow {
+            font-size: 40px;
+            color: #888;
+            transition: 1s;
+            z-index: 1;
+        }
+        .photo_arrow:hover {
+            color: var(--accent);
+            text-shadow: 0 0 20px var(--accent);
+        }
+        .photo_next {
+            position: absolute;
+            top: calc(var(--marginTop));
+            padding: 35vh 50px 100%;
+            right: 30px;
+        }
+        .photo_previous {
+            position: absolute;
+            top: calc(var(--marginTop));
+            padding: 35vh 50px 100%;
+            left: 30px;
+            z-index: 2;
+        }
+        .photo_close {
+            position: absolute;
+            width: calc(100% - 100px);
+            height: calc(100% - var(--marginTop) - 60px);
+            top: calc(var(--marginTop) + 10px);
+            left: 50px;
+        }
+        .photo_image {
+            position: relative;
+            max-width: calc(100vw - 60px);
+            max-height: var(--viewHeight);
+            margin: 30px;
+            object-fit: cover;
+            margin-top: var(--marginTop);
+            box-shadow: 0 0 40px var(--accent);
+            border-radius: 10px;
+        }
+        .photo_name {
+            font-size: 1.2rem;
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            left: 0px;
+            bottom: 50px;
+            text-shadow: 0 0 5px #fff;
+            color: #000;
+            z-index: 1;
+        }
+
+        .color {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+        }
+            .color_icon {
+                font-size: 30px;
+                transition: all .5s;
+                color: #888;
+            }
+                .color_icon:hover {
+                    color: var(--accent)
+                }
+            .color_input {
+                width: 30px;
+                height: 30px;
+            }
+
+        /* display */
+        .none {
+            display: none;
+        }
+        .show {
+            animation: show 1s;
+        }
+        .hide {
+            animation: hide 1s;
+        }
+        @keyframes show {
+            from {
+                opacity: 0
+            } to {
+                opacity: 1
+            }
+        }
+        @keyframes hide {
+            from {
+                opacity: 1
+            } to {
+                opacity: 0
+            }
+        }
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* media */
+        @media (min-width: 1000px) {
+            html {
+            font-size: 16px;
+            }
+            .form_label {
+                width: 140px;
+            }
+            .form_tab {
+                min-width: 360px;
+            }
+        }
+        @media (min-width: 1400px) {
+            .form_group {
+                min-width: 24.5%;
+            }
+        }
+
+        @media (min-width: 1900px) {
+            html {
+            font-size: 18px;
+            }
+            .form_label {
+                width: 160px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- form -->
+    <div class="form">
+        <div class="form_group">
+            <div class="form_tab">
+                <label class="form_label" for="voivodeship">Województwo:</label>
+                <select class="form_select" id="voivodeship"></select>
+            </div>
+            <div class="form_tab">
+                <label class="form_label" for="city">Miasto:</label>
+                <select class="form_select" id="city"></select>
+            </div>
+            <div class="form_tab">
+                <label class="form_label" for="type">Rysunek:</label>
+                <select class="form_select" id="type">
+                    <option class="form_option" value="Herb" selected>Herb</option>
+                    <option class="form_option" value="Plan miasta">Plan miasta</option>
+                    <option class="form_option" value="Studium">Studium</option>
+                    <option class="form_option" value="Profilówka">Profilówka</option>
+                    <option class="form_option" value="Galeria">Galeria</option>
+                </select>
+            </div>
+        </div>
+        <div class="form_group">
+            <button class="form_button">Wczytaj</button>
+        </div>
+    </div>
+
+    <!-- map -->
+    <div class="map">
+        <div class="map_mask none"></div>
+        <div class="map_circle none"></div>
+        <div class="map_load">Wybierz rysunek do wczytania...</div>
+        <img class="map_image">
+    </div>
+
+    <!-- gallery -->
+    <div class="gallery none">
+        <template class="gallery_template">
+            <div class="gallery_item">
+                <img class="gallery_image">
+            </div>
+        </template>
+    </div>
+
+    <!-- photo -->
+    <div class="photo none">
+        <div class="photo_arrow photo_previous"><i class="fa-solid fa-arrow-left"></i></div>
+        <div class="photo_group">
+            <div class="photo_arrow photo_close"><i class="fa-solid fa-xmark"></i></div>
+            <div class="photo_name">Nazwa zdjęcia</div>
+            <img class="photo_image">
+        </img>
+        </div>
+        <div class="photo_arrow photo_next"><i class="fa-solid fa-arrow-right"></i></div>
+    </div>
+
+    <!-- color -->
+    <div class="color">
+        <div class="color_icon"><i class="fa-solid fa-pencil"></i></div>
+        <input class="color_input none" type="color" value="#0080c0">
+    </div>
+
+    <script>
+
+        let startCity = ""
+        let startVoidevoship = "Małopolskie"
+
+        //handles
+        const $root = document.querySelector('html');
+
+        const $form = document.querySelector('.form');
+        const $formButton = document.querySelector('.form_button');
+
+        const $selectVoivodeship = document.querySelector('#voivodeship');
+        const $selectCity = document.querySelector('#city');
+        const $selectType = document.querySelector('#type');
+
+        const $map = document.querySelector('.map');
+        const $mapImage = document.querySelector('.map_image');
+        const $mapCircle = document.querySelector('.map_circle');
+        const $mapLoad = document.querySelector('.map_load');
+        const $mapMask = document.querySelector('.map_mask');
+
+        const $gallery = document.querySelector('.gallery');
+        const $galleryTemplate = document.querySelector('.gallery_template');
+
+        const $photo = document.querySelector('.photo');
+        const $photoName = document.querySelector('.photo_name');
+        const $photoImage = document.querySelector('.photo_image');
+        const $photoPrevious = document.querySelector('.photo_previous');
+        const $photoNext = document.querySelector('.photo_next');
+
+        const $colorInput = document.querySelector('.color_input');
+        const $colorIcon = document.querySelector('.color_icon');
+
+        let $photos = [];
+        let $interval;
+        let $index = 0;
+        let $viewHeight = 0;
+        let $zoom = 0;
+
+        //eventListeners
+        window.addEventListener('load', main)
+        window.addEventListener('resize', changeMargin)
+        window.addEventListener('keyup', checkKeys);
+        window.addEventListener('hashchange', main)
+        
+        $formButton.addEventListener('click', changeView)
+        $selectVoivodeship.addEventListener('change', setCities)
+        $selectCity.addEventListener('change', setCity)
+        $map.addEventListener('click', changeZoom)
+
+        $photo.addEventListener("click", hidePhoto)
+        $photoPrevious.addEventListener("click", showPreviousPhoto)
+        $photoNext.addEventListener("click", showNextPhoto)
+
+        $colorIcon.addEventListener('click', showColorInput)
+        $colorInput.addEventListener('change', changeColor)
+
+        //functions
+        function main() {
+            console.log("main()");
+
+            getURL();
+            changeColor();
+            changeMargin();
+            changeZoom(2)
+            setVoivodeship();
+            setCities();
+
+            setTimeout(() => {
+                changeZoom(0)
+            }, 3000);
+        }
+
+        function setTitle(title) {
+            document.title = title;
+        }
+
+        function setURL(path) {
+            const url = `/#/${path}`
+            window.history.pushState({}, url, url)
+            console.log(`setURL() ${url}`);
+        }
+
+        function getURL() {
+            const hash = window.location.hash
+            const hashVoidevoship = hash.slice(2,3).toUpperCase()
+            const hashCity = hash.slice(2,).toUpperCase()
+            console.log(`getURL() ${hash}`);
+
+            if (hashVoidevoship != '') {
+                const myReversedVoivodeship = getFlipedObject(voivodeships)
+                startVoidevoship = myReversedVoivodeship[hashVoidevoship];
+
+                const myCities = cities[startVoidevoship];
+                console.log(myCities);
+
+                const myReversedCities = getFlipedObject(myCities)
+                console.log(myReversedCities);
+                
+                startCity = myReversedCities[hashCity]
+                console.log(startCity);
+            }
+        }
+
+        function checkKeys(e) {
+            console.log("checkKeys() " + e.key);
+            
+            if (e.key === "Enter") {
+                changeView();
+            }
+            if (e.key === "+") {
+                changeZoom();
+            }
+            if (e.key === "-") {
+                changeZoom($zoom - 2)
+            }
+            if (e.key === "ArrowLeft") {
+                showPreviousPhoto(e)
+            }
+            if (e.key === "ArrowRight") {
+                showNextPhoto(e)
+            }
+            if (e.key === "Escape") {
+                hidePhoto(e)
+            }
+            if (e.key === "F9") {
+                showPresentation(e)
+            }
+        }
+
+        function setVoivodeship(){
+            const voivodeships = Object.keys(cities)
+            console.log("setVoivodeship() " + voivodeships);
+
+            $selectVoivodeship.innerHTML = ""
+            voivodeships.forEach(voidevoship => {
+                let newVoidevoship = document.createElement('option')
+                newVoidevoship.classList.add("form_option")
+                newVoidevoship.value = voidevoship
+                newVoidevoship.textContent = voidevoship
+                if (voidevoship == startVoidevoship) {
+                    newVoidevoship.setAttribute("selected", "selected")
+                }
+                $selectVoivodeship.appendChild(newVoidevoship)
+            });
+        }
+
+        function setCities(){
+            const newCities = cities[$selectVoivodeship.value]
+            console.log(`setCities() ${$selectVoivodeship.value}: ${Object.keys(newCities)}`);
+
+            $selectCity.innerHTML ="";
+            Object.keys(newCities).forEach(city => {
+                let newCity = document.createElement('option')
+                newCity.classList.add("form_option")
+                newCity.value = city
+                newCity.textContent = city
+                if (city == startCity) {
+                    newCity.setAttribute("selected", "selected")
+                }
+                $selectCity.appendChild(newCity)
+            });
+            setCity() 
+        }
+
+        function setCity() {
+            console.log(`setCity() ${$selectCity.value}`)
+            setURL(`${cities[$selectVoivodeship.value][$selectCity.value]}`)
+            setTitle($selectCity.value)
+        }
+
+        function changeMargin(){
+            let formHeight = $form.offsetHeight
+            let windowHeight = window.innerHeight;
+            $viewHeight = windowHeight - formHeight - 60;
+
+            $root.style.setProperty('--viewHeight', `${$viewHeight}px`);  
+            $root.style.setProperty('--marginTop', `${formHeight + 30}px`);      
+            console.log("changeMargin() " + formHeight);
+        }
+
+        function changeZoom(z){
+            if (Number.isInteger(z)) $zoom = z;
+            console.log("changeZoom() " + $zoom);
+
+            if ($zoom <= 0 || $zoom == 5) {
+                $map.style.width = `${$viewHeight}px`
+                $map.style.position = "relative"
+                $mapImage.style.cursor = "zoom-in"
+                $mapImage.style.width = "100%"
+                $zoom = 1;
+
+            } else if ($zoom == 1) {
+                $map.style.width = `${$viewHeight*1.33}px`
+                $map.style.position = "relative"
+                $mapImage.style.cursor = "zoom-in"
+                $mapImage.style.width = "100%"
+                $zoom = 2;
+
+            } else if ($zoom == 2) {
+                $map.style.width = "100%"
+                $map.style.position = "relative"
+                $mapImage.style.cursor = "zoom-in"
+                $mapImage.style.width = "100%"
+                $zoom = 3
+
+            } else if ($zoom == 3) { 
+                $map.style.width = "200vw"
+                $map.style.position = "absolute"
+                $mapImage.style.cursor = "zoom-in"
+                $mapImage.style.width = "200vw"
+                $zoom = 4
+
+            } else if ($zoom == 4) { 
+                $map.style.width = "400vw"
+                $map.style.position = "absolute"
+                $mapImage.style.cursor = "zoom-out"
+                $mapImage.style.width = "400vw"
+                $zoom = 5     
+
+            } else {
+                $zoom = 0;
+            }
+        }
+
+        function resetView() {
+            $photo.classList.add("none");
+            $gallery.classList.add("none");
+            $map.classList.add("none");
+            $mapLoad.classList.add("none");
+            $mapCircle.classList.add("none");
+            $mapMask.classList.add("none");
+            $mapImage.style.background = "transparent";
+            $mapImage.setAttribute('src', "");
+            $gallery.innerHTML ="";
+        }
+
+        function changeView() {
+            resetView()
+
+            let path = `/Polska/${$selectVoivodeship.value}/${$selectCity.value}/${$selectCity.value}`
+            let mapPath = `${path}.jpg`
+            let studyPath = `${path}.jpeg`
+            let emblemPath = `${path}.gif`
+            let photo = `/Polska/Zdjęcia/${$selectCity.value}.jpg`
+
+            console.log(`changeImage() ${$selectCity.value}: ${$selectType.value}`);
+
+            if ($selectType.value == "Plan miasta") {
+                $mapMask.classList.remove("none");
+                showImage(mapPath)
+                changeZoom(0);
+
+            } else if ($selectType.value == "Studium") {
+                showImage(studyPath)
+                changeZoom(0);
+
+            } else if ($selectType.value == "Herb") {
+                $mapImage.style.background = "#fff";
+                showImage(emblemPath)
+                changeZoom(0);
+
+            } else if ($selectType.value == "Profilówka") {
+                showImage(photo)
+                changeZoom(1)
+
+            } else if ($selectType.value == "Galeria") {
+                changeZoom(1);
+                showGallery()
+            }
+
+        }
+
+        function showImage(path) {
+            console.log("checkImage() " + path);
+            $map.classList.remove("none")
+            $map.classList.add("show")
+            $mapLoad.classList.remove("none")
+
+            fetch(path).then(response => {
+                if (response.status == 200) {
+
+                    $mapImage.setAttribute('src', path);
+                    $mapLoad.innerHTML = "Ładowanie rysunku..."
+                    setTimeout(() => {
+                        $mapCircle.classList.remove("none")
+                    }, 1000);                    
+
+                } else {
+                    $mapLoad.innerHTML = "Niestety wybrany rysunek jest niedostępny... :(";
+                    changeZoom(0)
+                }
+            })
+        }
+
+        // gallery
+        async function showGallery() {
+            console.log("showGallery()");
+            $gallery.innerHTML =""
+
+            try {
+                const path = `/Polska/${$selectVoivodeship.value}/${$selectCity.value}/Zdjęcia/`
+                const response = await fetch(`${path}/Zdjęcia.txt`)
+
+                if (response.status == 200) {
+                    $gallery.classList.remove("none")
+                    $gallery.classList.add("show")
+
+                    const data = await response.text()
+                    prepareGallery(data, path)
+
+                } else {
+                    $map.classList.remove("none")
+                    $mapLoad.classList.remove("none")
+                    $mapLoad.innerHTML = "Niestety wybrana galeria jest niedostępna... :(";
+                    changeZoom(0)
+                }
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        function prepareGallery(data, path) {
+            console.log("prepareGallery()");
+            let table = data.split("\n")
+            $photos = [];
+            $index = 0;
+
+            console.log(table);            
+            table.forEach(name => {
+                name = name.trimEnd()
+                if (name !== "" && name !== "\n")
+                $photos.push(name)
+            })
+
+            console.log($photos);
+            $photos.forEach(photo => {
+                const imgPath = `${path}${photo}.jpg`
+                const image = $galleryTemplate.content.cloneNode(true);
+                const img = image.querySelector('.gallery_image');
+
+                img.setAttribute("id", `${$index}`)
+                img.setAttribute("src", `${imgPath}`)
+                img.setAttribute("alt", `${photo}`)
+                img.setAttribute("title", `${photo}`)
+                img.addEventListener("click", showSelectedPhoto)
+
+                $gallery.appendChild(image)
+                $index++;
+            })             
+        }
+
+        // photo
+        function showPhoto(imgID) {
+            console.log("showPhoto() " + imgID);
+
+            if (imgID == 0) {
+                $photoPrevious.classList.add("none")
+            } else {
+                $photoPrevious.classList.remove("none")
+            }
+
+            if (imgID == $photos.length - 1) {
+                $photoNext.classList.add("none")
+            } else {
+                $photoNext.classList.remove("none")
+            }
+
+            const image = document.getElementById(imgID)
+
+            $photoImage.classList.add("show")
+
+            setTimeout(() => {
+                $photoImage.classList.remove("show")
+            }, 900);
+
+            $photoImage.setAttribute("src", image.src)
+            $photoImage.setAttribute("title", image.title)
+            $photoName.textContent = image.title;
+        }
+
+        function showPresentation(e) {
+            console.log("showPresentation()");
+
+            $photo.classList.remove("none");
+            $photo.classList.add("show");
+
+            showPhoto(0)
+            $index = 0;
+
+            $interval = setInterval(() => {
+                if ($index < $photos.length - 1) {
+                    showNextPhoto(e)
+                } else {
+                    clearInterval($interval)
+                    hidePhoto(e)
+                }
+            }, 3000);
+        }
+
+        function showSelectedPhoto(e) {      
+            $photo.classList.remove("none");
+            $photo.classList.add("show");
+
+            let imgID = e.target.closest("img").id
+
+            showPhoto(imgID)
+            $index = imgID;
+
+            console.log("showSelectedPhoto() " + $index);
+        }
+
+        function showPreviousPhoto(e){
+            console.log("showPreviousPhoto()");
+
+            e.stopPropagation()
+            if ($index > 0) {
+                $index = parseInt($index) - 1
+                showPhoto($index)
+            } 
+        }
+
+        function showNextPhoto(e) {
+            console.log("showNextPhoto()");
+            
+            e.stopPropagation()
+            if ($index < $photos.length - 1) {
+                $index = parseInt($index) + 1
+                showPhoto($index)
+            } 
+        }
+
+        function hidePhoto(e) {
+            console.log("hidePhoto()");
+            clearInterval($interval);
+
+            e.stopPropagation()
+            $photo.classList.add("hide")
+            setTimeout(() => {
+                $photo.classList.add("none")
+                $photo.classList.remove("show");
+                $photo.classList.remove("hide")
+            }, 900);
+        }
+
+        //color
+        function showColorInput() {
+            console.log("showColorInput()");
+
+            $colorInput.classList.remove("none");
+            $colorIcon.classList.add("none");         
+        }
+
+        function changeColor() {
+            console.log("changeColor() " + $colorInput.value);
+
+            $root.style.setProperty('--accent', $colorInput.value);  
+            $colorInput.classList.add("none");
+            $colorIcon.classList.remove("none");             
+        }
+
+        function getFlipedObject (object) {
+            return Object.fromEntries(Object.entries(object).map(([k,v]) => [v,k]))
+        }
+        
+        //voivodeship
+        const voivodeships = {
+            "Dolnośląskie" : "D",
+            "Kujawskie" : "C",
+            "Lubelskie": "L",
+            "Lubuskie": "F",
+            "Łódzkie": "E",
+            "Małopolskie": "K",
+            "Mazowieckie": "W",
+            "Opolskie": "O",
+            "Podkarpackie": "R",
+            "Podlaskie": "B",
+            "Pomorskie": "G",
+            "Śląskie": "S",
+            "Świętokrzyskie": "T",
+            "Warmińskie": "N",
+            "Wielkopolskie": "P",
+            "Zachodniopomorskie": "Z",
+        }
+
+        //cities
+        const cities = {
+            "Dolnośląskie": {
+                "WROCŁAW" : "DW", "GŁOGÓW" : "DGL", "JELENIA GÓRA" : "DJ", "Karpacz" : "DJE", "Kłodzko" : "DKL", "LEGNICA" : "DL", "LUBIN" : "DLU", "ŚWIDNICA" : "DSW", "WAŁBRZYCH" : "DB", "Złotoryja" : "DZL"
+            },
+            "Kujawskie": {
+                "BYDGOSZCZ" : "CB", "TORUŃ" : "CT", "GRUDZIĄDZ" : "CG", "INOWROCŁAW" : "CIN", "Sępólno Krajeńskie" : "CSE", "WŁOCŁAWEK" : "CW"
+            },
+            "Lubelskie": {
+                "LUBLIN" : "LU", "BIAŁA PODLASKA" : "LB", "CHEŁM" : "LC", "Kazimierz Dolny" : "LPUK", "PUŁAWY" : "LPU", "Szczebrzeszyn" : "LZA", "ZAMOŚĆ" : "LZ"
+            },
+            "Lubuskie": {
+                "ZIELONA GÓRA" : "FZ", "GORZÓW WIELKOPOLSKI" : "FG"
+            },
+            "Łódzkie": {
+                "ŁÓDŹ" : "EL", "BEŁCHATÓW" : "EBE", "Kutno" : "EKU", "Opoczno" : "EOP", "PABIANICE" : "EPA", "PIOTRKÓW TRYBUNALSKI" : "EP", "RADOMSKO" : "ERA", "Sieradz" : "ESI", "SKIERNIEWICE" : "ES", "TOMASZÓW MAZOWIECKI" : "ETM", "Zduńska Wola" : "EZD", "ZGIERZ" : "EZG"
+            },
+            "Małopolskie": {
+                "KRAKÓW" : "KR", "Alwernia" : "KCHA", "Andrychów" : "KWAA", "Biecz" : "KGRB", "Bobowa" : "KGRO", "Bochnia" : "KBC", "Brzesko" : "KBR", "Brzeszcze" : "KOSB", "Bukowno" : "KOLB", "Chełmek" : "KOSC", "Chrzanów" : "KCH", "Ciężkowice" : "KTAC", "Czchów" : "KBRC", "Dąbrowa Tarnowska" : "KDA", "Dobczyce" : "KMYD", "Gorlice" : "KGR", "Grybów" : "KNSG", "Jordanów": "KSUJ", "Kalwaria Zebrzydowska" : "KWAK", "Kęty" : "KOSK", "Koszyce" : "KPRK",  "Krynica-Zdrój" : "KNSK", "Krzeszowice" : "KRAK", "Libiąż" : "KCHL", "Limanowa" : "KLI", "Maków Podhalański" : "KSUM", "Miechów" : "KMI", "Mszana Dolna" : "KLIM", "Muszyna" : "KNSM", "Myślenice" : "KMY", "Niepołomice" : "KWIN", "Nowe Brzesko" : "KPRN", "NOWY SĄCZ" : "KN", "Nowy Targ" : "KNT", "Nowy Wiśnicz" : "KBCN", "Olkusz" : "KOL", "Oświęcim" : "KOS", "Piwniczna-Zdrój" : "KNSP", "Proszowice" : "KPR", "Rabka-Zdrój" : "KNTR", "Radłów" : "KTAR", "Ryglice" : "KTAG", "Skała" : "KRAS", "Skawina" : "KRAW", "Słomniki" : "KRAM", "Stary Sącz" : "KNSS", "Sucha Beskidzka" : "KSU", "Sułkowice" : "KMYS", "Szczawnica" : "KNTS", "Szczucin" : "KDAS", "Świątniki Górne" : "KRAT", "TARNÓW" : "KT", "Trzebinia" : "KCHT", "Tuchów" : "KTAT", "Wadowice" : "KWA", "Wieliczka" : "KWI", "Wojnicz" : "KTAW", "Wolbrom" : "KOLW", "Zakliczyn" : "KTAZ", "Zakopane" : "KTT", "Zator"  : "KOSZ", "Żabno" : "KTAZ"
+            },
+            "Mazowieckie": {
+                "WARSZAWA" : "WA", "Ciechanów" : "WCI", "Garwolin" : "WG", "LEGIONOWO" : "WL", "Milanówek" : "WGM", "Mława" : "WML", "OSTROŁĘKA" : "WO", "OTWOCK" : "WOT", "PIASECZNO" : "WPI", "PŁOCK" : "WP", "PRUSZKÓW" : "WPR", "RADOM" : "WR", "SIEDLCE" : "WS" 
+            },
+            "Opolskie": {
+                "OPOLE" : "OP", "Głogówek" : "OPRG", "KĘDZIERZYN-KOŹLE" : "OK", "Nysa" : "ONY", "Otmuchów" : "ONYO", "Paczków" : "ONYP", "Prudnik" : "OPR"
+            },
+            "Podkarpackie": {
+                "RZESZÓW" : "RZ", "DĘBICA" : "RDE", "Jarosław" : "RJA", "Jasło" : "RJS", "KROSNO" : "RK", "Łańcut" : "RLA", "MIELEC" : "RMI", "Pilzno" : "RDEP", "PRZEMYŚL" : "RP", "Przeworsk" : "RPZ", "Radymno" : "RJAR", "Ropczyce" : "RRSR", "Sanok" : "RSA", "STALOWA WOLA" : "RST", "Sędziszów Małopolski" : "RRSS", "TARNOBRZEG" : "RT"
+            },
+            "Podlaskie": {
+                "BIAŁYSTOK" : "BI", "SUWAŁKI" : "BS", "ŁOMŻA" : "BL"
+            },
+            "Pomorskie": {
+                "GDAŃSK" : "GD", "GDYNIA" : "GA", "Hel" : "GPUH", "Krynica Morska" : "GNDK", "Łeba" : "GLEL", "Malbork" : "GMB", "RUMIA" : "GWER", "SŁUPSK" : "GS", "Sopot" : "GSP", "STAROGARD GDAŃSKI" : "GST",  "TCZEW" : "GTC", "Ustka" : "GSL", "WEJHEROWO" : "GWE"
+            },
+            "Śląskie": {
+                "KATOWICE" : "SK", "BĘDZIN" : "SBE", "BIELSKO-BIAŁA" : "SB", "Bieruń" : "SBL", "BYTOM" : "SY",  "CHORZÓW" : "SH", "Cieszyn" : "SCI", "Czechowice-Dziedzice" : "SBIC", "Czeladź" : "SBEC", "CZĘSTOCHOWA" : "SC", "DĄBROWA GÓRNICZA" : "SD", "GLIWICE" : "SG", "JASTRZĘBIE-ZDRÓJ" : "SJZ", "JAWORZNO" : "SJ", "Mikołów" : "SMI", "MYSŁOWICE" : "SM", "Myszków" : "SMY", "Ogrodzieniec" : "SZAO", "PIEKARY ŚLĄSKIE" : "SPI", "Pilica" : "SZAP", "Pszczyna" : "SPS", "RACIBÓRZ" : "SRC", "RUDA ŚLĄSKA" : "SL", "RYBNIK" : "SR", "SIEMIANOWICE ŚLĄSKIE" : "SI", "Siewierz" : "SBE", "Sławków" : "SBES", "SOSNOWIEC" : "SO", "Szczekociny" : "SZAS", "Szczyrk" : "SBIS",  "ŚWIĘTOCHŁOWICE" : "SW", "TARNOWSKIE GÓRY" : "STA", "TYCHY" : "ST", "Ustroń" : "SCIU", "WODZISŁAW ŚLĄSKI" : "SWD", "ZABRZE" : "SZ", "ZAWIERCIE" : "SZA", "ŻORY" : "SZO", "Żywiec" : "SZY", 
+            },
+            "Świętokrzyskie": {
+                "KIELCE" : "TK", "Busko-Zdrój" : "TBU", "Chęciny" : "TKIC", "Jędrzejów" : "TJE", "Kazimierza Wielka" : "TKA", "OSTROWIEC ŚWIĘTOKRZYSKI" : "TOS", "Pacanów" : "TBUP", "Pińczów" : "TPI", "Sandomierz" : "TSA", "Skalbmierz" : "TKAS", "SKARŻYSKO-KAMIENNA" : "TSK", "STARACHOWICE" : "TST", "Stopnica" : "TBUS"
+            },
+            "Warmińskie": {
+                "OLSZTYN" : "NO", "ELBLĄG" : "NE", "EŁK" : "NEL", "Frombork" : "NBRF", "Giżycko" : "NGI", "Nidzica" : "NNI", "Olsztynek" : "NOLO", "Orneta" : "NLIO"
+            },
+            "Wielkopolskie": {
+                "POZNAŃ" : "PO", "GNIEZNO" : "PGN", "KALISZ" : "PK", "KONIN" : "PN", "LESZNO" : "PL", "OSTRÓW WIELKOPOLSKI" : "POS", "PIŁA" : "PP"
+            },
+            "Zachodniopomorskie": {
+                "SZCZECIN" : "ZS", "Darłowo" : "ZSLD", "KOŁOBRZEG" : "ZKL", "KOSZALIN" : "ZK", "Mielno" : "ZKOM", "Międzyzdroje" : "ZKAM", "STARGARD" : "ZST", "Świnoujście" : "ZSW"
+            }           
+        }
+    </script>
+
+</body>
+</html>

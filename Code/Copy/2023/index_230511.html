@@ -1,0 +1,434 @@
+<script>
+  const data = [
+    //Kraków - gastronomia
+    {coor: [50.05824, 19.93895], category: 'Gastro', name: 'Taco Mexicano', url: 'Kraków/Zdjęcia/Gastro/Taco Mexicano.jpg'}, 
+
+    //Kraków - kultura
+    {coor: [50.04797, 19.93147], category: 'Kultura', name: 'Centrum Kongresowe', url: 'Kraków/Zdjęcia/Kultura/Centrum Kongresowe.jpg'}, 
+    {coor: [50.05886, 19.93273], category: 'Kultura', name: 'Filharmonia Krakowska', url: 'Kraków/Zdjęcia/Kultura/Filharmonia Krakowska.jpg'}, 
+    {coor: [50.07713, 19.98987], category: 'Kultura', name: 'Muzeum Lotnictwa', url: 'Kraków/Zdjęcia/Kultura/Muzeum Lotnictwa.jpg'}, 
+    {coor: [50.06593, 19.95619], category: 'Kultura', name: 'Opera Krakowska', url: 'Kraków/Zdjęcia/Kultura/Opera Krakowska.jpg'}, 
+
+    // Kraków - natura
+    {coor: [50.01193, 20.01417], category: 'Natura', name: 'Park Aleksandry', url: 'Kraków/Zdjęcia/Natura/Park Aleksandry.jpg'}, 
+    {coor: [50.04899, 19.91670], category: 'Natura', name: 'Park Dębnicki', url: 'Kraków/Zdjęcia/Natura/Park Dębnicki.jpg'}, 
+    {coor: [50.01834, 19.99592], category: 'Natura', name: 'Park Jerzmanowskich', url: 'Kraków/Zdjęcia/Natura/Park Jerzmanowskich.jpg'}, 
+
+    // Kraków - świątynie
+    {coor: [50.0497679, 19.9448311], category: 'Świątynie', name: 'Bazylika Bożego Ciała', url: 'Kraków/Zdjęcia/Świątynie/Bazylika Bożego Ciała [Kazimierz]/Zewnętrze.jpg'}, 
+    {coor: [50.0199600, 19.9376000], category: 'Świątynie', name: 'Bazylika Miłosierdzia Bożego', url: 'Kraków/Zdjęcia/Świątynie/Bazylika Miłosierdzia Bożego [Łagiewniki]/Zewnętrze.jpg'}, 
+    {coor: [50.0651600, 19.9319000], category: 'Świątynie', name: 'Bazylika Nawiedzenia NMP (Karmelitów) na Piasku', url: 'Kraków/Zdjęcia/Świątynie/Bazylika Nawiedzenia NMP (Karmelitów) na Piasku [Piasek]/Zewnętrze 1.jpg'}, 
+    {coor: [50.0592465, 19.9360657], category: 'Świątynie', name: 'Bazylika św. Franciszka z Asyżu (Franciszkanów)', url: 'Kraków/Zdjęcia/Świątynie/Bazylika św. Franciszka z Asyżu (Franciszkanów) [Stare Miasto]/Zewnętrze 1.jpg'}, 
+
+    // Kraków - twierdze
+
+    // Małopolska
+    {coor: [49.83461,19.93819], category: 'Ogólne', name: 'Myślenice', url: 'Polska/Zdjęcia/Myślenice.jpg'},
+    {coor: [49.98383,20.05939], category: 'Ogólne', name: 'Wieliczka', url: 'Polska/Zdjęcia/Wieliczka.jpg'},
+    {coor: [49.88084, 20.09524], category: 'Ogólne', name: 'Dobczyce', url: 'Polska/Zdjęcia/Dobczyce.jpg'},
+    ]
+</script>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Miasta Polski</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js"></script>
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html {
+      color: #fff;
+      background: #000;
+      font-family: verdana, sans-serif;
+      font-size: 14px;
+    }
+
+    /* show/hide */
+    .show {
+      animation: show 1s;
+    }
+    .hide {
+      animation: hide 1s;
+    }
+    @keyframes show {
+      from {
+        opacity: 0
+      } to {
+        opacity: 1
+      }
+    }
+    @keyframes hide {
+      from {
+        opacity: 1
+      } to {
+        opacity: 0
+      }
+    }
+
+    /* header */
+    .header {
+      z-index: 1000;
+      background-color: black;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      transition: transform 0.3s ease-out;
+      box-shadow: 0 0 10px 0 black;
+    }
+    .header.hide {
+      transform: translateY(-100%);
+    }
+    .header_menu {
+      width: 100%;
+      padding: 5px 40px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      min-height: 40px;
+    }
+    .header_label {
+      padding: 5px 8px;
+    }
+    .header_button {
+      padding: 5px 10px;
+      transition: color 0.2s;
+      cursor: pointer;
+    }
+    .header_button:hover {
+      color: gray;
+    }
+    .header_button-gallery {
+      font-weight: bold;
+      width: 160px;
+    }
+    .header_bars {
+      z-index: 2000;
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      top: 5px;
+      right: 5px;
+      font-size: 20px;
+      background-color: rgb(0, 0, 0, 50%);
+      transition: 0.5s
+    }
+    .header_bars:hover {
+      background-color: rgb(0, 0, 0, 100%);
+    }
+
+    /* gallery */
+    .gallery {
+      z-index: 900;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      background-color: black;
+      box-shadow: 0 0 10px 0 black;
+      overflow: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px,1fr));
+      transition: top 0.3s ease-out;
+      gap: 2px;
+    }
+    .gallery.top {
+      top: 40px;
+    }
+    .gallery img {
+      max-width: 1000px;
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+    }
+
+    /* map */
+    .map {
+      width: 100%;
+      height: 100vh;
+    }
+
+    /* marker */
+    .marker {
+      object-fit: cover;
+      box-shadow: 0px 0px 2px 1px #666;
+    }
+    .marker-Ogólne {
+      border: 1px solid gray;
+    }
+    .marker-Świątynie {
+      border: 1px solid blue;
+    }
+    .marker-Kultura {
+      border: 1px solid orange;
+    }
+    .marker-Natura {
+      border: 1px solid green;
+    }
+    .marker-Gastro {
+      border: 1px solid brown;
+    }
+
+    /* popup */
+    .leaflet-popup-content-wrapper {
+      background-color: #ddd;
+      box-shadow: 0px 0px 10px 0px #666;
+    }
+    .leaflet-popup-content-wrapper .img {
+      padding-top: 8px;
+    }
+    .leaflet-popup-content-wrapper .title {
+      position: absolute;
+      top: 4px;
+      left: 0px;
+      width: 100%;
+      font-family: verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: black;
+    }
+    .leaflet-popup-tip {
+      background-color: #ddd;
+      border: none;
+    }
+    .leaflet-control-zoom-in,
+    .leaflet-control-zoom-out {
+      display: none !important;
+    }
+
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <div class="header_bars">
+    <i class="fa-solid fa-bars"></i>
+  </div>
+  <div class="header hide">
+    <!-- MENU -->
+    <div class="header_menu">
+      <label class="header_label" for="Ogólne">
+        <input type="checkbox" id="Ogólne" value="Ogólne" checked> Ogólne
+      </label>
+      <label class="header_label" for="Świątynie">
+        <input type="checkbox" id="Świątynie" value="Świątynie" checked> Świątynie
+      </label>
+      <label class="header_label" for="Kultura">
+        <input type="checkbox" id="Kultura" value="Kultura" checked> Kultura
+      </label>
+      <label class="header_label" for="Natura">
+        <input type="checkbox" id="Natura" value="Natura" checked> Natura
+      </label>
+      <label class="header_label" for="Gastro">
+        <input type="checkbox" id="Gastro" value="Gastro" checked> Gastronomia
+      </label>
+      <div class="header_button header_button-clear">Wyczyść zaznaczenie</div>
+      <div class="header_button header_button-gallery">Pokaż galerię</div>
+    </div>
+  </div>
+  <!-- GALLERY -->
+  <div class="gallery"></div>
+
+  <!-- MAP -->
+  <div class="map" id="map"></div>
+
+
+  <script>
+    // HANDLES
+    const $headerDiv = document.querySelector('.header');
+    const $headerBars = document.querySelector('.header_bars');
+    const $headerClear = document.querySelector('.header_button-clear');
+    const $headerGallery = document.querySelector('.header_button-gallery');
+    const $checkboxes = document.querySelectorAll('input')
+    const $gallery = document.querySelector('.gallery')
+
+    // HEADER //
+    // flag with info if is gallery open
+    let isGalleryOpen = false
+
+    // function to show and hide gallery
+    function showHideGallery () {
+      if (! isGalleryOpen) {
+        showGallery()
+        $gallery.classList.add('show')
+        $headerGallery.textContent = "Ukryj galerię"
+        isGalleryOpen = true
+      } else {              
+        $gallery.classList.add('hide')
+        $headerGallery.textContent = "Pokaż galerię"
+        isGalleryOpen = false
+        setTimeout(() => {
+          $gallery.classList.remove('hide')
+          $gallery.classList.remove('show')
+          clearGallery()
+        }, 900);
+      }
+    }
+
+    // function to update gallery and markers
+    function updateGalleryAndMarkers(checkbox) {
+      if (isGalleryOpen) showGallery()   
+      updateMarkers(checkbox)
+    }
+
+    // show/hide menu
+    $headerBars.addEventListener('click', () => {
+      $headerDiv.classList.toggle('hide')
+      $gallery.classList.toggle('top')
+    })
+
+    // show/hide gallery
+    $headerGallery.addEventListener('click', () => {
+      showHideGallery()
+    })
+
+    // clear checkboxes
+    $headerClear.addEventListener('click', () => {
+      $checkboxes.forEach(checkbox => {
+        checkbox.checked = false
+        updateGalleryAndMarkers(checkbox)
+      })
+    })
+
+    // checkboxex
+    $checkboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', () => {
+        updateGalleryAndMarkers(checkbox)
+      })
+    })
+
+    // GALLERY
+    // function to clear gallery
+    function clearGallery() {
+      $gallery.innerHTML = ""
+    }
+    // function to create gallery
+    function showGallery() {
+      clearGallery()
+      const filteredData = data.filter(item =>
+        Array.from($checkboxes).some(checkbox => checkbox.checked && checkbox.value === item.category)
+      );
+
+      filteredData.forEach(item => {
+        const img = document.createElement("img")
+        img.setAttribute("src", item.url)
+        img.setAttribute("src", item.url)
+        img.setAttribute("alt", item.name)
+        img.setAttribute("title", item.name)
+        $gallery.appendChild(img)
+      })
+    }
+
+    // MAP //
+    // default map zoom
+    const zoom = 12
+    // default map coordinates
+    const coor = [50.07107, 19.93265]
+    // leaflet map view
+    const map = L.map('map').setView(coor, zoom);
+
+    // add leaflet openstreetmap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'Map data from <a href="https://www.openstreetmap.org/">OpenStreetMap</a>', 
+      maxZoom: 18}).addTo(map)
+
+    // remove zoom controls
+    const zoomControl = L.control.zoom();
+    zoomControl.addTo(map);
+    map.removeControl(zoomControl);
+
+    // getting coordinates from map
+    map.on('click', (e) => {
+      const lat = e.latlng.lat.toFixed(7)
+      const lng = e.latlng.lng.toFixed(7)
+      console.log(`${lat}\t${lng}`)
+    })
+
+    // MARKERS //
+    // table of markers
+    const markers = []
+
+    // global marker size
+    const globalSize = 0.15
+
+    // function to set zoom of marker
+    function setZoom(zoom) {
+      const size = Math.pow(zoom,2) * globalSize
+      return [size, size]
+    }
+    // function to set anchor of marker
+    function setAnchor(zoom) {
+      const size = Math.pow(zoom,2) * globalSize
+      return [size * 0.5, size * 0.5]
+    }
+
+    // fuction to create marker
+    function createMarker(coor, category, name, url) {
+      // icon
+      const icon = L.icon({
+        iconUrl: url,
+        iconSize: setZoom(zoom),
+        iconAnchor: setAnchor(zoom),
+        className: `marker marker-${category}`
+      })
+      // popup
+      const popup = L.popup({
+        minWidth: 400, 
+        autoPanPadding: [50,50]
+      }).setContent(
+        `<div>
+          <div class="title">${name}</div>
+          <img class="img" src='${url}' alt=${name} width="100%">
+        </div>`)
+
+      // marker
+      const marker = L.marker(coor, {icon: icon})
+      .bindPopup(popup).addTo(map)
+      // add category to marker
+      marker.category = category
+      // add marker to table of markers
+      markers.push(marker)
+    }
+
+    // zoom listener
+    map.on('zoomend', () => {
+      const zoom = map.getZoom()
+      markers.forEach(marker => {
+        const icon = marker.options.icon
+        icon.options.iconSize = setZoom(zoom)
+        icon.options.iconAnchor = setAnchor(zoom)
+        marker.setIcon(icon)
+      })
+    })
+
+    // generate markers
+    data.forEach(item => {
+      createMarker(item.coor, item.category, item.name, item.url)
+    })
+
+    // update markers
+    function updateMarkers (checkbox) {
+      markers.forEach(marker => {
+          if (marker.category === checkbox.value) {
+            checkbox.checked ? marker.addTo(map) : map.removeLayer(marker)
+          }
+        })
+    }
+
+  </script>
+</body>
+</html>

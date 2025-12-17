@@ -1,0 +1,1469 @@
+<script>
+  // DATA
+  // start city
+  const $startCity = "KRAKÓW"
+  // categories
+  const categories = {
+    general: "Ogólne",
+    history: "Historia", 
+    religion: "Religia",
+    culture: "Kultura", 
+    nature: "Natura", 
+    gastro: "Gastronomia",
+    profil: "Profilówka",
+  }
+  // cities
+  const cities = {
+    // Dolnośląskie
+    "Dolnośląskie": {
+      "WROCŁAW" : {abbr: "DW", coor: [51.1097396,17.0308739], zoom: 12},
+      "GŁOGÓW" : "DGL",
+      "JELENIA GÓRA" : {abbr: "DJ", coor: [50.9030531,15.7340312], zoom: 14},
+     
+      "Karpacz" : "DJE",
+      "Kłodzko" : "DKL",
+      "LEGNICA" : "DL",
+      "LUBIN" : "DLU",
+      "ŚWIDNICA" : "DSW",
+      "WAŁBRZYCH" : "DB",
+      "Złotoryja" : "DZL"
+    },
+    // Kujawskie
+    "Kujawskie": {
+      "BYDGOSZCZ" : "CB",
+      "TORUŃ" : "CT",
+      "GRUDZIĄDZ" : "CG",
+      "INOWROCŁAW" : "CIN",
+      "Sępólno Krajeńskie" : "CSE",
+      "WŁOCŁAWEK" : "CW"
+    },
+    // Lubelskie
+    "Lubelskie": {
+      "LUBLIN" : "LU",
+      "BIAŁA PODLASKA" : "LB",
+      "CHEŁM" : "LC",
+      "Kazimierz Dolny" : "LPUK",
+      "PUŁAWY" : "LPU",
+      "Szczebrzeszyn" : "LZA",
+      "ZAMOŚĆ" : "LZ"
+    },
+    // Lubuskie
+    "Lubuskie": {
+      "ZIELONA GÓRA" : "FZ",
+      "GORZÓW WIELKOPOLSKI" : "FG"
+    },
+    // Łódzkie
+    "Łódzkie": {
+      "ŁÓDŹ" : "EL",
+      "BEŁCHATÓW" : "EBE",
+      "Kutno" : "EKU",
+      "Opoczno" : "EOP",
+      "PABIANICE" : "EPA",
+      "PIOTRKÓW TRYBUNALSKI" : "EP",
+      "RADOMSKO" : "ERA",
+      "Sieradz" : "ESI",
+      "SKIERNIEWICE" : "ES",
+      "TOMASZÓW MAZOWIECKI" : "ETM",
+      "Zduńska Wola" : "EZD",
+      "ZGIERZ" : "EZG"
+    },
+    // Małopolskie
+    "Małopolskie": {
+      "KRAKÓW" : {abbr: "KR", coor: [50.0616779,	19.9373317], zoom: 12, gallery: [
+        // Religia
+        {coor: [50.0497679, 19.9448311], category: categories.religion, name: 'Bazylika Bożego Ciała [Kazimierz]'},
+        {coor: [50.0199600, 19.9376000], category: categories.religion, name: 'Bazylika Miłosierdzia Bożego [Łagiewniki]'},
+        // Kultura
+        {coor: [50.0479388, 19.9313933], category: categories.culture, name: 'Centrum Kongresowe'},
+        {coor: [50.0588177, 19.9327424], category: categories.culture, name: 'Filharmonia Krakowska'},
+        {coor: [50.0632249, 19.9403264], category: categories.culture, name: 'Muzeum Farmacji'},
+        {coor: [50.0770862, 19.9898386], category: categories.culture, name: 'Muzeum Lotnictwa'},
+        {coor: [50.0659255, 19.9561957], category: categories.culture, name: 'Opera Krakowska'},
+        {coor: [50.0616899, 19.9373531], category: categories.culture, name: 'Sukiennice'},
+        {coor: [50.0677041, 19.9915552], category: categories.culture, name: 'Tauron Arena'},
+        {coor: [50.0636528, 19.9322623], category: categories.culture, name: 'Teatr Bagatela'},
+        {coor: [50.0639404, 19.9430662], category: categories.culture, name: 'Teatr Słowackiego'},
+        {coor: [50.0568383, 19.9639110], category: categories.culture, name: 'Teatr Variete'},
+        // Natura
+        {coor: [50.0119300, 20.0141700], category: categories.nature, name: 'Park Aleksandry'}, 
+        {coor: [50.0489900, 19.9167000], category: categories.nature, name: 'Park Dębnicki'}, 
+        {coor: [50.0183400, 19.9959200], category: categories.nature, name: 'Park Jerzmanowskich'}, 
+        {coor: [50.0879293,	19.9203211], category: categories.nature, name: 'Park Krowoderski'}, 
+        {coor: [50.0511733, 19.9346495], category: categories.nature, name: 'Bulwar Czerwieński'},
+        {coor: [50.0478940, 19.9368703], category: categories.nature, name: 'Bulwar Inflandzki'}, 
+        {coor: [50.0556785, 19.9778706], category: categories.nature, name: 'Bulwar Kurlandzki'},
+        {coor: [50.0475426, 19.9347460], category: categories.nature, name: 'Bulwar Wołyński'},
+      ]},
+      "Alwernia" : "KCHA",
+      "Andrychów" : "KWAA",
+      "Biecz" : "KGRB",
+      "Bobowa" : "KGRO",
+      "Bochnia" : "KBC",
+      "Brzesko" : "KBR",
+      "Brzeszcze" : "KOSB",
+      "Bukowno" : "KOLB",
+      "Chełmek" : "KOSC",
+      "Chrzanów" : "KCH",
+      "Ciężkowice" : "KTAC",
+      "Czchów" : "KBRC",
+      "Dąbrowa Tarnowska" : "KDA",
+      "Dobczyce" : {abbr: "KMYD", coor: [49.8802702,20.0903249], zoom: 15},
+      "Gorlice" : "KGR",
+      "Grybów" : "KNSG",
+      "Jordanów": "KSUJ",
+      "Kalwaria Zebrzydowska" : "KWAK",
+      "Kęty" : "KOSK",
+      "Koszyce" : "KPRK",
+      "Krynica-Zdrój" : "KNSK",
+      "Krzeszowice" : "KRAK",
+      "Libiąż" : "KCHL",
+      "Limanowa" : "KLI",
+      "Maków Podhalański" : "KSUM",
+      "Miechów" : "KMI",
+      "Mszana Dolna" : "KLIM",
+      "Muszyna" : "KNSM",
+      "Myślenice" : {abbr: "KMY", coor: [49.8347232,19.9387157], zoom: 14, gallery: [
+        {coor: [49.8346100,19.9381900], category: categories.general, name: 'Rynek'},
+        {coor: [49.8348547,19.9368703], category: categories.general, name: 'Gimnazjum'},
+        {coor: [49.8341869,19.9365056], category: categories.religion, name: 'Kościół Narodzenia NMP', top: true},
+        {coor: [49.8341869,19.9365056], category: categories.religion, name: 'Kościół Narodzenia NMP - ołtarz'},
+        {coor: [49.8341869,19.9365056], category: categories.religion, name: 'Kościół Narodzenia NMP - organy'},
+        {coor: [49.8287336,19.9405289], category: categories.religion, name: 'Kościółek św. Jakuba'},
+      ]},
+      "Niepołomice" : "KWIN",
+      "Nowe Brzesko" : "KPRN",
+      "NOWY SĄCZ" : "KN",
+      "Nowy Targ" : "KNT",
+      "Nowy Wiśnicz" : "KBCN",
+      "Olkusz" : "KOL",
+      "Oświęcim" : "KOS",
+      "Piwniczna-Zdrój" : "KNSP",
+      "Proszowice" : "KPR",
+      "Rabka-Zdrój" : "KNTR",
+      "Radłów" : "KTAR",
+      "Ryglice" : "KTAG",
+      "Skała" : "KRAS",
+      "Skawina" : {abbr: "KRAW", coor: [49.9750513,19.8264384], zoom: 14},
+      "Słomniki" : "KRAM",
+      "Stary Sącz" : "KNSS",
+      "Sucha Beskidzka" : "KSU",
+      "Sułkowice" : "KMYS",
+      "Szczawnica" : "KNTS",
+      "Szczucin" : "KDAS",
+      "Świątniki Górne" : "KRAT",
+      "TARNÓW" : "KT",
+      "Trzebinia" : "KCHT",
+      "Tuchów" : "KTAT",
+      "Wadowice" : "KWA",
+      "Wieliczka" : {abbr: "KWI", coor: [49.9837548,20.0594312], zoom: 14},
+      "Wojnicz" : "KTAW",
+      "Wolbrom" : "KOLW",
+      "Zakliczyn" : "KTAZ",
+      "Zakopane" : "KTT",
+      "Zator" : "KOSZ",
+      "Żabno" : "KTAZ"
+    },
+    // Mazowieckie
+    "Mazowieckie": {
+      "WARSZAWA" : {abbr: "WA", coor: [52.2497795,21.0121733], zoom: 12},
+      "Ciechanów" : "WCI",
+      "Garwolin" : "WG",
+      "LEGIONOWO" : "WL",
+      "Milanówek" : "WGM",
+      "Mława" : "WML",
+      "OSTROŁĘKA" : "WO",
+      "OTWOCK" : "WOT",
+      "PIASECZNO" : "WPI",
+      "PŁOCK" : "WP",
+      "PRUSZKÓW" : "WPR",
+      "RADOM" : "WR",
+      "SIEDLCE" : "WS" 
+    },
+    // Opolskie
+    "Opolskie": {
+      "OPOLE" : "OP",
+      "Głogówek" : "OPRG",
+      "KĘDZIERZYN-KOŹLE" : "OK",
+      "Nysa" : "ONY",
+      "Otmuchów" : "ONYO",
+      "Paczków" : "ONYP",
+      "Prudnik" : "OPR"
+    },
+    // Podkarpackie
+    "Podkarpackie": {
+      "RZESZÓW" : "RZ",
+      "DĘBICA" : "RDE",
+      "Jarosław" : "RJA",
+      "Jasło" : "RJS",
+      "KROSNO" : "RK",
+      "Łańcut" : "RLA",
+      "MIELEC" : "RMI",
+      "Pilzno" : "RDEP",
+      "PRZEMYŚL" : "RP",
+      "Przeworsk" : "RPZ",
+      "Radymno" : "RJAR",
+      "Ropczyce" : "RRSR",
+      "Sanok" : "RSA",
+      "STALOWA WOLA" : "RST",
+      "Sędziszów Małopolski" : "RRSS",
+      "TARNOBRZEG" : "RT"
+    },
+    // Podlaskie
+    "Podlaskie": {
+      "BIAŁYSTOK" : "BI",
+      "SUWAŁKI" : "BS",
+      "ŁOMŻA" : "BL"
+    },
+    // Pomorskie
+    "Pomorskie": {
+      "GDAŃSK" : "GD",
+      "GDYNIA" : "GA",
+      "Hel" : "GPUH",
+      "Krynica Morska" : "GNDK",
+      "Łeba" : "GLEL",
+      "Malbork" : "GMB",
+      "RUMIA" : "GWER",
+      "SŁUPSK" : "GS",
+      "Sopot" : "GSP",
+      "STAROGARD GDAŃSKI" : "GST",
+      "TCZEW" : "GTC", 
+      "Ustka" : "GSL", 
+      "WEJHEROWO" : "GWE"
+    },
+    // Śląskie
+    "Śląskie": {
+      "KATOWICE" : "SK",
+      "BĘDZIN" : "SBE",
+      "BIELSKO-BIAŁA" : "SB",
+      "Bieruń" : "SBL",
+      "BYTOM" : "SY",
+      "CHORZÓW" : "SH",
+      "Cieszyn" : "SCI",
+      "Czechowice-Dziedzice" : "SBIC",
+      "Czeladź" : "SBEC",
+      "CZĘSTOCHOWA" : "SC",
+      "DĄBROWA GÓRNICZA" : "SD",
+      "GLIWICE" : "SG",
+      "JASTRZĘBIE-ZDRÓJ" : "SJZ",
+      "JAWORZNO" : "SJ",
+      "Mikołów" : "SMI",
+      "MYSŁOWICE" : "SM",
+      "Myszków" : "SMY",
+      "Ogrodzieniec" : "SZAO",
+      "PIEKARY ŚLĄSKIE" : "SPI",
+      "Pilica" : "SZAP",
+      "Pszczyna" : "SPS",
+      "RACIBÓRZ" : "SRC",
+      "RUDA ŚLĄSKA" : "SL",
+      "RYBNIK" : "SR",
+      "SIEMIANOWICE ŚLĄSKIE" : "SI",
+      "Siewierz" : "SBE",
+      "Sławków" : "SBES",
+      "SOSNOWIEC" : "SO",
+      "Szczekociny" : "SZAS",
+      "Szczyrk" : "SBIS",
+      "ŚWIĘTOCHŁOWICE" : "SW",
+      "TARNOWSKIE GÓRY" : "STA",
+      "TYCHY" : "ST",
+      "Ustroń" : "SCIU",
+      "WODZISŁAW ŚLĄSKI" : "SWD",
+      "ZABRZE" : "SZ",
+      "ZAWIERCIE" : "SZA",
+      "ŻORY" : "SZO",
+      "Żywiec" : "SZY",
+    },
+    // Świętokrzyskie
+    "Świętokrzyskie": {
+      "KIELCE" : "TK", 
+      "Busko-Zdrój" : "TBU",
+      "Chęciny" : "TKIC",
+      "Jędrzejów" : "TJE",
+      "Kazimierza Wielka" : "TKA",
+      "OSTROWIEC ŚWIĘTOKRZYSKI" : "TOS",
+      "Pacanów" : "TBUP",
+      "Pińczów" : "TPI",
+      "Sandomierz" : "TSA",
+      "Skalbmierz" : "TKAS",
+      "SKARŻYSKO-KAMIENNA" : "TSK",
+      "STARACHOWICE" : "TST",
+      "Stopnica" : "TBUS"
+    },
+    // Warmińskie
+    "Warmińskie": {
+      "OLSZTYN" : "NO",
+      "ELBLĄG" : "NE",
+      "EŁK" : "NEL",
+      "Frombork" : "NBRF",
+      "Giżycko" : "NGI",
+      "Nidzica" : "NNI",
+      "Olsztynek" : "NOLO",
+      "Orneta" : "NLIO"
+    },
+    // Wielkopolskie
+    "Wielkopolskie": {
+      "POZNAŃ" : "PO",
+      "GNIEZNO" : "PGN",
+      "KALISZ" : "PK",
+      "KONIN" : "PN",
+      "LESZNO" : "PL",
+      "OSTRÓW WIELKOPOLSKI" : "POS",
+      "PIŁA" : "PP"
+    },
+    // Zachodniopomorskie
+    "Zachodniopomorskie": {
+      "SZCZECIN" : "ZS",
+      "Darłowo" : "ZSLD",
+      "KOŁOBRZEG" : "ZKL",
+      "KOSZALIN" : "ZK",
+      "Mielno" : "ZKOM",
+      "Międzyzdroje" : "ZKAM",
+      "STARGARD" : "ZST",
+      "Świnoujście" : "ZSW"
+    }           
+  }
+</script>
+
+<!-- HEAD -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Miasta Polski</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- favicon -->
+  <link rel="icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA/4QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEREREREREREREREREREREREAAAAAAAAREQAAAAAAABERAAAAAAAAEREAAAAAAAAREQAAAAAAABERAAAAAAAAEREAAAAAAAAREQAAAAAAABERAAAAAAAAEREAAAAAAAAREQAAAAAAABERAAAAAAAAEREREREREREREREREREREREAAAAAAAAAAD/8AAA//AAAP/wAAD/8AAA//AAAP/wAAD/8AAA//AAAP/wAAD/8AAA//AAAP/wAAAAAAAAAAAAA" type="image/png">
+  <!-- font awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+  <!-- leaflet -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js"></script>
+
+  <!-- STYLE -->
+  <style>
+    /* general */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: #222 #333;
+      }
+    *::-webkit-scrollbar {
+      width: 10px
+    }
+    *::-webkit-scrollbar-track {
+      background-color: #333;
+      border-radius: 20px;
+    }
+    *::-webkit-scrollbar-thumb {
+      background-color: #222;
+      border-radius: 20px;
+    } 
+    html {
+      color: #fff;
+      background: #000;
+      font-family: verdana, sans-serif;
+      font-size: 14px;
+      --accent: #444;
+      --viewHeight: 0px;
+      --marginTop: 0px;
+    }
+
+    /* header */
+    .header {
+      z-index: 2000;
+      background-color: black;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 0 50px;
+      min-height: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      transition: transform 0.3s ease-out;
+      box-shadow: 0 0 10px 0 black;
+      }
+      @media (max-width: 1900px) {
+      .header {
+        justify-content: center;
+        }
+      }
+      .header.hide {
+        transform: translateY(-120%);
+      }
+      .header_group {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+      }
+      .header_pair {
+        display: flex;
+        flex-grow: 1;
+      }
+      @media (max-width: 700px) {
+      .header_pair .header_label {
+        min-width: 120px;
+        }
+      }
+      .header_label {
+        padding: 5px 8px;
+      }
+      .header_button {
+        padding: 5px 10px;
+        transition: color 0.2s;
+        text-align: center;
+        cursor: pointer;
+      }
+        .header_button:hover {
+          color: gray;
+        }
+      .header_select {
+        flex-grow: 1;
+        text-align: center;
+        font-family: verdana;
+        padding: 3px;
+        width: 200px;
+        color: #000;
+        background: #fff;
+        border-radius: 2px;
+        transition: .2s;
+      }
+        .header_select:focus {
+          color: var(--accent);
+        }
+      .header_option {
+        padding: 5px;
+        background: #fff;
+        color: #000;
+      }
+      .header_filter {
+        margin: 0 5px;
+        width: 150px;
+      }
+      .header_view {
+        width: 150px;
+      }
+      .header_bars {
+        z-index: 3000;
+        position: fixed;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+        background-color: rgb(0, 0, 0, 50%);
+        transition: 0.5s
+      }
+        .header_bars:hover {
+          background-color: rgb(0, 0, 0, 100%);
+        }
+      .header_emblem {
+        z-index: 3000;
+        position: fixed;
+        height: 60px;
+        top: 5px;
+        left: 0;
+      }
+
+    /* gallery */
+    .gallery {
+      z-index: 1000;
+      position: fixed;
+      margin-top: 0;
+      left: 0;
+      top: 0;
+      width: 100%;
+      max-height: 100vh;
+      overflow: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+      transition: top 0.3s ease-out, width 1s ease-out;
+      padding-bottom: 3px;
+      gap: 2px;
+      }
+      .gallery_background {
+        z-index: 900;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        transition: top 0.3s ease-out, width 1s ease-out;
+        box-shadow: 0 0 5px 0 black;
+        background-color: rgb(0, 0, 0, 80%);
+        backdrop-filter: blur(5px);
+      }
+      .gallery_background.half {
+        width: 50%
+      }
+      .gallery_box {
+        position: relative
+      }
+      .gallery_box:hover .gallery_text {
+        opacity: 1;
+      }
+      .gallery_text {
+        position: absolute;
+        padding: 10px;
+        width: 100%;
+        text-align: center;
+        text-shadow: 0 0 5px #000;
+        bottom: 0px;
+        transition: opacity 0.3s ease-out;
+        opacity: 0;
+      }
+      .gallery img {
+        width: 100%;
+        aspect-ratio: 4/3;
+        object-fit: cover;
+        box-shadow: 0 0 5px 0 black;
+      }
+      .gallery.top {
+        top: var(--marginTop);
+        max-height: calc(100vh - var(--marginTop));
+      }
+      .gallery.half {
+        width: 50%;
+      }
+
+    /* photo */
+    .photo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      z-index: 1100;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      }
+      .photo_arrow {
+        position: absolute;
+        font-size: 40px;
+        color: #888;
+        transition: 1s;
+        z-index: 1;
+        }
+        .photo_arrow:hover {
+          color: var(--accent);
+          text-shadow: 0 0 20px var(--accent);
+        }
+      .photo_next {
+        z-index: 2;
+        padding: 100px 50px 100px;
+        right: 30px;
+        top: calc(50vh - 140px);
+      }
+      .photo_previous {
+        z-index: 2;
+        padding: 100px 50px 100px;
+        left: 30px;
+        top: calc(50vh - 140px);
+      }
+      .photo_group {
+        position: relative;
+        max-width: calc(100vw - 40px);
+        max-height: calc(100vh - 40px);
+        margin-top: 0;
+        object-fit: cover;
+        box-shadow: 0 0 30px var(--accent);
+        transition: 0.5s;
+        }
+        .photo_group.top {
+          max-height: calc(var(--viewHeight) - 40px);
+          margin-top: var(--marginTop);
+        }
+      .photo_image {
+        position: relative;
+        max-width: calc(100vw - 40px);
+        max-height: calc(100vh - 40px);
+        object-fit: cover;
+        box-shadow: 0 0 30px var(--accent);
+        transition: 0.5s;
+        }
+        .photo_image.top {
+          max-height: calc(var(--viewHeight) - 40px);
+        }
+      .photo_close {
+        padding: 0 100% 100% 0;
+        top: 20px;
+        left: 25px;
+      }
+      .photo_name {
+        font-size: 1.2rem;
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        left: 0px;
+        bottom: 20px;
+        text-shadow: 0 0 5px #000;
+        color: #fff;
+        z-index: 1;
+      }
+
+    /* map */
+    .map {
+      width: 100%;
+      min-height: 100vh;
+      height: 100%;
+      position: fixed;
+    }
+
+    /* markers */
+    .marker {
+      box-shadow: 0px 0px 2px 1px #666;
+      border: 1px solid gray;
+      object-fit: cover;
+      transition: all 0.5s;
+    }
+      .marker-religia {
+        border: 1px solid blue;
+      }
+      .marker-kultura {
+        border: 1px solid orange;
+      }
+      .marker-natura {
+        border: 1px solid green;
+      }
+      .marker-gastronomia {
+        border: 1px solid brown;
+      }
+
+    /* popup */
+    .leaflet-popup-content-wrapper {
+      background-color: #ddd;
+      box-shadow: 0px 0px 10px 0px #666;
+    }
+      .leaflet-popup-content-wrapper .img {
+        width: 100%;
+        padding-top: 8px;
+      }
+      .leaflet-popup-content-wrapper .title {
+        position: absolute;
+        top: 4px;
+        left: 0px;
+        width: 100%;
+        font-family: verdana, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: black;
+      }
+    .leaflet-popup-tip {
+      background-color: #ddd;
+      border: none;
+    }
+    .leaflet-control-zoom-in,
+    .leaflet-control-zoom-out {
+      display: none !important;
+    }
+    .leaflet-control-attribution {
+      display: none;
+    }
+
+    /* display */
+    .none {
+      display: none;
+    }
+    .show {
+      animation: show 0.5s;
+    }
+    .hide {
+      animation: hide 0.5s;
+    }
+    @keyframes show {
+      from {
+        opacity: 0
+      } to {
+        opacity: 1
+      }
+    }
+    @keyframes hide {
+      from {
+        opacity: 1
+      } to {
+        opacity: 0
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <!-- emblem -->
+  <img class="header_emblem">
+  <!-- bar -->
+  <div class="header_bars">
+    <i class="fa-solid fa-bars"></i>
+  </div>
+  <div class="header hide">
+    <!-- Cities -->
+    <div class="header_group">
+      <div class="header_pair">
+        <label class="header_label" for="voivodeship">Województwo:</label>
+        <select class="header_select" id="voivodeship"></select>
+      </div>
+      <div class="header_pair">
+        <label class="header_label" for="city">Miasto:</label>
+        <select class="header_select" id="city"></select>
+      </div>
+    </div>
+    <!-- Categories -->
+    <div class="header_group header_checkboxes">
+      <div class="header_button header_reverse">Odwróć wybór</div>
+    </div>
+    <!-- Filters -->
+    <div class="header_group">
+      <!-- city filter -->
+      <select class="header_select header_filter">
+        <option value="city">Filtr miasta</option>
+        <option value="voivodeship">Filtr województwa</option>
+        <option value="none">Brak filtrów</option>
+      </select>
+      <!-- view type -->
+      <select class="header_select header_view ">
+        <option value="map">Mapa</option>
+        <option value="map&gallery">Mapa i galeria</option>
+        <option value="gallery">Galeria</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- GALLERY -->
+  <div class="gallery none"></div>
+  <div class="gallery_background none"></div>
+
+  <!-- PHOTO -->
+  <div class="photo none">
+    <!-- arrow previous -->
+    <div class="photo_arrow photo_previous"><i class="fa-solid fa-angle-left"></i></div>
+    <!-- image, name and close -->
+    <div class="photo_group">
+        <div class="photo_arrow photo_close"><i class="fa-solid fa-xmark"></i></div>
+        <div class="photo_name"></div>
+        <img class="photo_image">
+    </div>
+    <!-- arrow next -->
+    <div class="photo_arrow photo_next"><i class="fa-solid fa-angle-right"></i></div>
+  </div>
+
+  <!-- MAP -->
+  <div class="map" id="map"></div>
+
+  <script>
+  // GLOBAL 
+    let $map // leaflet map
+    let $markers = [] // table of markers    
+    let $checkboxes = [] // table with checkboxex
+    let $citiesArray = [] // table with filtered data    
+    let $filteredData = [] // table with filtered data    
+    let $viewFilter = "city" // flag with info if view filter
+    let $isHiglightActive = true // flag for marker higlight activ
+    let $isGalleryAndMap = false // flag for gallery and map open    
+    let $marginTop = 0 // top margin    
+    let $interval // interval for presentation
+    let $index // index of photo
+
+  // HANDLES
+    const $root = document.querySelector('html');
+    // header
+    const $headerDiv = document.querySelector('.header')
+    const $headerBars = document.querySelector('.header_bars')
+    const $headerFilter = document.querySelector('.header_filter')
+    const $headerReverse = document.querySelector('.header_reverse')
+    const $headerView = document.querySelector('.header_view')
+    const $headerCheckboxes = document.querySelector('.header_checkboxes')
+    const $headerEmblem = document.querySelector('.header_emblem')
+    // gallery
+    const $galleryBackground = document.querySelector('.gallery_background')
+    const $gallery = document.querySelector('.gallery')
+    //photo
+    const $photo = document.querySelector('.photo')
+    const $photoGroup = document.querySelector('.photo_group')
+    const $photoName = document.querySelector('.photo_name')
+    const $photoImage = document.querySelector('.photo_image')
+    const $photoPrevious = document.querySelector('.photo_previous')
+    const $photoNext = document.querySelector('.photo_next')
+    //city
+    const $selectVoivodeship = document.querySelector('#voivodeship')
+    const $selectCity = document.querySelector('#city')
+
+  // LISTENERS
+    // window
+    window.addEventListener('load', main)
+    window.addEventListener('keyup', checkKeys)
+    window.addEventListener('resize', changeMargin)
+    // header
+    $headerBars.addEventListener('click', showHideMenu)
+    $headerReverse.addEventListener('click', reverseCheckboxes)
+    $headerFilter.addEventListener('change', setViewFilter)
+    $headerView.addEventListener('change', setViewMode)
+    $selectVoivodeship.addEventListener('change', setCities)
+    $selectCity.addEventListener('change', setCity)
+    // photo
+    $photo.addEventListener("click", hidePhoto)
+    $photoPrevious.addEventListener("click", showPreviousPhoto)
+    $photoNext.addEventListener("click", showNextPhoto)
+
+  // GENERAL //
+    // main
+    function main() {
+      console.log(cities)
+      console.log("main()")
+      changeMargin()
+      prepareMap()
+      prepareData()
+      prepareCheckboxes()
+      prepareVoivodeship()
+      setCities()
+    }
+
+    // check keys
+    function checkKeys(e) {
+      console.log(`checkKeys(${e.key})`)
+
+      if (e.key === "ArrowLeft") {
+        showPreviousPhoto(e)
+      }
+      if (e.key === "ArrowRight") {
+        showNextPhoto(e)
+      }
+      if (e.key === "Escape") {
+        hidePhoto(e)
+      }
+      if (e.key === "F9") {
+        showPresentation(e)
+      }
+    }
+
+    // change margin
+    function changeMargin(){
+      console.log(`changeMargin()`)
+      const windowHeight = window.innerHeight
+      const headerHeight = $headerDiv.offsetHeight
+      const viewHeight = windowHeight - headerHeight
+      $marginTop = headerHeight
+
+      $root.style.setProperty('--viewHeight', `${viewHeight}px`)
+      $root.style.setProperty('--marginTop', `${headerHeight}px`) 
+    }
+
+  // DATA //
+    // prepare data
+    function prepareData() {
+      console.log("prepareData()")
+      $citiesArray = []
+    
+      for (const voivodeship in cities) {
+        for (const city in cities[voivodeship]) {
+          const cityObj = cities[voivodeship][city]
+
+          // gallery photos
+          if(cityObj.gallery) {
+            cityObj.gallery.forEach(item => {
+              // path
+              let path = ""
+              // path for Kraków
+              if (city == 'KRAKÓW') {
+                if (item.category == categories.religion) {
+                  path = `${capitalizeCityName(city)}/Zdjęcia/${item.category}/${item.name}/Zewnętrze.jpg`
+                } else {
+                  path = `${capitalizeCityName(city)}/Zdjęcia/${item.category}/${item.name}.jpg`
+                }
+              // path for others cities
+              } else {
+                path = `Polska/${voivodeship}/${capitalizeCityName(city)}/Zdjęcia/${item.name}.jpg`
+              }
+              const newItem = {
+                city: city,
+                coor: item.coor,
+                category: item.category,
+                name: item.name,
+                url: path
+              }
+              if (item.top) {
+                newItem.top = item.top
+              }
+              $citiesArray.push(newItem)
+            })
+          }
+          // profile photo
+          if(cityObj.coor) {
+            const newItem = {
+              city: city,
+              coor: cityObj.coor,
+              category: categories.profil,
+              name: "Zdjęcie profilowe",
+              url: `Polska/Zdjęcia/${capitalizeCityName(city)}.jpg`
+            }
+            $citiesArray.push(newItem)
+          }
+        }
+      }
+    }
+
+    // filter data
+    function filterData() {
+      console.log("filterData()");
+      // filter by category
+      $filteredData = $citiesArray.filter(item =>
+        Array.from($checkboxes).some(checkbox => checkbox.checked && checkbox.value === item.category))
+      
+      // filters by viewFilter
+      if($viewFilter == "city") {
+        $filteredData = $filteredData.filter(item => $selectCity.value === item.city)
+      }
+      if($viewFilter == "voivodeship") {
+        $filteredData = $filteredData.filter(item => $selectVoivodeship.value === findVoivodeship(item.city))
+      }
+      
+      // sort data
+      $filteredData = sortData($filteredData)
+
+      // add id to filtered items
+      $filteredData.forEach((item, index) => item.id = index)
+    }
+
+    // sort data
+    function sortData(array) {
+      array.sort((a, b) => {
+        // sort by city
+        if (a.city < b.city) return -1
+        if (a.city > b.city) return 1
+
+        // sort by category
+        if (a.category === 'Profilówka') return -1
+        if (a.category < b.category) return -1
+        if (a.category > b.category) return 1
+
+        // sort by name
+        if (a.name < b.name) return -1
+        if (a.name > b.name) return 1
+
+        return 0
+      })
+      return array
+    }
+
+    // update data
+    function updateData() {
+      console.log("updateData()")
+      filterData()
+      prepareMarkers()
+      prepareGallery()   
+      console.log($filteredData)
+    }
+
+  // MENU //
+    // show and hide menu
+    function showHideMenu() {
+      console.log("showHideMenu()");
+      $headerDiv.classList.toggle('hide')
+      $photoGroup.classList.toggle('top')
+      $photoImage.classList.toggle('top')
+      $gallery.classList.toggle('top')
+    }
+
+    // set emblem of city
+    function setEmblem(city) {
+      console.log(`setEmblem(${city})`)
+
+      const voidevodeship = findVoivodeship(city)
+      const capitalizedCity = capitalizeCityName(city)
+      const path = `Polska/${voidevodeship}/${capitalizedCity}/${capitalizedCity}.gif`
+      $headerEmblem.setAttribute("src", path)
+      $headerEmblem.setAttribute("alt", "Herb")
+
+    }
+
+    // prepare checkboxes
+    function prepareCheckboxes() {
+      console.log("prepareCheckboxex()")
+
+      Object.values(categories).reverse().forEach(category => {
+        const label = document.createElement('label')
+        label.className = 'header_label'
+        label.htmlFor = category
+
+        const checkbox = document.createElement('input')
+        checkbox.className = 'header_input'
+        checkbox.type = 'checkbox'
+        checkbox.id = category
+        checkbox.value = category
+        checkbox.checked = true
+        checkbox.addEventListener("change", updateData)
+
+        const text = document.createTextNode(` ${category}`)
+        label.appendChild(checkbox)
+        label.appendChild(text)
+
+        $headerCheckboxes.prepend(label)
+        $checkboxes.push(checkbox)
+      })
+    }
+
+    // reverse checkboxes
+    function reverseCheckboxes() {
+      console.log("reverseCheckboxes()");
+      $checkboxes.forEach(checkbox => {
+        checkbox.checked = !checkbox.checked
+      })
+      updateData()
+    }
+
+    // prepare voidevodeship
+    function prepareVoivodeship(){
+      console.log(`prepareVoivodeship()`)
+      const voivodeships = Object.keys(cities)
+
+      $selectVoivodeship.innerHTML = ""
+      voivodeships.forEach(voidevoship => {
+        let newVoidevoship = document.createElement('option')
+        newVoidevoship.classList.add("header_option")
+        newVoidevoship.value = voidevoship
+        newVoidevoship.textContent = voidevoship
+        if (voidevoship == findVoivodeship($startCity)) {
+          newVoidevoship.setAttribute("selected", "selected")
+        }
+        $selectVoivodeship.appendChild(newVoidevoship)
+      });
+    }
+
+    // set cities
+    function setCities(){
+      const newCities = cities[$selectVoivodeship.value]
+      console.log(`setCities(${$selectVoivodeship.value})`);
+
+      $selectCity.innerHTML ="";
+      Object.keys(newCities).forEach(city => {
+        let newCity = document.createElement('option')
+        newCity.classList.add("header_option")
+        newCity.value = city
+        newCity.textContent = city
+        if (city == $startCity) {
+          newCity.setAttribute("selected", "selected")
+        }
+        $selectCity.appendChild(newCity)
+      });
+      document.title = $selectCity.value
+
+      setEmblem($selectCity.value)
+      if ($viewFilter == "city" || $viewFilter == "voivodeship") {
+        setMapView()
+      }
+      updateData()
+    }
+
+    // set city
+    function setCity() {
+      console.log(`setCity(${$selectCity.value})`)
+      document.title = $selectCity.value
+
+      setEmblem($selectCity.value)
+      if ($viewFilter == "city") {
+        setMapView()
+      }
+      updateData()
+    }
+
+  // SETTINGS //
+    // set view filter
+    function setViewFilter() {
+      $viewFilter = $headerFilter.value
+      console.log(`setViewFilter(${$viewFilter})`)
+      setMapView()
+      updateData()
+    }
+
+    // set view mode
+    function setViewMode() {
+
+      // add class to gallery and background
+      function classAdd(className) {
+        $gallery.classList.add(className)
+        $galleryBackground.classList.add(className)
+      }
+      // remove class from gallery and background
+      function classRemove(className) {
+        $gallery.classList.remove(className)
+        $galleryBackground.classList.remove(className)
+      }
+
+      const viewMode = $headerView.value
+      console.log(`setViewMode(${viewMode})`)
+
+      if (viewMode == "map") {
+        $isGalleryAndMap = false
+        hidePhoto()
+        classAdd('hide')
+        setTimeout(() => {
+          $isHiglightActive = true 
+          classRemove('hide')
+          classRemove('show')
+          classAdd('none')
+        }, 400);
+
+      } else if (viewMode == "map&gallery"){
+        $isGalleryAndMap = true
+        classRemove('none')
+        classAdd('show')
+        classAdd('half')
+        setTimeout(() => {
+          $isHiglightActive = true
+        }, 1000);
+
+      } else if (viewMode == "gallery") {
+        $isGalleryAndMap = false
+        $isHiglightActive = false
+        classRemove('none')
+        classRemove('half')
+        classAdd('show')
+      }
+      setMapView()
+    }
+
+  // GALLERY //
+
+    // prepare gallery
+    function prepareGallery() {
+      console.log("prepareGallery()");
+      //clear gallery
+      $gallery.innerHTML = ""
+      // create imgs for filtered table
+      $filteredData.forEach(item => {
+        const description = `${item.city}: ${item.name}`
+
+        // gallery box
+        const box = document.createElement("div")
+        box.className = "gallery_box"
+
+        // gallery text
+        const text = document.createElement("div")
+        text.className = "gallery_text"
+        text.textContent = description
+
+        // gallery img
+        const img = document.createElement("img")
+        img.setAttribute("src", item.url)
+        img.setAttribute("alt", description)
+        img.setAttribute("id", item.id)
+        img.addEventListener("click", showSelectedPhoto)
+        img.addEventListener("mouseover", highlightMarker)
+        img.addEventListener("mouseout", resetMarker)
+
+        box.appendChild(img)
+        box.appendChild(text)
+        $gallery.appendChild(box)
+      })
+    }
+
+    // show photo
+    function showPhoto(imgID) {
+      console.log(`showPhoto(${imgID})`)
+      if (imgID == 0) {
+        $photoPrevious.classList.add("none")
+      } else {
+        $photoPrevious.classList.remove("none")
+      }
+
+      if (imgID == $filteredData.length - 1) {
+        $photoNext.classList.add("none")
+      } else {
+        $photoNext.classList.remove("none")
+      }
+
+      const image = document.getElementById(imgID)
+      $photoImage.setAttribute("src", image.src)
+      $photoName.textContent = image.alt
+    }
+
+    // show presentation
+    function showPresentation(e) {
+      console.log("showPresentation()")
+
+      $photo.classList.remove("none")
+      $photo.classList.add("show")
+
+      showPhoto(0)
+      $index = 0;
+
+      $interval = setInterval(() => {
+        if ($index < $filteredData.length - 1) {
+          showNextPhoto(e)
+        } else {
+          clearInterval($interval)
+          hidePhoto(e)
+        }
+      }, 3000);
+    }
+
+    // show selected photo
+    function showSelectedPhoto(e) {      
+      $photo.classList.remove("none")
+      $photo.classList.add("show")
+
+      let imgID = e.target.closest("img").id
+
+      showPhoto(imgID)
+      $index = imgID;
+
+      console.log(`showSelectedPhoto(${$index})`)
+    }
+
+    // show previous photo
+    function showPreviousPhoto(e){
+      console.log("showPreviousPhoto()")
+
+      e.stopPropagation()
+      if ($index > 0) {
+        $index = parseInt($index) - 1
+        showPhoto($index)
+      } 
+    }
+
+    // show next photo
+    function showNextPhoto(e) {
+      console.log("showNextPhoto()")
+      
+      e.stopPropagation()
+      if ($index < $filteredData.length - 1) {
+        $index = parseInt($index) + 1
+        showPhoto($index)
+      } 
+    }
+
+    // hide photo
+    function hidePhoto() {
+      console.log("hidePhoto()")
+      clearInterval($interval)
+
+      $photo.classList.add("hide")
+      setTimeout(() => {
+        $photo.classList.add("none")
+        $photo.classList.remove("show")
+        $photo.classList.remove("hide")
+      }, 400);
+    }
+
+  // MAP //
+    // prepare map
+    function prepareMap() {
+      console.log("prepareMap()");
+      // leaflet map view
+      $map = L.map('map')
+      // add leaflet openstreetmap
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data from <a href="https://www.openstreetmap.org/">OpenStreetMap</a>', 
+        maxZoom: 18}).addTo($map)
+  
+      // remove zoom controls
+      const zoomControl = L.control.zoom()
+      zoomControl.addTo($map);
+      $map.removeControl(zoomControl);
+
+      // keyboard disabled
+      $map.keyboard.disable()
+  
+      // getting coordinates from map
+      $map.on('click', (e) => {
+        const lat = e.latlng.lat.toFixed(7)
+        const lng = e.latlng.lng.toFixed(7)
+        console.log(`${lat},${lng}`)
+      })
+    }
+
+    // set map view
+    function setMapView() {
+      console.log(`setMapView()`)
+      const city = $selectCity.value
+      const cityObj = cities[findVoivodeship(city)][city];
+
+      if ($viewFilter == "none"){
+        const centerOfPoland = [52.2159333,19.1344222]
+        $map.setView(...setCoor(centerOfPoland, 7))
+
+      } else if (cityObj.coor) {
+        if ($viewFilter == "city") {
+          $map.setView(...setCoor(cityObj.coor, cityObj.zoom))
+
+        } else if ($viewFilter == "voivodeship") {
+          $map.setView(...setCoor(cityObj.coor, 9))
+        }
+      }
+    }
+
+    // set coordinates
+    function setCoor(coor, zoom) {
+      if ($isGalleryAndMap) {
+        const mapZoom = $map.getZoom()
+        const mapPoint = $map.latLngToContainerPoint(coor);
+        const scale = Math.pow(2, zoom - mapZoom)
+        const width = window.innerWidth
+        const shift = ( window.innerWidth / 4 ) / scale
+        const newX = mapPoint.x - shift
+        const newCoor = $map.containerPointToLatLng([newX, mapPoint.y])
+        return [newCoor, zoom]
+      } else {
+        return [coor,zoom]
+      }
+    }
+
+  // MARKERS //
+    // prepare markers
+    function prepareMarkers() {
+      console.log("prepareMarkers()");
+
+      // remove all markers from map
+      $markers.forEach(marker => $map.removeLayer(marker))
+      // remove all markers from table
+      $markers = []
+      // create new markers
+      $filteredData.forEach(item => {
+        createMarker(item)
+      })
+      // add zoom listener
+      addZoomToMakers()
+    }
+
+    // create marker
+    function createMarker({coor, city, category, name, url, id, top}) {
+      // icon
+      const zoom = $map.getZoom()
+      const icon = L.icon({
+        iconUrl: url,
+        iconSize: setZoom(zoom),
+        iconAnchor: setAnchor(zoom),
+        className: `marker marker-${category.toLowerCase()}`
+      })
+      // popup
+      const popup = L.popup({
+        minWidth: 400, 
+        autoPanPadding: [10, $marginTop + 10]
+      }).setContent(createMarkerPopup(city, name, url, id))
+
+      // marker
+      const marker = L.marker(coor, {icon: icon})
+      .bindPopup(popup).addTo($map)
+      marker.id = id
+      marker.category = category
+      marker.on('mouseover', highlightMarker);
+      marker.on('mouseout', resetMarker);
+
+      if (top) {
+        marker.top = top
+        marker.setZIndexOffset(1)
+      }
+      $markers.push(marker)
+    }
+
+    // create marker popup
+    function createMarkerPopup(city, name, url, id) {
+      // <div>
+      const wrapper = document.createElement("div")
+
+      // <div class="title">${name}</div>
+      const div = document.createElement("div")
+      div.classList.add("title")
+      div.textContent = `${city}: ${name}`
+      wrapper.appendChild(div)
+
+      // <img class="img" src='${url}' alt=${name} id=${id}>
+      const img = document.createElement("img")
+      img.classList.add("img")
+      img.setAttribute("src", url)
+      img.setAttribute("alt", `${city}: ${name}`)
+      img.setAttribute("id", id)
+      img.addEventListener("click", showSelectedPhoto)
+      wrapper.appendChild(img)
+      // </div>
+      return wrapper
+    }
+
+    // add zoom listener
+    function addZoomToMakers(){
+      $map.on('zoomend', () => {
+        $markers.forEach(marker => {
+          updateMarkerSize(marker)
+        })
+      })
+    }
+
+    // highlight marker
+    function highlightMarker(e) {
+      if ($isHiglightActive) {
+        const id = e.target.id
+        const marker = $markers[id]
+        marker.setZIndexOffset(100);
+        updateMarkerSize(marker, 2)
+      }
+    }
+
+    // reset marker
+    function resetMarker(e) {
+      const id = e.target.id
+      const marker = $markers[id]      
+      if (marker.top) {
+        marker.setZIndexOffset(1)
+      } else {
+        marker.setZIndexOffset(0)
+      }
+      updateMarkerSize(marker)
+    }
+
+    // update marker size
+    function updateMarkerSize(marker, value){
+      const zoom = $map.getZoom()
+      const icon = marker.options.icon
+      let factor = 1
+      if (value) {
+        factor = value * 12 / zoom
+      }
+      icon.options.iconSize = setZoom(zoom * factor)
+      icon.options.iconAnchor = setAnchor(zoom * factor)
+      marker.setIcon(icon)
+    }
+
+    // set zoom of marker
+    function setZoom(zoom) {
+      const size = Math.pow(zoom,2) * 0.15
+      return [size, size]
+    }
+
+    // set anchor of marker
+    function setAnchor(zoom) {
+      const size = Math.pow(zoom,2) * 0.15
+      return [size * 0.5, size * 0.5]
+    }
+
+  // TOOLS //
+    // find voivodeship
+    function findVoivodeship(city) {
+      for (let voivodeship in cities) {
+        if (city in cities[voivodeship]) {
+          return voivodeship
+        }
+      }
+    }
+
+    // capitalize name of city
+    function capitalizeCityName(city) {
+      let capitalizedCity = city.toLowerCase()
+      capitalizedCity = capitalizedCity.charAt(0).toUpperCase() + capitalizedCity.slice(1)
+      return capitalizedCity
+    }
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,1253 @@
+<!-- @sup HEAD -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Miasta i góry Polski</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- favicon -->
+  <link rel="icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA/4QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEREREREREREREREREREREREAAAAAAAAREQAAAAAAABERAAAAAAAAEREAAAAAAAAREQAAAAAAABERAAAAAAAAEREAAAAAAAAREQAAAAAAABERAAAAAAAAEREAAAAAAAAREQAAAAAAABERAAAAAAAAEREREREREREREREREREREREAAAAAAAAAAD/8AAA//AAAP/wAAD/8AAA//AAAP/wAAD/8AAA//AAAP/wAAD/8AAA//AAAP/wAAAAAAAAAAAAA" type="image/png">
+  <!-- font awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+  <!-- leaflet -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
+  <script src="index.js"></script>
+
+  <!-- @sup STYLE -->
+  <style>
+    /* @sub general */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: #222 #333;
+      }
+    *::-webkit-scrollbar {
+      width: 10px
+    }
+    *::-webkit-scrollbar-track {
+      background-color: #333;
+      border-radius: 20px;
+    }
+    *::-webkit-scrollbar-thumb {
+      background-color: #222;
+      border-radius: 20px;
+    } 
+    html {
+      color: #fff;
+      background: #000;
+      font-family: verdana, sans-serif;
+      font-size: 14px;
+      --accent: #444;
+      --viewHeight: 0px;
+      --marginTop: 0px;
+    }
+
+    /* @sub header */
+    .header {
+      z-index: 2000;
+      background-color: black;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 5px 50px;
+      min-height: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease-out;
+      box-shadow: 0 0 10px 0 black;
+      }
+      .header.hide {
+        transform: translateY(-120%);
+      }
+      .header_pair {
+        display: flex;
+        padding: 5px 0px;
+        flex-grow: 1;
+      }
+      @media (min-width: 1000px) {
+        .header_pair {
+        width: 33%;
+        }
+      }
+      @media (min-width: 1900px) {
+        .header_pair {
+        width: auto;
+        }
+      }
+      
+      .header_label {
+        text-align: right;
+        width: 80px;
+        padding: 5px;
+      }
+      .header_button {
+        padding: 5px 10px;
+        transition: color 0.2s;
+        text-align: center;
+        cursor: pointer;
+      }
+        .header_button:hover {
+          color: gray;
+        }
+      .header_select {
+        flex-grow: 1;
+        text-align: center;
+        font-family: verdana;
+        padding: 3px;
+        width: 160px;
+        color: #000;
+        background: #fff;
+        border-radius: 2px;
+        transition: .2s;
+      }
+        .header_select:focus {
+          color: var(--accent);
+        }
+      .header_option {
+        padding: 5px;
+        background: #fff;
+        color: black;
+      }
+      .header_bars {
+        z-index: 3000;
+        position: fixed;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+        border-radius: 5px;
+        background-color: rgb(0, 0, 0, 50%);
+        transition: 0.5s
+      }
+        .header_bars:hover {
+          background-color: rgb(0, 0, 0, 100%);
+        }
+      .header_emblem {
+        z-index: 3000;
+        position: fixed;
+        height: 60px;
+        top: 5px;
+        left: 0;
+      }
+
+    /* @sub gallery */
+    .gallery {
+      z-index: 1000;
+      position: fixed;
+      margin-top: 0;
+      left: 0;
+      top: 0;
+      width: 100%;
+      max-height: 100vh;
+      overflow: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
+      transition: top 0.3s ease-out, width 1s ease-out;
+      padding-bottom: 3px;
+      gap: 0 3px;
+      }
+      @media (max-width: 500px) {
+        .gallery {
+          grid-template-columns: repeat(auto-fill, minmax(169px,1fr));
+        }
+      }
+      .gallery_background {
+        z-index: 900;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        transition: top 0.3s ease-out, width 1s ease-out;
+        box-shadow: 0 0 5px 0 black;
+        background-color: rgb(0, 0, 0, 80%);
+        backdrop-filter: blur(5px);
+      }
+      .gallery_background.half {
+        width: 50%
+      }
+      .gallery_box {
+        position: relative
+      }
+      .gallery_box:hover .gallery_text {
+        opacity: 1;
+      }
+      .gallery_text {
+        position: absolute;
+        padding: 10px;
+        width: 100%;
+        text-align: center;
+        text-shadow: 0 0 5px #000;
+        bottom: 0px;
+        transition: opacity 0.3s ease-out;
+        opacity: 0;
+      }
+      .gallery img {
+        width: 100%;
+        aspect-ratio: 4/3;
+        object-fit: cover;
+        box-shadow: 0 0 5px 0 black;
+      }
+      .gallery.top {
+        top: var(--marginTop);
+        max-height: calc(100vh - var(--marginTop));
+      }
+      .gallery.half {
+        width: 50%;
+      }
+
+    /* @sub photo */
+    .photo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      z-index: 1100;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      }
+      .photo_arrow {
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        position: absolute;
+        height: 100%;
+        font-size: 40px;
+        color: #888;
+        transition: 1s;
+        z-index: 1;
+        }
+        .photo_arrow:hover {
+          color: white;
+          text-shadow: 0 0 20px var(--accent);
+        }
+      .photo_next {
+        right: -40px;
+        top: 0px;
+        padding: 0 10px 0 90px;
+      }
+      .photo_previous {
+        left: -40px;
+        top: 0px;
+        padding: 0 90px 0 10px;
+      }
+      .photo_group {
+        position: relative;
+        max-width: calc(100vw - 40px);
+        max-height: calc(100vh - 80px);
+        min-width: 360px;
+        min-height: 270px;
+        margin-top: 0px;
+        object-fit: cover;
+        box-shadow: 0 0 30px var(--accent);
+        transition: 0.5s;
+        }
+        .photo_group.top {
+          max-height: calc(var(--viewHeight) - 80px);
+          margin-top: var(--marginTop);
+        }
+      .photo_image {
+        position: relative;
+        max-width: calc(100vw - 40px);
+        max-height: calc(100vh - 80px);
+        min-width: 360px;
+        min-height: 270px;
+        object-fit: cover;
+        display: flex;
+        transition: 0.5s;
+        }
+        .photo_image.top {
+          max-height: calc(var(--viewHeight) - 80px);
+        }
+      .photo_name {
+        font-size: 1.2rem;
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        left: 0px;
+        bottom: -36px;
+        padding: 8px 30px;
+        text-shadow: 0 0 5px #000;
+        color: #fff;
+        z-index: 1;
+      }
+      @media (max-width: 900px) {
+        .photo_group {
+          max-width: 100vw;
+        }
+        .photo_image {
+          max-width: 100vw;
+        }
+        .photo_arrow {
+          font-size: 30px;
+        }
+      }
+      @media (max-width: 1200px) {
+        .photo_next {
+          right: 0px;
+        }
+        .photo_previous {
+          left: 0px;
+        }
+        .photo_name {
+          bottom: 0px;
+        }
+      }
+
+    /* @sub map */
+    .map {
+      width: 100%;
+      min-height: 100vh;
+      height: 100%;
+      position: fixed;
+    }
+
+    .leaflet-control-zoom-in,
+    .leaflet-control-zoom-out {
+      display: none !important;
+    }
+    .leaflet-control-attribution {
+      display: none;
+    }
+
+    /* @sub markers */
+    .marker {
+      box-shadow: 0px 0px 2px 1px #666;
+      border: 1px solid gray;
+      object-fit: cover;
+      transition: all 0.5s;
+    }
+      .marker-religia {
+        border: 1px solid blue;
+      }
+      .marker-kultura {
+        border: 1px solid orange;
+      }
+      .marker-natura {
+        border: 1px solid green;
+      }
+      .marker-gastronomia {
+        border: 1px solid brown;
+      }
+
+    /* @sub display */
+    .none {
+      display: none;
+    }
+    .show {
+      animation: show 0.5s;
+    }
+    .hide {
+      animation: hide 0.5s;
+    }
+
+    @keyframes show { 
+      from {
+        opacity: 0
+      } to {
+        opacity: 1
+      }
+    }
+    @keyframes hide {
+      from {
+        opacity: 1
+      } to {
+        opacity: 0
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- @sup HTML -->
+
+  <!-- emblem -->
+  <img class="header_emblem">
+  <!-- bar -->
+  <div class="header_bars">
+    <i class="fa-solid fa-bars"></i>
+  </div>
+  <div class="header hide">
+
+    <!-- View -->
+    <div class="header_pair">
+      <label class="header_label" for="view">Widok:</label>
+      <select class="header_select" id="view">
+        <option class="header_option" value="map">Mapa</option>
+        <option class="header_option" value="map&gallery">Mapa i galeria</option>
+        <option class="header_option" value="gallery">Galeria</option>
+      </select>
+    </div>
+    <!-- Voivodeship -->
+    <div class="header_pair">
+      <label class="header_label" for="voivodeship">Rejon:</label>
+      <select class="header_select" id="voivodeship"></select>
+    </div>
+    <!-- City -->
+    <div class="header_pair">
+      <label class="header_label" for="city">Miejsce:</label>
+      <select class="header_select" id="city"></select>
+    </div>
+    <!-- Range -->
+    <div class="header_pair">
+      <label class="header_label" for="range">Zakres:</label>
+      <select class="header_select" id="range">
+        <option class="header_option" value="voivodeship">Rejon</option>
+        <option class="header_option" value="city">Miejsce</option>
+        <option class="header_option" value="none">Wszystko</option>
+      </select>
+    </div>
+    <!-- Category -->
+    <div class="header_pair">
+      <label class="header_label" for="category">Kategoria:</label>
+      <select class="header_select" id="category">
+      </select>
+    </div>
+    <!-- Date -->
+    <div class="header_pair">
+      <label class="header_label" for="date">Data:</label>
+      <select class="header_select" id="date">
+      </select>
+    </div>
+  </div>
+
+  <!-- @sub GALLERY -->
+  <div class="gallery none"></div>
+  <div class="gallery_background none"></div>
+
+  <!-- @sub PHOTO -->
+  <div class="photo none">
+    <!-- photo group-->
+    <div class="photo_group">
+        <!-- arrow previous -->
+        <div class="photo_arrow photo_previous"><i class="fa-solid fa-angle-left"></i></div>
+        <!-- arrow next -->
+        <div class="photo_arrow photo_next"><i class="fa-solid fa-angle-right"></i></div>
+        <!-- image -->
+        <img class="photo_image" draggable="false">
+        <!-- name -->
+        <div class="photo_name"></div>
+    </div>
+  </div>
+
+  <!-- @sub MAP -->
+  <div class="map" id="map"></div>
+
+  <script>
+  // @sup SCRIPTS
+  // @class GLOBAL 
+  //
+    let $map // leaflet map
+    let $marginTop = 0 // margin top
+    // tables
+    let $markers = [] // table of markers    
+    let $checkboxes = [] // table with checkboxex
+    let $citiesArray = [] // table with prepared data    
+    let $filteredData = [] // table with filtered data    
+    // filters
+    let $viewMode = "map" // state of view mode
+    let $rangeFilter = "voivodeship" // state of range filter
+    let $categoryFilter = cat.profil // state of category filter
+    let $dateFilter = cat.all // state of data filter
+    // flags
+    let $isHiglightActive = true // flag for marker higlight activ
+    let $isGalleryAndMap = false // flag for gallery and map open
+    let $isPhotoOpen = false // flag for photo open
+    // photo
+    let $touchStartX // touch start position
+    let $touchEndX // touch end position
+    let $interval // interval for presentation
+    let $index // index of photo
+    // start city
+    const $startCity = "KRAKÓW"
+
+  // @class HANDLES
+  //
+    const $root = document.querySelector('html');
+    // header
+    const $headerDiv = document.querySelector('.header')
+    const $headerEmblem = document.querySelector('.header_emblem')
+    const $headerBars = document.querySelector('.header_bars')
+    // gallery
+    const $gallery = document.querySelector('.gallery')
+    const $galleryBackground = document.querySelector('.gallery_background')
+    //photo
+    const $photo = document.querySelector('.photo')
+    const $photoGroup = document.querySelector('.photo_group')
+    const $photoName = document.querySelector('.photo_name')
+    const $photoImage = document.querySelector('.photo_image')
+    const $photoPrevious = document.querySelector('.photo_previous')
+    const $photoNext = document.querySelector('.photo_next')
+    //selects
+    const $selectCity = document.querySelector('#city')
+    const $selectVoivodeship = document.querySelector('#voivodeship')
+    const $selectRange = document.querySelector('#range')
+    const $selectViewMode = document.querySelector('#view')
+    const $selectCategory = document.querySelector('#category')
+    const $selectDate = document.querySelector('#date')
+
+  // @class LISTENERS
+  //
+    // window
+    window.addEventListener('load', main)
+    window.addEventListener('keyup', checkKeys)
+    window.addEventListener('resize', changeMargin)
+    window.addEventListener('wheel', checkWheel)
+    // header
+    $headerBars.addEventListener('click', showHideMenu)
+    $headerEmblem.addEventListener('click', showHideMenu)
+    $selectVoivodeship.addEventListener('change', setCities)
+    $selectCity.addEventListener('change', setCity)
+    $selectRange.addEventListener('change', setRange)
+    $selectViewMode.addEventListener('change', setViewMode)
+    $selectCategory.addEventListener('change', setCategory)
+    $selectDate.addEventListener('change', setDate)
+    // photo
+    $photo.addEventListener("click", hidePhoto)
+    $photo.addEventListener("touchstart", touchstart)
+    $photo.addEventListener("touchmove", touchmove)
+    $photo.addEventListener("touchend", touchend)
+    $photoPrevious.addEventListener("click", showPreviousPhoto)
+    $photoNext.addEventListener("click", showNextPhoto)
+
+  // @class GENERAL
+  //
+    // @func main
+    function main() {
+      console.log(cities)
+      console.log("main()")
+      prepareMap()
+      prepareData()
+      prepareDates()
+      prepareCategories()
+      prepareVoivodeship()
+      changeMargin()
+      setCities()
+    }
+
+    // @func check keys
+    function checkKeys(e) {
+      console.log(`checkKeys(${e.key})`)
+
+      if (e.key === "ArrowLeft") {
+        showPreviousPhoto(e)
+      }
+      if (e.key === "ArrowRight") {
+        showNextPhoto(e)
+      }
+      if (e.key === "Escape") {
+        hidePhoto(e)
+      }
+      if (e.key === "F2") {
+        showHideMenu(e)
+      }
+      if (e.key === "F9") {
+        showPresentation(e)
+      }
+    }
+
+    // @func check wheel
+    function checkWheel(e){
+      if ($isPhotoOpen) {
+        if (e.deltaY > 0) {
+          showNextPhoto(e) 
+        } else {
+          showPreviousPhoto(e)
+        }
+      }
+    }
+
+    // @func check touch
+    function touchstart(e) {
+      $touchStartX = e.touches[0].pageX
+      $touchEndX = $touchStartX
+    }
+    function touchmove(e) {
+      $touchEndX = e.touches[0].pageX
+    }
+    function touchend(e) {
+      const deltaX = $touchEndX - $touchStartX
+      console.log("touch:", deltaX)
+      if (deltaX > 50) {
+         showPreviousPhoto(e)
+      } else if (deltaX < -50) {
+         showNextPhoto(e)
+      }
+    }
+
+    // @func change margin
+    function changeMargin(){
+      console.log(`changeMargin()`)
+      const windowHeight = window.innerHeight
+      const headerHeight = $headerDiv.offsetHeight
+      const viewHeight = windowHeight - headerHeight
+      $marginTop = headerHeight
+
+      $root.style.setProperty('--viewHeight', `${viewHeight}px`)
+      $root.style.setProperty('--marginTop', `${headerHeight}px`) 
+    }
+
+  // @class DATA
+  //
+    // @func prepare data
+    function prepareData() {
+      console.log("prepareData()")
+      $citiesArray = []
+    
+      for (const voivodeship in cities) {
+        for (const city in cities[voivodeship]) {
+          const cityObj = cities[voivodeship][city]
+
+          // gallery photos
+          if(cityObj.gallery) {
+            cityObj.gallery.forEach(item => {
+
+              //prepare path
+              function preparePath() {
+                let path = ""
+
+                // path for mountains
+                if (voivodeship == "GÓRY") {
+                  path = `Góry/Zdjęcia/${item.name}.jpg`
+
+                // path for Kraków
+                } else if (city == 'KRAKÓW') {
+                  path = `Kraków/Zdjęcia/${item.catg}/${item.name}.jpg`
+
+                // path for others cities
+                } else {
+                  path = `Polska/${voivodeship}/${capitalizeCityName(city)}/Zdjęcia/${item.name}.jpg`
+                }
+                return path
+              }
+
+              const newItem = {
+                city: city,
+                coor: item.coor,
+                catg: item.catg,
+                date: item.date,
+                name: item.name,
+                url: preparePath()
+              }
+              if (item.top) {
+                newItem.top = item.top
+              }
+              $citiesArray.push(newItem)
+            })
+          }
+
+          // profile photo
+          if(cityObj.coor && (voivodeship != "GÓRY")) {
+            const newItem = {
+              city: city,
+              coor: cityObj.coor,
+              catg: cat.profil,
+              date: cityObj.date,
+              name: "Zdjęcie profilowe",
+              url: `Polska/Zdjęcia/${capitalizeCityName(city)}.jpg`
+            }
+            $citiesArray.push(newItem)
+          }
+        }
+      }
+    }
+
+    // @func filter data
+    function filterData() {
+      console.log("filterData()")
+      // get data from original array
+      $filteredData = $citiesArray
+
+      // filter by range filter
+      if($rangeFilter == "city") {
+        $filteredData = $citiesArray.filter(item => $selectCity.value === item.city)
+      }
+      if($rangeFilter == "voivodeship") {
+        $filteredData = $filteredData.filter(item => $selectVoivodeship.value === findVoivodeship(item.city))
+      } 
+
+      // filter by category filter
+      if($categoryFilter != cat.all) {
+        $filteredData = $filteredData.filter(item => {
+          return item.catg == $categoryFilter
+        })
+      }
+
+      // filter by date filter
+      if($dateFilter != cat.all) {
+        $filteredData = $filteredData.filter(item => {
+          return item.date?.some(date => date == Number($dateFilter))
+        })
+      }
+      
+      // sort data
+      $filteredData = sortData($filteredData)
+
+      // add id to filtered items
+      $filteredData.forEach((item, index) => item.id = index)
+    }
+
+    // @func sort data
+    function sortData(array) {
+      const categoryOrder = Object.values(cat);
+
+      array.sort((a, b) => {
+        // sort by voivodesip
+        if (findVoivodeship(a.city) === 'GÓRY' && findVoivodeship(b.city) !== 'GÓRY') return -1;
+        if (findVoivodeship(a.city) !== 'GÓRY' && findVoivodeship(b.city) === 'GÓRY') return 1;
+
+        if (findVoivodeship(a.city) < findVoivodeship(b.city)) return -1
+        if (findVoivodeship(a.city) > findVoivodeship(b.city)) return 1
+      
+        // sort by city
+        if (a.city < b.city) return -1
+        if (a.city > b.city) return 1
+
+        // sort by category
+        const categoryA = categoryOrder.indexOf(a.catg);
+        const categoryB = categoryOrder.indexOf(b.catg);
+        if (categoryA < categoryB) return -1;
+        if (categoryA > categoryB) return 1;
+
+        // sort by name
+        if (a.name < b.name) return -1
+        if (a.name > b.name) return 1
+
+        return 0
+      })
+      return array
+    }
+    
+    // @func update data
+    function updateData() {
+      console.log("updateData()")
+      filterData()
+      prepareMarkers()
+      prepareGallery()   
+      console.log($filteredData)
+    }
+
+  // @class HEADER
+
+    // @func show hide menu
+    function showHideMenu() {
+      console.log("showHideMenu()");
+      $headerDiv.classList.toggle('hide')
+      $photoGroup.classList.toggle('top')
+      $photoImage.classList.toggle('top')
+      $gallery.classList.toggle('top')
+    }
+
+    // @func set emblem of city
+    function setEmblem(city) {
+      console.log(`setEmblem(${city})`)
+
+      if($selectVoivodeship.value == "GÓRY") {
+        $headerEmblem.classList.add("none")
+        return
+      } 
+      $headerEmblem.classList.remove("none")
+      const voidevodeship = findVoivodeship(city)
+      const capitalizedCity = capitalizeCityName(city)
+      const path = `Polska/${voidevodeship}/${capitalizedCity}/${capitalizedCity}.gif`
+      $headerEmblem.setAttribute("src", path)
+      $headerEmblem.setAttribute("alt", "Herb")
+    }
+
+    // @func prepare voidevodeship
+    function prepareVoivodeship(){
+      console.log(`prepareVoivodeship()`)
+      const voivodeships = Object.keys(cities)
+
+      $selectVoivodeship.innerHTML = ""
+      voivodeships.forEach(voidevoship => {
+        createOption($selectVoivodeship, voidevoship, findVoivodeship($startCity))
+      });
+    }
+
+    // @func set cities
+    function setCities(){
+      const newCities = cities[$selectVoivodeship.value]
+      console.log(`setCities(${$selectVoivodeship.value})`);
+
+      $selectCity.innerHTML ="";
+      Object.keys(newCities).forEach(city => {
+        createOption($selectCity, city, $startCity)
+      });
+      // document.title = $selectCity.value
+
+      setEmblem($selectCity.value)
+      setMapView()
+      updateData()
+    }
+
+    // @func set city
+    function setCity() {
+      console.log(`setCity(${$selectCity.value})`)
+      // document.title = $selectCity.value
+
+      setEmblem($selectCity.value)
+      if ($rangeFilter == "city") {
+        setMapView()
+      }
+      updateData()
+    }
+
+    // @func set range
+    function setRange() {
+      $rangeFilter = $selectRange.value
+      console.log(`setRange(${$rangeFilter})`)
+      
+      setMapView()
+      if ($rangeFilter == "city") {
+        setCategory(cat.all)
+      } else {
+        setCategory(cat.profil)
+      }
+    }
+
+    // @func set view mode
+    function setViewMode() {
+
+      $viewMode = $selectViewMode.value
+      console.log(`setViewMode(${$viewMode})`)
+
+      // add class to gallery and background
+      function classAdd(className) {
+        $gallery.classList.add(className)
+        $galleryBackground.classList.add(className)
+      }
+      // remove class from gallery and background
+      function classRemove(className) {
+        $gallery.classList.remove(className)
+        $galleryBackground.classList.remove(className)
+      }
+
+      if ($viewMode == "map") {
+        $isGalleryAndMap = false
+        hidePhoto()
+        classAdd('hide')
+        setTimeout(() => {
+          $isHiglightActive = true 
+          classRemove('hide')
+          classRemove('show')
+          classAdd('none')
+        }, 400);
+
+      } else if ($viewMode == "map&gallery"){
+        $isGalleryAndMap = true
+        classRemove('none')
+        classAdd('show')
+        classAdd('half')
+        setTimeout(() => {
+          $isHiglightActive = true
+        }, 1000);
+
+      } else if ($viewMode == "gallery") {
+        $isGalleryAndMap = false
+        $isHiglightActive = false
+        classRemove('none')
+        classRemove('half')
+        classAdd('show')
+      }
+      setMapView()
+      }
+
+    // @func prepare categories
+    function prepareCategories() {
+      console.log("prepareCategories()");
+
+      Object.values(cat).forEach(category => {
+        createOption($selectCategory, category)
+      })
+    }
+
+    // @func set categories
+    function setCategory(category) {
+      if (category == cat.profil || category == cat.all) {
+        $selectCategory.value = category
+      }
+      $categoryFilter = $selectCategory.value
+      console.log(`setCategory(${$categoryFilter})`)
+      updateData()
+    }
+
+    // @func prepare dates
+    function prepareDates() {
+      console.log("prepareDates()");
+
+      createOption($selectDate, cat.all)
+      for (let year = 2023; year >= 2006; year-- ) {
+        createOption($selectDate, year)
+      }
+    }
+
+    // @func set dates
+    function setDate() {
+      $dateFilter = $selectDate.value
+      console.log(`setDate(${$dateFilter})`)
+      updateData()
+    }
+
+  // @class GALLERY
+
+    // @func prepare gallery
+    function prepareGallery() {
+      console.log("prepareGallery()");
+      //clear gallery
+      $gallery.innerHTML = ""
+      // create imgs for filtered table
+      $filteredData.forEach(item => {
+        const description = `${item.city}: ${item.name}`
+
+        // gallery box
+        const box = document.createElement("div")
+        box.className = "gallery_box"
+
+        // gallery text
+        const text = document.createElement("div")
+        text.className = "gallery_text"
+        text.textContent = description
+        text.setAttribute("id", item.id)
+        text.addEventListener("click", showSelectedPhoto)
+        text.addEventListener("mouseover", highlightMarker)
+        text.addEventListener("mouseout", resetMarker)
+
+        // gallery img
+        const img = document.createElement("img")
+        img.setAttribute("src", item.url)
+        img.setAttribute("alt", description)
+        img.setAttribute("id", item.id)
+        img.addEventListener("click", showSelectedPhoto)
+        img.addEventListener("mouseover", highlightMarker)
+        img.addEventListener("mouseout", resetMarker)
+
+        box.appendChild(img)
+        box.appendChild(text)
+        $gallery.appendChild(box)
+      })
+    }
+
+    let x = 0
+    // @func show photo
+    function showPhoto(imgID) {
+      console.log(`showPhoto(${imgID})`)
+      if (imgID == 0) {
+        $photoPrevious.classList.add("none")
+      } else {
+        $photoPrevious.classList.remove("none")
+      }
+
+      if (imgID == $filteredData.length - 1) {
+        $photoNext.classList.add("none")
+      } else {
+        $photoNext.classList.remove("none")
+      }
+
+      const image = document.getElementById(imgID)
+      $photoImage.setAttribute("src", image.src)
+      console.log($photoImage);
+
+      $photoName.textContent = "Ładowanie zdjęcia..."
+      $photoImage.addEventListener("error", 
+      () => $photoName.textContent = "Zdjęcie jest niedostępne.")
+      $photoImage.addEventListener("load", 
+      () => $photoName.textContent = image.alt)
+
+      $isPhotoOpen = true
+    }
+
+    // @func show presentation
+    function showPresentation(e) {
+      console.log("showPresentation()")
+
+      showPhoto(0)
+      $index = 0;
+
+      $photo.classList.remove("none")
+      $photo.classList.add("show")
+
+      $interval = setInterval(() => {
+        if ($index < $filteredData.length - 1) {
+          showNextPhoto(e)
+        } else {
+          clearInterval($interval)
+          hidePhoto(e)
+        }
+      }, 3000);
+    }
+
+    // @func show selected photo
+    function showSelectedPhoto(e) {      
+
+      let imgID = e.target.id
+
+      showPhoto(imgID)
+      $index = imgID;
+
+      setTimeout(() => {
+        $photo.classList.remove("none")
+        $photo.classList.add("show")
+      },100);
+
+      console.log(`showSelectedPhoto(${$index})`)
+    }
+
+    // @func show previous photo
+    function showPreviousPhoto(e){
+      console.log("showPreviousPhoto()")
+
+      e.stopPropagation()
+      if ($index > 0) {
+        $index = parseInt($index) - 1
+        showPhoto($index)
+      } 
+    }
+
+    // @func show next photo
+    function showNextPhoto(e) {
+      console.log("showNextPhoto()")
+      
+      e.stopPropagation()
+      if ($index < $filteredData.length - 1) {
+        $index = parseInt($index) + 1
+        showPhoto($index)
+      } 
+    }
+
+    // @func hide photo
+    function hidePhoto() {
+      console.log("hidePhoto()")
+      clearInterval($interval)
+
+      $isPhotoOpen = false
+      $photo.classList.add("hide")
+      setTimeout(() => {
+        $photo.classList.add("none")
+        $photo.classList.remove("show")
+        $photo.classList.remove("hide")
+      }, 400);
+    }
+
+  // @class MAP
+
+    // @func prepare map
+    function prepareMap() {
+      console.log("prepareMap()");
+      // leaflet map view
+      $map = L.map('map')
+      // add leaflet openstreetmap
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data from <a href="https://www.openstreetmap.org/">OpenStreetMap</a>', 
+        maxZoom: 18}).addTo($map)
+  
+      // remove zoom controls
+      const zoomControl = L.control.zoom()
+      zoomControl.addTo($map);
+      $map.removeControl(zoomControl);
+
+      // keyboard disabled
+      $map.keyboard.disable()
+  
+      // getting coordinates from map
+      $map.on('click', (e) => {
+        const lat = e.latlng.lat.toFixed(7)
+        const lng = e.latlng.lng.toFixed(7)
+        console.log(`${lat},${lng}`)
+      })
+    }
+
+    // @func set map view
+    function setMapView() {
+      console.log(`setMapView()`)
+      const city = $selectCity.value
+      const cityObj = cities[findVoivodeship(city)][city];
+
+      if ($rangeFilter == "none"){
+        const centerOfPoland = [52.2159333,19.1344222]
+        $map.setView(...setCoor(centerOfPoland, 7))
+
+      } else if (cityObj.coor) {
+        if ($rangeFilter == "city") {
+          $map.setView(...setCoor(cityObj.coor, cityObj.zoom))
+
+        } else if ($rangeFilter == "voivodeship") {
+          $map.setView(...setCoor(cityObj.coor, 9))
+        }
+      }
+    }
+
+    // @func set coordinates
+    function setCoor(coor, zoom) {
+      if ($isGalleryAndMap) {
+        const mapZoom = $map.getZoom()
+        const mapPoint = $map.latLngToContainerPoint(coor);
+        const scale = Math.pow(2, zoom - mapZoom)
+        const width = window.innerWidth
+        const shift = ( window.innerWidth / 4 ) / scale
+        const newX = mapPoint.x - shift
+        const newCoor = $map.containerPointToLatLng([newX, mapPoint.y])
+        return [newCoor, zoom]
+      } else {
+        return [coor,zoom]
+      }
+    }
+
+  // @class MARKERS
+
+    // @func prepare markers
+    function prepareMarkers() {
+      console.log("prepareMarkers()");
+
+      // remove all markers from map
+      $markers.forEach(marker => $map.removeLayer(marker))
+      // remove all markers from table
+      $markers = []
+      // create new markers
+      $filteredData.forEach(item => {
+        createMarker(item)
+      })
+      // add zoom listener
+      addZoomToMakers()
+    }
+
+    // @func create marker
+    function createMarker({coor, city, catg, name, url, id, top}) {
+      // icon
+      const zoom = $map.getZoom()
+      const icon = L.icon({
+        iconUrl: url.replace(/(\/)([^/]+)\.([^/.]+)$/, '$1webp/$2.webp'),
+        iconSize: setZoom(zoom),
+        iconAnchor: setAnchor(zoom),
+        className: `marker marker-${catg.toLowerCase()}`
+      })
+
+      // marker
+      const marker = L.marker(coor, {icon: icon}).addTo($map)
+      marker.id = id
+      marker.catg = catg
+      marker.on('mouseover', highlightMarker)
+      marker.on('mouseout', resetMarker)
+      marker.on('click', showSelectedPhoto)
+
+      if (top) {
+        marker.top = top
+        marker.setZIndexOffset(1)
+      }
+      $markers.push(marker)
+    }
+
+    // @func add zoom to markers
+    function addZoomToMakers(){
+      $map.on('zoomend', () => {
+        $markers.forEach(marker => {
+          updateMarkerSize(marker)
+        })
+      })
+    }
+
+    // @func highlight marker
+    function highlightMarker(e) {
+      if ($isHiglightActive) {
+        const id = e.target.id
+        const marker = $markers[id]
+        marker.setZIndexOffset(100);
+        updateMarkerSize(marker, 2)
+      }
+    }
+
+    // @func reset marker
+    function resetMarker(e) {
+      const id = e.target.id
+      const marker = $markers[id]      
+      if (marker.top) {
+        marker.setZIndexOffset(1)
+      } else {
+        marker.setZIndexOffset(0)
+      }
+      updateMarkerSize(marker)
+    }
+
+    // @func update marker size
+    function updateMarkerSize(marker, value){
+      const zoom = $map.getZoom()
+      const icon = marker.options.icon
+      let factor = 1
+      if (value) {
+        factor = value * 12 / zoom
+      }
+      icon.options.iconSize = setZoom(zoom * factor)
+      icon.options.iconAnchor = setAnchor(zoom * factor)
+      marker.setIcon(icon)
+    }
+
+    // @func set zoom of marker
+    function setZoom(zoom) {
+      const size = Math.pow(zoom,2) * 0.15
+      return [size, size]
+    }
+
+    // @func set anchor of marker
+    function setAnchor(zoom) {
+      const size = Math.pow(zoom,2) * 0.15
+      return [size * 0.5, size * 0.5]
+    }
+
+  // @class TOOLS
+
+    // @func find voivodeship
+    function findVoivodeship(city) {
+      for (let voivodeship in cities) {
+        if (city in cities[voivodeship]) {
+          return voivodeship
+        }
+      }
+    }
+
+    // @func capitalize name of city
+    function capitalizeCityName(city) {
+      let capitalizedCity = city.toLowerCase()
+      capitalizedCity = capitalizedCity.charAt(0).toUpperCase() + capitalizedCity.slice(1)
+      return capitalizedCity
+    }
+
+    // @func create option
+    function createOption(parent, value, condition) {
+      const option = document.createElement('option')
+      option.classList.add("header_option")
+      option.value = value
+      option.textContent = value
+      if (condition) {
+        if (value == condition) {
+          option.setAttribute("selected", "selected")
+        }
+      }
+      parent.appendChild(option)
+    }
+
+    // @func debug
+    function debug(item) {
+      console.log("--->")
+      console.log(item)
+      console.log("<---")
+    }
+
+  </script>
+</body>
+</html>
