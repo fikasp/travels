@@ -276,7 +276,7 @@ def get_base_folder(script_dir: Path, year: int, month: int) -> Path:
     Determine the base folder path to search GPX files based on the config.
     """
     if year == 0:
-        return script_dir / "Trasy"
+        return script_dir
     if month == 0:
         return script_dir / "Trasy" / str(year)
     if 1 <= month <= 12:
@@ -300,7 +300,10 @@ def main():
     """
     # Set up input and output paths
     project_dir = Path(__file__).parent.parent.resolve()
+
+    print(project_dir)
     base_folder = get_base_folder(project_dir, YEAR, MONTH)
+    print(base_folder)
     output_file = project_dir / "Code/routes.js"
 
     # Unhide output file before writing
