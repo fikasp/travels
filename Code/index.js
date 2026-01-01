@@ -1,6 +1,6 @@
 const data = {
   "DROGI": {
-    "Ekspresowe": {
+    "Autostrady": {
       coor: [
         51.9,
         19.2
@@ -35,7 +35,14 @@ const data = {
         zoom: 7,
         scale: 1.0,
         gallery: []
-      },
+      }
+    },
+    "Ekspresowe": {
+      coor: [
+        51.9,
+        19.2
+      ],
+      zoom: 7,
       "S1": {
         coor: [
           51.9,
