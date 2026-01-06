@@ -73,7 +73,7 @@ def get_year(name, range):
                     if month_str.isdigit():
                         month = int(month_str)
                         if 1 <= month <= 12:
-                            return year if month <= current_month else 0
+                            return year if month < current_month else 0
                 return year
     except Exception:
         return 0
