@@ -5802,6 +5802,19 @@ const data = {
         zoom: 14,
         scale: 1.5,
         gallery: []
+      },
+      "Władysławowo": {
+        abbr: "GPW",
+        coor: [
+          54.7959257,
+          18.3972824
+        ],
+        date: [
+          2025
+        ],
+        zoom: 15,
+        scale: 1.0,
+        gallery: []
       }
     },
     "Śląskie": {
@@ -6796,6 +6809,19 @@ const data = {
           2020
         ],
         zoom: 15,
+        scale: 1.0,
+        gallery: []
+      },
+      "Ostróda": {
+        abbr: "NOS",
+        coor: [
+          53.7042458,
+          19.9603021
+        ],
+        date: [
+          2024
+        ],
+        zoom: 14,
         scale: 1.0,
         gallery: []
       }

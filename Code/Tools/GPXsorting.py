@@ -35,7 +35,7 @@ def process_file(file_path: str):
         name_element = wpt.find('name')
         name = name_element.text if name_element is not None else "[No Name]"
         # Wypisujemy tylko nazwę (jeśli chcesz więcej szczegółów, możesz dodać inne atrybuty/elementy)
-        print(f" - {name}")
+        print(f"🔹 {name}")
 
     # Remove existing waypoints
     for wpt in waypoints:
