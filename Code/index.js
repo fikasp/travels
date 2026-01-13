@@ -1932,6 +1932,43 @@ const data = {
           },
           {
             catg: "S",
+            name: "Kościół MB Śnieżnej (Dominikanek) [Stare Miasto]/Zewnętrze",
+            scale: 1.0,
+            coor: [
+              50.0611583,
+              19.9432003
+            ],
+            date: [
+              2025
+            ],
+            "top": true
+          },
+          {
+            catg: "S",
+            name: "Kościół MB Śnieżnej (Dominikanek) [Stare Miasto]/Wnętrze",
+            scale: 1.0,
+            coor: [
+              50.0611583,
+              19.9432003
+            ],
+            date: [
+              2025
+            ]
+          },
+          {
+            catg: "S",
+            name: "Kościół MB Śnieżnej (Dominikanek) [Stare Miasto]/Organy",
+            scale: 1.0,
+            coor: [
+              50.0611583,
+              19.9432003
+            ],
+            date: [
+              2025
+            ]
+          },
+          {
+            catg: "S",
             name: "Kościół Niepokalanego Poczęcia NMP (Karmelitów Bosych) [Warszawskie]/Zewnętrze",
             scale: 1.0,
             coor: [
