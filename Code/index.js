@@ -903,6 +903,18 @@ const data = {
           },
           {
             catg: "G",
+            name: "Morskie Oko",
+            scale: 1.0,
+            coor: [
+              50.0637406,
+              19.9362588
+            ],
+            date: [
+              2024
+            ]
+          },
+          {
+            catg: "G",
             name: "Pod Wawelem",
             scale: 1.0,
             coor: [
