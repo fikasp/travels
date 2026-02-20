@@ -812,6 +812,18 @@ const data = {
           },
           {
             catg: "G",
+            name: "Bombay curry",
+            scale: 1.0,
+            coor: [
+              50.0688937,
+              19.9387506
+            ],
+            date: [
+              2026
+            ]
+          },
+          {
+            catg: "G",
             name: "Camelot",
             scale: 1.0,
             coor: [
