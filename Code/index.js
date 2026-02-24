@@ -3428,6 +3428,18 @@ const data = {
           },
           {
             catg: "Z",
+            name: "Park Kurdwanowski",
+            scale: 1.0,
+            coor: [
+              50.0100971,
+              19.9577621
+            ],
+            date: [
+              2025
+            ]
+          },
+          {
+            catg: "Z",
             name: "Park Leśny Witkowice",
             scale: 1.0,
             coor: [
