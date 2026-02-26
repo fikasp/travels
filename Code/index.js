@@ -939,6 +939,18 @@ const data = {
           },
           {
             catg: "G",
+            name: "Sphinx",
+            scale: 1.0,
+            coor: [
+              50.0611359,
+              19.9358638
+            ],
+            date: [
+              2025
+            ]
+          },
+          {
+            catg: "G",
             name: "Taco Mexicano",
             scale: 1.0,
             coor: [
