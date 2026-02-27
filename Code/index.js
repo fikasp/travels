@@ -939,6 +939,18 @@ const data = {
           },
           {
             catg: "G",
+            name: "Przystanek Pierogarnia",
+            scale: 1.0,
+            coor: [
+              50.0629942,
+              19.9340406
+            ],
+            date: [
+              2025
+            ]
+          },
+          {
+            catg: "G",
             name: "Sphinx",
             scale: 1.0,
             coor: [
