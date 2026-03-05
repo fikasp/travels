@@ -2099,6 +2099,43 @@ const data = {
           },
           {
             catg: "S",
+            name: "Kościół NMP z Lourdes (Misjonarzy) [Nowa Wieś]/Zewnętrze",
+            scale: 1.0,
+            coor: [
+              50.0712023,
+              19.9129021
+            ],
+            date: [
+              2026
+            ],
+            "top": true
+          },
+          {
+            catg: "S",
+            name: "Kościół NMP z Lourdes (Misjonarzy) [Nowa Wieś]/Wnętrze",
+            scale: 1.0,
+            coor: [
+              50.0712023,
+              19.9129021
+            ],
+            date: [
+              2026
+            ]
+          },
+          {
+            catg: "S",
+            name: "Kościół NMP z Lourdes (Misjonarzy) [Nowa Wieś]/Organy",
+            scale: 1.0,
+            coor: [
+              50.0712023,
+              19.9129021
+            ],
+            date: [
+              2026
+            ]
+          },
+          {
+            catg: "S",
             name: "Kościół Podwyższenia Krzyża Świętego [Kurdwanów]/Zewnętrze",
             scale: 1.0,
             coor: [
