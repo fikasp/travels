@@ -3621,6 +3621,18 @@ const data = {
           },
           {
             catg: "Z",
+            name: "Park Wincentego",
+            scale: 1.0,
+            coor: [
+              50.0710156,
+              19.9116898
+            ],
+            date: [
+              2026
+            ]
+          },
+          {
+            catg: "Z",
             name: "Park Wyspiańskiego",
             scale: 1.0,
             coor: [
