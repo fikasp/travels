@@ -1,6 +1,6 @@
 <!-- @p TRAVELS
 ------------------------->
-<!DOCTYPE html>
+<!doctype html>
 <html>
 	<head>
 		<!--====================-->
@@ -840,12 +840,6 @@
 						activities.TRANSPORT_BOAT.key,
 					],
 				},
-				ROADS: {
-					key: 'DROGI',
-					value: 'DROGI',
-					categories: [categories.NONE.key],
-					activities: [activities.NONE.key, activities.ALL.key],
-				},
 				POLAND: {
 					key: 'POLSKA',
 					value: 'POLSKA',
@@ -1091,7 +1085,7 @@
 							startX = touch.pageX
 							startY = touch.pageY
 						},
-						{ passive: true }
+						{ passive: true },
 					)
 
 					$select.addEventListener(
@@ -1118,7 +1112,7 @@
 								}
 							}
 						},
-						{ passive: true }
+						{ passive: true },
 					)
 
 					// Scroll
@@ -1143,7 +1137,7 @@
 								$select.dispatchEvent(new Event('change'))
 							}
 						},
-						{ passive: false }
+						{ passive: false },
 					)
 				})
 			}
@@ -1539,26 +1533,17 @@
 				Log.enter()
 				clearContent($selectDate)
 
-				if ($selectRange.value === ranges.ROADS.key) {
-					createOption($selectDate, modes.ALL.key, `📅 ${modes.ALL.value}`, $dateFilter)
-					const roadYears = [2028, 2027, 2026, 2025, 2024, 2020, 2016, 2012, 2008, 2004, 2000]
-					roadYears.forEach((year) => {
-						createOption($selectDate, year, `📅 ${year}`, $dateFilter)
-					})
-				} else {
-					// Common options for all ranges
-					createOption($selectDate, modes.ALL.key, `📅 ${modes.ALL.value}`, $dateFilter)
-					createOption($selectDate, modes.DONE.key, `📅 ${modes.DONE.value}`, $dateFilter)
-					createOption($selectDate, modes.PLAN_ALL.key, `📅 ${modes.PLAN_ALL.value}`, $dateFilter)
-					for (let year = FUTURE_YEAR; year > CURRENT_YEAR; year--) {
-						createOption($selectDate, year, `📅 Plan ${year}`, $dateFilter)
-					}
-					createOption($selectDate, modes.PLAN_CURRENT.key, `📅 ${modes.PLAN_CURRENT.value}`, $dateFilter)
-					for (let year = CURRENT_YEAR; year >= 2004; year--) {
-						createOption($selectDate, year, `📅 ${year}`, $dateFilter)
-					}
-					createOption($selectDate, 2000, `📅 2000`, $dateFilter)
+				createOption($selectDate, modes.ALL.key, `📅 ${modes.ALL.value}`, $dateFilter)
+				createOption($selectDate, modes.DONE.key, `📅 ${modes.DONE.value}`, $dateFilter)
+				createOption($selectDate, modes.PLAN_ALL.key, `📅 ${modes.PLAN_ALL.value}`, $dateFilter)
+				for (let year = FUTURE_YEAR; year > CURRENT_YEAR; year--) {
+					createOption($selectDate, year, `📅 Plan ${year}`, $dateFilter)
 				}
+				createOption($selectDate, modes.PLAN_CURRENT.key, `📅 ${modes.PLAN_CURRENT.value}`, $dateFilter)
+				for (let year = CURRENT_YEAR; year >= 2004; year--) {
+					createOption($selectDate, year, `📅 ${year}`, $dateFilter)
+				}
+				createOption($selectDate, 2000, `📅 2000`, $dateFilter)
 
 				Log.exit()
 			}
@@ -1569,10 +1554,7 @@
 				Log.enter()
 				const range = $selectRange.value
 
-				if (range == ranges.ROADS.key) {
-					$labelRegion.textContent = 'Rodzaj:'
-					$labelPlace.textContent = 'Droga:'
-				} else if (range == ranges.POLAND.key) {
+				if (range == ranges.POLAND.key) {
 					$labelRegion.textContent = 'Region:'
 					$labelPlace.textContent = 'Miasto:'
 				} else if (range == ranges.WORLD.key) {
@@ -1593,9 +1575,8 @@
 			function setEmblem() {
 				Log.enter($selectPlace.value)
 				if (
-					$selectRange.value == ranges.ROADS.key ||
-					$selectRange.value == ranges.MOUNTAINS.key ||
 					$selectPlace.value == modes.ALL.key ||
+					$selectRange.value == ranges.MOUNTAINS.key ||
 					$selectPlace.value == ''
 				) {
 					$headerEmblem.classList.add('none')
@@ -1642,9 +1623,6 @@
 				setEmblem()
 				setTitle()
 				setMapView()
-				if ($selectRange.value == ranges.ROADS.key) {
-					prepareRoutes()
-				}
 				updateData()
 				logSelects()
 				Log.exit()
@@ -1660,9 +1638,6 @@
 				setEmblem()
 				setTitle()
 				setMapView()
-				if ($selectRange.value == ranges.ROADS.key) {
-					prepareRoutes()
-				}
 				updateData()
 				logSelects()
 				Log.exit()
@@ -2085,8 +2060,6 @@
 						$map.setView(...setCoor([49.5, 20.0], 9))
 					} else if ($selectRange.value == ranges.POLAND.key) {
 						$map.setView(...setCoor([51.9, 19.2], 7))
-					} else if ($selectRange.value == ranges.ROADS.key) {
-						$map.setView(...setCoor([51.9, 19.2], 7))
 					} else if ($selectRange.value == ranges.WORLD.key) {
 						$map.setView(...setCoor([49.6, 12.0], 5))
 					} else {
@@ -2320,69 +2293,19 @@
 					return true
 				}
 
-				// Filter for roads
-				if (route.range === ranges.ROADS.key) {
-					const name = route.name.split(' - ')[0]
-
-					const roadCategoryMap = {
-						A: 'Autostrady',
-						S: 'Ekspresowe',
-						D: 'Pozostałe',
-					}
-
-					// Determine road category
-					const roadKey = Object.keys(roadCategoryMap).find((key) => name.startsWith(key))
-					const roadCategory = roadCategoryMap[roadKey]
-
-					// Filter by region (road category)
-					if ($selectRegion.value !== modes.ALL.key && $selectRegion.value !== roadCategory) {
-						return true
-					}
-
-					// Filter by road name
-					if (
-						$selectPlace.value !== modes.ALL.key &&
-						$selectPlace.value !== modes.EMPTY.key &&
-						$selectPlace.value !== name
-					) {
-						return true
-					}
-
-					// Filter by road year
-					if ($dateFilter === modes.ALL.key) {
-						// ALL mode: allow all routes regardless of year
-					} else if ($dateFilter === modes.DONE.key) {
-						// DONE mode: show only realized routes
-						if (route.year > CURRENT_YEAR || route.year === 0) {
-							return true // skip planned routes
-						}
-					} else if ($dateFilter === modes.PLAN_CURRENT.key) {
-						// PLAN_CURRENT mode: show only routes up to CURRENT_YEAR
-						if (route.year > CURRENT_YEAR) {
-							return true // skip route from the future
-						}
-					} else {
-						// Specific year mode: allow only routes up to and including the selected year
-						if (route.year > parseInt($dateFilter)) {
-							return true // skip route from the future
-						}
-					}
-				} else {
-					// Filter by yar for non-road routes
-
-					if ($dateFilter === modes.DONE.key) {
-						// DONE mode: show only realized routes
-						if (route.year > CURRENT_YEAR || route.year === 0) return true
-					} else if ($dateFilter === modes.PLAN_ALL.key) {
-						// PLAN_ALL mode: show only planned routes
-						if (route.year <= CURRENT_YEAR && route.year !== 0) return true
-					} else if ($dateFilter === modes.PLAN_CURRENT.key) {
-						// PLAN_CURRENT mode: show only planned routes up to CURRENT_YEAR
-						if (route.year !== 0) return true
-					} else if ($dateFilter !== modes.ALL.key && route.year !== parseInt($dateFilter)) {
-						// Specific year selected: skip if year doesn't match the selected year
-						return true
-					}
+				// Filter by year
+				if ($dateFilter === modes.DONE.key) {
+					// DONE mode: show only realized routes
+					if (route.year > CURRENT_YEAR || route.year === 0) return true
+				} else if ($dateFilter === modes.PLAN_ALL.key) {
+					// PLAN_ALL mode: show only planned routes
+					if (route.year <= CURRENT_YEAR && route.year !== 0) return true
+				} else if ($dateFilter === modes.PLAN_CURRENT.key) {
+					// PLAN_CURRENT mode: show only planned routes up to CURRENT_YEAR
+					if (route.year !== 0) return true
+				} else if ($dateFilter !== modes.ALL.key && route.year !== parseInt($dateFilter)) {
+					// Specific year selected: skip if year doesn't match the selected year
+					return true
 				}
 				return false
 			}
@@ -2423,48 +2346,21 @@
 						${thirdLine ? `<div>${thirdLine}</div>` : ''}
 					</div>
 				`
+				const [date, name] = route.name.split(' - ')
 
-				// Roads
-				if (route.range === ranges.ROADS.key) {
-					const [name, date, lanes] = route.name.split(' - ')
+				routeName = renderName(
+					date,
+					`<strong>${formatName(name)}</strong>`,
+					`${route.icon} ${formatDistance(route.length)}`,
+				)
 
-					routeName = renderName(`<strong>${name}</strong> - ${date}`, `${route.icon} ${formatDistance(route.length)}`)
-
-					routeLane = lanes?.[0]
-
-					if (routeLane == 3) {
-						routeWeight = 8
-					} else if (routeLane == 2) {
-						routeWeight = 6
-					} else if (routeLane == 1) {
-						routeWeight = 4
-					} else {
-						routeWeight = 2
-					}
-
-					if (route.year > CURRENT_YEAR) {
-						routeColor = buildColor
-					} else {
-						routeColor = getColorForRoute(route.year)
-					}
-				} else {
-					// Other routes
-					const [date, name] = route.name.split(' - ')
-
-					routeName = renderName(
-						date,
-						`<strong>${formatName(name)}</strong>`,
-						`${route.icon} ${formatDistance(route.length)}`
-					)
-
-					if (primaryActivities.includes(route.activity)) {
-						routeColor = primaryColor
-					} else if (secondaryActivities.includes(route.activity)) {
-						routeColor = secondaryColor
-					}
-					if (route.year > CURRENT_YEAR || route.year === 0) {
-						routeColor = planColor
-					}
+				if (primaryActivities.includes(route.activity)) {
+					routeColor = primaryColor
+				} else if (secondaryActivities.includes(route.activity)) {
+					routeColor = secondaryColor
+				}
+				if (route.year > CURRENT_YEAR || route.year === 0) {
+					routeColor = planColor
 				}
 				return { routeName, routeColor, routeWeight }
 			}
@@ -2805,7 +2701,7 @@
 				_formatArgs: (args) =>
 					args
 						.map((a) =>
-							a instanceof HTMLElement ? `[${a.tagName}]` : typeof a === 'object' ? JSON.stringify(a, null, 2) : a
+							a instanceof HTMLElement ? `[${a.tagName}]` : typeof a === 'object' ? JSON.stringify(a, null, 2) : a,
 						)
 						.join(', '),
 

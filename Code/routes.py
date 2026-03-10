@@ -52,29 +52,24 @@ def get_year(name, range):
     - 0 if the month is in the future within the current year or date not found
     """
     try:
-        if range == "DROGI":
-            parts = name.split(" - ")            
-            year = int(parts[1][:4])
-            return year
-        else: 
-            year_str = name[:4]
-            year = int(year_str)
-            today = datetime.today()
-            current_year = today.year
-            current_month = today.month
+        year_str = name[:4]
+        year = int(year_str)
+        today = datetime.today()
+        current_year = today.year
+        current_month = today.month
 
-            if year < current_year:
-                return year
-            elif year > current_year:
-                return year
-            else:
-                if len(name) >= 7:
-                    month_str = name[5:7]
-                    if month_str.isdigit():
-                        month = int(month_str)
-                        if 1 <= month <= 12:
-                            return year if month < current_month else 0
-                return year
+        if year < current_year:
+            return year
+        elif year > current_year:
+            return year
+        else:
+            if len(name) >= 7:
+                month_str = name[5:7]
+                if month_str.isdigit():
+                    month = int(month_str)
+                    if 1 <= month <= 12:
+                        return year if month < current_month else 0
+            return year
     except Exception:
         return 0
 
@@ -84,16 +79,12 @@ def get_year(name, range):
 def get_range(activity):
     """
     Determines the range based on the activity string:
-    - Returns 'GÓRY' if the activity is 'hiking'
-    - Returns 'DROGI' if the activity is exactly 'roads'
     - Returns 'ŚWIAT' if the activity starts with 'world_'
     - Returns 'POLSKA' in all other cases or if activity is None
     """
     if activity:
         activity = activity.strip().lower()
-        if activity == "transport_truck":
-            return "DROGI"
-        elif activity.startswith("world_"):
+        if activity.startswith("world_"):
             return "EUROPA"
     return "POLSKA"
 
@@ -329,8 +320,6 @@ def main():
                 print(f"✅ 🇵🇱 {icon} {name}")
             elif range_ == "EUROPA":
                 print(f"✅ 🇪🇺 {icon} {name}")
-            elif range_ == "DROGI":
-                print(f"✅ 🇩🇬 {icon}  {name}")
             else:
                 print(f"🟥❌ {icon} {name} -> {range_}")
 
