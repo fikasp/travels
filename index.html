@@ -1574,24 +1574,28 @@
 			//------------------------
 			function setEmblem() {
 				Log.enter($selectPlace.value)
-				if (
-					$selectPlace.value == modes.ALL.key ||
-					$selectRange.value == ranges.MOUNTAINS.key ||
-					$selectPlace.value == ''
-				) {
+
+				const place = $selectPlace.value
+				const region = $selectRegion.value
+				const range = $selectRange.value
+
+				if (range == ranges.MOUNTAINS.key || region == modes.ALL.key || region == '') {
 					$headerEmblem.classList.add('none')
 				} else {
 					$headerEmblem.classList.remove('none')
 
-					const capitalizedPlace = capitalizeName($selectPlace.value)
-					const capitalizedRegion = capitalizeName($selectRegion.value)
+					const capitalizedPlace = capitalizeName(place)
+					const capitalizedRegion = capitalizeName(region)
 
 					let path = ''
-					if ($selectRange.value == ranges.WORLD.key) {
-						path = `Świat/${capitalizedRegion}/${capitalizedPlace}/${capitalizedPlace}.gif`
-					} else if ($selectRange.value == ranges.POLAND.key) {
-						path = `Polska/${capitalizedRegion}/${capitalizedPlace}/${capitalizedPlace}.gif`
+					let folderRoot = range == ranges.WORLD.key ? 'Świat' : 'Polska'
+
+					if (place !== modes.ALL.key) {
+						path = `${folderRoot}/${capitalizedRegion}/${capitalizedPlace}/${capitalizedPlace}.gif`
+					} else if (region !== '') {
+						path = `${folderRoot}/${capitalizedRegion}/${capitalizedRegion}.gif`
 					}
+
 					$headerEmblem.setAttribute('src', path)
 					$headerEmblem.setAttribute('alt', 'Herb')
 				}
