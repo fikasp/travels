@@ -1,6 +1,6 @@
 const data = {
   "EUROPA": {
-    "Austria": {
+    "Centrum/Austria": {
       coor: [
         47.6912769,
         13.2000732
@@ -19,7 +19,33 @@ const data = {
         gallery: []
       }
     },
-    "Hiszpania": {
+    "Centrum/Niemcy": {
+      coor: [
+        51.1605,
+        10.447
+      ],
+      zoom: 7
+    },
+    "Centrum/Węgry": {
+      coor: [
+        47.159,
+        19.305
+      ],
+      zoom: 8,
+      "BUDAPESZT": {
+        coor: [
+          47.5024133,
+          19.0351599
+        ],
+        date: [
+          2013
+        ],
+        zoom: 13,
+        scale: 2.5,
+        gallery: []
+      }
+    },
+    "Południe/Hiszpania": {
       coor: [
         40.413496,
         -3.7133789
@@ -581,31 +607,12 @@ const data = {
         gallery: []
       }
     },
-    "Niemcy": {
+    "Południe/Włochy": {
       coor: [
-        51.1605,
-        10.447
+        43.0,
+        12.5
       ],
       zoom: 7
-    },
-    "Węgry": {
-      coor: [
-        47.159,
-        19.305
-      ],
-      zoom: 8,
-      "BUDAPESZT": {
-        coor: [
-          47.5024133,
-          19.0351599
-        ],
-        date: [
-          2013
-        ],
-        zoom: 13,
-        scale: 2.5,
-        gallery: []
-      }
     }
   },
   "POLSKA": {
