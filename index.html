@@ -596,7 +596,7 @@
 				<select class="footer_select" id="view"></select>
 			</div>
 			<!-- Distance -->
-			<div class="footer_copyright">2025 © Przemysław Fikas</div>
+			<div class="footer_copyright">2026 © Przemysław Fikas</div>
 			<!-- Distance -->
 			<div class="footer_distance"></div>
 		</div>
@@ -1315,22 +1315,20 @@
 					// Sort by range
 					const rangeA = rangePriority[findRange(a.place)] || 9
 					const rangeB = rangePriority[findRange(b.place)] || 9
-					if (rangeA < rangeB) return -1
-					if (rangeA > rangeB) return 1
+					if (rangeA !== rangeB) return rangeA - rangeB
 
 					// Sort by region
-					if (findRegion(a.place) < findRegion(b.place)) return -1
-					if (findRegion(a.place) > findRegion(b.place)) return 1
+					const regionCmp = findRegion(a.place).localeCompare(findRegion(b.place), 'pl')
+					if (regionCmp !== 0) return regionCmp
 
 					// Sort by place
-					if (a.place < b.place) return -1
-					if (a.place > b.place) return 1
+					const placeCmp = a.place.localeCompare(b.place, 'pl')
+					if (placeCmp !== 0) return placeCmp
 
 					// Sort by category
 					const categoryA = categoryPriority[a.catg] || 9
 					const categoryB = categoryPriority[b.catg] || 9
-					if (categoryA < categoryB) return -1
-					if (categoryA > categoryB) return 1
+					if (categoryA !== categoryB) return categoryA - categoryB
 
 					// Ensure a.name and b.name are valid strings
 					const nameA = typeof a.name === 'string' ? a.name : ''
@@ -1340,8 +1338,8 @@
 					const baseNameA = nameA.substring(0, nameA.lastIndexOf('/')) || nameA
 					const baseNameB = nameB.substring(0, nameB.lastIndexOf('/')) || nameB
 
-					if (baseNameA < baseNameB) return -1
-					if (baseNameA > baseNameB) return 1
+					const baseNameCmp = baseNameA.localeCompare(baseNameB, 'pl')
+					if (baseNameCmp !== 0) return baseNameCmp
 
 					// Sort by name priority inside the same basilica
 					const suffixA = nameA.substring(nameA.lastIndexOf('/') + 1).toLowerCase()

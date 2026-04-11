@@ -38,7 +38,7 @@ def process_data():
     last_range = None
 
     for _, row in df.iterrows():
-        range_raw, region, city, abbr, zoom, scale, coors, date, category, description, top = row
+        range_raw, region, city, abbr, zoom, scale, coors, date, category, description = row
 
         # Skip rows without a valid region
         if not pd.notna(region) or not pd.notna(range_raw):
@@ -97,7 +97,7 @@ def process_data():
                 "coor": coor, 
                 "date": date_list
             }
-            if top == "Tak":
+            if description.endswith(("Zewnętrze", "1")) :
                 gallery_item["top"] = True
             output[range_][region][city]["gallery"].append(gallery_item)
 
