@@ -7,14 +7,14 @@ const data = {
       ],
       zoom: 7
     },
-    "Europa północna": {
+    "Europa Północna": {
       coor: [
         57.6,
         18.8
       ],
       zoom: 6
     },
-    "Europa środkowa": {
+    "Europa Środkowa": {
       coor: [
         47.8,
         15.8
@@ -45,7 +45,7 @@ const data = {
         gallery: []
       }
     },
-    "Europa zachodnia": {
+    "Europa Zachodnia": {
       coor: [
         51.0,
         7.0

@@ -1593,11 +1593,14 @@
 					let path = ''
 					let folderRoot = range == ranges.WORLD.key ? 'Świat' : 'Polska'
 
+					
 					if (place !== modes.ALL.key) {
 						path = `${folderRoot}/${capitalizedRegion}/${capitalizedPlace}/${capitalizedPlace}.gif`
 					} else if (region !== '') {
 						path = `${folderRoot}/${capitalizedRegion}/${capitalizedRegion}.gif`
 					}
+
+					Log.red(path)
 
 					$headerEmblem.setAttribute('src', path)
 					$headerEmblem.setAttribute('alt', 'Herb')
