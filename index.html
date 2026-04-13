@@ -1556,7 +1556,7 @@
 					$labelRegion.textContent = 'Region:'
 					$labelPlace.textContent = 'Miasto:'
 				} else if (range == ranges.WORLD.key) {
-					$labelRegion.textContent = 'Państwo:'
+					$labelRegion.textContent = 'Region:'
 					$labelPlace.textContent = 'Miasto:'
 				} else if (range == ranges.MOUNTAINS.key) {
 					$labelRegion.textContent = 'Pasmo:'
@@ -1577,7 +1577,12 @@
 				const region = $selectRegion.value
 				const range = $selectRange.value
 
-				if (range == ranges.MOUNTAINS.key || region == modes.ALL.key || region == '') {
+				if (
+					(range == ranges.WORLD.key && place == modes.ALL.key) ||
+					range == ranges.MOUNTAINS.key ||
+					region == modes.ALL.key ||
+					region == ''
+				) {
 					$headerEmblem.classList.add('none')
 				} else {
 					$headerEmblem.classList.remove('none')
@@ -1589,7 +1594,7 @@
 					let folderRoot = range == ranges.WORLD.key ? 'Świat' : 'Polska'
 
 					if (place !== modes.ALL.key) {
-						path = `${folderRoot}/${region}/${capitalizedPlace}/${capitalizedPlace}.gif`
+						path = `${folderRoot}/${capitalizedRegion}/${capitalizedPlace}/${capitalizedPlace}.gif`
 					} else if (region !== '') {
 						path = `${folderRoot}/${capitalizedRegion}/${capitalizedRegion}.gif`
 					}
