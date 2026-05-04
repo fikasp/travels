@@ -306,7 +306,7 @@ def main():
     #------------------------
     for gpx_file in base_folder.rglob('*.gpx'):
 
-        excluded_folders = {"Stoki"}
+        excluded_folders = {"Stoki", "Archiwa"}
         if any(folder in gpx_file.parts for folder in excluded_folders):
             continue
 
