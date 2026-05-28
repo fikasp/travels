@@ -704,6 +704,7 @@ const data = {
               19.9375489
             ],
             date: [
+              2024,
               2023,
               2022,
               2020,
@@ -935,6 +936,7 @@ const data = {
               19.9352033
             ],
             date: [
+              2025,
               2024
             ]
           },
@@ -1599,6 +1601,52 @@ const data = {
               2024,
               2023,
               2022,
+              2018
+            ]
+          },
+          {
+            catg: "S",
+            name: "Bazylika św. Stanisława i św. Wacława (Wawel) [Stare Miasto]/Zewnętrze",
+            scale: 1.0,
+            coor: [
+              50.0546555,
+              19.9354514
+            ],
+            date: [
+              2023,
+              2021,
+              2020,
+              2018
+            ],
+            "top": true
+          },
+          {
+            catg: "S",
+            name: "Bazylika św. Stanisława i św. Wacława (Wawel) [Stare Miasto]/Wnętrze",
+            scale: 1.0,
+            coor: [
+              50.0546555,
+              19.9354514
+            ],
+            date: [
+              2023,
+              2021,
+              2020,
+              2018
+            ]
+          },
+          {
+            catg: "S",
+            name: "Bazylika św. Stanisława i św. Wacława (Wawel) [Stare Miasto]/Organy",
+            scale: 1.0,
+            coor: [
+              50.0546555,
+              19.9354514
+            ],
+            date: [
+              2023,
+              2021,
+              2020,
               2018
             ]
           },
@@ -2477,6 +2525,9 @@ const data = {
               19.9364009
             ],
             date: [
+              2026,
+              2025,
+              2023,
               2022,
               2021,
               2017
@@ -2492,6 +2543,9 @@ const data = {
               19.9364009
             ],
             date: [
+              2026,
+              2025,
+              2023,
               2022,
               2021,
               2017
@@ -2506,6 +2560,9 @@ const data = {
               19.9364009
             ],
             date: [
+              2026,
+              2025,
+              2023,
               2022,
               2021,
               2017
@@ -3122,6 +3179,7 @@ const data = {
               19.9368703
             ],
             date: [
+              2026,
               2021
             ]
           },
@@ -3333,6 +3391,7 @@ const data = {
               19.9414515
             ],
             date: [
+              2026,
               2023
             ]
           },
