@@ -30,11 +30,13 @@ def process_file(file_path: str):
     # Sort waypoints by <name>, locale-aware
     waypoints.sort(key=lambda wpt: locale.strxfrm(wpt.find('name').text or ""))
 
-    print("✅ Sorted waypoints by name:")
+    # Total waypoints
+    total_waypoints = len(waypoints)
+
+    print(f"✅ Sorted {total_waypoints} waypoints by name:")
     for wpt in waypoints:
         name_element = wpt.find('name')
         name = name_element.text if name_element is not None else "[No Name]"
-        # Wypisujemy tylko nazwę (jeśli chcesz więcej szczegółów, możesz dodać inne atrybuty/elementy)
         print(f"🔹 {name}")
 
     # Remove existing waypoints
