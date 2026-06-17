@@ -21,7 +21,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
 		<!-- Scripts -->
-		<script src="Code/geo.js"></script>
+		<script src="Code/world.js"></script>
 		<script src="Code/routes.js"></script>
 		<script src="Code/index.js"></script>
 		<!-- Title -->
@@ -1767,6 +1767,7 @@
 				Log.enter($selectDate.value)
 				$dateFilter = $selectDate.value
 				prepareRoutes()
+				prepareCountries()
 				updateData()
 				logSelects()
 				Log.exit()
@@ -2078,7 +2079,12 @@
 					$countriesLayer = null
 				}
 
-				if ($selectRange.value !== ranges.WORLD.key || $selectRegion.value !== modes.ALL.key) {
+				if ($selectRange.value !== ranges.NONE.key && $selectRange.value !== ranges.WORLD.key) {
+					Log.exit()
+					return
+				}
+
+				if ($selectRegion.value !== modes.ALL.key) {
 					Log.exit()
 					return
 				}
@@ -2087,23 +2093,24 @@
 					visited: '#fa0',
 					planned: '#48c',
 				}
+				const { visited, planned } = getCountries()
 
 				$countriesLayer = L.geoJSON(geoJSON, {
 					style: (feature) => {
 						const name = feature.properties.name
-						const isVisited = visitedCountries.includes(name)
-						const isPlanned = plannedCountries.includes(name)
+						const isVisited = visited.includes(name)
+						const isPlanned = planned.includes(name)
 						const color = isVisited ? colors.visited : isPlanned ? colors.planned : 'transparent'
 						return {
 							fillColor: color,
 							fillOpacity: isVisited || isPlanned ? 0.25 : 0,
-							weight: isVisited || isPlanned ? 1 : 0,
 							color: color,
+							weight: isVisited || isPlanned ? 1 : 0,
 						}
 					},
 					onEachFeature: (feature, layer) => {
 						const name = feature.properties.name
-						if (visitedCountries.includes(name) || plannedCountries.includes(name)) {
+						if (visited.includes(name) || planned.includes(name)) {
 							layer.bindTooltip(name, {
 								className: 'marker-tooltip',
 								sticky: true,
@@ -2114,7 +2121,6 @@
 
 				Log.exit()
 			}
-
 			// @b Set map view
 			//------------------------
 			function setMapView() {
@@ -2608,6 +2614,50 @@
 							return region
 						}
 					}
+				}
+			}
+
+			// @b Get countries
+			//------------------------
+			function getCountries() {
+				const entries = Object.entries(countries)
+
+				const isPlannedYear = (year) => year === 0 || year > CURRENT_YEAR
+				const isVisitedYear = (year) => !isPlannedYear(year)
+
+				if ($dateFilter === modes.ALL.key) {
+					return {
+						visited: entries.filter(([y]) => isVisitedYear(parseInt(y))).flatMap(([, names]) => names),
+						planned: entries.filter(([y]) => isPlannedYear(parseInt(y))).flatMap(([, names]) => names),
+					}
+				}
+				if ($dateFilter === modes.DONE.key) {
+					return {
+						visited: entries.filter(([y]) => isVisitedYear(parseInt(y))).flatMap(([, names]) => names),
+						planned: [],
+					}
+				}
+				if ($dateFilter === modes.PLAN_ALL.key) {
+					return {
+						visited: [],
+						planned: entries.filter(([y]) => isPlannedYear(parseInt(y))).flatMap(([, names]) => names),
+					}
+				}
+				if ($dateFilter === modes.PLAN_CURRENT.key) {
+					return {
+						visited: [],
+						planned: entries.filter(([y]) => parseInt(y) === 0).flatMap(([, names]) => names),
+					}
+				}
+
+				const y = parseInt($dateFilter)
+				return {
+					visited: isVisitedYear(y)
+						? entries.filter(([year]) => parseInt(year) === y).flatMap(([, names]) => names)
+						: [],
+					planned: isPlannedYear(y)
+						? entries.filter(([year]) => parseInt(year) === y).flatMap(([, names]) => names)
+						: [],
 				}
 			}
 
