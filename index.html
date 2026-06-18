@@ -21,6 +21,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
 		<!-- Scripts -->
+		<script src="Code/geo.js"></script>
 		<script src="Code/routes.js"></script>
 		<script src="Code/index.js"></script>
 		<!-- Title -->
@@ -499,7 +500,7 @@
 				background-color: #222;
 				padding: 6px;
 				font-family: Verdana;
-				font-size: 11px;
+				font-size: 12px;
 				white-space: pre;
 				text-align: center;
 				transition: opacity 0.5s ease-in-out;
@@ -508,6 +509,15 @@
 			}
 			.leaflet-tooltip-bottom:before {
 				border-bottom-color: #222 !important;
+			}
+			.leaflet-tooltip-left:before {
+				border-left-color: #222 !important;
+			}
+			.leaflet-tooltip-right:before {
+				border-right-color: #222 !important;
+			}
+			.leaflet-tooltip-top:before {
+				border-top-color: #222 !important;
 			}
 			/*------------------------*/
 			/* @g DISPLAY
@@ -882,6 +892,7 @@
 			// @b Globals
 			//------------------------
 			let $map // leaflet map
+			let $countriesLayer = null // countries layer
 			let $distanceControl = null // distance control
 			let $activityControl = null // activity control
 			let $marginTop = 0 // margin top
@@ -999,6 +1010,7 @@
 				Log.default(data)
 				changeMargin()
 				prepareMap()
+				prepareCountries()
 				prepareData()
 				prepareDates()
 				prepareViewModes()
@@ -1464,6 +1476,7 @@
 				Log.enter($selectRegion.value)
 				if ($selectRegion.value == modes.ALL.key || $selectRegion.value == modes.EMPTY.key) {
 					clearContent($selectPlace)
+					Log.exit()
 					return
 				}
 
@@ -1594,14 +1607,11 @@
 					let path = ''
 					let folderRoot = range == ranges.WORLD.key ? 'Świat' : 'Polska'
 
-					
 					if (place !== modes.ALL.key) {
 						path = `${folderRoot}/${capitalizedRegion}/${capitalizedPlace}/${capitalizedPlace}.gif`
 					} else if (region !== '') {
 						path = `${folderRoot}/${capitalizedRegion}/${capitalizedRegion}.gif`
 					}
-
-					Log.red(path)
 
 					$headerEmblem.setAttribute('src', path)
 					$headerEmblem.setAttribute('alt', 'Herb')
@@ -1646,6 +1656,7 @@
 				Log.start()
 				Log.enter($selectRegion.value)
 				preparePlaces()
+				prepareCountries()
 				setEmblem()
 				setTitle()
 				setMapView()
@@ -1670,6 +1681,7 @@
 				setMapView()
 				prepareDates()
 				prepareRoutes()
+				prepareCountries()
 				updateData()
 				logSelects()
 				Log.exit()
@@ -2053,6 +2065,53 @@
 						Log.orange(`${lat}, ${lng}`)
 					})
 				}
+				Log.exit()
+			}
+
+			// @b Prepare countries
+			//------------------------
+			function prepareCountries() {
+				Log.enter()
+
+				if ($countriesLayer) {
+					$map.removeLayer($countriesLayer)
+					$countriesLayer = null
+				}
+
+				if ($selectRange.value !== ranges.WORLD.key || $selectRegion.value !== modes.ALL.key) {
+					Log.exit()
+					return
+				}
+
+				const colors = {
+					visited: '#fa0',
+					planned: '#48c',
+				}
+
+				$countriesLayer = L.geoJSON(geoJSON, {
+					style: (feature) => {
+						const name = feature.properties.name
+						const isVisited = visitedCountries.includes(name)
+						const isPlanned = plannedCountries.includes(name)
+						const color = isVisited ? colors.visited : isPlanned ? colors.planned : 'transparent'
+						return {
+							fillColor: color,
+							fillOpacity: isVisited || isPlanned ? 0.25 : 0,
+							weight: isVisited || isPlanned ? 1 : 0,
+							color: color,
+						}
+					},
+					onEachFeature: (feature, layer) => {
+						const name = feature.properties.name
+						if (visitedCountries.includes(name) || plannedCountries.includes(name)) {
+							layer.bindTooltip(name, {
+								className: 'marker-tooltip',
+								sticky: true,
+							})
+						}
+					},
+				}).addTo($map)
+
 				Log.exit()
 			}
 
