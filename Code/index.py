@@ -28,6 +28,7 @@ def process_data():
 
     # Initialize data structure
     output = {
+        "ŚWIAT": {},
         "EUROPA": {}, 
         "POLSKA": {}, 
         "GÓRY": {}, 

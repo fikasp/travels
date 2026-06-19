@@ -667,7 +667,7 @@
 
 			// @b Consts
 			//------------------------
-			const FUTURE_YEAR = 2029
+			const FUTURE_YEAR = 2042
 			const CURRENT_YEAR = 2026
 			const startPlace = 'KRAKÓW'
 			const mapActive = true
@@ -830,6 +830,28 @@
 					],
 				},
 				WORLD: {
+					key: 'ŚWIAT',
+					value: 'ŚWIAT',
+					categories: [
+						categories.NONE.key,
+						categories.ALL.key,
+						categories.PROFILE.key,
+						categories.GENERAL.key,
+						categories.SACRAL.key,
+						categories.HISTORIC.key,
+						categories.MODERN.key,
+						categories.GASTRO.key,
+						categories.GREEN.key,
+					],
+					activities: [
+						activities.NONE.key,
+						activities.ALL.key,
+						activities.TRANSPORT_PUBLIC.key,
+						activities.WALKING.key,
+						activities.TRANSPORT_BOAT.key,
+					],
+				},
+				EUROPE: {
 					key: 'EUROPA',
 					value: 'EUROPA',
 					categories: [
@@ -1197,7 +1219,7 @@
 											return `Góry/${capitalizedRegion}/${capitalizedPlace}/Zdjęcia/${item.name}.jpg`
 
 											// Path for world
-										} else if (range == ranges.WORLD.key) {
+										} else if (range == ranges.EUROPE.key) {
 											return `Świat/${capitalizedRegion}/${capitalizedPlace}/Zdjęcia/${item.name}.jpg`
 
 											// Path for Kraków
@@ -1234,7 +1256,7 @@
 										let path = ''
 										if (range == ranges.MOUNTAINS.key) {
 											path = `Góry/Zdjęcia/${capitalizeName(place)} ${year}.jpg`
-										} else if (range == ranges.WORLD.key) {
+										} else if (range == ranges.EUROPE.key) {
 											path = `Świat/Zdjęcia/${capitalizeName(place)}.jpg`
 										} else if (range == ranges.POLAND.key) {
 											path = `Polska/Zdjęcia/${capitalizeName(place)}.jpg`
@@ -1305,7 +1327,7 @@
 			//------------------------
 			function sortData(array) {
 				const rangePriority = {
-					[ranges.WORLD.key]: 1,
+					[ranges.EUROPE.key]: 1,
 					[ranges.POLAND.key]: 2,
 					[ranges.MOUNTAINS.key]: 3,
 				}
@@ -1569,7 +1591,7 @@
 				if (range == ranges.POLAND.key) {
 					$labelRegion.textContent = 'Region:'
 					$labelPlace.textContent = 'Miasto:'
-				} else if (range == ranges.WORLD.key) {
+				} else if (range == ranges.EUROPE.key) {
 					$labelRegion.textContent = 'Region:'
 					$labelPlace.textContent = 'Miasto:'
 				} else if (range == ranges.MOUNTAINS.key) {
@@ -1592,8 +1614,9 @@
 				const range = $selectRange.value
 
 				if (
-					(range == ranges.WORLD.key && place == modes.ALL.key) ||
+					(range == ranges.EUROPE.key && place == modes.ALL.key) ||
 					range == ranges.MOUNTAINS.key ||
+					range == ranges.WORLD.key ||
 					region == modes.ALL.key ||
 					region == ''
 				) {
@@ -1605,7 +1628,7 @@
 					const capitalizedRegion = capitalizeName(region)
 
 					let path = ''
-					let folderRoot = range == ranges.WORLD.key ? 'Świat' : 'Polska'
+					let folderRoot = range == ranges.EUROPE.key ? 'Świat' : 'Polska'
 
 					if (place !== modes.ALL.key) {
 						path = `${folderRoot}/${capitalizedRegion}/${capitalizedPlace}/${capitalizedPlace}.gif`
@@ -1641,6 +1664,7 @@
 			function setPlace() {
 				Log.start()
 				Log.enter($selectPlace.value)
+				prepareCountries()
 				setEmblem()
 				setTitle()
 				setMapView()
@@ -2079,12 +2103,12 @@
 					$countriesLayer = null
 				}
 
-				if ($selectRange.value !== ranges.NONE.key && $selectRange.value !== ranges.WORLD.key) {
+				if ($selectRange.value !== ranges.EUROPE.key && $selectRange.value !== ranges.WORLD.key) {
 					Log.exit()
 					return
 				}
 
-				if ($selectRegion.value !== modes.ALL.key) {
+				if ($selectPlace.value !== modes.ALL.key && $selectPlace.value !== '') {
 					Log.exit()
 					return
 				}
@@ -2121,13 +2145,14 @@
 
 				Log.exit()
 			}
+
 			// @b Set map view
 			//------------------------
 			function setMapView() {
 				Log.enter()
 
 				if ($selectRange.value == ranges.NONE.key) {
-					$map.setView(...setCoor([49.6, 12.0], 5))
+					$map.setView(...setCoor([30.0, 10.0], 3))
 					return
 				}
 
@@ -2136,10 +2161,12 @@
 						$map.setView(...setCoor([49.5, 20.0], 9))
 					} else if ($selectRange.value == ranges.POLAND.key) {
 						$map.setView(...setCoor([51.9, 19.2], 7))
-					} else if ($selectRange.value == ranges.WORLD.key) {
+					} else if ($selectRange.value == ranges.EUROPE.key) {
 						$map.setView(...setCoor([49.6, 12.0], 5))
+					} else if ($selectRange.value == ranges.WORLD.key) {
+						$map.setView(...setCoor([30.0, 10.0], 3))
 					} else {
-						$map.setView(...setCoor([0, 0], 6))
+						$map.setView(...setCoor([0, 0], 1))
 					}
 				} else if ($selectPlace.value == modes.ALL.key) {
 					const region = data[$selectRange.value][$selectRegion.value]
