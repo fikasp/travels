@@ -2999,6 +2999,46 @@ const data = {
           },
           {
             catg: "S",
+            name: "Kościół Świętego Krzyża [Stare Miasto]/Zewnętrze",
+            scale: 1.0,
+            coor: [
+              50.0633648,
+              19.9433418
+            ],
+            date: [
+              2026,
+              2023
+            ],
+            "top": true
+          },
+          {
+            catg: "S",
+            name: "Kościół Świętego Krzyża [Stare Miasto]/Wnętrze",
+            scale: 1.0,
+            coor: [
+              50.0633648,
+              19.9433418
+            ],
+            date: [
+              2026,
+              2023
+            ]
+          },
+          {
+            catg: "S",
+            name: "Kościół Świętego Krzyża [Stare Miasto]/Organy",
+            scale: 1.0,
+            coor: [
+              50.0633648,
+              19.9433418
+            ],
+            date: [
+              2026,
+              2023
+            ]
+          },
+          {
+            catg: "S",
             name: "Kościół Świętej Trójcy (Bonifratrów) [Kazimierz]/Zewnętrze",
             scale: 1.0,
             coor: [
