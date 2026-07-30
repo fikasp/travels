@@ -327,7 +327,22 @@
 			.gallery.half {
 				width: 50%;
 			}
-			/*------------------------*/
+			.gallery_resizer {
+				z-index: 1000;
+				position: fixed;
+				top: 0;
+				left: 50%;
+				width: 16px;
+				height: 100vh;
+				cursor: col-resize;
+				background: transparent;
+				transition: background 0.2s;
+				transform: translateX(-50%);
+			}
+			.gallery_resizer:hover,
+			.gallery_resizer.active {
+				background: rgba(00, 80, 160, 0.5);
+			} /*------------------------*/
 			/* @g PHOTO
 			/*------------------------*/
 			.photo {
@@ -617,6 +632,7 @@
 		------------------------->
 		<div class="gallery none"></div>
 		<div class="gallery_background none"></div>
+		<div class="gallery_resizer none"></div>
 
 		<!------------------------
 		 @g PHOTO
@@ -917,6 +933,7 @@
 			let $countriesLayer = null // countries layer
 			let $distanceControl = null // distance control
 			let $activityControl = null // activity control
+			let $galleryWidth = 50 // gallery width
 			let $marginTop = 0 // margin top
 
 			// Tables
@@ -960,6 +977,7 @@
 			// Gallery
 			const $gallery = document.querySelector('.gallery')
 			const $galleryBackground = document.querySelector('.gallery_background')
+			const $galleryResizer = document.querySelector('.gallery_resizer')
 			// Photo
 			const $photo = document.querySelector('.photo')
 			const $photoGroup = document.querySelector('.photo_group')
@@ -1031,6 +1049,7 @@
 				Log.enter()
 				Log.default(data)
 				changeMargin()
+				initResizer()
 				prepareMap()
 				prepareCountries()
 				prepareData()
@@ -1731,9 +1750,11 @@
 				}
 
 				if ($viewMode == modes.MAP.key) {
+					// map
 					$isGalleryAndMap = false
 					hidePhoto()
 					classAdd('hide')
+					$galleryResizer.classList.add('none')
 					setTimeout(() => {
 						$isHiglightActive = true
 						classRemove('hide')
@@ -1741,16 +1762,25 @@
 						classAdd('none')
 					}, 400)
 				} else if ($viewMode == modes.MAP_GALLERY.key) {
+					// map_gallery
 					$isGalleryAndMap = true
 					classRemove('none')
 					classAdd('show')
 					classAdd('half')
+					$gallery.style.width = `${$galleryWidth}%`
+					$galleryBackground.style.width = `${$galleryWidth}%`
+					$galleryResizer.classList.remove('none')
+					$galleryResizer.style.left = `${$galleryWidth}%`
 					setTimeout(() => {
 						$isHiglightActive = true
 					}, 1000)
 				} else if ($viewMode == modes.GALLERY.key) {
+					// gallery
 					$isGalleryAndMap = false
 					$isHiglightActive = false
+					$galleryResizer.classList.add('none')
+					$galleryBackground.style.width = ''
+					$gallery.style.width = ''
 					classRemove('none')
 					classRemove('half')
 					classAdd('show')
@@ -2056,6 +2086,47 @@
 				Log.end()
 			}
 
+			// @b Init Resizer
+			//------------------------
+			function initResizer() {
+				Log.enter()
+				let isResizing = false
+
+				const startResize = (e) => {
+					isResizing = true
+					$galleryResizer.classList.add('active')
+					e.preventDefault()
+				}
+
+				const doResize = (clientX) => {
+					if (!isResizing) return
+					const newWidth = (clientX / window.innerWidth) * 100
+					if (newWidth < 15 || newWidth > 85) return
+					$galleryWidth = newWidth
+					$gallery.style.width = `${$galleryWidth}%`
+					$galleryBackground.style.width = `${$galleryWidth}%`
+					$galleryResizer.style.left = `${$galleryWidth}%`
+				}
+
+				const stopResize = () => {
+					if (!isResizing) return
+					isResizing = false
+					$galleryResizer.classList.remove('active')
+				}
+
+				// Mouse
+				$galleryResizer.addEventListener('mousedown', startResize)
+				window.addEventListener('mousemove', (e) => doResize(e.clientX))
+				window.addEventListener('mouseup', stopResize)
+
+				// Touch
+				$galleryResizer.addEventListener('touchstart', startResize, { passive: false })
+				window.addEventListener('touchmove', (e) => doResize(e.touches[0].clientX), { passive: false })
+				window.addEventListener('touchend', stopResize)
+
+				Log.exit()
+			}
+
 			//------------------------
 			// @g MAP
 			//------------------------
@@ -2193,7 +2264,8 @@
 				const mapPoint = $map.latLngToContainerPoint(coor)
 				const scale = Math.pow(2, zoom - mapZoom)
 				const width = window.innerWidth
-				const shiftX = width / 4 / scale
+				const galleryFraction = $galleryWidth / 100
+				const shiftX = (width * galleryFraction) / 2 / scale
 				const headerHeight = $headerDiv.offsetHeight || 0
 				const shiftY = headerHeight / 2 / scale
 				const newX = mapPoint.x - shiftX
