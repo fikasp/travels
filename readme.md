@@ -8,18 +8,6 @@ Aplikację można przetestować pod adresem: **[https://fikasp.github.io/travels
 
 - **Menu**: Menu nagłówkowe zawierające różne filtry i opcje nawigacyjne.
 
-  - **Widok**: Wybór widoku, którym może być "Mapa", "Mapa i galeria" lub "Galeria".
-  
-  - **Zakres**: Opcja określająca, czy mapa ma obejmować całą Europę, Polskę czy też góry.
-
-  - **Rejon**: Filtrowanie miejsc według państw, województw lub pasm górskich.
-  
-  - **Miejsce**: Wybór konkretnego miasta lub pasma górskiego.
-    
-  - **Kategoria**: Kategoria, do której przypisane są miejsca na mapie.
-  
-  - **Data**: Filtrowanie miejsc na podstawie daty.
-
 - **Mapa**: Obszar na stronie, gdzie renderowana jest interaktywna mapa z zaznaczonymi miejscami.
 
 - **Galeria**: Sekcja, w której wyświetlane są miniaturki zdjęć związanych z wybranymi miejscami na mapie.
