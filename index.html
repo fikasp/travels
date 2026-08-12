@@ -248,33 +248,10 @@
 				overflow: auto;
 				overflow-x: hidden;
 				display: grid;
-				grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+				grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
 				transition: 0.2s;
 				padding-bottom: 3px;
 				gap: 0 3px;
-			}
-			@media (max-width: 1280px) {
-				.gallery.half {
-					grid-template-columns: repeat(3, auto);
-				}
-			}
-			@media (max-width: 1000px) {
-				.gallery {
-					grid-template-columns: repeat(4, auto);
-				}
-			}
-			@media (max-width: 640px) {
-				.gallery {
-					grid-template-columns: repeat(3, auto);
-				}
-				.gallery.half {
-					grid-template-columns: repeat(2, auto);
-				}
-			}
-			@media (max-width: 300px) {
-				.gallery.half {
-					grid-template-columns: repeat(1, auto);
-				}
 			}
 			.gallery_background {
 				z-index: 900;
@@ -283,7 +260,7 @@
 				top: 0;
 				width: 100%;
 				height: 100vh;
-				transition: 0.2s;
+				/* transition: 0.2s; */
 				box-shadow: 0 0 5px 0 black;
 				background-color: rgb(0, 0, 0, 80%);
 				backdrop-filter: blur(5px);
@@ -342,7 +319,30 @@
 			.gallery_resizer:hover,
 			.gallery_resizer.active {
 				background: rgba(00, 80, 160, 0.5);
-			} /*------------------------*/
+			}
+			/* mobile */
+			.gallery.half.mobile {
+				width: 100% !important;
+				height: 50%;
+				max-height: 50vh;
+				top: auto;
+				bottom: 0;
+			}
+			.gallery_background.half.mobile {
+				width: 100% !important;
+				height: 50%;
+				top: auto;
+				bottom: 0;
+			}
+			.gallery_resizer.mobile {
+				width: 100%;
+				height: 16px;
+				top: 50%;
+				left: 0 !important;
+				cursor: row-resize;
+				transform: translateY(-50%);
+			}
+			/*------------------------*/
 			/* @g PHOTO
 			/*------------------------*/
 			.photo {
@@ -933,7 +933,7 @@
 			let $countriesLayer = null // countries layer
 			let $distanceControl = null // distance control
 			let $activityControl = null // activity control
-			let $galleryWidth = 50 // gallery width
+			let $galleryWidth = parseFloat(localStorage.getItem('galleryWidth')) || 50 // gallery width
 			let $marginTop = 0 // margin top
 
 			// Tables
@@ -1767,10 +1767,23 @@
 					classRemove('none')
 					classAdd('show')
 					classAdd('half')
-					$gallery.style.width = `${$galleryWidth}%`
-					$galleryBackground.style.width = `${$galleryWidth}%`
+					if ($isMobile) {
+						$gallery.classList.add('mobile')
+						$galleryBackground.classList.add('mobile')
+						$galleryResizer.classList.add('mobile')
+						$gallery.style.height = `${$galleryWidth}vh`
+						$gallery.style.maxHeight = `${$galleryWidth}vh`
+						$galleryBackground.style.height = `${$galleryWidth}vh`
+						$galleryResizer.style.top = `${100 - $galleryWidth}%`
+					} else {
+						$gallery.classList.remove('mobile')
+						$galleryBackground.classList.remove('mobile')
+						$galleryResizer.classList.remove('mobile')
+						$gallery.style.width = `${$galleryWidth}%`
+						$galleryBackground.style.width = `${$galleryWidth}%`
+						$galleryResizer.style.left = `${$galleryWidth}%`
+					}
 					$galleryResizer.classList.remove('none')
-					$galleryResizer.style.left = `${$galleryWidth}%`
 					setTimeout(() => {
 						$isHiglightActive = true
 					}, 1000)
@@ -1779,8 +1792,11 @@
 					$isGalleryAndMap = false
 					$isHiglightActive = false
 					$galleryResizer.classList.add('none')
-					$galleryBackground.style.width = ''
 					$gallery.style.width = ''
+					$gallery.style.height = ''
+					$gallery.style.maxHeight = ''
+					$galleryBackground.style.width = ''
+					$galleryBackground.style.height = ''
 					classRemove('none')
 					classRemove('half')
 					classAdd('show')
@@ -2098,14 +2114,26 @@
 					e.preventDefault()
 				}
 
-				const doResize = (clientX) => {
+				const doResize = (clientX, clientY) => {
 					if (!isResizing) return
-					const newWidth = (clientX / window.innerWidth) * 100
-					if (newWidth < 15 || newWidth > 85) return
-					$galleryWidth = newWidth
-					$gallery.style.width = `${$galleryWidth}%`
-					$galleryBackground.style.width = `${$galleryWidth}%`
-					$galleryResizer.style.left = `${$galleryWidth}%`
+
+					if ($isMobile) {
+						const newHeight = (1 - clientY / window.innerHeight) * 100
+						if (newHeight < 15 || newHeight > 85) return
+						$galleryWidth = newHeight
+						$gallery.style.height = `${$galleryWidth}vh`
+						$gallery.style.maxHeight = `${$galleryWidth}vh`
+						$galleryBackground.style.height = `${$galleryWidth}vh`
+						$galleryResizer.style.top = `${100 - $galleryWidth}%`
+					} else {
+						const newWidth = (clientX / window.innerWidth) * 100
+						if (newWidth < 15 || newWidth > 85) return
+						$galleryWidth = newWidth
+						$gallery.style.width = `${$galleryWidth}%`
+						$galleryBackground.style.width = `${$galleryWidth}%`
+						$galleryResizer.style.left = `${$galleryWidth}%`
+					}
+					localStorage.setItem('galleryWidth', $galleryWidth)
 				}
 
 				const stopResize = () => {
@@ -2116,12 +2144,14 @@
 
 				// Mouse
 				$galleryResizer.addEventListener('mousedown', startResize)
-				window.addEventListener('mousemove', (e) => doResize(e.clientX))
+				window.addEventListener('mousemove', (e) => doResize(e.clientX, e.clientY))
 				window.addEventListener('mouseup', stopResize)
 
 				// Touch
 				$galleryResizer.addEventListener('touchstart', startResize, { passive: false })
-				window.addEventListener('touchmove', (e) => doResize(e.touches[0].clientX), { passive: false })
+				window.addEventListener('touchmove', (e) => doResize(e.touches[0].clientX, e.touches[0].clientY), {
+					passive: false,
+				})
 				window.addEventListener('touchend', stopResize)
 
 				Log.exit()
@@ -2265,15 +2295,26 @@
 				const scale = Math.pow(2, zoom - mapZoom)
 				const width = window.innerWidth
 				const galleryFraction = $galleryWidth / 100
-				const shiftX = (width * galleryFraction) / 2 / scale
-				const headerHeight = $headerDiv.offsetHeight || 0
+				const headerHeight = $isMenuOpen ? $headerDiv.offsetHeight || 0 : 0
 				const shiftY = headerHeight / 2 / scale
-				const newX = mapPoint.x - shiftX
 				const newY = mapPoint.y - shiftY
 
 				if ($isGalleryAndMap) {
-					const newCoor = $map.containerPointToLatLng([newX, newY])
-					return [newCoor, zoom]
+					if ($isMobile) {
+						const galleryHeight = window.innerHeight * galleryFraction
+						const mapAreaHeight = window.innerHeight - headerHeight - galleryHeight
+						const mapAreaCenterY = headerHeight + mapAreaHeight / 2
+						const currentCenterY = window.innerHeight / 2
+						const shiftY2 = (currentCenterY - mapAreaCenterY) / scale
+						const newY2 = mapPoint.y + shiftY2
+						const newCoor = $map.containerPointToLatLng([mapPoint.x, newY2])
+						return [newCoor, zoom]
+					} else {
+						const shiftX = (width * galleryFraction) / 2 / scale
+						const newX = mapPoint.x - shiftX
+						const newCoor = $map.containerPointToLatLng([newX, newY])
+						return [newCoor, zoom]
+					}
 				} else {
 					const newCoor = $map.containerPointToLatLng([mapPoint.x, newY])
 					return [newCoor, zoom]

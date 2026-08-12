@@ -1,0 +1,195 @@
+{
+  "app": "park-conqueror",
+  "exportedAt": "2026-08-12T15:54:02.380Z",
+  "version": 1,
+  "parks": {
+    "1": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "2": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "3": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "4": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "5": {
+      "status": "CONQUERED",
+      "date": "2026-08-08"
+    },
+    "6": {
+      "status": "CONQUERED",
+      "date": "2026-08-08"
+    },
+    "7": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "8": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "11": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "12": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "13": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "14": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "15": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "18": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "19": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "20": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "23": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "24": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "27": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "28": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "29": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "30": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "33": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "35": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "39": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "42": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "45": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "46": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "47": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "48": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "52": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "53": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "54": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "55": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "57": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "59": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "60": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "62": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "63": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "64": {
+      "status": "CONQUERED",
+      "date": "2026-08-08"
+    },
+    "65": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "66": {
+      "status": "CONQUERED",
+      "date": "2026-08-08"
+    },
+    "67": {
+      "status": "CONQUERED",
+      "date": "2026-08-08"
+    },
+    "68": {
+      "status": "CONQUERED",
+      "date": "2026-08-08"
+    },
+    "69": {
+      "status": "VISITED",
+      "date": "2026-08-12"
+    },
+    "75": {
+      "status": "CONQUERED",
+      "date": "2026-08-08"
+    },
+    "76": {
+      "status": "CONQUERED",
+      "date": "2026-08-08"
+    }
+  }
+}
