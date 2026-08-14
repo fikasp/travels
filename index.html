@@ -2365,10 +2365,9 @@
 
 				if ($isGalleryAndMap) {
 					if ($isMobile) {
-						const ch = document.documentElement.clientHeight
-						const galleryPx = ch * galleryFraction
+						const resizerRect = $galleryResizer.getBoundingClientRect()
 						const mapAreaTop = headerHeight
-						const mapAreaBottom = ch - galleryPx
+						const mapAreaBottom = resizerRect.top
 						const mapAreaCenterY = (mapAreaTop + mapAreaBottom) / 2
 						const leafletCenterY = window.innerHeight / 2
 						const shiftY2 = (leafletCenterY - mapAreaCenterY) / scale
