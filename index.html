@@ -191,6 +191,7 @@
 				display: flex;
 				align-items: center;
 				padding: 5px 20px;
+				color: black;
 				cursor: pointer;
 				font-size: 18px;
 			}
@@ -1793,7 +1794,10 @@
 			//------------------------
 			function applyViewMode() {
 				Log.enter()
-				$footerView.textContent = $viewMode === modes.MAP_GALLERY.key ? '🖼️🗺️' : '🗺️'
+				$footerView.innerHTML = $footerView.innerHTML =
+					$viewMode === modes.MAP_GALLERY.key
+						? `<i class="fa-solid fa-chevron-${$isMobile ? 'down' : 'left'}"></i>`
+						: `<i class="fa-solid fa-chevron-${$isMobile ? 'up' : 'right'}"></i>`
 
 				function classAdd(className) {
 					$gallery.classList.add(className)
