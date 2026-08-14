@@ -345,7 +345,7 @@
 				height: 16px;
 				left: 0 !important;
 				cursor: row-resize;
-				transform: translateY(-50%)
+				transform: translateY(-50%);
 			}
 			/*------------------------*/
 			/* @g PHOTO
@@ -2365,11 +2365,13 @@
 
 				if ($isGalleryAndMap) {
 					if ($isMobile) {
-						const galleryHeight = document.documentElement.clientHeight * galleryFraction
-						const mapAreaHeight = document.documentElement.clientHeight - headerHeight - galleryHeight
-						const mapAreaCenterY = headerHeight + mapAreaHeight / 2
-						const currentCenterY = document.documentElement.clientHeight / 2
-						const shiftY2 = (currentCenterY - mapAreaCenterY) / scale
+						const ch = document.documentElement.clientHeight
+						const galleryPx = ch * galleryFraction
+						const mapAreaTop = headerHeight
+						const mapAreaBottom = ch - galleryPx
+						const mapAreaCenterY = (mapAreaTop + mapAreaBottom) / 2
+						const leafletCenterY = window.innerHeight / 2
+						const shiftY2 = (leafletCenterY - mapAreaCenterY) / scale
 						const newY2 = mapPoint.y + shiftY2
 						const newCoor = $map.containerPointToLatLng([mapPoint.x, newY2])
 						return [newCoor, zoom]
