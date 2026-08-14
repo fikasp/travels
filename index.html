@@ -329,24 +329,23 @@
 			/* mobile */
 			.gallery.half.mobile {
 				width: 100% !important;
-				/* height: 50%; */
-				max-height: 50vh;
+				height: 50dvh;
+				max-height: 50dvh;
 				top: auto;
 				bottom: 0;
 			}
 			.gallery_background.half.mobile {
 				width: 100% !important;
-				height: 50%;
+				height: 50dvh;
 				top: auto;
 				bottom: 0;
 			}
 			.gallery_resizer.mobile {
 				width: 100%;
 				height: 16px;
-				top: 50%;
 				left: 0 !important;
 				cursor: row-resize;
-				transform: translateY(-50%);
+				transform: translateY(-50%)
 			}
 			/*------------------------*/
 			/* @g PHOTO
@@ -1016,7 +1015,7 @@
 			const $selectDate = document.querySelector('#date')
 			// Mobile
 			const $isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
-			
+
 			// @b Listeners
 			//------------------------
 			// Window
@@ -1462,7 +1461,7 @@
 					$footerDiv.classList.remove('hide')
 					$photoGroup.classList.add('top')
 					$photoImage.classList.add('top')
-					$gallery.classList.add('top')					
+					$gallery.classList.add('top')
 				} else {
 					$headerDiv.classList.add('hide')
 					$footerDiv.classList.add('hide')
@@ -1827,10 +1826,12 @@
 						$gallery.classList.add('mobile')
 						$galleryBackground.classList.add('mobile')
 						$galleryResizer.classList.add('mobile')
-						$gallery.style.height = `${$galleryWidth}vh`
-						$gallery.style.maxHeight = `${$galleryWidth}vh`
-						$galleryBackground.style.height = `${$galleryWidth}vh`
-						$galleryResizer.style.top = `${100 - $galleryWidth}%`
+						const clientHeight = document.documentElement.clientHeight
+						const galleryPx = clientHeight * ($galleryWidth / 100)
+						$gallery.style.height = `${galleryPx}px`
+						$gallery.style.maxHeight = `${galleryPx}px`
+						$galleryBackground.style.height = `${galleryPx}px`
+						$galleryResizer.style.top = `${clientHeight - galleryPx}px`
 					} else {
 						$gallery.classList.remove('mobile')
 						$galleryBackground.classList.remove('mobile')
@@ -2178,13 +2179,15 @@
 					if (!isResizing) return
 
 					if ($isMobile) {
-						const newHeight = (1 - clientY / document.documentElement.clientHeight) * 100
+						const clientHeight = document.documentElement.clientHeight
+						const newHeight = (1 - clientY / clientHeight) * 100
 						if (newHeight < 15 || newHeight > 85) return
 						$galleryWidth = newHeight
-						$gallery.style.height = `${$galleryWidth}vh`
-						$gallery.style.maxHeight = `${$galleryWidth}vh`
-						$galleryBackground.style.height = `${$galleryWidth}vh`
-						$galleryResizer.style.top = `${100 - $galleryWidth}%`
+						const galleryPx = clientHeight * ($galleryWidth / 100)
+						$gallery.style.height = `${galleryPx}px`
+						$gallery.style.maxHeight = `${galleryPx}px`
+						$galleryBackground.style.height = `${galleryPx}px`
+						$galleryResizer.style.top = `${clientHeight - galleryPx}px`
 					} else {
 						const newWidth = (clientX / document.documentElement.clientWidth) * 100
 						if (newWidth < 15 || newWidth > 85) return
