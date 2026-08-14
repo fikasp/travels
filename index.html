@@ -183,26 +183,16 @@
 			.footer.hide {
 				transform: translateY(+120%);
 			}
-			.footer_view select {
+			.footer_view {
 				position: absolute;
 				bottom: 0;
 				left: 0;
-				color: black;
-				font-size: 14px;
-				padding: 5px 20px;
 				height: 100%;
-				border: none;
-				outline: none;
-				text-align: left;
-				background: transparent;
-				font-family: verdana;
-				appearance: none;
-				-webkit-appearance: none;
-				-moz-appearance: none;
-			}
-			.footer_view select option {
-				background: lightgray;
-				color: black;
+				display: flex;
+				align-items: center;
+				padding: 5px 20px;
+				cursor: pointer;
+				font-size: 18px;
 			}
 			.footer_copyright {
 				position: absolute;
@@ -623,9 +613,7 @@
 		------------------------->
 		<div class="footer hide">
 			<!-- View -->
-			<div class="footer_view">
-				<select class="footer_select" id="view"></select>
-			</div>
+			<div class="footer_view" id="view"></div>
 			<!-- Distance -->
 			<div class="footer_copyright">2026 © Przemysław Fikas</div>
 			<!-- Distance -->
@@ -961,7 +949,7 @@
 			let $selectedRoutes = [] // table with selected routes
 			let $routeLayers = [] // table with added routes
 			// Filters
-			let $viewMode = modes.MAP.key // state of view mode
+			let $viewMode = lsGet(ls.view, modes.MAP.key) // state of view mode
 			let $activityFilter = activities.ALL.key // state of activity filter
 			let $categoryFilter = categories.NONE.key // state of category filter
 			let $dateFilter = modes.ALL.key // state of data filter
@@ -1009,7 +997,6 @@
 			const $selectPlace = document.querySelector('#place')
 			const $selectRegion = document.querySelector('#region')
 			const $selectRange = document.querySelector('#range')
-			const $selectViewMode = document.querySelector('#view')
 			const $selectActivity = document.querySelector('#activity')
 			const $selectCategory = document.querySelector('#category')
 			const $selectDate = document.querySelector('#date')
@@ -1030,22 +1017,14 @@
 			$headerBars.addEventListener('click', showHideMenu)
 			$headerEmblem.addEventListener('click', showHideMenu)
 			$footerDistance.addEventListener('click', clearSelectedRoutes)
+			$footerView.addEventListener('click', toggleViewMode)
 			$selectPlace.addEventListener('change', setPlace)
 			$selectRegion.addEventListener('change', setRegion)
 			$selectRange.addEventListener('change', setRange)
-			$selectViewMode.addEventListener('change', setViewMode)
 			$selectActivity.addEventListener('change', setActivities)
 			$selectCategory.addEventListener('change', setCategory)
 			$selectDate.addEventListener('change', setDate)
-			addListenersToSelects([
-				$selectPlace,
-				$selectRegion,
-				$selectRange,
-				$selectViewMode,
-				$selectActivity,
-				$selectCategory,
-				$selectDate,
-			])
+			addListenersToSelects([$selectPlace, $selectRegion, $selectRange, $selectActivity, $selectCategory, $selectDate])
 			// Photo
 			$photo.addEventListener('click', hidePhoto)
 			$photo.addEventListener('touchstart', touchstart)
@@ -1068,25 +1047,15 @@
 				applyMenu()
 				changeMargin()
 				initResizer()
+				restoreState()
 				prepareMap()
 				prepareCountries()
 				prepareData()
-
-				const saved = loadState()
-				if (saved.date) $dateFilter = saved.date
-				if (saved.activity) $activityFilter = saved.activity
-				if (saved.category) $categoryFilter = saved.category
-
 				prepareDates()
-				prepareViewModes()
 				prepareRanges()
 				setRange()
 
-				if (saved.viewMode) {
-					$selectViewMode.value = saved.viewMode
-					setViewMode()
-				}
-
+				applyViewMode()
 				Log.exit()
 				Log.end()
 			}
@@ -1492,33 +1461,14 @@
 				Log.end()
 			}
 
-			// @b Prepare view modes
+			// @b Restore state
 			//------------------------
-			function prepareViewModes() {
+			function restoreState() {
 				Log.enter()
 				const saved = loadState()
-				const selectedViewMode = saved.viewMode ?? $viewMode
-				// prettier-ignore
-				createOption(
-					$selectViewMode,
-					modes.MAP.key,
-					modes.MAP.value,
-					selectedViewMode
-				)
-				// prettier-ignore
-				createOption(
-					$selectViewMode,
-					modes.MAP_GALLERY.key,
-					modes.MAP_GALLERY.value,
-					selectedViewMode
-				)
-				// prettier-ignore
-				createOption(
-					$selectViewMode,
-					modes.GALLERY.key,
-					modes.GALLERY.value,
-					selectedViewMode
-				)
+				if (saved.date) $dateFilter = saved.date
+				if (saved.activity) $activityFilter = saved.activity
+				if (saved.category) $categoryFilter = saved.category
 				Log.exit()
 			}
 
@@ -1786,84 +1736,6 @@
 				Log.end()
 			}
 
-			// @b Set view mode
-			//------------------------
-			function setViewMode() {
-				Log.start()
-				Log.enter($selectViewMode.value)
-
-				$viewMode = $selectViewMode.value
-				// Add class to gallery and background
-				function classAdd(className) {
-					$gallery.classList.add(className)
-					$galleryBackground.classList.add(className)
-				}
-				// Remove class from gallery and background
-				function classRemove(className) {
-					$gallery.classList.remove(className)
-					$galleryBackground.classList.remove(className)
-				}
-
-				if ($viewMode == modes.MAP.key) {
-					// map
-					$isGalleryAndMap = false
-					hidePhoto()
-					classAdd('hide')
-					$galleryResizer.classList.add('none')
-					setTimeout(() => {
-						$isHiglightActive = true
-						classRemove('hide')
-						classRemove('show')
-						classAdd('none')
-					}, 400)
-				} else if ($viewMode == modes.MAP_GALLERY.key) {
-					// map_gallery
-					$isGalleryAndMap = true
-					classRemove('none')
-					classAdd('show')
-					classAdd('half')
-					if ($isMobile) {
-						$gallery.classList.add('mobile')
-						$galleryBackground.classList.add('mobile')
-						$galleryResizer.classList.add('mobile')
-						const clientHeight = document.documentElement.clientHeight
-						const galleryPx = clientHeight * ($galleryWidth / 100)
-						$gallery.style.height = `${galleryPx}px`
-						$gallery.style.maxHeight = `${galleryPx}px`
-						$galleryBackground.style.height = `${galleryPx}px`
-						$galleryResizer.style.top = `${clientHeight - galleryPx}px`
-					} else {
-						$gallery.classList.remove('mobile')
-						$galleryBackground.classList.remove('mobile')
-						$galleryResizer.classList.remove('mobile')
-						$gallery.style.width = `${$galleryWidth}%`
-						$galleryBackground.style.width = `${$galleryWidth}%`
-						$galleryResizer.style.left = `${$galleryWidth}%`
-					}
-					$galleryResizer.classList.remove('none')
-					setTimeout(() => {
-						$isHiglightActive = true
-					}, 1000)
-				} else if ($viewMode == modes.GALLERY.key) {
-					// gallery
-					$isGalleryAndMap = false
-					$isHiglightActive = false
-					$galleryResizer.classList.add('none')
-					$gallery.style.width = ''
-					$gallery.style.height = ''
-					$gallery.style.maxHeight = ''
-					$galleryBackground.style.width = ''
-					$galleryBackground.style.height = ''
-					classRemove('none')
-					classRemove('half')
-					classAdd('show')
-				}
-				setMapView()
-				saveState()
-				Log.exit()
-				Log.end()
-			}
-
 			// @b Set activities
 			//------------------------
 			function setActivities() {
@@ -1903,6 +1775,77 @@
 				saveState()
 				Log.exit()
 				Log.end()
+			}
+
+			// @b Set view mode
+			//------------------------
+			function toggleViewMode() {
+				Log.start()
+				Log.enter()
+				$viewMode = $viewMode === modes.MAP.key ? modes.MAP_GALLERY.key : modes.MAP.key
+				applyViewMode()
+				saveState()
+				Log.exit()
+				Log.end()
+			}
+
+			// @b Apply view
+			//------------------------
+			function applyViewMode() {
+				Log.enter()
+				$footerView.textContent = $viewMode === modes.MAP_GALLERY.key ? '🖼️🗺️' : '🗺️'
+
+				function classAdd(className) {
+					$gallery.classList.add(className)
+					$galleryBackground.classList.add(className)
+				}
+				function classRemove(className) {
+					$gallery.classList.remove(className)
+					$galleryBackground.classList.remove(className)
+				}
+
+				if ($viewMode === modes.MAP.key) {
+					$isGalleryAndMap = false
+					hidePhoto()
+					classAdd('hide')
+					$galleryResizer.classList.add('none')
+					setTimeout(() => {
+						$isHiglightActive = true
+						classRemove('hide')
+						classRemove('show')
+						classAdd('none')
+					}, 400)
+				} else if ($viewMode === modes.MAP_GALLERY.key) {
+					$isGalleryAndMap = true
+					classRemove('none')
+					classAdd('show')
+					classAdd('half')
+					if ($isMobile) {
+						$gallery.classList.add('mobile')
+						$galleryBackground.classList.add('mobile')
+						$galleryResizer.classList.add('mobile')
+						const ch = document.documentElement.clientHeight
+						const galleryPx = ch * ($galleryWidth / 100)
+						$gallery.style.height = `${galleryPx}px`
+						$gallery.style.maxHeight = `${galleryPx}px`
+						$galleryBackground.style.height = `${galleryPx}px`
+						$galleryResizer.style.top = `${ch - galleryPx}px`
+					} else {
+						$gallery.classList.remove('mobile')
+						$galleryBackground.classList.remove('mobile')
+						$galleryResizer.classList.remove('mobile')
+						$gallery.style.width = `${$galleryWidth}%`
+						$galleryBackground.style.width = `${$galleryWidth}%`
+						$galleryResizer.style.left = `${$galleryWidth}%`
+					}
+					$galleryResizer.classList.remove('none')
+					setTimeout(() => {
+						$isHiglightActive = true
+					}, 1000)
+				}
+
+				setMapView()
+				Log.exit()
 			}
 
 			//------------------------
@@ -2806,7 +2749,7 @@
 				lsSet(ls.place, $selectPlace.value)
 				lsSet(ls.range, $selectRange.value)
 				lsSet(ls.region, $selectRegion.value)
-				lsSet(ls.view, $selectViewMode.value)
+				lsSet(ls.view, $viewMode)
 			}
 
 			// @b Load state
