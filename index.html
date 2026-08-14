@@ -1463,6 +1463,16 @@
 					$photoGroup.classList.add('top')
 					$photoImage.classList.add('top')
 					$gallery.classList.add('top')
+					if ($isMobile) {
+						const el = document.documentElement
+						if (el.requestFullscreen) {
+							el.requestFullscreen()
+						} else if (el.webkitRequestFullscreen) {
+							el.webkitRequestFullscreen()
+						} else if (el.msRequestFullscreen) {
+							el.msRequestFullscreen()
+						}
+					}
 				} else {
 					$headerDiv.classList.add('hide')
 					$footerDiv.classList.add('hide')
@@ -1480,16 +1490,6 @@
 				$isMenuOpen = !$isMenuOpen
 				lsSet(ls.isMenuOpen, $isMenuOpen)
 				applyMenu()
-				// if ($isMobile) {
-				// 	const el = document.documentElement
-				// 	if (el.requestFullscreen) {
-				// 		el.requestFullscreen()
-				// 	} else if (el.webkitRequestFullscreen) {
-				// 		el.webkitRequestFullscreen()
-				// 	} else if (el.msRequestFullscreen) {
-				// 		el.msRequestFullscreen()
-				// 	}
-				// }
 				Log.end()
 			}
 
