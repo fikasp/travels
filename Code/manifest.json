@@ -1,0 +1,8 @@
+{
+  "name": "PODRÓŻE",
+  "short_name": "Podróże",
+  "start_url": "./",
+  "display": "fullscreen",
+  "background_color": "#000000",
+  "theme_color": "#000000"
+}

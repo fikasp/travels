@@ -14,6 +14,8 @@
 			href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA/4QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEREREREREREREREREREREREAAAAAAAAREQAAAAAAABERAAAAAAAAEREAAAAAAAAREQAAAAAAABERAAAAAAAAEREAAAAAAAAREQAAAAAAABERAAAAAAAAEREAAAAAAAAREQAAAAAAABERAAAAAAAAEREREREREREREREREREREREAAAAAAAAAAD/8AAA//AAAP/wAAD/8AAA//AAAP/wAAD/8AAA//AAAP/wAAD/8AAA//AAAP/wAAAAAAAAAAAAA"
 			type="image/png"
 		/>
+		<!-- Manifest -->
+		<link rel="manifest" href="Code/manifest.json" />
 		<!-- Font awesome -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
 		<!-- Leaflet -->
@@ -1016,7 +1018,7 @@
 			const $selectDate = document.querySelector('#date')
 			// Mobile
 			const $isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
-
+			
 			// @b Listeners
 			//------------------------
 			// Window
@@ -1462,8 +1464,15 @@
 					$footerDiv.classList.remove('hide')
 					$photoGroup.classList.add('top')
 					$photoImage.classList.add('top')
-					$gallery.classList.add('top')
-					if ($isMobile) {
+					$gallery.classList.add('top')					
+				} else {
+					$headerDiv.classList.add('hide')
+					$footerDiv.classList.add('hide')
+					$photoGroup.classList.remove('top')
+					$photoImage.classList.remove('top')
+					$gallery.classList.remove('top')
+				}
+				if ($isMobile) {
 						const el = document.documentElement
 						if (el.requestFullscreen) {
 							el.requestFullscreen()
@@ -1473,13 +1482,6 @@
 							el.msRequestFullscreen()
 						}
 					}
-				} else {
-					$headerDiv.classList.add('hide')
-					$footerDiv.classList.add('hide')
-					$photoGroup.classList.remove('top')
-					$photoImage.classList.remove('top')
-					$gallery.classList.remove('top')
-				}
 				Log.exit()
 			}
 
