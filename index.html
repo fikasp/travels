@@ -689,10 +689,22 @@
 
 			// @b Consts
 			//------------------------
-			const FUTURE_YEAR = 2042
+			const FUTURE_YEAR = 2029
 			const CURRENT_YEAR = 2026
 			const startPlace = 'KRAKÓW'
 			const mapActive = true
+
+			const ls = {
+				activity: 'activity',
+				category: 'category',
+				date: 'date',
+				galleryWidth: 'galleryWidth',
+				isMenuOpen: 'isMenuOpen',
+				place: 'place',
+				range: 'range',
+				region: 'region',
+				view: 'view',
+			}
 
 			// @b Modes
 			//------------------------
@@ -939,7 +951,7 @@
 			let $countriesLayer = null // countries layer
 			let $distanceControl = null // distance control
 			let $activityControl = null // activity control
-			let $galleryWidth = parseFloat(localStorage.getItem('galleryWidth')) || 50 // gallery width
+			let $galleryWidth = lsGet(ls.galleryWidth, 50) // gallery width
 			let $marginTop = 0 // margin top
 
 			// Tables
@@ -956,13 +968,12 @@
 			let $dateFilter = modes.ALL.key // state of data filter
 			// Flags
 			let $hoverTimeout = null // routes timeout
-			let $isInitialRender = true // flag for initial render
 			let $isHiglightActive = true // flag for marker higlight activ
 			let $isGalleryAndMap = false // flag for gallery and map open
 			let $isPhotoClicked = false // flag for photo clicked
 			let $isPhotoLoading = false // flag for photo loading
 			let $isPhotoOpen = false // flag for photo open
-			let $isMenuOpen = false // flag for menu open
+			let $isMenuOpen = lsGet(ls.isMenuOpen, false) // flag for menu open
 			// Photo
 			let $touchStartX // touch start position
 			let $touchEndX // touch end position
@@ -1054,15 +1065,29 @@
 				Log.start()
 				Log.enter()
 				Log.default(data)
+
+				applyMenu()
 				changeMargin()
 				initResizer()
 				prepareMap()
 				prepareCountries()
 				prepareData()
+
+				const saved = loadState()
+				if (saved.date) $dateFilter = saved.date
+				if (saved.activity) $activityFilter = saved.activity
+				if (saved.category) $categoryFilter = saved.category
+
 				prepareDates()
 				prepareViewModes()
 				prepareRanges()
 				setRange()
+
+				if (saved.viewMode) {
+					$selectViewMode.value = saved.viewMode
+					setViewMode()
+				}
+
 				Log.exit()
 				Log.end()
 			}
@@ -1428,10 +1453,33 @@
 			// @g HEADER
 			//------------------------
 
+			// @b Apply menu
+			//------------------------
+			function applyMenu() {
+				Log.enter()
+				if ($isMenuOpen) {
+					$headerDiv.classList.remove('hide')
+					$footerDiv.classList.remove('hide')
+					$photoGroup.classList.add('top')
+					$photoImage.classList.add('top')
+					$gallery.classList.add('top')
+				} else {
+					$headerDiv.classList.add('hide')
+					$footerDiv.classList.add('hide')
+					$photoGroup.classList.remove('top')
+					$photoImage.classList.remove('top')
+					$gallery.classList.remove('top')
+				}
+				Log.exit()
+			}
+
 			// @b Show hide menu
 			//------------------------
 			function showHideMenu() {
 				Log.start()
+				$isMenuOpen = !$isMenuOpen
+				lsSet(ls.isMenuOpen, $isMenuOpen)
+				applyMenu()
 				if ($isMobile) {
 					const el = document.documentElement
 					if (el.requestFullscreen) {
@@ -1442,13 +1490,6 @@
 						el.msRequestFullscreen()
 					}
 				}
-
-				$headerDiv.classList.toggle('hide')
-				$footerDiv.classList.toggle('hide')
-				$photoGroup.classList.toggle('top')
-				$photoImage.classList.toggle('top')
-				$gallery.classList.toggle('top')
-				$isMenuOpen = !$isMenuOpen
 				Log.end()
 			}
 
@@ -1456,26 +1497,28 @@
 			//------------------------
 			function prepareViewModes() {
 				Log.enter()
+				const saved = loadState()
+				const selectedViewMode = saved.viewMode ?? $viewMode
 				// prettier-ignore
 				createOption(
 					$selectViewMode,
 					modes.MAP.key,
 					modes.MAP.value,
-					$viewMode
+					selectedViewMode
 				)
 				// prettier-ignore
 				createOption(
 					$selectViewMode,
 					modes.MAP_GALLERY.key,
 					modes.MAP_GALLERY.value,
-					$viewMode
+					selectedViewMode
 				)
 				// prettier-ignore
 				createOption(
 					$selectViewMode,
 					modes.GALLERY.key,
 					modes.GALLERY.value,
-					$viewMode
+					selectedViewMode
 				)
 				Log.exit()
 			}
@@ -1484,8 +1527,8 @@
 			//------------------------
 			function prepareRanges() {
 				Log.enter()
-				const dataRanges = Object.keys(data)
-				const selectedRange = $isInitialRender ? findRange(startPlace) : null
+				const saved = loadState()
+				const selectedRange = saved.range ?? findRange(startPlace)
 
 				Object.values(mapKeyToObject(ranges)).forEach((range) => {
 					createOption($selectRange, range.key, range.value, selectedRange)
@@ -1505,12 +1548,13 @@
 					return
 				}
 
+				const saved = loadState()
+				const selectedRegion = saved.region ?? findRegion(startPlace)
+
 				clearContent($selectRegion)
 				createOption($selectRegion, modes.ALL.key, modes.ALL.value)
 
-				const selectedRegion = $isInitialRender ? findRegion(startPlace) : null
 				const regions = Object.keys(data[$selectRange.value])
-
 				regions.forEach((region) => {
 					createOption($selectRegion, region, region, selectedRegion)
 				})
@@ -1527,19 +1571,18 @@
 					return
 				}
 
-				createOption($selectPlace, modes.ALL.key, modes.ALL.value)
-				const newPlaces = data[$selectRange.value][$selectRegion.value]
+				const saved = loadState()
+				const selectedPlace = saved.place ?? startPlace
 
+				const newPlaces = data[$selectRange.value][$selectRegion.value]
 				clearContent($selectPlace)
 				createOption($selectPlace, modes.ALL.key, modes.ALL.value)
 
-				const selectedPlace = $isInitialRender ? startPlace : null
 				Object.keys(newPlaces).forEach((place) => {
 					if (place !== 'coor' && place !== 'zoom') {
 						createOption($selectPlace, place, place, selectedPlace)
 					}
 				})
-				$isInitialRender = false
 				Log.exit()
 			}
 
@@ -1550,14 +1593,16 @@
 				clearContent($selectActivity)
 
 				const selectedRange = $selectRange.value
+				const saved = loadState()
+				const allowedActivities = Object.values(ranges).find((r) => r.key === selectedRange)?.activities ?? []
 
-				if (selectedRange == ranges.MOUNTAINS.key) {
+				if (saved.activity && allowedActivities.includes(saved.activity)) {
+					$activityFilter = saved.activity
+				} else if (selectedRange == ranges.MOUNTAINS.key) {
 					$activityFilter = activities.HIKING.key
 				} else {
 					$activityFilter = activities.ALL.key
 				}
-
-				const allowedActivities = Object.values(ranges).find((r) => r.key === selectedRange)?.activities ?? []
 
 				allowedActivities.forEach((allowedActivity) => {
 					const activity = mapKeyToObject(activities)[allowedActivity]
@@ -1590,19 +1635,21 @@
 			//------------------------
 			function prepareDates() {
 				Log.enter()
+				const saved = loadState()
+				const selectedDate = saved.date ?? $dateFilter
 				clearContent($selectDate)
 
-				createOption($selectDate, modes.ALL.key, `📅 ${modes.ALL.value}`, $dateFilter)
-				createOption($selectDate, modes.DONE.key, `📅 ${modes.DONE.value}`, $dateFilter)
-				createOption($selectDate, modes.PLAN_ALL.key, `📅 ${modes.PLAN_ALL.value}`, $dateFilter)
+				createOption($selectDate, modes.ALL.key, `📅 ${modes.ALL.value}`, selectedDate)
+				createOption($selectDate, modes.DONE.key, `📅 ${modes.DONE.value}`, selectedDate)
+				createOption($selectDate, modes.PLAN_ALL.key, `📅 ${modes.PLAN_ALL.value}`, selectedDate)
 				for (let year = FUTURE_YEAR; year > CURRENT_YEAR; year--) {
-					createOption($selectDate, year, `📅 Plan ${year}`, $dateFilter)
+					createOption($selectDate, year, `📅 Plan ${year}`, selectedDate)
 				}
-				createOption($selectDate, modes.PLAN_CURRENT.key, `📅 ${modes.PLAN_CURRENT.value}`, $dateFilter)
+				createOption($selectDate, modes.PLAN_CURRENT.key, `📅 ${modes.PLAN_CURRENT.value}`, selectedDate)
 				for (let year = CURRENT_YEAR; year >= 2004; year--) {
-					createOption($selectDate, year, `📅 ${year}`, $dateFilter)
+					createOption($selectDate, year, `📅 ${year}`, selectedDate)
 				}
-				createOption($selectDate, 2000, `📅 2000`, $dateFilter)
+				createOption($selectDate, 2000, `📅 2000`, selectedDate)
 
 				Log.exit()
 			}
@@ -1695,6 +1742,7 @@
 				setMapView()
 				updateData()
 				logSelects()
+				saveState()
 				Log.exit()
 				Log.end()
 			}
@@ -1711,6 +1759,7 @@
 				setMapView()
 				updateData()
 				logSelects()
+				saveState()
 				Log.exit()
 				Log.end()
 			}
@@ -1733,6 +1782,7 @@
 				prepareCountries()
 				updateData()
 				logSelects()
+				saveState()
 				Log.exit()
 				Log.end()
 			}
@@ -1808,6 +1858,7 @@
 					classAdd('show')
 				}
 				setMapView()
+				saveState()
 				Log.exit()
 				Log.end()
 			}
@@ -1820,6 +1871,7 @@
 				$activityFilter = $selectActivity.value
 				prepareRoutes()
 				logSelects()
+				saveState()
 				Log.exit()
 				Log.end()
 			}
@@ -1832,6 +1884,7 @@
 				$categoryFilter = $selectCategory.value
 				updateData()
 				logSelects()
+				saveState()
 				Log.exit()
 				Log.end()
 			}
@@ -1846,6 +1899,7 @@
 				prepareCountries()
 				updateData()
 				logSelects()
+				saveState()
 				Log.exit()
 				Log.end()
 			}
@@ -2139,7 +2193,7 @@
 						$galleryBackground.style.width = `${$galleryWidth}%`
 						$galleryResizer.style.left = `${$galleryWidth}%`
 					}
-					localStorage.setItem('galleryWidth', $galleryWidth)
+					lsSet(ls.galleryWidth, $galleryWidth)
 				}
 
 				const stopResize = () => {
@@ -2265,7 +2319,7 @@
 
 				if ($selectRegion.value == modes.ALL.key) {
 					if ($selectRange.value == ranges.MOUNTAINS.key) {
-						$map.setView(...setCoor([49.5, 20.0], 9))
+						$map.setView(...setCoor([49.5, 20.0], 10))
 					} else if ($selectRange.value == ranges.POLAND.key) {
 						$map.setView(...setCoor([51.9, 19.2], 7))
 					} else if ($selectRange.value == ranges.EUROPE.key) {
@@ -2302,7 +2356,8 @@
 				const width = window.innerWidth
 				const galleryFraction = $galleryWidth / 100
 				const headerHeight = $isMenuOpen ? $headerDiv.offsetHeight || 0 : 0
-				const shiftY = headerHeight / 2 / scale
+				const footerHeight = $isMenuOpen ? $footerDiv.offsetHeight || 0 : 0
+				const shiftY = (headerHeight - footerHeight) / 2 / scale
 				const newY = mapPoint.y - shiftY
 
 				if ($isGalleryAndMap) {
@@ -2738,6 +2793,32 @@
 			// @g TOOLS
 			//------------------------
 
+			// @b Save state
+			//------------------------
+			function saveState() {
+				lsSet(ls.activity, $selectActivity.value)
+				lsSet(ls.category, $selectCategory.value)
+				lsSet(ls.date, $selectDate.value)
+				lsSet(ls.place, $selectPlace.value)
+				lsSet(ls.range, $selectRange.value)
+				lsSet(ls.region, $selectRegion.value)
+				lsSet(ls.view, $selectViewMode.value)
+			}
+
+			// @b Load state
+			//------------------------
+			function loadState() {
+				return {
+					activity: lsGet(ls.activity),
+					category: lsGet(ls.category),
+					date: lsGet(ls.date),
+					place: lsGet(ls.place),
+					range: lsGet(ls.range),
+					region: lsGet(ls.region),
+					viewMode: lsGet(ls.view),
+				}
+			}
+
 			// @b Find range
 			//------------------------
 			function findRange(place) {
@@ -2893,6 +2974,21 @@
 					}
 					return acc
 				}, {})
+			}
+
+			// @b Local storage
+			//------------------------
+			function lsGet(key, fallback = null) {
+				const val = localStorage.getItem(key)
+				if (val === null) return fallback
+				if (val === 'true') return true
+				if (val === 'false') return false
+				const num = Number(val)
+				return isNaN(num) ? val : num
+			}
+
+			function lsSet(key, value) {
+				localStorage.setItem(key, value)
 			}
 
 			// @b Log selects

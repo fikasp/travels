@@ -3433,7 +3433,7 @@ const data = {
           },
           {
             catg: "Z",
-            name: "Park dworku Matejki",
+            name: "Park Jana Matejki",
             scale: 1.0,
             coor: [
               50.0813687,
