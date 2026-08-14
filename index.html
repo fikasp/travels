@@ -1231,7 +1231,7 @@
 			//------------------------
 			function changeMargin() {
 				Log.enter()
-				const windowHeight = window.innerHeight
+				const windowHeight = document.documentElement.clientHeight
 				const headerHeight = $headerDiv.offsetHeight
 				const viewHeight = windowHeight - headerHeight
 				$marginTop = headerHeight
@@ -1470,16 +1470,16 @@
 					$photoImage.classList.remove('top')
 					$gallery.classList.remove('top')
 				}
-				if ($isMobile) {
-						const el = document.documentElement
-						if (el.requestFullscreen) {
-							el.requestFullscreen()
-						} else if (el.webkitRequestFullscreen) {
-							el.webkitRequestFullscreen()
-						} else if (el.msRequestFullscreen) {
-							el.msRequestFullscreen()
-						}
-					}
+				// if ($isMobile) {
+				// 		const el = document.documentElement
+				// 		if (el.requestFullscreen) {
+				// 			el.requestFullscreen()
+				// 		} else if (el.webkitRequestFullscreen) {
+				// 			el.webkitRequestFullscreen()
+				// 		} else if (el.msRequestFullscreen) {
+				// 			el.msRequestFullscreen()
+				// 		}
+				// 	}
 				Log.exit()
 			}
 
@@ -2178,7 +2178,7 @@
 					if (!isResizing) return
 
 					if ($isMobile) {
-						const newHeight = (1 - clientY / window.innerHeight) * 100
+						const newHeight = (1 - clientY / document.documentElement.clientHeight) * 100
 						if (newHeight < 15 || newHeight > 85) return
 						$galleryWidth = newHeight
 						$gallery.style.height = `${$galleryWidth}vh`
@@ -2186,7 +2186,7 @@
 						$galleryBackground.style.height = `${$galleryWidth}vh`
 						$galleryResizer.style.top = `${100 - $galleryWidth}%`
 					} else {
-						const newWidth = (clientX / window.innerWidth) * 100
+						const newWidth = (clientX / document.documentElement.clientWidth) * 100
 						if (newWidth < 15 || newWidth > 85) return
 						$galleryWidth = newWidth
 						$gallery.style.width = `${$galleryWidth}%`
@@ -2362,10 +2362,10 @@
 
 				if ($isGalleryAndMap) {
 					if ($isMobile) {
-						const galleryHeight = window.innerHeight * galleryFraction
-						const mapAreaHeight = window.innerHeight - headerHeight - galleryHeight
+						const galleryHeight = document.documentElement.clientHeight * galleryFraction
+						const mapAreaHeight = document.documentElement.clientHeight - headerHeight - galleryHeight
 						const mapAreaCenterY = headerHeight + mapAreaHeight / 2
-						const currentCenterY = window.innerHeight / 2
+						const currentCenterY = document.documentElement.clientHeight / 2
 						const shiftY2 = (currentCenterY - mapAreaCenterY) / scale
 						const newY2 = mapPoint.y + shiftY2
 						const newCoor = $map.containerPointToLatLng([mapPoint.x, newY2])
