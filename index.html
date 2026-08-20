@@ -178,7 +178,7 @@
 				background: transparent;
 				transition: transform 0.3s ease-out;
 				box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-				backdrop-filter: blur(5px);
+				backdrop-filter: blur(10px);
 			}
 			.footer.hide {
 				transform: translateY(+120%);
@@ -612,7 +612,7 @@
 		<!------------------------
 		 @g FOOTER
 		------------------------->
-		<div class="footer hide">
+		<div class="footer">
 			<!-- View -->
 			<div class="footer_view" id="view"></div>
 			<!-- Distance -->
@@ -962,6 +962,7 @@
 			let $isPhotoLoading = false // flag for photo loading
 			let $isPhotoOpen = false // flag for photo open
 			let $isMenuOpen = lsGet(ls.isMenuOpen, false) // flag for menu open
+			let $isInitialLoad = true // flag for initial render
 			// Photo
 			let $touchStartX // touch start position
 			let $touchEndX // touch end position
@@ -1054,9 +1055,11 @@
 				prepareData()
 				prepareDates()
 				prepareRanges()
-				setRange()
 
+				setRange()
 				applyViewMode()
+				$isInitialLoad = false
+
 				Log.exit()
 				Log.end()
 			}
@@ -1200,7 +1203,7 @@
 			//------------------------
 			function changeMargin() {
 				Log.enter()
-				const windowHeight = document.documentElement.clientHeight
+				const windowHeight = vh()
 				const headerHeight = $headerDiv.offsetHeight
 				const viewHeight = windowHeight - headerHeight
 				$marginTop = headerHeight
@@ -1428,13 +1431,13 @@
 				Log.enter()
 				if ($isMenuOpen) {
 					$headerDiv.classList.remove('hide')
-					$footerDiv.classList.remove('hide')
+					// $footerDiv.classList.remove('hide')
 					$photoGroup.classList.add('top')
 					$photoImage.classList.add('top')
 					$gallery.classList.add('top')
 				} else {
 					$headerDiv.classList.add('hide')
-					$footerDiv.classList.add('hide')
+					// $footerDiv.classList.add('hide')
 					$photoGroup.classList.remove('top')
 					$photoImage.classList.remove('top')
 					$gallery.classList.remove('top')
@@ -1828,7 +1831,7 @@
 						$gallery.classList.add('mobile')
 						$galleryBackground.classList.add('mobile')
 						$galleryResizer.classList.add('mobile')
-						const ch = document.documentElement.clientHeight
+						const ch = vh()
 						const galleryPx = ch * ($galleryWidth / 100)
 						$gallery.style.height = `${galleryPx}px`
 						$gallery.style.maxHeight = `${galleryPx}px`
@@ -2126,7 +2129,7 @@
 					if (!isResizing) return
 
 					if ($isMobile) {
-						const clientHeight = document.documentElement.clientHeight
+						const clientHeight = vh()
 						const newHeight = (1 - clientY / clientHeight) * 100
 						if (newHeight < 15 || newHeight > 85) return
 						$galleryWidth = newHeight
@@ -2136,7 +2139,7 @@
 						$galleryBackground.style.height = `${galleryPx}px`
 						$galleryResizer.style.top = `${clientHeight - galleryPx}px`
 					} else {
-						const newWidth = (clientX / document.documentElement.clientWidth) * 100
+						const newWidth = (clientX / vw()) * 100
 						if (newWidth < 15 || newWidth > 85) return
 						$galleryWidth = newWidth
 						$gallery.style.width = `${$galleryWidth}%`
@@ -2201,6 +2204,7 @@
 						Log.orange(`${lat}, ${lng}`)
 					})
 				}
+
 				Log.exit()
 			}
 
@@ -2303,10 +2307,10 @@
 				const mapZoom = $map.getZoom()
 				const mapPoint = $map.latLngToContainerPoint(coor)
 				const scale = Math.pow(2, zoom - mapZoom)
-				const width = window.innerWidth
+				const width = vw()
 				const galleryFraction = $galleryWidth / 100
-				const headerHeight = $isMenuOpen ? $headerDiv.offsetHeight || 0 : 0
-				const footerHeight = $isMenuOpen ? $footerDiv.offsetHeight || 0 : 0
+				const headerHeight = $isInitialLoad ? 0 : $isMenuOpen ? $headerDiv.offsetHeight || 0 : 0
+				const footerHeight = $isInitialLoad ? 0 : $footerDiv.offsetHeight
 				const shiftY = (headerHeight - footerHeight) / 2 / scale
 				const newY = mapPoint.y - shiftY
 
@@ -2316,7 +2320,7 @@
 						const mapAreaTop = headerHeight
 						const mapAreaBottom = resizerRect.top
 						const mapAreaCenterY = (mapAreaTop + mapAreaBottom) / 2
-						const leafletCenterY = window.innerHeight / 2
+						const leafletCenterY = vh() / 2
 						const shiftY2 = (leafletCenterY - mapAreaCenterY) / scale
 						const newY2 = mapPoint.y + shiftY2
 						const newCoor = $map.containerPointToLatLng([mapPoint.x, newY2])
@@ -2955,6 +2959,15 @@
 					place: $selectPlace.value,
 				})
 				Log.exit()
+			}
+
+			// @b Dimensions
+			//------------------------
+			function vh() {
+				return document.documentElement.clientHeight
+			}
+			function vw() {
+				return document.documentElement.clientWidth
 			}
 
 			// @g Logger
