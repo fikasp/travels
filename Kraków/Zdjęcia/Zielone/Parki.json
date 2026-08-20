@@ -1,6 +1,6 @@
 {
   "app": "park-conqueror",
-  "exportedAt": "2026-08-12T15:54:02.380Z",
+  "exportedAt": "2026-08-17T20:14:54.644Z",
   "version": 1,
   "parks": {
     "1": {
@@ -8,15 +8,15 @@
       "date": "2026-08-12"
     },
     "2": {
-      "status": "VISITED",
+      "status": "CONQUERED",
       "date": "2026-08-12"
     },
     "3": {
-      "status": "VISITED",
+      "status": "CONQUERED",
       "date": "2026-08-12"
     },
     "4": {
-      "status": "VISITED",
+      "status": "CONQUERED",
       "date": "2026-08-12"
     },
     "5": {
@@ -28,11 +28,11 @@
       "date": "2026-08-08"
     },
     "7": {
-      "status": "VISITED",
+      "status": "CONQUERED",
       "date": "2026-08-12"
     },
     "8": {
-      "status": "VISITED",
+      "status": "CONQUERED",
       "date": "2026-08-12"
     },
     "11": {
@@ -72,7 +72,7 @@
       "date": "2026-08-12"
     },
     "24": {
-      "status": "VISITED",
+      "status": "CONQUERED",
       "date": "2026-08-12"
     },
     "27": {
@@ -88,8 +88,12 @@
       "date": "2026-08-12"
     },
     "30": {
-      "status": "VISITED",
+      "status": "CONQUERED",
       "date": "2026-08-12"
+    },
+    "32": {
+      "status": "CONQUERED",
+      "date": "2026-08-15"
     },
     "33": {
       "status": "VISITED",
