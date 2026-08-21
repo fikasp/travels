@@ -148,8 +148,9 @@
 				left: 10px;
 				font-size: 20px;
 				border-radius: 4px;
-				background-color: rgb(0, 0, 0, 0.7);
-				box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+				background-color: rgb(0, 0, 0, 0.6);
+				box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.5);
+				backdrop-filter: blur(10px);
 				transition: 0.5s;
 			}
 			.header_bars:hover {
@@ -176,11 +177,12 @@
 				justify-content: space-between;
 				align-items: center;
 				background: transparent;
-				box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+				box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.2);
 				backdrop-filter: blur(40px);
+				transition: 0.2s;
 			}
 			.footer.dark {
-				background-color: rgba(128, 128, 128, 0.8);;
+				background-color: rgba(128, 128, 128, 0.8);
 			}
 			.footer_view {
 				position: absolute;
@@ -233,7 +235,7 @@
 				margin-top: 0;
 				left: 0;
 				top: 0;
-				width: 100%;
+				width: 50%;
 				max-height: 100vh;
 				overflow: auto;
 				overflow-x: hidden;
@@ -254,15 +256,12 @@
 				position: fixed;
 				left: 0;
 				top: 0;
-				width: 100%;
+				width: 50%;
 				height: 100vh;
-				/* transition: 0.2s; */
-				box-shadow: 0 0 5px 0 black;
+				transition: 0.2s;
+				box-shadow: 0 0 10px 2px black;
 				background-color: rgb(0, 0, 0, 80%);
 				backdrop-filter: blur(10px);
-			}
-			.gallery_background.half {
-				width: 50%;
 			}
 			.gallery_box {
 				position: relative;
@@ -297,9 +296,6 @@
 				padding-bottom: 30px;
 				max-height: calc(100vh - var(--marginTop));
 			}
-			.gallery.half {
-				width: 50%;
-			}
 			.gallery_resizer {
 				z-index: 1000;
 				position: fixed;
@@ -317,17 +313,17 @@
 				background: rgba(00, 80, 160, 0.5);
 			}
 			/* mobile */
-			.gallery.half.mobile {
+			.gallery.mobile {
 				width: 100% !important;
 				height: 50dvh;
 				max-height: 50dvh;
-				padding-top: 2px;
 				top: auto;
 				bottom: 0;
 			}
-			.gallery_background.half.mobile {
+			.gallery_background.mobile {
 				width: 100% !important;
 				height: 50dvh;
+				box-shadow: 0 0 10px 4px black;
 				top: auto;
 
 				bottom: 0;
@@ -568,7 +564,7 @@
 		<!--#region @r BODY -->
 		<!--====================-->
 		<!------------------------
-		 @g HEADER
+		 @b HEADER
 		------------------------->
 		<!-- Bar -->
 		<div class="header_bars">
@@ -611,7 +607,7 @@
 		</div>
 
 		<!------------------------
-		 @g FOOTER
+		 @b FOOTER
 		------------------------->
 		<div class="footer">
 			<!-- View -->
@@ -623,14 +619,14 @@
 		</div>
 
 		<!------------------------
-		 @g GALLERY
+		 @b GALLERY
 		------------------------->
 		<div class="gallery none"></div>
 		<div class="gallery_background none"></div>
 		<div class="gallery_resizer none"></div>
 
 		<!------------------------
-		 @g PHOTO
+		 @b PHOTO
 		------------------------->
 		<div class="photo none">
 			<!-- arrow play -->
@@ -663,7 +659,7 @@
 		</div>
 
 		<!------------------------
-		 @g MAP
+		 @b MAP
 		------------------------->
 		<div class="map" id="map"></div>
 
@@ -1812,6 +1808,7 @@
 					$galleryBackground.classList.remove(className)
 				}
 
+				// map
 				if ($viewMode === modes.MAP.key) {
 					$isGalleryAndMap = false
 					$footerDiv.classList.remove('dark')
@@ -1821,7 +1818,6 @@
 						$isHiglightActive = true
 						classRemove('show')
 						classRemove('hide')
-						classRemove('half')
 						classAdd('none')
 					} else {
 						hidePhoto()
@@ -1833,10 +1829,11 @@
 							classAdd('none')
 						}, 400)
 					}
+
+					// map & gallery
 				} else if ($viewMode === modes.MAP_GALLERY.key) {
 					$isGalleryAndMap = true
 					classRemove('none')
-					classAdd('half')
 					if (!instant) classAdd('show')
 
 					if ($isMobile) {
@@ -1850,6 +1847,7 @@
 					}
 
 					positionGallery()
+					$footerDiv.classList.add('dark')
 					$galleryResizer.classList.remove('none')
 					setTimeout(() => {
 						$isHiglightActive = true
@@ -2128,12 +2126,10 @@
 					$gallery.style.maxHeight = `${galleryPx}px`
 					$galleryBackground.style.height = `${galleryPx}px`
 					$galleryResizer.style.top = `${ch - galleryPx}px`
-					$footerDiv.classList.add('dark')
 				} else {
 					$gallery.style.width = `${$galleryWidth}%`
 					$galleryBackground.style.width = `${$galleryWidth}%`
 					$galleryResizer.style.left = `${$galleryWidth}%`
-					$footerDiv.classList.remove('dark')
 				}
 				lsSet(ls.galleryWidth, $galleryWidth)
 			}
