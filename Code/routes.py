@@ -6,12 +6,16 @@ from simplification.cutil import simplify_coords
 import xml.etree.ElementTree as ET
 import gpxpy
 import math
+import json
 
 #------------------------
 # @g CONFIG
 #------------------------
 YEAR = 0
 MONTH = 0
+
+APPEND_MODE = True
+MANIFEST_FILE = "routes.json"
 
 activities = {
     'hiking': '🥾',
@@ -21,7 +25,7 @@ activities = {
     'transport_public': '🚌',
     'transport_train': '🚆',
     'transport_truck': '🛣️',
-    'transport_boat': '🛳️',
+    'transport_boat': '🛳️ ',
     'downhill_skiing': '🎿',
 }
 
@@ -275,6 +279,44 @@ def get_base_folder(script_dir: Path, year: int, month: int) -> Path:
         return script_dir / "Trasy" / str(year) / month_str
     raise ValueError(f"Invalid month: {month}")
 
+
+# @b Get file signature
+#------------------------
+def get_file_signature(gpx_path: Path):
+    """
+    Return a lightweight signature (size, mtime) used to detect
+    whether a GPX file has changed since it was last processed.
+    """
+    stat = gpx_path.stat()
+    return [stat.st_size, stat.st_mtime]
+
+
+# @b Load manifest
+#------------------------
+def load_manifest(manifest_path: Path) -> dict:
+    """
+    Load the cache of previously processed GPX files (path -> signature + entries).
+    Returns an empty dict if the manifest doesn't exist or is corrupted.
+    """
+    if not manifest_path.exists():
+        return {}
+    try:
+        with manifest_path.open('r', encoding='utf-8') as f:
+            return json.load(f)
+    except Exception as e:
+        print(f"⚠️ Nie udało się wczytać manifestu ({e}) — pełna reanaliza plików.")
+        return {}
+
+
+# @b Save manifest
+#------------------------
+def save_manifest(manifest_path: Path, manifest: dict):
+    """
+    Persist the cache of processed GPX files to disk.
+    """
+    with manifest_path.open('w', encoding='utf-8') as f:
+        json.dump(manifest, f, ensure_ascii=False)
+
 #------------------------
 # @g MAIN
 #------------------------
@@ -289,18 +331,28 @@ def main():
     - Write or append formatted route entries to a 'routes.js' file
     - Manage file attributes to hide/unhide output file on Windows
     """
+
+    # Print header
+    print("🌍 GPX routes converter:")
+
     # Set up input and output paths
     project_dir = Path(__file__).parent.parent.resolve()
-
-    print(project_dir)
     base_folder = get_base_folder(project_dir, YEAR, MONTH)
     print(base_folder)
+
     output_file = project_dir / "Code/routes.js"
 
     # Unhide output file before writing
     set_file_unhidden(output_file)  
 
     new_entries = []
+
+    # Path manifest to cache already parsed GPX files
+    manifest_path = project_dir / "Code" / MANIFEST_FILE
+    old_manifest = load_manifest(manifest_path) if APPEND_MODE else {}
+    new_manifest = {}
+
+    skipped_count = 0
 
     # @b Extract and format data
     #------------------------
@@ -310,7 +362,19 @@ def main():
         if any(folder in gpx_file.parts for folder in excluded_folders):
             continue
 
+        key = str(gpx_file.relative_to(project_dir))
+        signature = get_file_signature(gpx_file)
+
+        # File unchanged since last run - use cached entries
+        cached = old_manifest.get(key)
+        if APPEND_MODE and cached and cached.get("signature") == signature:
+            new_manifest[key] = cached
+            new_entries.extend(cached["entries"])
+            skipped_count += 1
+            continue
+
         extracted = extract_data(gpx_file)
+        file_entries = []
         for name, range_, activity, coords in extracted:
             length = calculate_total_length(coords)
             icon = get_activity_icon(activity)
@@ -323,7 +387,14 @@ def main():
             else:
                 print(f"🟥❌ {icon} {name} -> {range_}")
 
-            new_entries.append(format_route_entry(name, icon, range_, activity, year, length, coords))
+            file_entries.append(format_route_entry(name, icon, range_, activity, year, length, coords))
+
+        new_manifest[key] = {"signature": signature, "entries": file_entries}
+        new_entries.extend(file_entries)
+
+    if APPEND_MODE:
+        save_manifest(manifest_path, new_manifest)
+        print(f"⏭️  Skipped {skipped_count} files.")
 
 
     # @b Write data to JS file
@@ -331,31 +402,15 @@ def main():
     if not new_entries:
         print("⚠️ No routes found.")
     else:
-        if YEAR == 0:
-            # Overwrite mode
-            with output_file.open('w', encoding='utf-8') as f:
-                f.write("const routes = [\n")
-                f.write("\n".join(new_entries))
-                f.write("\n]\n")
-        elif output_file.exists():
-            # Append mode
-            with output_file.open('r+', encoding='utf-8') as f:
-                content = f.read().rstrip()
+        with output_file.open('w', encoding='utf-8') as f:
+            f.write("const routes = [\n")
+            f.write("\n".join(new_entries))
+            f.write("\n]\n")
 
-                if content.endswith("]"):
-                    content = content[:-1].rstrip()
-                if not content.endswith(","):
-                    content += ","
-                content += "\n" + "\n".join(new_entries) + "\n]"
-                f.seek(0)
-                f.write(content)
-                f.truncate()
-
-    # re-hide the output file
     # set_file_hidden(output_file)  
 
     # summary
-    print(f"🏆 {'Wrote' if (YEAR == 0) else 'Appended'} {len(new_entries)} routes!")
+    print(f"🏆 Wrote {len(new_entries)} routes!")
 
 
 if __name__ == "__main__":
