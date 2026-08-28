@@ -14,7 +14,7 @@ import json
 YEAR = 0
 MONTH = 0
 
-APPEND_MODE = True
+FAST_MODE = True
 MANIFEST_FILE = "routes.json"
 
 activities = {
@@ -50,10 +50,15 @@ def get_name(gpx):
 #------------------------
 def get_year(name, range):
     """
-    Extract year from the first 4 characters of the name and return:
+    Extract year (and, when needed, month/day) from the start of the name
+    (expected format 'YYYY-MM-DD ...') and return:
     - the year if it is in the past or in the future,
-    - the year if it is the current year and the month is not in the future,
-    - 0 if the month is in the future within the current year or date not found
+    - within the current year:
+        - the year if the month is in the past,
+        - 0 if the month is in the future,
+        - if it's the current month, the year if the day is in the past,
+          otherwise 0 (day in the future, or today)
+    - 0 if the date can't be determined
     """
     try:
         year_str = name[:4]
@@ -61,6 +66,7 @@ def get_year(name, range):
         today = datetime.today()
         current_year = today.year
         current_month = today.month
+        current_day = today.day
 
         if year < current_year:
             return year
@@ -72,7 +78,18 @@ def get_year(name, range):
                 if month_str.isdigit():
                     month = int(month_str)
                     if 1 <= month <= 12:
-                        return year if month < current_month else 0
+                        if month < current_month:
+                            return year
+                        elif month > current_month:
+                            return 0
+                        else:
+                            if len(name) >= 10:
+                                day_str = name[8:10]
+                                if day_str.isdigit():
+                                    day = int(day_str)
+                                    if 1 <= day <= 31:
+                                        return year if day < current_day else 0
+                            return 0
             return year
     except Exception:
         return 0
@@ -349,7 +366,7 @@ def main():
 
     # Path manifest to cache already parsed GPX files
     manifest_path = project_dir / "Code" / MANIFEST_FILE
-    old_manifest = load_manifest(manifest_path) if APPEND_MODE else {}
+    old_manifest = load_manifest(manifest_path) if FAST_MODE else {}
     new_manifest = {}
 
     skipped_count = 0
@@ -367,7 +384,7 @@ def main():
 
         # File unchanged since last run - use cached entries
         cached = old_manifest.get(key)
-        if APPEND_MODE and cached and cached.get("signature") == signature:
+        if FAST_MODE and cached and cached.get("signature") == signature:
             new_manifest[key] = cached
             new_entries.extend(cached["entries"])
             skipped_count += 1
@@ -392,7 +409,7 @@ def main():
         new_manifest[key] = {"signature": signature, "entries": file_entries}
         new_entries.extend(file_entries)
 
-    if APPEND_MODE:
+    if FAST_MODE:
         save_manifest(manifest_path, new_manifest)
         print(f"⏭️  Skipped {skipped_count} files.")
 
