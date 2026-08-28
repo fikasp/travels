@@ -100,7 +100,7 @@ def get_year(name, range):
 def get_range(activity):
     """
     Determines the range based on the activity string:
-    - Returns 'ŚWIAT' if the activity starts with 'world_'
+    - Returns 'EUROPA' if the activity starts with 'world_'
     - Returns 'POLSKA' in all other cases or if activity is None
     """
     if activity:
@@ -321,7 +321,7 @@ def load_manifest(manifest_path: Path) -> dict:
         with manifest_path.open('r', encoding='utf-8') as f:
             return json.load(f)
     except Exception as e:
-        print(f"⚠️ Nie udało się wczytać manifestu ({e}) — pełna reanaliza plików.")
+        print(f"⚠️ Failed to load manifest ({e}) — falling back to full re-analysis.")
         return {}
 
 
@@ -369,7 +369,7 @@ def main():
     old_manifest = load_manifest(manifest_path) if FAST_MODE else {}
     new_manifest = {}
 
-    skipped_count = 0
+    added_count = 0
 
     # @b Extract and format data
     #------------------------
@@ -387,11 +387,11 @@ def main():
         if FAST_MODE and cached and cached.get("signature") == signature:
             new_manifest[key] = cached
             new_entries.extend(cached["entries"])
-            skipped_count += 1
             continue
 
         extracted = extract_data(gpx_file)
         file_entries = []
+        display_entries = []
         for name, range_, activity, coords in extracted:
             length = calculate_total_length(coords)
             icon = get_activity_icon(activity)
@@ -405,13 +405,50 @@ def main():
                 print(f"🟥❌ {icon} {name} -> {range_}")
 
             file_entries.append(format_route_entry(name, icon, range_, activity, year, length, coords))
+            display_entries.append({"name": name, "icon": icon, "range": range_})
 
-        new_manifest[key] = {"signature": signature, "entries": file_entries}
+        new_manifest[key] = {"signature": signature, "entries": file_entries, "display": display_entries}
         new_entries.extend(file_entries)
+        added_count += 1
+
+    # Detect files that used to be in the manifest (within the current scan
+    # scope) but are no longer found on disk - they were deleted or moved.
+    removed_count = 0
+    for key, cached in old_manifest.items():
+        if key in new_manifest:
+            continue
+        full_path = project_dir / key
+        try:
+            in_scope = full_path.is_relative_to(base_folder)
+        except AttributeError:
+            try:
+                full_path.relative_to(base_folder)
+                in_scope = True
+            except ValueError:
+                in_scope = False
+        if not in_scope:
+            continue
+
+        removed_count += 1
+        display_entries = cached.get("display")
+        if display_entries:
+            for entry in display_entries:
+                icon = entry.get("icon", "❓")
+                name = entry.get("name", key)
+                range_ = entry.get("range", "")
+                if range_ == "POLSKA":
+                    print(f"🗑️  🇵🇱 {icon} {name}")
+                elif range_ == "EUROPA":
+                    print(f"🗑️  🇪🇺 {icon} {name}")
+                else:
+                    print(f"🗑️  {icon} {name}")
+        else:
+            # Older manifest entries without display info - fall back to the path
+            print(f"🗑️  {key}")
 
     if FAST_MODE:
         save_manifest(manifest_path, new_manifest)
-        print(f"⏭️  Skipped {skipped_count} files.")
+        print(f"🆕 Added {added_count},🗑️  removed {removed_count}.")
 
 
     # @b Write data to JS file
