@@ -1,12 +1,11 @@
 from pathlib import Path
 from datetime import datetime
-from Tools.Tools import set_file_hidden
-from Tools.Tools import set_file_unhidden
 from simplification.cutil import simplify_coords
 import xml.etree.ElementTree as ET
 import gpxpy
 import math
 import json
+import re
 
 #------------------------
 # @g CONFIG
@@ -30,7 +29,48 @@ activities = {
 }
 
 #------------------------
-# @g FUNCTIONS
+# @g UTILITIES
+#------------------------
+
+# @b Calculate distance between points
+#------------------------
+def calculate_distance(lon1, lat1, lon2, lat2):
+    """
+    Calculate the great-circle distance between two geographic points using the Haversine formula.
+    Returns distance in kilometers.
+    """
+    R = 6371.0
+    phi1 = math.radians(lat1)
+    phi2 = math.radians(lat2)
+    dphi = math.radians(lat2 - lat1)
+    dlambda = math.radians(lon2 - lon1)
+    a = math.sin(dphi / 2.0)**2 + math.cos(phi1) * math.cos(phi2) * math.sin(dlambda / 2.0)**2
+    return 2 * R * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+
+
+# @b Calculate total length of the route
+#------------------------
+def calculate_total_length(coords):
+    """
+    Calculate total length of a route given a list of [lon, lat] points.
+    Returns length in kilometers.
+    """
+    if not coords or len(coords) < 2:
+        return 0.0
+
+    total = 0.0
+    for i in range(1, len(coords)):
+        try:
+            lon1, lat1 = coords[i - 1]
+            lon2, lat2 = coords[i]
+            total += calculate_distance(lon1, lat1, lon2, lat2)
+        except Exception as e:
+            print(f"⚠️ Error in point {i}: {coords[i-1]} -> {coords[i]} | {e}")
+    return total
+
+
+#------------------------
+# @g PURE FUNCTIONS
 #------------------------
 
 # @b Get name
@@ -184,42 +224,82 @@ def get_activity_icon(activity):
     return activities.get(activity.lower(), "❓")
 
 
-# @b Calculate distance between points
+# @b Format data into JS object
 #------------------------
-def calculate_distance(lon1, lat1, lon2, lat2):
+def format_route_entry(name, icon, range_, activity, year, length, coords):
     """
-    Calculate the great-circle distance between two geographic points using the Haversine formula.
-    Returns distance in kilometers.
+    Format route data into a JavaScript object string for export.
+    Coordinates are reordered to [lat, lon] for JS.
     """
-    R = 6371.0
-    phi1 = math.radians(lat1)
-    phi2 = math.radians(lat2)
-    dphi = math.radians(lat2 - lat1)
-    dlambda = math.radians(lon2 - lon1)
-    a = math.sin(dphi / 2.0)**2 + math.cos(phi1) * math.cos(phi2) * math.sin(dlambda / 2.0)**2
-    return 2 * R * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+    lines = [
+        "  {",
+        f"    name: '{name}',",
+        f"    range: '{range_}',",
+        f"    activity: '{activity}',",
+        f"    icon: '{icon}',",
+        f"    year: {year},",
+        f"    length: {length:.2f},",
+        "    coords: ["
+    ]
+    for item in coords:
+        if item is None:
+            continue
+        lon, lat = item
+        lines.append(f"      [{lat:.7f}, {lon:.7f}],")
+    lines.append("    ]")
+    lines.append("  },")
+    return "\n".join(lines)
 
 
-# @b Calculate total length of the route
+# @b Update year in a formatted entry
 #------------------------
-def calculate_total_length(coords):
+def update_entry_year(entry: str, year: int) -> str:
     """
-    Calculate total length of a route given a list of [lon, lat] points.
-    Returns length in kilometers.
+    Replace the 'year: <value>,' field inside an already-formatted route
+    entry string with a freshly computed value. Used to refresh time-sensitive
+    entries pulled from the cache without re-parsing the GPX geometry.
     """
-    if not coords or len(coords) < 2:
-        return 0.0
+    return re.sub(r"year: -?\d+,", f"year: {year},", entry, count=1)
 
-    total = 0.0
-    for i in range(1, len(coords)):
-        try:
-            lon1, lat1 = coords[i - 1]
-            lon2, lat2 = coords[i]
-            total += calculate_distance(lon1, lat1, lon2, lat2)
-        except Exception as e:
-            print(f"⚠️ Error in point {i}: {coords[i-1]} -> {coords[i]} | {e}")
-    return total
 
+# @b Parse entry fields
+#------------------------
+def parse_entry_fields(entry: str) -> dict:
+    """
+    Extract name/range/icon directly from an already-formatted route entry
+    string. This is the single source of truth for that data - avoids
+    keeping a separate copy in the manifest that can fall out of sync.
+    """
+    def _field(pattern):
+        m = re.search(pattern, entry)
+        return m.group(1) if m else None
+
+    return {
+        "name": _field(r"name: '((?:[^'\\]|\\.)*)',"),
+        "range": _field(r"range: '((?:[^'\\]|\\.)*)',"),
+        "icon": _field(r"icon: '((?:[^'\\]|\\.)*)',"),
+    }
+
+
+# @b Get base folder
+#------------------------
+def get_base_folder(script_dir: Path, year: int, month: int) -> Path:
+    """
+    Determine the base folder path to search GPX files based on the config.
+    """
+    if year == 0:
+        return script_dir
+    if month == 0:
+        return script_dir / "Trasy" / str(year)
+    if 1 <= month <= 12:
+        month_str = f"{year}-{month:02d}"
+        return script_dir / "Trasy" / str(year) / month_str
+    raise ValueError(f"Invalid month: {month}")
+
+
+#------------------------
+# @g SIDE EFFECTS
+#------------------------
 
 # @b Extract data from GPX file
 #------------------------
@@ -252,49 +332,6 @@ def extract_data(gpx_path):
     except Exception as e:
         print(f"❌ Error parsing {gpx_path}: {e}")
         return []
-
-
-# @b Format data into JS object
-#------------------------
-def format_route_entry(name, icon, range_, activity, year, length, coords):
-    """
-    Format route data into a JavaScript object string for export.
-    Coordinates are reordered to [lat, lon] for JS.
-    """
-    lines = [
-        "  {",
-        f"    name: '{name}',",
-        f"    range: '{range_}',",
-        f"    activity: '{activity}',",
-        f"    icon: '{icon}',",
-        f"    year: {year},",
-        f"    length: {length:.2f},",
-        "    coords: ["
-    ]
-    for item in coords:
-        if item is None:
-            continue
-        lon, lat = item
-        lines.append(f"      [{lat:.7f}, {lon:.7f}],")
-    lines.append("    ]")
-    lines.append("  },")
-    return "\n".join(lines)
-
-
-# @b Get base folder
-#------------------------
-def get_base_folder(script_dir: Path, year: int, month: int) -> Path:
-    """
-    Determine the base folder path to search GPX files based on the config.
-    """
-    if year == 0:
-        return script_dir
-    if month == 0:
-        return script_dir / "Trasy" / str(year)
-    if 1 <= month <= 12:
-        month_str = f"{year}-{month:02d}"
-        return script_dir / "Trasy" / str(year) / month_str
-    raise ValueError(f"Invalid month: {month}")
 
 
 # @b Get file signature
@@ -334,41 +371,43 @@ def save_manifest(manifest_path: Path, manifest: dict):
     with manifest_path.open('w', encoding='utf-8') as f:
         json.dump(manifest, f, ensure_ascii=False)
 
-#------------------------
-# @g MAIN
-#------------------------
-def main():
-    """
-    Main processing function for extracting GPX 
-    route data and generating a JavaScript routes file.
-    - Determine input and output directories based on configuration
-    - Recursively scan for GPX files and extract route details (name, activity, segments)
-    - Calculate route lengths and assign icons based on activity type
-    - Print status messages with corresponding flags and icons
-    - Write or append formatted route entries to a 'routes.js' file
-    - Manage file attributes to hide/unhide output file on Windows
-    """
 
-    # Print header
-    print("🌍 GPX routes converter:")
+# @b Write routes file
+#------------------------
+def write_routes_file(output_file: Path, entries: list):
+    """
+    Write the formatted route entries to the output JS file as a
+    'const routes = [...]' array.
+    """
+    if not entries:
+        print("⚠️ No routes found.")
+        return
+    with output_file.open('w', encoding='utf-8') as f:
+        f.write("const routes = [\n")
+        f.write("\n".join(entries))
+        f.write("\n]\n")
 
-    # Set up input and output paths
-    project_dir = Path(__file__).parent.parent.resolve()
+
+#------------------------
+# @g MAIN LOGIC
+#------------------------
+
+# @b Process routes
+#------------------------
+def process_routes(project_dir: Path, output_file: Path) -> tuple:
+    """
+    Scan for GPX files, extract/format route entries (using the manifest
+    cache when FAST_MODE is on), detect deleted files, and persist the
+    refreshed manifest. Returns (entries, added_count, removed_count).
+    """
     base_folder = get_base_folder(project_dir, YEAR, MONTH)
-    print(base_folder)
+    # print(base_folder)
 
-    output_file = project_dir / "Code/routes.js"
-
-    # Unhide output file before writing
-    set_file_unhidden(output_file)  
-
-    new_entries = []
-
-    # Path manifest to cache already parsed GPX files
     manifest_path = project_dir / "Code" / MANIFEST_FILE
     old_manifest = load_manifest(manifest_path) if FAST_MODE else {}
     new_manifest = {}
 
+    new_entries = []
     added_count = 0
 
     # @b Extract and format data
@@ -382,32 +421,43 @@ def main():
         key = str(gpx_file.relative_to(project_dir))
         signature = get_file_signature(gpx_file)
 
-        # File unchanged since last run - use cached entries
+        # File unchanged since last run - use cached entries, but always
+        # recompute 'year' fresh (it depends on today's date, not on the
+        # file itself, so it must never be frozen at the cached value).
+        # name/range are read straight from the entry text itself - no
+        # separate copy to fall out of sync.
         cached = old_manifest.get(key)
         if FAST_MODE and cached and cached.get("signature") == signature:
-            new_manifest[key] = cached
-            new_entries.extend(cached["entries"])
+            refreshed_entries = []
+            for entry in cached["entries"]:
+                fields = parse_entry_fields(entry)
+                if fields["name"]:
+                    year = get_year(fields["name"], fields["range"] or "")
+                    refreshed_entries.append(update_entry_year(entry, year))
+                else:
+                    # Couldn't parse the entry - keep it untouched rather than guess
+                    refreshed_entries.append(entry)
+            new_manifest[key] = {"signature": signature, "entries": refreshed_entries}
+            new_entries.extend(refreshed_entries)
             continue
 
         extracted = extract_data(gpx_file)
         file_entries = []
-        display_entries = []
         for name, range_, activity, coords in extracted:
             length = calculate_total_length(coords)
             icon = get_activity_icon(activity)
             year = get_year(name, range_)
-        
+
             if range_ == "POLSKA":
-                print(f"✅ 🇵🇱 {icon} {name}")
+                print(f"✅ 🇵🇱{icon} {name}")
             elif range_ == "EUROPA":
-                print(f"✅ 🇪🇺 {icon} {name}")
+                print(f"✅ 🇪🇺{icon} {name}")
             else:
                 print(f"🟥❌ {icon} {name} -> {range_}")
 
             file_entries.append(format_route_entry(name, icon, range_, activity, year, length, coords))
-            display_entries.append({"name": name, "icon": icon, "range": range_})
 
-        new_manifest[key] = {"signature": signature, "entries": file_entries, "display": display_entries}
+        new_manifest[key] = {"signature": signature, "entries": file_entries}
         new_entries.extend(file_entries)
         added_count += 1
 
@@ -430,41 +480,45 @@ def main():
             continue
 
         removed_count += 1
-        display_entries = cached.get("display")
-        if display_entries:
-            for entry in display_entries:
-                icon = entry.get("icon", "❓")
-                name = entry.get("name", key)
-                range_ = entry.get("range", "")
-                if range_ == "POLSKA":
-                    print(f"🗑️  🇵🇱 {icon} {name}")
-                elif range_ == "EUROPA":
-                    print(f"🗑️  🇪🇺 {icon} {name}")
-                else:
-                    print(f"🗑️  {icon} {name}")
-        else:
-            # Older manifest entries without display info - fall back to the path
-            print(f"🗑️  {key}")
+        for entry in cached.get("entries", []):
+            fields = parse_entry_fields(entry)
+            icon = fields["icon"] or "❓"
+            name = fields["name"] or key
+            range_ = fields["range"] or ""
+            if range_ == "POLSKA":
+                print(f"🗑️  🇵🇱{icon} {name}")
+            elif range_ == "EUROPA":
+                print(f"🗑️  🇪🇺{icon} {name}")
+            else:
+                print(f"🗑️  {icon} {name}")
 
     if FAST_MODE:
         save_manifest(manifest_path, new_manifest)
-        print(f"🆕 Added {added_count},🗑️  removed {removed_count}.")
+
+    return new_entries, added_count, removed_count
 
 
-    # @b Write data to JS file
-    #------------------------
-    if not new_entries:
-        print("⚠️ No routes found.")
-    else:
-        with output_file.open('w', encoding='utf-8') as f:
-            f.write("const routes = [\n")
-            f.write("\n".join(new_entries))
-            f.write("\n]\n")
+#------------------------
+# @g MAIN
+#------------------------
+def main():
 
-    # set_file_hidden(output_file)  
+    # Print header
+    print("🌍 GPX routes converter:")
 
-    # summary
-    print(f"🏆 Wrote {len(new_entries)} routes!")
+    # Set up output path
+    project_dir = Path(__file__).parent.parent.resolve()
+    output_file = project_dir / "Code/routes.js"
+
+    # Process data
+    entries, added_count, removed_count = process_routes(project_dir, output_file)
+
+    # Write output file
+    write_routes_file(output_file, entries)
+
+    # Print footer
+    print(f"🆕 Added {added_count} 🗑️  removed {removed_count}.")
+    print(f"🏆 Wrote {len(entries)} routes!")
 
 
 if __name__ == "__main__":

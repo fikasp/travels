@@ -677,6 +677,7 @@
 			const FUTURE_YEAR = 2029
 			const CURRENT_YEAR = 2026
 			const startPlace = 'KRAKÓW'
+			const STORAGE_KEY = 'TRS_settings'
 			const mapActive = true
 
 			const ls = {
@@ -848,28 +849,28 @@
 						activities.TRANSPORT_BOAT.key,
 					],
 				},
-				WORLD: {
-					key: 'ŚWIAT',
-					value: 'ŚWIAT',
-					categories: [
-						categories.NONE.key,
-						categories.ALL.key,
-						categories.PROFILE.key,
-						categories.GENERAL.key,
-						categories.SACRAL.key,
-						categories.HISTORIC.key,
-						categories.MODERN.key,
-						categories.GASTRO.key,
-						categories.GREEN.key,
-					],
-					activities: [
-						activities.NONE.key,
-						activities.ALL.key,
-						activities.TRANSPORT_PUBLIC.key,
-						activities.WALKING.key,
-						activities.TRANSPORT_BOAT.key,
-					],
-				},
+				// WORLD: {
+				// 	key: 'ŚWIAT',
+				// 	value: 'ŚWIAT',
+				// 	categories: [
+				// 		categories.NONE.key,
+				// 		categories.ALL.key,
+				// 		categories.PROFILE.key,
+				// 		categories.GENERAL.key,
+				// 		categories.SACRAL.key,
+				// 		categories.HISTORIC.key,
+				// 		categories.MODERN.key,
+				// 		categories.GASTRO.key,
+				// 		categories.GREEN.key,
+				// 	],
+				// 	activities: [
+				// 		activities.NONE.key,
+				// 		activities.ALL.key,
+				// 		activities.TRANSPORT_PUBLIC.key,
+				// 		activities.WALKING.key,
+				// 		activities.TRANSPORT_BOAT.key,
+				// 	],
+				// },
 				EUROPE: {
 					key: 'EUROPA',
 					value: 'EUROPA',
@@ -1636,7 +1637,7 @@
 				if (
 					(range == ranges.EUROPE.key && place == modes.ALL.key) ||
 					range == ranges.MOUNTAINS.key ||
-					range == ranges.WORLD.key ||
+					// range == ranges.WORLD.key ||
 					region == modes.ALL.key ||
 					region == ''
 				) {
@@ -2232,12 +2233,18 @@
 					$countriesLayer = null
 				}
 
-				if ($selectRange.value !== ranges.NONE.key && $selectRange.value !== ranges.WORLD.key) {
-					Log.exit()
-					return
+				function shouldShowCountries() {
+					const range = $selectRange.value
+					const region = $selectRegion.value
+
+					if (range === ranges.NONE.key) return true
+					// if (range === ranges.EUROPE.key && region === modes.ALL.key) return true
+					// if (range === ranges.WORLD.key) return true
+
+					return false
 				}
 
-				if ($selectPlace.value !== modes.ALL.key && $selectPlace.value !== '') {
+				if (!shouldShowCountries()) {
 					Log.exit()
 					return
 				}
@@ -2281,7 +2288,8 @@
 				Log.enter()
 
 				if ($selectRange.value == ranges.NONE.key) {
-					$map.setView(...setCoor([30.0, 10.0], 3))
+					$map.setView(...setCoor([49.6, 12.0], 5))
+					// $map.setView(...setCoor([30.0, 10.0], 3))
 					return
 				}
 
@@ -2292,8 +2300,8 @@
 						$map.setView(...setCoor([51.9, 19.2], 7))
 					} else if ($selectRange.value == ranges.EUROPE.key) {
 						$map.setView(...setCoor([49.6, 12.0], 5))
-					} else if ($selectRange.value == ranges.WORLD.key) {
-						$map.setView(...setCoor([30.0, 10.0], 3))
+					// } else if ($selectRange.value == ranges.WORLD.key) {
+					// 	$map.setView(...setCoor([30.0, 10.0], 3))
 					} else {
 						$map.setView(...setCoor([0, 0], 1))
 					}
@@ -2947,17 +2955,23 @@
 
 			// @b Local storage
 			//------------------------
+			function lsGetAll() {
+				try {
+					return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}
+				} catch (e) {
+					return {}
+				}
+			}
+
 			function lsGet(key, fallback = null) {
-				const val = localStorage.getItem(key)
-				if (val === null) return fallback
-				if (val === 'true') return true
-				if (val === 'false') return false
-				const num = Number(val)
-				return isNaN(num) ? val : num
+				const settings = lsGetAll()
+				return key in settings ? settings[key] : fallback
 			}
 
 			function lsSet(key, value) {
-				localStorage.setItem(key, value)
+				const settings = lsGetAll()
+				settings[key] = value
+				localStorage.setItem(STORAGE_KEY, JSON.stringify(settings))
 			}
 
 			// @b Log selects
