@@ -14,6 +14,7 @@ YEAR = 0
 MONTH = 0
 
 FAST_MODE = True
+# FAST_MODE = False
 MANIFEST_FILE = "routes.json"
 
 activities = {
