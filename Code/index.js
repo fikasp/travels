@@ -1,23 +1,5 @@
 const data = {
-  "ŚWIAT": {
-    "Azja": {
-      coor: [
-        30.0,
-        90.0
-      ],
-      zoom: 4,
-      "TOKIO": {
-        coor: [
-          35.6929946,
-          139.7711563
-        ],
-        date: [],
-        zoom: 11,
-        scale: 2.5,
-        gallery: []
-      }
-    }
-  },
+  "ŚWIAT": {},
   "EUROPA": {
     "Bałkany": {
       coor: [
