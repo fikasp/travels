@@ -1,6 +1,6 @@
 {
   "app": "park-conqueror",
-  "exportedAt": "2026-09-14T13:39:24.817Z",
+  "exportedAt": "2026-09-21T13:52:41.473Z",
   "version": 1,
   "parks": {
     "1": {
@@ -144,8 +144,8 @@
       "date": "2026-08-12"
     },
     "48": {
-      "status": "VISITED",
-      "date": "2026-08-12"
+      "status": "CONQUERED",
+      "date": "2026-09-19"
     },
     "49": {
       "status": "CONQUERED",
@@ -160,8 +160,8 @@
       "date": "2026-08-30"
     },
     "52": {
-      "status": "VISITED",
-      "date": "2026-08-12"
+      "status": "CONQUERED",
+      "date": "2026-09-19"
     },
     "53": {
       "status": "CONQUERED",
