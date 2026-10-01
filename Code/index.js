@@ -828,34 +828,6 @@ const data = {
           },
           {
             catg: "G",
-            name: "Taco Mexicano",
-            scale: 1.0,
-            coor: [
-              50.058228,
-              19.9389457
-            ],
-            date: [
-              2023,
-              2014,
-              2013
-            ]
-          },
-          {
-            catg: "G",
-            name: "Tratoria Da Marco",
-            scale: 1.0,
-            coor: [
-              50.0669835,
-              19.9713555
-            ],
-            date: [
-              2019,
-              2016,
-              2013
-            ]
-          },
-          {
-            catg: "G",
             name: "Wierzynek",
             scale: 1.0,
             coor: [
