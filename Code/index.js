@@ -3339,6 +3339,18 @@ const data = {
           },
           {
             catg: "Z",
+            name: "Park Bednarskiego",
+            scale: 1.0,
+            coor: [
+              50.0421512,
+              19.9488142
+            ],
+            date: [
+              2026
+            ]
+          },
+          {
+            catg: "Z",
             name: "Park Czyżyny",
             scale: 1.0,
             coor: [
@@ -3385,19 +3397,68 @@ const data = {
               19.9167645
             ],
             date: [
+              2026,
               2022
             ]
           },
           {
             catg: "Z",
-            name: "Park Jana Matejki",
+            name: "Park Duchacki",
             scale: 1.0,
             coor: [
-              50.0813687,
-              20.0546193
+              50.0216671,
+              19.9652562
             ],
             date: [
-              2023
+              2026
+            ]
+          },
+          {
+            catg: "Z",
+            name: "Park Fortu Batowice",
+            scale: 1.0,
+            coor: [
+              50.0996113,
+              19.9982876
+            ],
+            date: [
+              2026
+            ]
+          },
+          {
+            catg: "Z",
+            name: "Park Fortu Kościuszko",
+            scale: 1.0,
+            coor: [
+              50.0541613,
+              19.8927668
+            ],
+            date: [
+              2026
+            ]
+          },
+          {
+            catg: "Z",
+            name: "Park Fortu Mistrzejowice",
+            scale: 1.0,
+            coor: [
+              50.1010273,
+              20.0170362
+            ],
+            date: [
+              2026
+            ]
+          },
+          {
+            catg: "Z",
+            name: "Park Grzegórzecki",
+            scale: 1.0,
+            coor: [
+              50.0541389,
+              19.9678981
+            ],
+            date: [
+              2026
             ]
           },
           {
@@ -3410,6 +3471,18 @@ const data = {
             ],
             date: [
               2026,
+              2023
+            ]
+          },
+          {
+            catg: "Z",
+            name: "Park Jana Matejki",
+            scale: 1.0,
+            coor: [
+              50.0813687,
+              20.0546193
+            ],
+            date: [
               2023
             ]
           },
@@ -3531,6 +3604,18 @@ const data = {
           },
           {
             catg: "Z",
+            name: "Park linearny Ruczaj",
+            scale: 1.0,
+            coor: [
+              50.0280292,
+              19.9091926
+            ],
+            date: [
+              2026
+            ]
+          },
+          {
+            catg: "Z",
             name: "Park Lotników Polskich",
             scale: 1.0,
             coor: [
@@ -3543,6 +3628,42 @@ const data = {
           },
           {
             catg: "Z",
+            name: "Park Łagiewnicki",
+            scale: 1.0,
+            coor: [
+              50.0235714,
+              19.9438494
+            ],
+            date: [
+              2026
+            ]
+          },
+          {
+            catg: "Z",
+            name: "Park Łuczanowice",
+            scale: 1.0,
+            coor: [
+              50.1083662,
+              20.1131424
+            ],
+            date: [
+              2026
+            ]
+          },
+          {
+            catg: "Z",
+            name: "Park Ogród nad Sudołem",
+            scale: 1.0,
+            coor: [
+              50.090245,
+              19.96866
+            ],
+            date: [
+              2026
+            ]
+          },
+          {
+            catg: "Z",
             name: "Park Reduta",
             scale: 1.0,
             coor: [
@@ -3551,6 +3672,42 @@ const data = {
             ],
             date: [
               2024
+            ]
+          },
+          {
+            catg: "Z",
+            name: "Park Rogozińskich",
+            scale: 1.0,
+            coor: [
+              50.0666817,
+              20.0503033
+            ],
+            date: [
+              2026
+            ]
+          },
+          {
+            catg: "Z",
+            name: "Park rzeczny Białucha",
+            scale: 1.0,
+            coor: [
+              50.0824233,
+              19.9567267
+            ],
+            date: [
+              2026
+            ]
+          },
+          {
+            catg: "Z",
+            name: "Park rzeczny Płaszów",
+            scale: 1.0,
+            coor: [
+              50.0483848,
+              19.9926469
+            ],
+            date: [
+              2026
             ]
           },
           {
@@ -3574,6 +3731,7 @@ const data = {
               19.9281478
             ],
             date: [
+              2026,
               2023
             ]
           },
@@ -3587,6 +3745,30 @@ const data = {
             ],
             date: [
               2025
+            ]
+          },
+          {
+            catg: "Z",
+            name: "Park Solvay",
+            scale: 1.0,
+            coor: [
+              50.0179688,
+              19.9291348
+            ],
+            date: [
+              2026
+            ]
+          },
+          {
+            catg: "Z",
+            name: "Park Stacja Wisła",
+            scale: 1.0,
+            coor: [
+              50.05088,
+              19.9599283
+            ],
+            date: [
+              2026
             ]
           },
           {
@@ -3624,6 +3806,30 @@ const data = {
             ],
             date: [
               2020
+            ]
+          },
+          {
+            catg: "Z",
+            name: "Park Wadów",
+            scale: 1.0,
+            coor: [
+              50.0994324,
+              20.1247054
+            ],
+            date: [
+              2026
+            ]
+          },
+          {
+            catg: "Z",
+            name: "Park Węgrzynowice",
+            scale: 1.0,
+            coor: [
+              50.1137708,
+              20.1544458
+            ],
+            date: [
+              2026
             ]
           },
           {
@@ -3671,6 +3877,7 @@ const data = {
               20.0585675
             ],
             date: [
+              2026,
               2022
             ]
           },
@@ -3750,6 +3957,42 @@ const data = {
             ],
             date: [
               2024
+            ]
+          },
+          {
+            catg: "Z",
+            name: "Przylasek Rusiecki",
+            scale: 1.0,
+            coor: [
+              50.0474875,
+              20.1578575
+            ],
+            date: [
+              2026
+            ]
+          },
+          {
+            catg: "Z",
+            name: "Przylasek Wyciąski",
+            scale: 1.0,
+            coor: [
+              50.0555717,
+              20.1810989
+            ],
+            date: [
+              2026
+            ]
+          },
+          {
+            catg: "Z",
+            name: "Staw Płaszowski",
+            scale: 1.0,
+            coor: [
+              50.0409767,
+              19.972735
+            ],
+            date: [
+              2026
             ]
           },
           {
