@@ -1,6 +1,26 @@
 import os
-from Tools.Tools import select_folder
+import tkinter as tk
+from tkinter import filedialog
 from PIL import Image
+
+#------------------------
+# @g UTILITIES
+#------------------------
+
+# @b Select folder
+#------------------------
+def select_folder() -> str | None:
+    """
+    Open a dialog to select a folder.
+    """
+    root = tk.Tk()
+    root.withdraw()
+    title = "Select folder"
+    folder_path = filedialog.askdirectory(title=title)
+    if not folder_path:
+        print("⚠️  No folder selected!")
+        return None
+    return folder_path
 
 #------------------------
 # @g FUNCTIONS

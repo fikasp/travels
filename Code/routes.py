@@ -15,7 +15,7 @@ MONTH = 0
 
 FAST_MODE = True
 # FAST_MODE = False
-MANIFEST_FILE = "routes.json"
+MANIFEST_FILE = "Data/routes.json"
 
 activities = {
     'hiking': '🥾',
@@ -509,7 +509,7 @@ def main():
 
     # Set up output path
     project_dir = Path(__file__).parent.parent.resolve()
-    output_file = project_dir / "Code/routes.js"
+    output_file = project_dir / "Code/Data/routes.js"
 
     # Process data
     entries, added_count, removed_count = process_routes(project_dir, output_file)

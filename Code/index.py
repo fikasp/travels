@@ -1,16 +1,32 @@
 import re
 import json
 import pandas as pd
-from Tools.Tools import set_file_hidden
-from Tools.Tools import set_file_unhidden
-from Tools.Tools import write_data_to_file
+import subprocess
 
 #------------------------
 # @g CONFIG
 #------------------------
 sheet_name = 'Zestawienie'
 input_path = 'Travels.xlsx'
-output_path = "Code/index.js"
+output_path = "Code/Data/index.js"
+
+
+#------------------------
+# @g UTILITIES
+#------------------------
+
+# @b Write data to file
+#------------------------
+def write_data_to_file(file_path, content, encoding="utf-8"):
+    """
+    Write text content to a file using the specified encoding.
+    """
+    try:
+        with open(file_path, "w", encoding=encoding) as f:
+            f.write(content)
+    except Exception as e:
+        print(f"⚠️  Couldn't write to file {file_path}: {e}")
+
 
 #------------------------
 # @g FUNCTIONS
@@ -131,9 +147,6 @@ def main():
 
     # Process data
     data = process_data()
-
-    # Unhide output file
-    set_file_unhidden(output_path) 
 
     # Write output file
     write_data_to_file(output_path, data)
