@@ -6,10 +6,9 @@ import subprocess
 #------------------------
 # @g CONFIG
 #------------------------
-sheet_name = 'Zestawienie'
-input_path = 'Travels.xlsx'
-output_path = "Code/Data/index.js"
-
+SHEET_NAME = 'Zestawienie'
+INPUT_FILE = 'Travels.xlsx'
+OUTPUT_FILE = "Code/Data/index.js"
 
 #------------------------
 # @g UTILITIES
@@ -37,7 +36,7 @@ def process_data():
     """
     # Load Excel file
     try:
-        df = pd.read_excel(input_path, sheet_name=sheet_name, dtype=str)
+        df = pd.read_excel(INPUT_FILE, sheet_name=SHEET_NAME, dtype=str)
     except Exception as e:
         print(f"❌ Error reading Excel file: {e}")
         return
@@ -149,10 +148,7 @@ def main():
     data = process_data()
 
     # Write output file
-    write_data_to_file(output_path, data)
-
-    # Set file as hidden
-    # set_file_hidden(output_path) 
+    write_data_to_file(OUTPUT_FILE, data)
 
     # Print footer
     print("🏆 Conversion done!")

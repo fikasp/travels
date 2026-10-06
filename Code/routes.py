@@ -15,7 +15,9 @@ MONTH = 0
 
 FAST_MODE = True
 # FAST_MODE = False
-MANIFEST_FILE = "Data/routes.json"
+
+MANIFEST_FILE = "Code/Data/routes.json"
+OUTPUT_FILE = "Code/Data/routes.js"
 
 activities = {
     'hiking': '🥾',
@@ -404,7 +406,7 @@ def process_routes(project_dir: Path, output_file: Path) -> tuple:
     base_folder = get_base_folder(project_dir, YEAR, MONTH)
     # print(base_folder)
 
-    manifest_path = project_dir / "Code" / MANIFEST_FILE
+    manifest_path = project_dir / MANIFEST_FILE
     old_manifest = load_manifest(manifest_path) if FAST_MODE else {}
     new_manifest = {}
 
@@ -509,13 +511,13 @@ def main():
 
     # Set up output path
     project_dir = Path(__file__).parent.parent.resolve()
-    output_file = project_dir / "Code/Data/routes.js"
+    output_path = project_dir / OUTPUT_FILE
 
     # Process data
-    entries, added_count, removed_count = process_routes(project_dir, output_file)
+    entries, added_count, removed_count = process_routes(project_dir, output_path)
 
     # Write output file
-    write_routes_file(output_file, entries)
+    write_routes_file(output_path, entries)
 
     # Print footer
     print(f"🆕 Added {added_count} 🗑️  removed {removed_count}.")
