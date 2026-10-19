@@ -791,6 +791,18 @@ const data = {
           },
           {
             catg: "G",
+            name: "Mythos",
+            scale: 1.0,
+            coor: [
+              50.0608582,
+              19.9297893
+            ],
+            date: [
+              2026
+            ]
+          },
+          {
+            catg: "G",
             name: "Pod Wawelem",
             scale: 1.0,
             coor: [
@@ -815,6 +827,19 @@ const data = {
           },
           {
             catg: "G",
+            name: "Sioux",
+            scale: 1.0,
+            coor: [
+              50.0611355,
+              19.9362749
+            ],
+            date: [
+              2026,
+              2024
+            ]
+          },
+          {
+            catg: "G",
             name: "Sphinx",
             scale: 1.0,
             coor: [
@@ -824,6 +849,18 @@ const data = {
             date: [
               2025,
               2023
+            ]
+          },
+          {
+            catg: "G",
+            name: "Stodoła",
+            scale: 1.0,
+            coor: [
+              50.0640385,
+              19.9413738
+            ],
+            date: [
+              2026
             ]
           },
           {
@@ -3169,6 +3206,7 @@ const data = {
               19.9206054
             ],
             date: [
+              2026,
               2017,
               2016
             ]

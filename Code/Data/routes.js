@@ -275541,7 +275541,7 @@ const routes = [
     range: 'POLSKA',
     activity: 'walking',
     icon: '🚶',
-    year: 0,
+    year: 2026,
     length: 5.31,
     coords: [
       [50.0710817, 19.9328327],
