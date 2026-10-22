@@ -754,6 +754,18 @@ const data = {
           },
           {
             catg: "G",
+            name: "Hawełka",
+            scale: 1.0,
+            coor: [
+              50.0626576,
+              19.9364331
+            ],
+            date: [
+              2025
+            ]
+          },
+          {
+            catg: "G",
             name: "Hoang Hai",
             scale: 1.0,
             coor: [
@@ -803,6 +815,19 @@ const data = {
           },
           {
             catg: "G",
+            name: "Pizza Hut",
+            scale: 1.0,
+            coor: [
+              50.0714916,
+              19.9245054
+            ],
+            date: [
+              2026,
+              2025
+            ]
+          },
+          {
+            catg: "G",
             name: "Pod Wawelem",
             scale: 1.0,
             coor: [
@@ -811,6 +836,18 @@ const data = {
             ],
             date: [
               2014
+            ]
+          },
+          {
+            catg: "G",
+            name: "Prosty Temat",
+            scale: 1.0,
+            coor: [
+              50.0635822,
+              19.9346763
+            ],
+            date: [
+              2025
             ]
           },
           {
@@ -861,6 +898,20 @@ const data = {
             ],
             date: [
               2026
+            ]
+          },
+          {
+            catg: "G",
+            name: "Taco Mexicano",
+            scale: 1.0,
+            coor: [
+              50.0582374,
+              19.9389517
+            ],
+            date: [
+              2023,
+              2014,
+              2013
             ]
           },
           {
