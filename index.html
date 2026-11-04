@@ -960,6 +960,7 @@
 			let $isPhotoLoading = false // flag for photo loading
 			let $isPhotoOpen = false // flag for photo open
 			let $isMenuOpen = lsGet(ls.isMenuOpen, false) // flag for menu open
+			let $isUrlSelection = true // flag for applying place from url
 			let $isInitialLoad = true // flag for initial render
 			// Photo
 			let $touchStartX // touch start position
@@ -1010,6 +1011,7 @@
 			window.addEventListener('keyup', checkKeys)
 			window.addEventListener('resize', changeMargin)
 			window.addEventListener('wheel', checkWheel)
+			window.addEventListener('hashchange', applyUrlPlace)
 			// Header
 			$headerDiv.addEventListener('touchstart', touchstart)
 			$headerDiv.addEventListener('touchmove', touchmove)
@@ -1055,6 +1057,7 @@
 				prepareRanges()
 
 				setRange()
+				$isUrlSelection = false
 				applyViewMode()
 				$isInitialLoad = false
 
@@ -1477,7 +1480,7 @@
 			function prepareRanges() {
 				Log.enter()
 				const saved = loadState()
-				const selectedRange = saved.range ?? findRange(startPlace)
+				const selectedRange = getInitialSelection().range
 
 				Object.values(mapKeyToObject(ranges)).forEach((range) => {
 					createOption($selectRange, range.key, range.value, selectedRange)
@@ -1498,7 +1501,7 @@
 				}
 
 				const saved = loadState()
-				const selectedRegion = saved.region ?? findRegion(startPlace)
+				const selectedRegion = getInitialSelection().region
 
 				clearContent($selectRegion)
 				createOption($selectRegion, modes.ALL.key, modes.ALL.value)
@@ -1520,8 +1523,7 @@
 					return
 				}
 
-				const saved = loadState()
-				const selectedPlace = saved.place ?? startPlace
+				const selectedPlace = getInitialSelection().place
 
 				const newPlaces = data[$selectRange.value][$selectRegion.value]
 				clearContent($selectPlace)
@@ -1692,6 +1694,7 @@
 				updateData()
 				logSelects()
 				saveState()
+				updateUrl()
 				Log.exit()
 				Log.end()
 			}
@@ -2300,8 +2303,8 @@
 						$map.setView(...setCoor([51.9, 19.2], 7))
 					} else if ($selectRange.value == ranges.EUROPE.key) {
 						$map.setView(...setCoor([49.6, 12.0], 5))
-					// } else if ($selectRange.value == ranges.WORLD.key) {
-					// 	$map.setView(...setCoor([30.0, 10.0], 3))
+						// } else if ($selectRange.value == ranges.WORLD.key) {
+						// 	$map.setView(...setCoor([30.0, 10.0], 3))
 					} else {
 						$map.setView(...setCoor([0, 0], 1))
 					}
@@ -2770,30 +2773,82 @@
 			// @g TOOLS
 			//------------------------
 
-			// @b Save state
+			// @b Apply url place
 			//------------------------
-			function saveState() {
-				lsSet(ls.activity, $selectActivity.value)
-				lsSet(ls.category, $selectCategory.value)
-				lsSet(ls.date, $selectDate.value)
-				lsSet(ls.place, $selectPlace.value)
-				lsSet(ls.range, $selectRange.value)
-				lsSet(ls.region, $selectRegion.value)
-				lsSet(ls.view, $viewMode)
+			function applyUrlPlace() {
+				Log.start()
+				Log.enter()
+				const place = findPlace(getUrlName())
+
+				if (!place) {
+					Log.exit()
+					Log.end()
+					return
+				}
+
+				$isUrlSelection = true
+				$selectRange.value = findRange(place)
+				setRange()
+				$isUrlSelection = false
+
+				Log.exit()
+				Log.end()
 			}
 
-			// @b Load state
+			// @b Capitalize name
 			//------------------------
-			function loadState() {
-				return {
-					activity: lsGet(ls.activity),
-					category: lsGet(ls.category),
-					date: lsGet(ls.date),
-					place: lsGet(ls.place),
-					range: lsGet(ls.range),
-					region: lsGet(ls.region),
-					viewMode: lsGet(ls.view),
+			function capitalizeName(place) {
+				return place.toLowerCase().replace(/(?:^|\s|-)([a-ż])/g, (match) => match.toUpperCase())
+			}
+
+			// @b Clear content
+			//------------------------
+			function clearContent(element) {
+				if (element) {
+					element.innerHTML = ''
 				}
+			}
+
+			// @b Create option
+			//------------------------
+			function createOption(parent, value, textContent, selected) {
+				const option = document.createElement('option')
+				option.classList.add('header_option')
+				option.value = value
+				option.textContent = textContent ? textContent : value
+				if (selected) {
+					if (value == selected) {
+						option.setAttribute('selected', 'selected')
+					}
+				}
+				parent.appendChild(option)
+			}
+
+			// @b Find place
+			//------------------------
+			function findPlace(name) {
+				Log.enter(name)
+				const target = normalizeName(name)
+
+				if (!target) {
+					Log.exit()
+					return null
+				}
+
+				for (const range in data) {
+					for (const region in data[range]) {
+						for (const place in data[range][region]) {
+							if (place === 'coor' || place === 'zoom') continue
+							if (normalizeName(place) === target) {
+								Log.exit()
+								return place
+							}
+						}
+					}
+				}
+
+				Log.exit()
+				return null
 			}
 
 			// @b Find range
@@ -2819,6 +2874,17 @@
 						}
 					}
 				}
+			}
+
+			// @b Format distance
+			//------------------------
+			function formatDistance(distance) {
+				const digits = distance < 100 ? 1 : 0
+				const distanceFormatted = distance.toLocaleString('pl-PL', {
+					minimumFractionDigits: digits,
+					maximumFractionDigits: digits,
+				})
+				return `${distanceFormatted} km`
 			}
 
 			// @b Get countries
@@ -2865,92 +2931,56 @@
 				}
 			}
 
-			// @b Remove icon
+			// @b Get initial selection
 			//------------------------
-			function removeIcon(text) {
-				return text?.split(' ').slice(1).join(' ') || text
-			}
+			function getInitialSelection() {
+				Log.enter()
+				const saved = loadState()
+				const urlPlace = $isUrlSelection ? findPlace(getUrlName()) : null
 
-			// @b Capitalize name
-			//------------------------
-			function capitalizeName(place) {
-				return place.toLowerCase().replace(/(?:^|\s|-)([a-ż])/g, (match) => match.toUpperCase())
-			}
-
-			// @b Create option
-			//------------------------
-			function createOption(parent, value, textContent, selected) {
-				const option = document.createElement('option')
-				option.classList.add('header_option')
-				option.value = value
-				option.textContent = textContent ? textContent : value
-				if (selected) {
-					if (value == selected) {
-						option.setAttribute('selected', 'selected')
+				if (urlPlace) {
+					Log.exit()
+					return {
+						range: findRange(urlPlace),
+						region: findRegion(urlPlace),
+						place: urlPlace,
 					}
 				}
-				parent.appendChild(option)
-			}
 
-			// @b Clear content
-			//------------------------
-			function clearContent(element) {
-				if (element) {
-					element.innerHTML = ''
+				Log.exit()
+				return {
+					range: saved.range ?? findRange(startPlace),
+					region: saved.region ?? findRegion(startPlace),
+					place: saved.place ?? startPlace,
 				}
 			}
 
-			// @b Format distance
+			// @b Get url name
 			//------------------------
-			function formatDistance(distance) {
-				const digits = distance < 100 ? 1 : 0
-				const distanceFormatted = distance.toLocaleString('pl-PL', {
-					minimumFractionDigits: digits,
-					maximumFractionDigits: digits,
-				})
-				return `${distanceFormatted} km`
-			}
-
-			// @b Map regions
-			//------------------------
-			function mapRegions(data) {
-				const newData = {}
-
-				for (const [regionName, regionData] of Object.entries(data)) {
-					const { coor, zoom, ...data } = regionData
-					const newPlaces = {}
-
-					for (const [placeName, placeData] of Object.entries(data)) {
-						const { abbr, ...rest } = placeData
-						newPlaces[abbr] = rest
-					}
-
-					newData[regionName] = { coor, zoom, ...newPlaces }
+			function getUrlName() {
+				Log.enter()
+				let name = location.hash.slice(1)
+				try {
+					name = decodeURIComponent(name)
+				} catch {
+					// niepoprawne kodowanie, zostaje surowa wartość
 				}
-
-				return newData
+				Log.exit()
+				return name
 			}
 
-			// @b Map key to object
+			// @b Load state
 			//------------------------
-			function mapKeyToObject(obj, keyName = 'key') {
-				return Object.values(obj).reduce((acc, item) => {
-					if (item && keyName in item) {
-						acc[item[keyName]] = item
-					}
-					return acc
-				}, {})
-			}
-
-			// @b Map key to value
-			//------------------------
-			function mapKeyToValue(obj, keyName = 'key', valueName = 'value') {
-				return Object.values(obj).reduce((acc, item) => {
-					if (item && keyName in item && valueName in item) {
-						acc[item[keyName]] = item[valueName]
-					}
-					return acc
-				}, {})
+			function loadState() {
+				return {
+					activity: lsGet(ls.activity),
+					category: lsGet(ls.category),
+					date: lsGet(ls.date),
+					place: lsGet(ls.place),
+					range: lsGet(ls.range),
+					region: lsGet(ls.region),
+					viewMode: lsGet(ls.view),
+				}
 			}
 
 			// @b Local storage
@@ -2989,7 +3019,104 @@
 				Log.exit()
 			}
 
-			// @b Dimensions
+			// @b Normalize name
+			//------------------------
+			function normalizeName(text) {
+				return text
+					.toLowerCase()
+					.replace(/ł/g, 'l')
+					.normalize('NFD')
+					.replace(/[\u0300-\u036f]/g, '')
+					.replace(/[\s_-]+/g, ' ')
+					.trim()
+			}
+
+			// @b Map key to object
+			//------------------------
+			function mapKeyToObject(obj, keyName = 'key') {
+				return Object.values(obj).reduce((acc, item) => {
+					if (item && keyName in item) {
+						acc[item[keyName]] = item
+					}
+					return acc
+				}, {})
+			}
+
+			// @b Map key to value
+			//------------------------
+			function mapKeyToValue(obj, keyName = 'key', valueName = 'value') {
+				return Object.values(obj).reduce((acc, item) => {
+					if (item && keyName in item && valueName in item) {
+						acc[item[keyName]] = item[valueName]
+					}
+					return acc
+				}, {})
+			}
+
+			// @b Map regions
+			//------------------------
+			function mapRegions(data) {
+				const newData = {}
+
+				for (const [regionName, regionData] of Object.entries(data)) {
+					const { coor, zoom, ...data } = regionData
+					const newPlaces = {}
+
+					for (const [placeName, placeData] of Object.entries(data)) {
+						const { abbr, ...rest } = placeData
+						newPlaces[abbr] = rest
+					}
+
+					newData[regionName] = { coor, zoom, ...newPlaces }
+				}
+
+				return newData
+			}
+
+			// @b Place to hash
+			//------------------------
+			function placeToHash(place) {
+				Log.enter(place)
+				const hash = normalizeName(place).replace(/ /g, '-')
+				Log.exit()
+				return hash
+			}
+
+			// @b Remove icon
+			//------------------------
+			function removeIcon(text) {
+				return text?.split(' ').slice(1).join(' ') || text
+			}
+
+			// @b Save state
+			//------------------------
+			function saveState() {
+				lsSet(ls.activity, $selectActivity.value)
+				lsSet(ls.category, $selectCategory.value)
+				lsSet(ls.date, $selectDate.value)
+				lsSet(ls.place, $selectPlace.value)
+				lsSet(ls.range, $selectRange.value)
+				lsSet(ls.region, $selectRegion.value)
+				lsSet(ls.view, $viewMode)
+			}
+
+			// @b Update url
+			//------------------------
+			function updateUrl() {
+				Log.enter()
+				const place = $selectPlace.value
+				const hasPlace = place !== modes.ALL.key && place !== modes.EMPTY.key
+				const hash = hasPlace ? `#${placeToHash(place)}` : ''
+
+				try {
+					history.replaceState(null, '', location.pathname + location.search + hash)
+				} catch (error) {
+					Log.warn('updateUrl:', error.message)
+				}
+				Log.exit()
+			}
+
+			// @b Vieport
 			//------------------------
 			function vh() {
 				return document.documentElement.clientHeight
