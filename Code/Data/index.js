@@ -633,7 +633,19 @@ const data = {
         42.5,
         12.5
       ],
-      zoom: 7
+      zoom: 7,
+      "RZYM": {
+        coor: [
+          41.8941355,
+          12.4850419
+        ],
+        date: [
+          2024
+        ],
+        zoom: 13,
+        scale: 2.5,
+        gallery: []
+      }
     }
   },
   "POLSKA": {
