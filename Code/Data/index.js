@@ -644,7 +644,352 @@ const data = {
         ],
         zoom: 13,
         scale: 2.5,
-        gallery: []
+        gallery: [
+          {
+            catg: "S",
+            name: "Bazylika 12 Apostosłów 1",
+            scale: 1.0,
+            coor: [
+              41.8980087,
+              12.4828479
+            ],
+            date: [
+              2024
+            ],
+            "top": true
+          },
+          {
+            catg: "S",
+            name: "Bazylika 12 Apostosłów 2",
+            scale: 1.0,
+            coor: [
+              41.8980946,
+              12.4834299
+            ],
+            date: [
+              2024
+            ]
+          },
+          {
+            catg: "S",
+            name: "Bazylika Maksencjusza",
+            scale: 1.0,
+            coor: [
+              41.8924763,
+              12.4882579
+            ],
+            date: [
+              2024
+            ]
+          },
+          {
+            catg: "S",
+            name: "Bazylika Matki Bożej 1",
+            scale: 1.0,
+            coor: [
+              41.8979748,
+              12.4774432
+            ],
+            date: [
+              2024
+            ],
+            "top": true
+          },
+          {
+            catg: "S",
+            name: "Bazylika Matki Bożej 2",
+            scale: 1.0,
+            coor: [
+              41.8979708,
+              12.4779394
+            ],
+            date: [
+              2024
+            ]
+          },
+          {
+            catg: "S",
+            name: "Bazylika św. Piotra 1",
+            scale: 1.0,
+            coor: [
+              41.9021892,
+              12.4551809
+            ],
+            date: [
+              2024
+            ],
+            "top": true
+          },
+          {
+            catg: "S",
+            name: "Bazylika św. Piotra 2",
+            scale: 1.0,
+            coor: [
+              41.9021781,
+              12.4543439
+            ],
+            date: [
+              2024
+            ]
+          },
+          {
+            catg: "D",
+            name: "Fontanna di Trevi",
+            scale: 1.0,
+            coor: [
+              41.9008796,
+              12.4833441
+            ],
+            date: [
+              2024
+            ]
+          },
+          {
+            catg: "H",
+            name: "Forum Romanum 1",
+            scale: 1.0,
+            coor: [
+              41.8933049,
+              12.486493
+            ],
+            date: [
+              2024
+            ],
+            "top": true
+          },
+          {
+            catg: "H",
+            name: "Forum Romanum 2",
+            scale: 1.0,
+            coor: [
+              41.8929934,
+              12.4869999
+            ],
+            date: [
+              2024
+            ]
+          },
+          {
+            catg: "H",
+            name: "Forum Trajana",
+            scale: 1.0,
+            coor: [
+              41.8951418,
+              12.4845591
+            ],
+            date: [
+              2024
+            ]
+          },
+          {
+            catg: "H",
+            name: "Hale Trajana",
+            scale: 1.0,
+            coor: [
+              41.8949501,
+              12.4848086
+            ],
+            date: [
+              2024
+            ]
+          },
+          {
+            catg: "H",
+            name: "Kapitol 1",
+            scale: 1.0,
+            coor: [
+              41.8941615,
+              12.4850687
+            ],
+            date: [
+              2024
+            ],
+            "top": true
+          },
+          {
+            catg: "H",
+            name: "Kapitol 2",
+            scale: 1.0,
+            coor: [
+              41.895673,
+              12.4839272
+            ],
+            date: [
+              2024
+            ]
+          },
+          {
+            catg: "H",
+            name: "Koloseum 1",
+            scale: 1.0,
+            coor: [
+              41.8906314,
+              12.4934211
+            ],
+            date: [
+              2024
+            ],
+            "top": true
+          },
+          {
+            catg: "H",
+            name: "Koloseum 2",
+            scale: 1.0,
+            coor: [
+              41.8895292,
+              12.4929652
+            ],
+            date: [
+              2024
+            ]
+          },
+          {
+            catg: "H",
+            name: "Koloseum 3",
+            scale: 1.0,
+            coor: [
+              41.8904217,
+              12.4910527
+            ],
+            date: [
+              2024
+            ]
+          },
+          {
+            catg: "H",
+            name: "Łuk Konstantyna",
+            scale: 1.0,
+            coor: [
+              41.8905336,
+              12.4908864
+            ],
+            date: [
+              2024
+            ]
+          },
+          {
+            catg: "H",
+            name: "Most Emanuela",
+            scale: 1.0,
+            coor: [
+              41.9018578,
+              12.466414
+            ],
+            date: [
+              2024
+            ]
+          },
+          {
+            catg: "H",
+            name: "Panteon 1",
+            scale: 1.0,
+            coor: [
+              41.89916,
+              12.4769856
+            ],
+            date: [
+              2024
+            ],
+            "top": true
+          },
+          {
+            catg: "H",
+            name: "Panteon 2",
+            scale: 1.0,
+            coor: [
+              41.8982244,
+              12.4772769
+            ],
+            date: [
+              2024
+            ]
+          },
+          {
+            catg: "H",
+            name: "Panteon 3",
+            scale: 1.0,
+            coor: [
+              41.8986197,
+              12.4768317
+            ],
+            date: [
+              2024
+            ]
+          },
+          {
+            catg: "O",
+            name: "Plac Hiszpański",
+            scale: 1.0,
+            coor: [
+              41.9057865,
+              12.4821961
+            ],
+            date: [
+              2024
+            ]
+          },
+          {
+            catg: "O",
+            name: "Plac św. Piotra 1",
+            scale: 1.0,
+            coor: [
+              41.9022551,
+              12.4583754
+            ],
+            date: [
+              2024
+            ],
+            "top": true
+          },
+          {
+            catg: "O",
+            name: "Plac św. Piotra 2",
+            scale: 1.0,
+            coor: [
+              41.9025505,
+              12.4578765
+            ],
+            date: [
+              2024
+            ]
+          },
+          {
+            catg: "O",
+            name: "Plac św. Piotra 3",
+            scale: 1.0,
+            coor: [
+              41.9021872,
+              12.4552909
+            ],
+            date: [
+              2024
+            ]
+          },
+          {
+            catg: "O",
+            name: "Schody Hiszpańskie",
+            scale: 1.0,
+            coor: [
+              41.9059342,
+              12.4826065
+            ],
+            date: [
+              2024
+            ]
+          },
+          {
+            catg: "H",
+            name: "Zamek św. Anioła",
+            scale: 1.0,
+            coor: [
+              41.9025366,
+              12.4664032
+            ],
+            date: [
+              2024
+            ]
+          }
+        ]
       }
     }
   },
